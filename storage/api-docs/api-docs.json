@@ -1,0 +1,1007 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TPQ Daarul Gusmik Al-Hufadz — Enterprise API Documentation",
+        "description": "Dokumentasi API tingkat ENTERPRISE++ untuk aplikasi manajemen TPQ.",
+        "version": "2.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Local Development Server"
+        },
+        {
+            "url": "https://tpq-daarulgusmik.id/api",
+            "description": "Production Server"
+        }
+    ],
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login user menggunakan email & password",
+                "operationId": "baa0bc77cbab416967d3ee73ff670a30",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "user@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/ApiError"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register user baru",
+                "operationId": "a99eb657a79178c4d6bc15a83e61daa6",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ApiError"
+                    }
+                }
+            }
+        },
+        "/api/profile": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Ambil data profil user",
+                "operationId": "ca86c1420bd0be428ebf5cd5bae074c1",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/ApiError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/profile/update": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update data profil user",
+                "operationId": "584c062fdb7a27cc95128c2f86ed775f",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/profile/change-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Ganti password user",
+                "operationId": "be1a1ccee179b220d6899a54e2e0285b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "old_password",
+                                    "new_password"
+                                ],
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string"
+                                    },
+                                    "new_password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/ApiError"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout user",
+                "operationId": "af9231d96432212adfbf0e1d45b785f7",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/presensi/masuk": {
+            "post": {
+                "tags": [
+                    "Presensi"
+                ],
+                "summary": "Presensi masuk menggunakan GPS",
+                "operationId": "e8031a1162a9260d4722e26dc0059d15",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/presensi/pulang": {
+            "post": {
+                "tags": [
+                    "Presensi"
+                ],
+                "summary": "Presensi pulang menggunakan GPS",
+                "operationId": "bdeb5ffa50663d0dfcba3e84e0ec6f13",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/presensi/history": {
+            "get": {
+                "tags": [
+                    "Presensi"
+                ],
+                "summary": "Histori presensi user",
+                "operationId": "a8cb8d9a133680120dc9a888aaca01ee",
+                "responses": {
+                    "200": {
+                        "description": "Histori presensi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Presensi"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/presensi/mingguan": {
+            "get": {
+                "tags": [
+                    "Presensi"
+                ],
+                "summary": "Rekap presensi mingguan",
+                "operationId": "bbe96cbef1561d5b38da4206003f4269",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/presensi/bulanan": {
+            "get": {
+                "tags": [
+                    "Presensi"
+                ],
+                "summary": "Rekap presensi bulanan",
+                "operationId": "6b87729e74d17ae64980230ae6afa104",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/chat/private": {
+            "get": {
+                "tags": [
+                    "ChatPrivate"
+                ],
+                "summary": "List percakapan privat",
+                "operationId": "00580806ed47d248d172bee7f9abd957",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/chat/private/{user_id}": {
+            "get": {
+                "tags": [
+                    "ChatPrivate"
+                ],
+                "summary": "Percakapan dengan user tertentu",
+                "operationId": "34dcd01ebff65e7737479ae92d68f876",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/chat/private/send": {
+            "post": {
+                "tags": [
+                    "ChatPrivate"
+                ],
+                "summary": "Kirim pesan privat",
+                "operationId": "d440dc7ce96734d0a46d3ce9db669290",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "receiver_id": {
+                                        "type": "integer"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/chat/private/read": {
+            "post": {
+                "tags": [
+                    "ChatPrivate"
+                ],
+                "summary": "Tandai pesan sebagai dibaca",
+                "operationId": "84a731078abdac9c5505d1b6d1526f7d",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/group/chat/send": {
+            "post": {
+                "tags": [
+                    "GroupChat"
+                ],
+                "summary": "Kirim pesan ke grup",
+                "operationId": "1e1795e0e35a8ef803f50e84bf7bd2ba",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/group/chat/send-image": {
+            "post": {
+                "tags": [
+                    "GroupChat"
+                ],
+                "summary": "Kirim gambar ke grup",
+                "operationId": "b4d0feccd245419869dcc3f302b597b9",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/group/{id}/chat": {
+            "get": {
+                "tags": [
+                    "GroupChat"
+                ],
+                "summary": "Ambil chat grup",
+                "operationId": "7c5e6b836be82c7936416eabb510dc93",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/infaq": {
+            "get": {
+                "tags": [
+                    "Infaq"
+                ],
+                "summary": "List data infaq",
+                "operationId": "10ce9f80647cedc534f69bea4d1979a8",
+                "responses": {
+                    "200": {
+                        "description": "Data infaq",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Infaq"
+                                            }
+                                        },
+                                        "meta": {
+                                            "$ref": "#/components/schemas/PaginationMeta"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Infaq"
+                ],
+                "summary": "Tambah data infaq",
+                "operationId": "224614b6f233fe6715ff8f0082843106",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "santri_id": {
+                                        "type": "integer"
+                                    },
+                                    "nominal": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/setoran": {
+            "get": {
+                "tags": [
+                    "Setoran"
+                ],
+                "summary": "List data setoran hafalan",
+                "operationId": "4393c9b1a802acb7e5c3e8551dc84177",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Setoran"
+                ],
+                "summary": "Tambah data setoran hafalan",
+                "operationId": "bc99a9aa5f946fa67396b0377997345e",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        },
+        "/api/gaji": {
+            "get": {
+                "tags": [
+                    "Gaji"
+                ],
+                "summary": "List data gaji ustadz/pengajar",
+                "operationId": "86c1060d29524b983cba5e7d0f48aa60",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ApiSuccess"
+                    }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PaginationMeta": {
+                "properties": {
+                    "current_page": {
+                        "type": "integer"
+                    },
+                    "last_page": {
+                        "type": "integer"
+                    },
+                    "per_page": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "User": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "type": "string"
+                    },
+                    "no_hp": {
+                        "type": "string"
+                    },
+                    "alamat": {
+                        "type": "string"
+                    },
+                    "foto": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "last_login": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Santri": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nama": {
+                        "type": "string"
+                    },
+                    "kelas_id": {
+                        "type": "integer"
+                    },
+                    "orang_tua": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Ustadz": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nama": {
+                        "type": "string"
+                    },
+                    "no_hp": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Pengajar": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nama": {
+                        "type": "string"
+                    },
+                    "bidang": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Kelas": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "nama_kelas": {
+                        "type": "string"
+                    },
+                    "ustadz_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Jadwal": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "hari": {
+                        "type": "string"
+                    },
+                    "jam_mulai": {
+                        "type": "string"
+                    },
+                    "jam_selesai": {
+                        "type": "string"
+                    },
+                    "ustadz_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Presensi": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "tanggal": {
+                        "type": "string"
+                    },
+                    "jam": {
+                        "type": "string"
+                    },
+                    "tipe": {
+                        "type": "string"
+                    },
+                    "status_presensi": {
+                        "type": "string"
+                    },
+                    "latitude": {
+                        "type": "string"
+                    },
+                    "longitude": {
+                        "type": "string"
+                    },
+                    "foto": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Setoran": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "santri_id": {
+                        "type": "integer"
+                    },
+                    "surah": {
+                        "type": "string"
+                    },
+                    "ayat": {
+                        "type": "string"
+                    },
+                    "tanggal": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Infaq": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "santri_id": {
+                        "type": "integer"
+                    },
+                    "nominal": {
+                        "type": "integer"
+                    },
+                    "tanggal": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Gaji": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "pengajar_id": {
+                        "type": "integer"
+                    },
+                    "jumlah": {
+                        "type": "integer"
+                    },
+                    "bulan": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ChatPrivate": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "sender_id": {
+                        "type": "integer"
+                    },
+                    "receiver_id": {
+                        "type": "integer"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "read_at": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "type": "object"
+            },
+            "Group": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_by": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "GroupMember": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "group_id": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "GroupMessage": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "group_id": {
+                        "type": "integer"
+                    },
+                    "sender_id": {
+                        "type": "integer"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "responses": {
+            "ApiSuccess": {
+                "description": "Response sukses standar",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": true
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Berhasil"
+                                },
+                                "data": {
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "ApiError": {
+                "description": "Response error standar",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean",
+                                    "example": false
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Terjadi kesalahan"
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "nullable": true
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Authentication API"
+        },
+        {
+            "name": "Presensi",
+            "description": "Presensi santri & ustadz"
+        },
+        {
+            "name": "Setoran",
+            "description": "Setoran hafalan santri"
+        },
+        {
+            "name": "Infaq",
+            "description": "Infaq & keuangan santri"
+        },
+        {
+            "name": "Gaji",
+            "description": "Gaji ustadz dan rekap pembayaran"
+        },
+        {
+            "name": "ChatPrivate",
+            "description": "Chat privat"
+        },
+        {
+            "name": "GroupChat",
+            "description": "Chat grup"
+        }
+    ]
+}
