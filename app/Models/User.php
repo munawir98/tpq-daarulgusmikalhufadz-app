@@ -43,10 +43,6 @@ class User extends Authenticatable
 
     /**
      * 🔥 Custom Activity Log User
-     * - Dynamic name
-     * - Actor (siapa yang melakukan aksi)
-     * - Before-after log
-     * - logOnlyDirty
      */
     public function getActivitylogOptions(): LogOptions
     {
@@ -81,6 +77,14 @@ class User extends Authenticatable
     public function santri()
     {
         return $this->hasOne(Santri::class, 'user_id');
+    }
+
+    /**
+     * Relasi ke tabel user_tokens (FCM multi-device)
+     */
+    public function tokens()
+    {
+        return $this->hasMany(UserToken::class);
     }
 
     // ============================

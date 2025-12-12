@@ -7,22 +7,23 @@ use App\Http\Requests\ChatPrivateRequest;
 use App\Models\ChatPrivate;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Helpers\ApiResponse;
+use App\Events\PrivateMessageCreated;
+use App\Events\PrivateMessageSent;
 
 class ChatPrivateController extends Controller
 {
     /**
      * =========================================================
-     * LIST CONVERSATIONS (Seperti WhatsApp)
+     * LIST CONVERSATIONS (Like WhatsApp)
      * =========================================================
      */
     public function list()
     {
         $userId = auth()->id();
 
-        // Ambil daftar percakapan unik berdasarkan pasangan chat
-        $chats = ChatPrivate::where('sender_id', $userId)
+        $chats = ChatPrivate::with(['sender.profile', 'receiver.profile'])
+            ->where('sender_id', $userId)
             ->orWhere('receiver_id', $userId)
             ->latest()
             ->get()
@@ -36,7 +37,7 @@ class ChatPrivateController extends Controller
 
         foreach ($chats as $partnerId => $messages) {
             $last = $messages->first();
-            $partner = User::find($partnerId);
+            $partner = User::with('profile')->find($partnerId);
 
             $unread = ChatPrivate::where('sender_id', $partnerId)
                 ->where('receiver_id', $userId)
@@ -47,12 +48,12 @@ class ChatPrivateController extends Controller
                 "user" => [
                     "id"    => $partner->id,
                     "name"  => $partner->name,
-                    "foto"  => $partner->foto ? asset('storage/' . $partner->foto) : null,
+                    "foto"  => optional($partner->profile)->photo_url,
                 ],
                 "last_message" => [
-                    "type" => $last->type,
+                    "type"    => $last->type,
                     "message" => $last->message,
-                    "time" => $last->created_at->format("H:i"),
+                    "time"    => $last->created_at->format("H:i"),
                 ],
                 "unread" => $unread,
             ];
@@ -64,32 +65,35 @@ class ChatPrivateController extends Controller
 
     /**
      * =========================================================
-     * GET CHAT DETAIL 1–1
+     * GET CHAT 1–1
      * =========================================================
      */
     public function chatWith($otherUserId)
     {
         $userId = auth()->id();
 
-        $this->markAsReadUser($otherUserId); // otomatis read
+        // Tandai pesan sudah dibaca
+        $this->markAsReadUser($otherUserId);
 
         $messages = ChatPrivate::where(function ($q) use ($userId, $otherUserId) {
-                $q->where('sender_id', $userId)->where('receiver_id', $otherUserId);
+                $q->where('sender_id', $userId)
+                  ->where('receiver_id', $otherUserId);
             })
             ->orWhere(function ($q) use ($userId, $otherUserId) {
-                $q->where('sender_id', $otherUserId)->where('receiver_id', $userId);
+                $q->where('sender_id', $otherUserId)
+                  ->where('receiver_id', $userId);
             })
             ->orderBy('created_at', 'asc')
             ->get()
             ->map(function ($msg) use ($userId) {
                 return [
-                    "id"        => $msg->id,
-                    "message"   => $msg->message,
-                    "type"      => $msg->type,
-                    "file_url"  => $msg->file_path ? asset('storage/' . $msg->file_path) : null,
-                    "is_me"     => $msg->sender_id == $userId,
-                    "time"      => $msg->created_at->format("H:i"),
-                    "read_at"   => $msg->read_at
+                    "id"       => $msg->id,
+                    "message"  => $msg->message,
+                    "type"     => $msg->type,
+                    "file_url" => $msg->file_path ? asset('storage/' . $msg->file_path) : null,
+                    "is_me"    => $msg->sender_id == $userId,
+                    "time"     => $msg->created_at->format("H:i"),
+                    "read_at"  => $msg->read_at,
                 ];
             });
 
@@ -99,34 +103,38 @@ class ChatPrivateController extends Controller
 
     /**
      * =========================================================
-     * SEND MESSAGE TEXT / IMAGE / AUDIO
+     * SEND MESSAGE (Text, Image, Audio)
      * =========================================================
      */
     public function send(ChatPrivateRequest $request)
     {
         $filePath = null;
 
-        // Upload image
-        if ($request->hasFile('image')) {
-            $filePath = $request->file('image')->store('chat/private', 'public');
-        }
+        if ($request->hasFile('file')) {
+            $ext = strtolower($request->file('file')->getClientOriginalExtension());
 
-        // Upload audio
-        if ($request->hasFile('audio')) {
-            $filePath = $request->file('audio')->store('chat/private/audio', 'public');
+            $folder = match (true) {
+                in_array($ext, ['mp3', 'aac', 'm4a', 'wav']) => 'chat/private/audio',
+                default => 'chat/private',
+            };
+
+            $filePath = $request->file('file')->store($folder, 'public');
         }
 
         $msg = ChatPrivate::create([
-            'sender_id'   => auth()->id(),
-            'receiver_id' => $request->receiver_id,
-            'type'        => $request->type,
-            'message'     => $request->message,
-            'file_path'   => $filePath,
-            'read_at'     => null,
+            "sender_id"   => auth()->id(),
+            "receiver_id" => $request->receiver_id,
+            "type"        => $request->type,
+            "message"     => $request->message,
+            "file_path"   => $filePath,
+            "read_at"     => null,
         ]);
 
-        // OPTIONAL → broadcast realtime
-        // broadcast(new PrivateMessageSent($msg))->toOthers();
+        // Event internal
+        event(new PrivateMessageCreated($msg));
+
+        // Event broadcast + listener FCM
+        event(new PrivateMessageSent($msg));
 
         return ApiResponse::success($msg, "Pesan terkirim");
     }
@@ -134,7 +142,7 @@ class ChatPrivateController extends Controller
 
     /**
      * =========================================================
-     * MARK MESSAGE AS READ FOR SPECIFIC USER
+     * MARK AS READ AUTO
      * =========================================================
      */
     public function markAsReadUser($otherUserId)
@@ -143,20 +151,20 @@ class ChatPrivateController extends Controller
             ->where('receiver_id', auth()->id())
             ->whereNull('read_at')
             ->update([
-                "read_at" => now()
+                "read_at" => now(),
             ]);
     }
 
 
     /**
      * =========================================================
-     * MARK MESSAGE AS READ (Manual Endpoint)
+     * ENDPOINT MARK AS READ MANUAL
      * =========================================================
      */
     public function markAsRead(Request $request)
     {
         $request->validate([
-            "sender_id" => "required|exists:users,id"
+            "sender_id" => "required|exists:users,id",
         ]);
 
         $this->markAsReadUser($request->sender_id);

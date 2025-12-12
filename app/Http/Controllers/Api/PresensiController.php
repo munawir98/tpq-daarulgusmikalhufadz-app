@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Presensi\PresensiService;
 use App\Helpers\ApiResponse;
+use App\Events\PresensiMasukUstadz;
+use App\Events\PresensiPulangUstadz;
 
 class PresensiController extends Controller
 {
@@ -80,7 +82,6 @@ class PresensiController extends Controller
         );
     }
 
-
     // =====================================================
     // USTADZ: MASUK
     // =====================================================
@@ -114,12 +115,17 @@ class PresensiController extends Controller
             'qr_code'   => $request->qr_code,
         ];
 
+        // SIMPAN PRESENSI
+        $presensi = $this->service->masukUstadz($data);
+
+        // TRIGGER EVENT
+        event(new PresensiMasukUstadz($presensi));
+
         return ApiResponse::success(
-            $this->service->masukUstadz($data),
+            $presensi,
             "Presensi masuk ustadz berhasil"
         );
     }
-
 
     // =====================================================
     // USTADZ: PULANG
@@ -146,12 +152,17 @@ class PresensiController extends Controller
             'foto'      => $request->file('foto'),
         ];
 
+        // SIMPAN PRESENSI
+        $presensi = $this->service->pulangUstadz($data);
+
+        // TRIGGER EVENT
+        event(new PresensiPulangUstadz($presensi));
+
         return ApiResponse::success(
-            $this->service->pulangUstadz($data),
+            $presensi,
             "Presensi pulang ustadz berhasil"
         );
     }
-
 
     // =====================================================
     // IZIN
@@ -179,7 +190,6 @@ class PresensiController extends Controller
         );
     }
 
-
     // =====================================================
     // OFFLINE SYNC
     // =====================================================
@@ -190,7 +200,6 @@ class PresensiController extends Controller
 
         return ApiResponse::success(null, "Sync offline berhasil");
     }
-
 
     // =====================================================
     // DETAIL PRESENSI
@@ -203,7 +212,6 @@ class PresensiController extends Controller
         );
     }
 
-
     // =====================================================
     // HISTORY SANTRI
     // =====================================================
@@ -214,7 +222,6 @@ class PresensiController extends Controller
             "History presensi ditemukan"
         );
     }
-
 
     // =====================================================
     // REKAP MINGGUAN
@@ -227,7 +234,6 @@ class PresensiController extends Controller
         );
     }
 
-
     // =====================================================
     // REKAP BULANAN
     // =====================================================
@@ -238,7 +244,6 @@ class PresensiController extends Controller
             "Rekap bulanan ditemukan"
         );
     }
-
 
     // =====================================================
     // TODAY SANTRI
@@ -262,7 +267,6 @@ class PresensiController extends Controller
         );
     }
 
-
     // =====================================================
     // LAPORAN BULANAN PDF
     // =====================================================
@@ -273,7 +277,6 @@ class PresensiController extends Controller
             "Export laporan bulanan berhasil"
         );
     }
-
 
     // =====================================================
     // CHART
@@ -294,7 +297,6 @@ class PresensiController extends Controller
             $this->service->chartRange($request->start, $request->end)
         );
     }
-
 
     // =====================================================
     // FILTER DATA
