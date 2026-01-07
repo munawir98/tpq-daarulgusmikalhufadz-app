@@ -120,6 +120,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Blade::component('icon', Icon::class);
+
+        // Force HTTPS in production (Railway uses HTTPS)
+        if (config('app.env') === 'production' || app()->environment('production')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 
 }
