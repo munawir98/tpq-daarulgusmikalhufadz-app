@@ -13,7 +13,7 @@ Ikuti langkah demi langkah ini, jangan ada yang terlewat ya kak.
 ## Tahap 2: Setup di Website Railway
 1. Buka [Railway.app](https://railway.app/).
 2. Login pakai akun **GitHub** kakak.
-3. Klik tombol **+ New Project** -> Pilih **Deploy from GitHub repo** -> Pilih repo **tpq-daarulgusmikalhufadz**.
+3. Klik tombol **+ New Project** -> Pilih **Deploy from GitHub repo** -> Pilih repo **tpq-daarulgusmikalhufadz-app**.
 4. Klik **Deploy Now**.
 5. Tunggu sebentar sampai muncul kotak projectnya.
 
