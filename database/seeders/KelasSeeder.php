@@ -12,30 +12,35 @@ class KelasSeeder extends Seeder
     {
         $ustadz = Ustadz::first();
 
-        Kelas::firstOrCreate(
-            ['kode_kelas' => 'TPQ-A'],
+        $kelas = [
             [
-                'nama_kelas' => 'TPQ A',
-                'tipe' => 'TPQ',
-                'tingkat' => 'Dasar',
-                'waktu_mulai' => '16:00:00',
-                'waktu_selesai' => '17:30:00',
-                'ustadz_id' => $ustadz?->id,
-                'keterangan' => 'Kelas dasar untuk pemula',
-            ]
-        );
+                'kode_kelas'   => 'TPQ-A',
+                'nama_kelas'   => 'TPQ A',
+                'tipe'         => 'TPQ',
+                'tingkat'      => 'Dasar',
+                'waktu_mulai'  => '16:00:00',
+                'waktu_selesai'=> '17:30:00',
+                'keterangan'   => 'Kelas dasar untuk pemula',
+            ],
+            [
+                'kode_kelas'   => 'TPQ-B',
+                'nama_kelas'   => 'TPQ B',
+                'tipe'         => 'TPQ',
+                'tingkat'      => 'Menengah',
+                'waktu_mulai'  => '19:00:00',
+                'waktu_selesai'=> '20:30:00',
+                'keterangan'   => 'Kelas menengah',
+            ],
+        ];
 
-        Kelas::firstOrCreate(
-            ['kode_kelas' => 'TPQ-B'],
-            [
-                'nama_kelas' => 'TPQ B',
-                'tipe' => 'TPQ',
-                'tingkat' => 'Menengah',
-                'waktu_mulai' => '19:00:00',
-                'waktu_selesai' => '20:30:00',
-                'ustadz_id' => $ustadz?->id,
-                'keterangan' => 'Kelas menengah',
-            ]
-        );
+        foreach ($kelas as $item) {
+            Kelas::firstOrCreate(
+                ['kode_kelas' => $item['kode_kelas']],
+                array_merge($item, [
+                    'ustadz_id' => $ustadz?->id,
+                    'status'    => 'aktif',
+                ])
+            );
+        }
     }
 }

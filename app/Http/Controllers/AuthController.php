@@ -36,7 +36,11 @@ class AuthController extends Controller
         }
 
         // Generate token Sanctum
-        $token = $user->createToken('TPQToken')->plainTextToken;
+        $tokenResult = $user->createToken('TPQToken');
+        $tokenResult->accessToken->expires_at = now()->addDays(7);
+        $tokenResult->accessToken->save();
+
+        $token = $tokenResult->plainTextToken;
 
         return response()->json([
             'status' => true,

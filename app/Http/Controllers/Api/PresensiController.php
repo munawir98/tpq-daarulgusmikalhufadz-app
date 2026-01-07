@@ -31,14 +31,14 @@ class PresensiController extends Controller
             'qr_code'   => 'nullable|string',
         ]);
 
-        // QR Check
         if ($request->metode === 'qr' && !$this->service->validateQR($request->qr_code)) {
             return ApiResponse::error("QR Code tidak valid", 422);
         }
 
-        // Radius Check
         $radius = $this->service->cekRadius($request->latitude, $request->longitude);
-        if (!$radius['status']) return ApiResponse::error("Anda berada di luar area presensi", 422);
+        if (!$radius['status']) {
+            return ApiResponse::error("Anda berada di luar area presensi", 422);
+        }
 
         $data = [
             'user_id'   => $request->user()->id,
@@ -67,7 +67,9 @@ class PresensiController extends Controller
         ]);
 
         $radius = $this->service->cekRadius($request->latitude, $request->longitude);
-        if (!$radius['status']) return ApiResponse::error("Anda berada di luar area presensi", 422);
+        if (!$radius['status']) {
+            return ApiResponse::error("Anda berada di luar area presensi", 422);
+        }
 
         $data = [
             'user_id'   => $request->user()->id,
@@ -87,8 +89,19 @@ class PresensiController extends Controller
     // =====================================================
     public function masukUstadz(Request $request)
     {
-        if ($request->user()->role !== 'USTADZ') {
+        // 🔥 FIX FINAL: buang ustadz_id dari client
+        $request->request->remove('ustadz_id');
+
+        if ($request->user()->role !== 'ustadz') {
             return ApiResponse::error("Akses khusus ustadz", 403);
+        }
+
+        $ustadz = $request->user()->ustadz;
+        if (!$ustadz) {
+            return ApiResponse::error(
+                "Akun ini belum terhubung dengan data ustadz",
+                403
+            );
         }
 
         $request->validate([
@@ -104,10 +117,12 @@ class PresensiController extends Controller
         }
 
         $radius = $this->service->cekRadius($request->latitude, $request->longitude);
-        if (!$radius['status']) return ApiResponse::error("Anda berada di luar area presensi", 422);
+        if (!$radius['status']) {
+            return ApiResponse::error("Anda berada di luar area presensi", 422);
+        }
 
         $data = [
-            'ustadz_id' => $request->user()->id,
+            'ustadz_id' => $ustadz->id,
             'latitude'  => $request->latitude,
             'longitude' => $request->longitude,
             'foto'      => $request->file('foto'),
@@ -115,10 +130,8 @@ class PresensiController extends Controller
             'qr_code'   => $request->qr_code,
         ];
 
-        // SIMPAN PRESENSI
         $presensi = $this->service->masukUstadz($data);
 
-        // TRIGGER EVENT
         event(new PresensiMasukUstadz($presensi));
 
         return ApiResponse::success(
@@ -132,8 +145,19 @@ class PresensiController extends Controller
     // =====================================================
     public function pulangUstadz(Request $request)
     {
-        if ($request->user()->role !== 'USTADZ') {
+        // 🔥 FIX FINAL: buang ustadz_id dari client
+        $request->request->remove('ustadz_id');
+
+        if ($request->user()->role !== 'ustadz') {
             return ApiResponse::error("Akses khusus ustadz", 403);
+        }
+
+        $ustadz = $request->user()->ustadz;
+        if (!$ustadz) {
+            return ApiResponse::error(
+                "Akun ini belum terhubung dengan data ustadz",
+                403
+            );
         }
 
         $request->validate([
@@ -143,19 +167,19 @@ class PresensiController extends Controller
         ]);
 
         $radius = $this->service->cekRadius($request->latitude, $request->longitude);
-        if (!$radius['status']) return ApiResponse::error("Anda berada di luar area presensi", 422);
+        if (!$radius['status']) {
+            return ApiResponse::error("Anda berada di luar area presensi", 422);
+        }
 
         $data = [
-            'ustadz_id' => $request->user()->id,
+            'ustadz_id' => $ustadz->id,
             'latitude'  => $request->latitude,
             'longitude' => $request->longitude,
             'foto'      => $request->file('foto'),
         ];
 
-        // SIMPAN PRESENSI
         $presensi = $this->service->pulangUstadz($data);
 
-        // TRIGGER EVENT
         event(new PresensiPulangUstadz($presensi));
 
         return ApiResponse::success(
@@ -213,7 +237,7 @@ class PresensiController extends Controller
     }
 
     // =====================================================
-    // HISTORY SANTRI
+    // HISTORY
     // =====================================================
     public function history(Request $request)
     {
@@ -224,7 +248,7 @@ class PresensiController extends Controller
     }
 
     // =====================================================
-    // REKAP MINGGUAN
+    // REKAP
     // =====================================================
     public function rekapMingguan(Request $request)
     {
@@ -234,9 +258,6 @@ class PresensiController extends Controller
         );
     }
 
-    // =====================================================
-    // REKAP BULANAN
-    // =====================================================
     public function rekapBulanan(Request $request)
     {
         return ApiResponse::success(
@@ -246,7 +267,7 @@ class PresensiController extends Controller
     }
 
     // =====================================================
-    // TODAY SANTRI
+    // TODAY
     // =====================================================
     public function todaySantri($id)
     {
@@ -256,9 +277,6 @@ class PresensiController extends Controller
         );
     }
 
-    // =====================================================
-    // TODAY USTADZ
-    // =====================================================
     public function todayUstadz($id)
     {
         return ApiResponse::success(
@@ -268,7 +286,7 @@ class PresensiController extends Controller
     }
 
     // =====================================================
-    // LAPORAN BULANAN PDF
+    // LAPORAN
     // =====================================================
     public function downloadBulanan($bulan)
     {
@@ -279,7 +297,7 @@ class PresensiController extends Controller
     }
 
     // =====================================================
-    // CHART
+    // CHART & FILTER
     // =====================================================
     public function chartBulanan($bulan)
     {
@@ -298,9 +316,6 @@ class PresensiController extends Controller
         );
     }
 
-    // =====================================================
-    // FILTER DATA
-    // =====================================================
     public function filter(Request $request)
     {
         return ApiResponse::success(

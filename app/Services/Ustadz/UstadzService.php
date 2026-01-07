@@ -14,51 +14,37 @@ class UstadzService
         $this->repo = $repo;
     }
 
-    public function index()
+    public function index($request)
     {
-        return response()->json([
-            'status' => true,
-            'data'   => UstadzResource::collection($this->repo->all())
-        ]);
+        $perPage = $request->get('per_page', 10);
+
+        return $this->repo->paginate($perPage);
     }
 
     public function show($id)
     {
-        return response()->json([
-            'status' => true,
-            'data'   => new UstadzResource($this->repo->find($id))
-        ]);
+        return new UstadzResource(
+            $this->repo->find($id)
+        );
     }
 
-    public function store($data)
+    public function store(array $data)
     {
-        $ustadz = $this->repo->create($data);
-
-        return response()->json([
-            'status'  => true,
-            'message' => 'Ustadz berhasil ditambahkan',
-            'data'    => new UstadzResource($ustadz)
-        ]);
+        return new UstadzResource(
+            $this->repo->create($data)
+        );
     }
 
-    public function update($id, $data)
+    public function update($id, array $data)
     {
-        $ustadz = $this->repo->update($id, $data);
-
-        return response()->json([
-            'status'  => true,
-            'message' => 'Ustadz berhasil diperbarui',
-            'data'    => new UstadzResource($ustadz)
-        ]);
+        return new UstadzResource(
+            $this->repo->update($id, $data)
+        );
     }
 
     public function destroy($id)
     {
         $this->repo->delete($id);
-
-        return response()->json([
-            'status'  => true,
-            'message' => 'Ustadz berhasil dihapus'
-        ]);
+        return true;
     }
 }

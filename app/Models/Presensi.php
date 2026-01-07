@@ -39,4 +39,9 @@ class Presensi extends Model
     {
         return $this->belongsTo(JadwalMengajar::class, 'jadwal_id');
     }
+        public function santri()
+    {
+        return $this->belongsTo(Santri::class, 'user_id', 'user_id');
+    }
+
 }

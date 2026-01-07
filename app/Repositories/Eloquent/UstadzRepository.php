@@ -9,12 +9,19 @@ class UstadzRepository implements UstadzRepositoryInterface
 {
     public function all()
     {
-        return Ustadz::with('user')->orderByDesc('id')->get();
+        return Ustadz::with(['kelas'])->orderBy('nama')->get();
+    }
+
+    public function paginate(int $perPage = 10)
+    {
+        return Ustadz::with(['kelas'])
+            ->orderBy('nama')
+            ->paginate($perPage);
     }
 
     public function find($id)
     {
-        return Ustadz::with('user')->findOrFail($id);
+        return Ustadz::with(['kelas'])->findOrFail($id);
     }
 
     public function create(array $data)
@@ -26,12 +33,12 @@ class UstadzRepository implements UstadzRepositoryInterface
     {
         $ustadz = Ustadz::findOrFail($id);
         $ustadz->update($data);
-
         return $ustadz;
     }
 
     public function delete($id)
     {
-        return Ustadz::destroy($id);
+        $ustadz = Ustadz::findOrFail($id);
+        $ustadz->update(['status_aktif' => false]);
     }
 }

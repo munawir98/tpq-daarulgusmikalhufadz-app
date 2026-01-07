@@ -5,9 +5,28 @@ namespace App\Repositories\Contracts;
 interface KelasRepositoryInterface
 {
     public function all();
-    public function paginate($perPage);
-    public function find($id);
+
+    public function paginate(int $perPage = 20);
+
+    public function paginateAktif(int $perPage = 20);
+
+    public function findAktif(int $id);
+
+    public function searchAktif(string $q);
+
+    public function find(int $id);
+
     public function create(array $data);
-    public function update($id, array $data);
-    public function delete($id);
+
+    /**
+     * ✅ Update & return boolean
+     */
+    public function updateBool(int $id, array $data): bool;
+
+    /**
+     * ✅ Update & return model
+     */
+    public function updateAndGet(int $id, array $data);
+
+    public function delete(int $id);
 }

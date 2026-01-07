@@ -5,8 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ActivityLogDefault;
 use Spatie\Activitylog\LogOptions;
+use App\Traits\ActivityLogDefault;
+use App\Models\User;
+use App\Models\Kelas;
+use App\Models\Presensi;
+use App\Models\KehadiranSantri;
+use App\Models\ProgressHafalan;
 
 class Santri extends Model
 {
@@ -14,6 +19,11 @@ class Santri extends Model
 
     protected $table = 'santri';
 
+    /**
+     * =========================
+     * MASS ASSIGNMENT
+     * =========================
+     */
     protected $fillable = [
         'nis',
         'nama_lengkap',
@@ -32,7 +42,37 @@ class Santri extends Model
     ];
 
     /**
-     * 🔥 Activity Log dengan nama santri + causer + before-after
+     * =========================
+     * CASTING
+     * =========================
+     */
+    protected $casts = [
+        'tanggal_lahir' => 'date',
+        'tanggal_masuk' => 'date',
+        'status_aktif'  => 'boolean',
+    ];
+
+    /**
+     * =========================
+     * LOCAL SCOPES
+     * =========================
+     * ❗ TIDAK pakai Global Scope
+     * Supaya tidak menjebak query & resource
+     */
+    public function scopeAktif($query)
+    {
+        return $query->where('status_aktif', true);
+    }
+
+    public function scopeNonAktif($query)
+    {
+        return $query->where('status_aktif', false);
+    }
+
+    /**
+     * =========================
+     * ACTIVITY LOG (SPATIE)
+     * =========================
      */
     public function getActivitylogOptions(): LogOptions
     {
@@ -43,18 +83,24 @@ class Santri extends Model
             ->useLogName('santri')
             ->setDescriptionForEvent(function (string $eventName) {
 
-                $nama = $this->nama_lengkap ?? 'Santri';
-                $user = auth()->user();
-                $actor = $user ? ($user->name ?? 'User') : 'Sistem';
+                $nama  = $this->nama_lengkap ?? 'Santri';
+                $user  = auth()->user();
+                $actor = $user?->name ?? 'Sistem';
 
                 return match ($eventName) {
                     'created' => "{$actor} menambahkan data santri {$nama}",
                     'updated' => "{$actor} memperbarui data santri {$nama}",
-                    'deleted' => "{$actor} menghapus data santri {$nama}",
-                    default => "{$actor} melakukan perubahan pada data santri {$nama}",
+                    'deleted' => "{$actor} menonaktifkan santri {$nama}",
+                    default   => "{$actor} melakukan perubahan pada data santri {$nama}",
                 };
             });
     }
+
+    /**
+     * =========================
+     * RELATIONS
+     * =========================
+     */
 
     public function user(): BelongsTo
     {
@@ -74,5 +120,13 @@ class Santri extends Model
     public function progressHafalan(): HasMany
     {
         return $this->hasMany(ProgressHafalan::class, 'santri_id');
+    }
+
+    /**
+     * Presensi berdasarkan user_id
+     */
+    public function presensi(): HasMany
+    {
+        return $this->hasMany(Presensi::class, 'user_id', 'user_id');
     }
 }

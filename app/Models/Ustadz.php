@@ -3,18 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use App\Traits\ActivityLogDefault;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Activitylog\LogOptions;
+use App\Traits\ActivityLogDefault;
 use App\Traits\HasActivityLog;
-
 
 class Ustadz extends Model
 {
-    use ActivityLogDefault;
-    use HasActivityLog;
-
+    use ActivityLogDefault, HasActivityLog;
 
     protected $table = 'ustadz';
 
@@ -30,60 +27,66 @@ class Ustadz extends Model
         'status_aktif',
     ];
 
-    /**
-     * 🔥 Dynamic Activity Log:
-     * - Memakai nama ustadz
-     * - Menampilkan siapa yang melakukan aksi (causer)
-     * - Menampilkan perubahan detail (before-after)
-     * - Hanya field yang berubah (logOnlyDirty)
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | GLOBAL SCOPE
+    |--------------------------------------------------------------------------
+    */
+    protected static function booted()
+    {
+        static::addGlobalScope('aktif', function ($query) {
+            $query->where('status_aktif', true);
+        });
+    }
+
+    public function scopeAktif($query)
+    {
+        return $query->where('status_aktif', true);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACTIVITY LOG
+    |--------------------------------------------------------------------------
+    */
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logAll()            // log semua kolom
-            ->logOnlyDirty()      // hanya log yang berubah
+            ->logAll()
+            ->logOnlyDirty()
             ->dontSubmitEmptyLogs()
-            ->useLogName('ustadz') // kategori log
+            ->useLogName('ustadz')
             ->setDescriptionForEvent(function (string $eventName) {
 
-                // Nama ustadz
-                $namaUstadz = $this->nama ?? 'Ustadz';
-
-                // User yang melakukan aksi
+                $nama = $this->nama ?? 'Ustadz';
                 $user = auth()->user();
-                $namaUser = $user ? ($user->name ?? 'User') : 'Sistem';
+                $namaUser = $user?->name ?? 'Sistem';
 
-                // Deskripsi berdasarkan event
-                $action = match ($eventName) {
-                    'created' => "menambahkan data ustadz {$namaUstadz}",
-                    'updated' => "memperbarui data ustadz {$namaUstadz}",
-                    'deleted' => "menghapus data ustadz {$namaUstadz}",
-                    default => "melakukan perubahan pada data ustadz {$namaUstadz}",
+                return match ($eventName) {
+                    'created' => "{$namaUser} menambahkan ustadz {$nama}",
+                    'updated' => "{$namaUser} memperbarui data ustadz {$nama}",
+                    'deleted' => "{$namaUser} menonaktifkan ustadz {$nama}",
+                    default   => "{$namaUser} melakukan aksi pada ustadz {$nama}",
                 };
-
-                return "{$namaUser} {$action}";
             });
     }
 
-    /**
-     * Relasi ke User
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONS (N+1 SAFE)
+    |--------------------------------------------------------------------------
+    */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    /**
-     * Relasi: Ustadz mengajar banyak kelas
-     */
     public function kelas(): HasMany
     {
-        return $this->hasMany(Kelas::class, 'ustadz_id');
+        return $this->hasMany(Kelas::class, 'ustadz_id')
+            ->select(['id', 'ustadz_id', 'nama_kelas', 'tingkat', 'status']);
     }
 
-    /**
-     * Relasi: Ustadz memiliki banyak jadwal mengajar
-     */
     public function jadwalMengajar(): HasMany
     {
         return $this->hasMany(JadwalMengajar::class, 'ustadz_id');

@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<script>
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+</script>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <title>Ustadz Dashboard</title>
+
+    <!-- PWA / Full Screen Meta Tags -->
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#4A90B8">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+
+    <!-- DNS Prefetch for External Assets -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+        rel="stylesheet" />
+    <!-- Leaflet.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <style>
+        /* Custom Toast Animation */
+        .swal2-popup.swal2-toast {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+            padding: 0.75rem 1rem !important;
+            border-radius: 1rem !important;
+        }
+
+        .swal2-title {
+            font-size: 0.875rem !important;
+            font-weight: 600 !important;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -10px 40px rgba(0,0,0,0.05)',
+                    }
+                },
+            },
+        };
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Allow horizontal swipe on slider even over map */
+        #slideContainer {
+            touch-action: pan-x;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+        }
+
+        #slideContainer>div {
+            scroll-snap-align: center;
+            scroll-snap-stop: always;
+        }
+
+        /* Prevent map from blocking horizontal swipe */
+        #map {
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .material-symbols-rounded {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes moveTexture {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -40px 0;
+            }
+        }
+
+        /* Gradient Texture Overlay - like reference image */
+        /* Separate static highlight */
+        .highlight-overlay {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.02) 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.08) 100%);
+        }
+
+        /* Unified seamless stripe pattern */
+        .islamic-pattern {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%,
+                    transparent);
+            background-size: 40px 40px;
+            animation: moveTexture 3s linear infinite;
+        }
+
+        .islamic-pattern.pattern-dark {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(30, 64, 175, 0.08) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(30, 64, 175, 0.08) 50%,
+                    rgba(30, 64, 175, 0.08) 75%,
+                    transparent 75%,
+                    transparent);
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 12px;
+            animation: marquee 15s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        /* Cards Step Animation */
+        .cards-slider {
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .cards-track {
+            display: flex;
+            gap: 16px;
+            transition: transform 0.8s ease-in-out;
+            width: max-content;
+            padding: 0;
+        }
+
+        /* Avatar Gradient Border Animation */
+        @keyframes rotate-gradient {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .avatar-ring {
+            position: relative;
+        }
+
+        .avatar-ring::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #4A90B8, #6BB8DE, #2E6B8A, #4A90B8);
+            background-size: 400% 400%;
+            animation: rotate-gradient 3s linear infinite;
+            z-index: -1;
+        }
+
+        /* Pulse Animation for Button */
+        @keyframes soft-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 144, 184, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(74, 144, 184, 0);
+            }
+        }
+
+        .pulse-btn {
+            animation: soft-pulse 2s ease-in-out infinite;
+        }
+
+        /* Glassmorphism Nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .dark .glass-nav {
+            background: rgba(30, 30, 30, 0.85);
+        }
+
+        /* Fade In Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        /* Confetti Animation */
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 9999;
+            animation: confetti-fall 3s ease-out forwards;
+        }
+
+        /* Quote Card */
+        .quote-card {
+            background: linear-gradient(135deg, rgba(74, 144, 184, 0.1) 0%, rgba(46, 107, 138, 0.05) 100%);
+            border-left: 3px solid #4A90B8;
+        }
+
+        #debugConsole {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #0f0;
+            font-family: monospace;
+            font-size: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            z-index: 99999;
+            pointer-events: none;
+            /* Allow clicks through */
+        }
+    </style>
+    <style>
+        body {
+            /* Prevent pull-to-refresh on mobile used as app */
+            overscroll-behavior-y: none;
+            height: 100dvh;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 font-display min-h-screen p-0 block">
+    <div
+        class="relative w-full h-[100dvh] bg-background-light dark:bg-background-dark rounded-none overflow-hidden shadow-none flex flex-col">
+
+        <!-- Header Background - Blue Theme -->
+        <div
+            class="absolute top-0 left-0 w-full h-[260px] bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] z-0 rounded-b-[40px] overflow-hidden">
+            <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#5BA3CC] rounded-full blur-3xl opacity-60">
+            </div>
+            <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
+            </div>
+            <div class="absolute top-[100px] left-[50%] w-32 h-32 bg-[#6BB8DE] rounded-full blur-2xl opacity-30">
+            </div>
+            <div class="absolute inset-0 highlight-overlay"></div>
+            <div class="absolute inset-0 islamic-pattern"></div>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar flex flex-col">
+
+            <!-- Top Header -->
+            <div
+                class="px-6 pt-8 pb-2 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-4">
+                        <div class="relative avatar-ring">
+                            @if(session('user.foto'))
+                            <img alt="Profile"
+                                class="w-14 h-14 rounded-full border-2 border-white shadow-lg object-cover"
+                                src="{{ asset('storage/' . session('user.foto')) }}" />
+                            @else
+                            <div
+                                class="w-14 h-14 rounded-full border-2 border-white shadow-lg bg-white/20 flex items-center justify-center text-white text-xl font-bold">
+                                {{ substr(session('user.name', 'U'), 0, 1) }}
+                            </div>
+                            @endif
+                            <div
+                                class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full animate-pulse">
+                            </div>
+                        </div>
+                        <div>
+                            <p id="greetingText" class="text-xs font-medium text-white/80 leading-none">
+                                Assalamu'alaikum,</p>
+                            <h1 class="text-xl font-bold tracking-tight -mt-1">
+                                @if(session('user.jenis_kelamin') == 'P')
+                                Ustadzah {{ session('user.name', '') }}
+                                @else
+                                Ustadz {{ session('user.name', '') }}
+                                @endif
+                            </h1>
+                            <p id="liveDate" class="text-[10px] text-white/70 mt-0.5">{{ now()->translatedFormat('l, d F
+                                Y') }}</p>
+                        </div>
+                    </div>
+                    <a href="{{ route('notifications.index') }}"
+                        class="relative flex items-center justify-center transition-all hover:opacity-80">
+                        <span class="material-symbols-rounded text-white text-[24px]">notifications</span>
+                        <span
+                            class="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-red-500 rounded-full flex items-center justify-center text-[9px] font-bold text-white px-1">3</span>
+                    </a>
+                </div>
+
+                <!-- Status Cards with Marquee -->
+                <div class="marquee-container mt-4">
+                    <div class="marquee-content flex items-center" style="gap: 0;">
+                        <!-- Set 1 -->
+                        <div
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span class="material-symbols-rounded text-white text-[14px]">schedule</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Waktu</p>
+                                <p class="text-[8px] font-bold text-white leading-tight tracking-wide" id="liveClock">
+                                    00:00:00</p>
+                            </div>
+                        </div>
+                        <div
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span id="weatherIcon1"
+                                class="material-symbols-rounded text-yellow-300 text-[14px]">partly_cloudy_day</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Cuaca</p>
+                                <p id="weatherText1" class="text-[8px] font-bold text-white leading-tight">Memuat...</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('chat.index') }}"
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span class="material-symbols-rounded text-blue-300 text-[14px]">mark_chat_unread</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Pesan</p>
+                                <p class="text-[8px] font-bold text-white leading-tight">12 Baru</p>
+                            </div>
+                        </a>
+                        <!-- Set 2 (duplicate for seamless loop) -->
+                        <div
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span class="material-symbols-rounded text-white text-[14px]">schedule</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Waktu</p>
+                                <p class="text-[8px] font-bold text-white leading-tight tracking-wide" id="liveClock2">
+                                    00:00:00</p>
+                            </div>
+                        </div>
+                        <div
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span id="weatherIcon2"
+                                class="material-symbols-rounded text-yellow-300 text-[14px]">partly_cloudy_day</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Cuaca</p>
+                                <p id="weatherText2" class="text-[8px] font-bold text-white leading-tight">Memuat...</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('chat.index') }}"
+                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
+                            <span class="material-symbols-rounded text-blue-300 text-[14px]">mark_chat_unread</span>
+                            <div>
+                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Pesan</p>
+                                <p class="text-[8px] font-bold text-white leading-tight">12 Baru</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- White Container Wrapper -->
+            <div id="whiteContainer"
+                class="w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-5 relative z-20 flex-grow min-h-0 pb-[calc(10px+env(safe-area-inset-bottom))] transition-all duration-300">
+
+                <!-- Main Attendance Card (Expandable) -->
+                <div id="mainCard"
+                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
+
+                    <!-- Swipe Indicator -->
+                    <div class="absolute top-2 left-1/2 -translate-x-1/2 z-30 hidden">
+                        <div id="swipeIndicator" class="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
+                    </div>
+
+                    <!-- VIEW 1: Presensi Selfie (Default) -->
+                    <div id="presensiView" class="transition-all duration-300">
+                        <div class="flex justify-between items-center mb-5 mt-2">
+                            <div>
+                                <h2
+                                    class="text-sm font-bold text-text-main-light dark:text-white flex items-center gap-2">
+                                    Presensi Selfie
+                                    <span class="material-symbols-rounded text-primary text-[18px]">camera_front</span>
+                                </h2>
+                                <p class="text-[8px] font-medium text-text-sub-light mt-0.5">Silahkan ambil foto
+                                    kehadiran
+                                </p>
+                            </div>
+                            <div id="radiusBadge"
+                                class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center gap-1.5 border border-gray-300 dark:border-gray-700 shadow-sm">
+                                <span id="radiusDot" class="relative flex h-2 w-2">
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-400"></span>
+                                </span>
+                                <span id="radiusText"
+                                    class="text-[9px] font-bold text-gray-500 dark:text-gray-400">Mendeteksi...</span>
+
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 mb-3">
+                            <div id="ambilFotoBtn" onclick="ambilFoto()"
+                                class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
+                                <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
+                                    <span id="fotoIcon"
+                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
+                                    <span id="fotoBtnText"
+                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil
+                                        Foto<br />Masuk</span>
+                                </div>
+                                <img id="fotoPreview" src="" alt="Foto Presensi"
+                                    class="w-full h-full object-cover absolute inset-0 hidden" />
+                                <div id="fotoOverlay"
+                                    class="absolute inset-0 bg-black/40 hidden flex items-center justify-center">
+                                    <span class="material-symbols-rounded text-white text-2xl">check_circle</span>
+                                </div>
+                                <!-- In-Button Notification Overlay -->
+                                <div id="btnNotification"
+                                    class="absolute inset-0 bg-orange-500 rounded-2xl hidden flex-col items-center justify-center p-2 z-40 transition-all">
+                                    <span class="material-symbols-rounded text-white text-lg mb-0.5">schedule</span>
+                                    <span id="btnNotificationText"
+                                        class="text-[7px] font-bold text-white text-center leading-tight"></span>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-center gap-1.5">
+                                <div
+                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[10px] text-gray-500 font-medium">Jam Masuk</span>
+                                    <span id="jamMasuk"
+                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        --</span>
+                                </div>
+                                <div
+                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[10px] text-gray-500 font-medium">Jam Keluar</span>
+                                    <span id="jamKeluar"
+                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        --</span>
+                                </div>
+                                <div id="presensiStatus"
+                                    class="bg-gray-50 dark:bg-gray-800 rounded-lg px-2 py-1 flex justify-between items-center border border-gray-200 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[9px] text-gray-500 font-medium">Status</span>
+                                    <span id="presensiText"
+                                        class="text-[9px] font-bold text-gray-400 dark:text-gray-500">-------</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Swipe Up Hint -->
+                        <div id="swipeUpHint"
+                            class="flex justify-center items-center gap-1 mt-6 opacity-50 transition-opacity duration-300"
+                            style="opacity: 0;">
+                            <span
+                                class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_less</span>
+                            <span class="text-[7px] text-gray-400 font-medium">Swipe ke atas untuk menu</span>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 2: Expanded Menu (Hidden by default) -->
+                    <div id="menuView" class="hidden transition-all duration-300">
+                        <div class="flex justify-between items-center mb-4 mt-2">
+                            <h2 class="text-sm font-bold text-text-main-light dark:text-white flex items-center gap-2">
+                                Menu Utama
+                                <span class="material-symbols-rounded text-primary text-[18px]">apps</span>
+                            </h2>
+                            <button onclick="toggleCardView()"
+                                class="w-8 h-8 flex items-center justify-center rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                                <span
+                                    class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-lg">close</span>
+                            </button>
+                        </div>
+
+                        <!-- Full Menu Grid (3 rows) -->
+                        <!-- Menu Slider Container -->
+                        <div id="menuSlider"
+                            class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar pb-4"
+                            style="scroll-snap-type: x mandatory;">
+
+                            <!-- PAGE 1 (8 Items) -->
+                            <div class="snap-center snap-always shrink-0 w-full grid grid-cols-4 gap-4 px-1"
+                                style="min-width: 100%;">
+                                <!-- Row 1 -->
+                                <a href="{{ route('ustadz.hafalan.create') }}"
+                                    class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">menu_book</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                </a>
+                                <a href="{{ route('ustadz.hafalan.index') }}"
+                                    class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">analytics</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
+                                </a>
+                                <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">chat</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
+                                </a>
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">group</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
+                                </a>
+
+                                <!-- Row 2 -->
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">calendar_month</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
+                                </a>
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">how_to_reg</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
+                                </a>
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">campaign</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
+                                </a>
+                                <a href="{{ route('profile.index') }}" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">person</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
+                                </a>
+                            </div>
+
+                            <!-- PAGE 2 (4 Items) -->
+                            <div class="snap-center snap-always shrink-0 w-full grid grid-cols-4 gap-4 px-1"
+                                style="min-width: 100%;">
+                                <a href="{{ route('notifications.index') }}"
+                                    class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">notifications</span>
+                                    </div>
+                                    <span
+                                        class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
+                                </a>
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">event</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
+                                </a>
+                                <a href="#" class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">history</span>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
+                                </a>
+                                <a href="{{ route('ustadz.settings') }}"
+                                    class="flex flex-col items-center gap-1.5 group">
+                                    <div
+                                        class="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                        <span class="material-symbols-rounded text-2xl">settings</span>
+                                    </div>
+                                    <span
+                                        class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <!-- Menu Pagination Dots -->
+                        <div class="flex justify-center gap-1 -mt-2 mb-2">
+                            <div id="menuDot1" class="w-1.5 h-1.5 rounded-full bg-primary transition-all duration-300">
+                            </div>
+                            <div id="menuDot2"
+                                class="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300">
+                            </div>
+                        </div>
+
+                        <!-- Swipe Down Hint -->
+                        <div class="flex justify-center items-center gap-1 mt-8 opacity-50">
+                            <span
+                                class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_more</span>
+                            <span class="text-[7px] text-gray-400 font-medium">Swipe ke bawah untuk presensi</span>
+                        </div>
+                    </div>
+
+                    <!-- Map/Menu Swipe Slider -->
+                    <div id="mapSliderSection" class="mt-2 mb-3">
+                        <!-- Swipeable Container -->
+                        <div id="slideContainer"
+                            class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
+                            style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+                            <!-- Slide 1: Map -->
+                            <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                <div id="mapWrapper"
+                                    class="relative w-full h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
+                                    <!-- Swipe Handle Overlay (for touch events) -->
+                                    <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none"></div>
+                                    <!-- Leaflet Map Container -->
+                                    <div id="map" class="w-full h-full z-0"></div>
+
+                                    <!-- Map Controls (Center Right) -->
+                                    <div
+                                        class="absolute top-1/2 -translate-y-1/2 right-2 z-[1000] flex flex-col gap-1.5">
+                                        <button onclick="zoomIn()"
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                            <span
+                                                class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">add</span>
+                                        </button>
+                                        <button onclick="zoomOut()"
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                            <span
+                                                class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">remove</span>
+                                        </button>
+                                        <button onclick="resetMap()"
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors mt-0.5">
+                                            <span
+                                                class="material-symbols-rounded text-primary text-[14px]">restart_alt</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Location Info Overlay -->
+                                    <div
+                                        class="absolute bottom-0 left-0 z-[1000] m-1.5 px-1.5 py-0.5 bg-white/90 dark:bg-gray-800/90 rounded-md shadow-sm">
+                                        <div class="flex items-center gap-0.5">
+                                            <span
+                                                class="material-symbols-rounded text-primary text-[10px]">location_on</span>
+                                            <span
+                                                class="text-[6px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Lokasi</span>
+                                        </div>
+                                        <p class="text-[8px] font-mono font-bold text-primary truncate tracking-tight"
+                                            id="userLocation">Mendeteksi...</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2: Quick Menu -->
+                            <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                <div class="grid grid-cols-4 gap-3 py-1">
+                                    <!-- Row 1 -->
+                                    <a href="{{ route('ustadz.hafalan.create') }}"
+                                        class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">menu_book</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                    </a>
+                                    <a href="{{ route('ustadz.hafalan.index') }}"
+                                        class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">analytics</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
+                                    </a>
+                                    <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">chat</span>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
+                                    </a>
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">group</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
+                                    </a>
+                                    <!-- Row 2 -->
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">calendar_month</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
+                                    </a>
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">how_to_reg</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
+                                    </a>
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">campaign</span>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Info</span>
+                                    </a>
+                                    <a href="{{ route('profile.index') }}"
+                                        class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">person</span>
+                                        </div>
+                                        <span class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Slide 3: More Menu -->
+                            <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                <div class="grid grid-cols-4 gap-3 py-1">
+                                    <a href="{{ route('notifications.index') }}"
+                                        class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">notifications</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
+                                    </a>
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">event</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
+                                    </a>
+                                    <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">history</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
+                                    </a>
+                                    <a href="{{ route('ustadz.settings') }}"
+                                        class="flex flex-col items-center gap-1 group">
+                                        <div
+                                            class="w-11 h-11 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-xl">settings</span>
+                                        </div>
+                                        <span
+                                            class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dot Indicators -->
+                        <div class="flex justify-center gap-2 mt-2">
+                            <button id="dot0" onclick="goToSlide(0)"
+                                class="w-2 h-2 rounded-full bg-primary transition-all"></button>
+                            <button id="dot1" onclick="goToSlide(1)"
+                                class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
+                            <button id="dot2" onclick="goToSlide(2)"
+                                class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- End Main Card -->
+        </div>
+
+        <!-- Bottom Navigation -->
+        @include('layouts.partials.bottom-nav')
+
+        <!-- Hidden Camera Input -->
+        <input type="file" id="cameraInput" accept="image/*" capture="user" class="hidden"
+            onchange="handleCameraCapture(event)" />
+
+        <!-- Live Camera & Preview Modal -->
+        <div id="cameraModal"
+            class="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-3xl w-full max-w-[360px] overflow-hidden shadow-2xl relative">
+                <!-- Header -->
+                <div class="bg-gradient-to-r from-primary to-primary-dark p-4 text-white z-10 relative">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-rounded text-2xl">photo_camera</span>
+                            <div>
+                                <h3 class="font-bold text-lg" id="modalTitle">Kamera Presensi</h3>
+                                <p class="text-xs text-white/80" id="modalTime">--:-- WIB</p>
+                            </div>
+                        </div>
+                        <button onclick="closeCameraModal()"
+                            class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
+                            <span class="material-symbols-rounded text-xl">close</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Camera/Preview Area -->
+                <div class="relative bg-black aspect-[3/4]">
+                    <!-- Live Video -->
+                    <video id="cameraVideo" autoplay playsinline muted class="w-full h-full object-cover"></video>
+
+                    <!-- Captured Image (Hidden by default) -->
+                    <img id="photoPreview" src="" class="w-full h-full object-cover hidden absolute inset-0 z-20" />
+
+                    <!-- Canvas for capture (Always Hidden) -->
+                    <canvas id="cameraCanvas" class="hidden"></canvas>
+
+                    <!-- Overlay Info -->
+                    <div
+                        class="absolute bottom-3 left-3 right-3 bg-black/50 backdrop-blur-sm rounded-xl p-2 flex items-center gap-2 z-30">
+                        <span class="material-symbols-rounded text-green-400 text-sm">location_on</span>
+                        <span id="photoLocation" class="text-[10px] text-white font-medium truncate">Lokasi...</span>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="p-4 bg-white dark:bg-gray-800">
+                    <!-- Step 1: Capture Button -->
+                    <div id="stepCapture" class="flex justify-center">
+                        <button onclick="snapPhoto()"
+                            class="w-16 h-16 rounded-full bg-red-500 border-4 border-white shadow-lg flex items-center justify-center hover:bg-red-600 active:scale-95 transition-all">
+                            <span class="material-symbols-rounded text-white text-3xl">camera</span>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Confirmation Buttons (Hidden initially) -->
+                    <div id="stepConfirm" class="hidden flex gap-3">
+                        <button onclick="retakePhoto()"
+                            class="flex-1 py-3 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 font-semibold text-sm flex items-center justify-center gap-2 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                            <span class="material-symbols-rounded text-lg">refresh</span> Ulangi
+                        </button>
+                        <button onclick="confirmPhoto()"
+                            class="flex-1 py-3 rounded-xl bg-primary text-white font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary-dark transition-colors">
+                            <span class="material-symbols-rounded text-lg">check</span> Simpan
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/islamic-quotes.js') }}"></script>
+        <script>
+            // Live Clock & Date
+            function updateClock() {
+                const now = new Date();
+                const h = String(now.getHours()).padStart(2, '0');
+                const m = String(now.getMinutes()).padStart(2, '0');
+                const s = String(now.getSeconds()).padStart(2, '0');
+                const timeStr = `${h}:${m}:${s}`;
+                document.getElementById('liveClock').textContent = timeStr;
+                const clock2 = document.getElementById('liveClock2');
+                if (clock2) clock2.textContent = timeStr;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: '2-digit' };
+            document.getElementById('liveDate').textContent = now.toLocaleDateString('id-ID', options);
+
+            // Dynamic Greeting
+            const hour = now.getHours();
+            let greeting = 'Assalamu\'alaikum,';
+            if (hour >= 3 && hour < 11) greeting = 'Selamat Pagi 🌅';
+            else if (hour >= 11 && hour < 15) greeting = 'Selamat Siang ☀️';
+            else if (hour >= 15 && hour < 18) greeting = 'Selamat Sore 🌇';
+            else greeting = 'Selamat Malam 🌙';
+            const greetingEl = document.getElementById('greetingText');
+            if (greetingEl) greetingEl.textContent = greeting;
+
+            // Weather Logic (Optimized with Cache & Timeout)
+            async function getWeather() {
+                const cacheKey = 'weatherData';
+                const cacheTime = 3600000; // 1 hour (60 * 60 * 1000)
+
+                // 1. Check Cache
+                const cached = localStorage.getItem(cacheKey);
+                if (cached) {
+                    try {
+                        const { timestamp, data } = JSON.parse(cached);
+                        if (Date.now() - timestamp < cacheTime) {
+                            renderWeather(data);
+                            return; // Use cache, don't fetch
+                        }
+                    } catch (e) { localStorage.removeItem(cacheKey); }
+                }
+
+                // 2. Fetch New Data
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2000); // 2s Timeout
+
+                    const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-6.5520&longitude=106.8160&current_weather=true', {
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+
+                    if (!response.ok) throw new Error('API Error');
+
+                    const data = await response.json();
+
+                    // Save to cache
+                    localStorage.setItem(cacheKey, JSON.stringify({
+                        timestamp: Date.now(),
+                        data: data
+                    }));
+
+                    renderWeather(data);
+
+                } catch (e) {
+                    console.error('Weather error:', e);
+                    // Fallback to cache if available even if expired, or show Error
+                    if (cached) {
+                        const { data } = JSON.parse(cached);
+                        renderWeather(data);
+                    } else {
+                        document.getElementById('weatherText1').textContent = 'N/A';
+                        if (document.getElementById('weatherText2')) document.getElementById('weatherText2').textContent = 'N/A';
+                    }
+                }
+            }
+
+            function renderWeather(data) {
+                if (!data || !data.current_weather) return;
+
+                const weatherCode = data.current_weather.weathercode;
+                const temp = Math.round(data.current_weather.temperature);
+
+                let weatherText = 'Cerah';
+                let icon = 'sunny';
+                let iconColor = 'text-yellow-300';
+
+                // Simple WMO code mapping
+                if (weatherCode <= 3) { weatherText = 'Cerah/Berawan'; icon = 'partly_cloudy_day'; }
+                else if (weatherCode <= 48) { weatherText = 'Berkabut'; icon = 'foggy'; iconColor = 'text-gray-300'; }
+                else if (weatherCode <= 67) { weatherText = 'Hujan'; icon = 'rainy'; iconColor = 'text-blue-300'; }
+                else if (weatherCode <= 82) { weatherText = 'Hujan Deras'; icon = 'thunderstorm'; iconColor = 'text-purple-300'; }
+                else if (weatherCode <= 99) { weatherText = 'Badai'; icon = 'thunderstorm'; iconColor = 'text-red-300'; }
+
+                const textEl1 = document.getElementById('weatherText1');
+                const textEl2 = document.getElementById('weatherText2');
+                const iconEl1 = document.getElementById('weatherIcon1');
+                const iconEl2 = document.getElementById('weatherIcon2');
+
+                if (textEl1) textEl1.textContent = `${weatherText}, ${temp}°C`;
+                if (textEl2) textEl2.textContent = `${weatherText}, ${temp}°C`;
+
+                if (iconEl1) {
+                    iconEl1.textContent = icon;
+                    iconEl1.className = `material-symbols-rounded ${iconColor} text-[14px]`;
+                }
+                if (iconEl2) {
+                    iconEl2.textContent = icon;
+                    iconEl2.className = `material-symbols-rounded ${iconColor} text-[14px]`;
+                }
+            }
+
+            // getWeather(); // Delayed to prioritize UI render
+            setTimeout(getWeather, 3000);
+            setInterval(getWeather, 900000); // 15 mins
+
+            // Presensi Logic
+            // Using Blade to check server state
+            const jadwalPresensi = {
+                0: { masukStart: '06:00', masukEnd: '07:00', pulangStart: '08:00', pulangEnd: '08:30', selesaiEnd: '09:00', nama: 'Ahad' },
+                1: { masukStart: '16:00', masukEnd: '17:00', pulangStart: '17:30', pulangEnd: '18:00', selesaiEnd: '18:30', nama: 'Senin' }, // Added default for safety
+                2: { masukStart: '16:00', masukEnd: '17:00', pulangStart: '17:30', pulangEnd: '18:00', selesaiEnd: '18:30', nama: 'Selasa' }, // Added default for safety
+                3: { masukStart: '16:00', masukEnd: '17:00', pulangStart: '17:30', pulangEnd: '18:00', selesaiEnd: '18:30', nama: 'Rabu' },
+                4: { masukStart: '16:00', masukEnd: '17:00', pulangStart: '17:30', pulangEnd: '18:00', selesaiEnd: '18:30', nama: 'Kamis' },
+                5: { masukStart: '14:00', masukEnd: '15:00', pulangStart: '16:00', pulangEnd: '16:30', selesaiEnd: '17:00', nama: 'Jumat' }, // Added default for safety
+                6: { masukStart: '06:00', masukEnd: '07:00', pulangStart: '08:00', pulangEnd: '08:30', selesaiEnd: '09:00', nama: 'Sabtu' }
+            };
+
+            let sudahMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ? true : false);
+            let sudahPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ? true : false);
+            let waktuMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ?\Carbon\Carbon:: parse($presensiHariIni -> jam_masuk) -> format('H:i'). ' WIB' : '');
+            let waktuPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ?\Carbon\Carbon:: parse($presensiHariIni -> jam_pulang) -> format('H:i'). ' WIB' : '');
+
+            // GPS & Map Logic
+            // Masjid Albir Brigade Arsy, Jl. P Dan K, Kedung Halang, Bogor
+            const TPQ_LAT = -6.551824;
+            const TPQ_LNG = 106.816065;
+            const RADIUS_METER = 50; // Radius 50m
+            let dalamRadius = false;
+            let userLat = null, userLng = null;
+
+            function getCurrentTime() {
+                const now = new Date();
+                return String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+            }
+
+            function getHariPresensiBerikutnya(currentDay) {
+                for (let i = 0; i < 7; i++) {
+                    const nextDay = (currentDay + i + 1) % 7;
+                    if (jadwalPresensi[nextDay]) return `${jadwalPresensi[nextDay].nama} - ${jadwalPresensi[nextDay].masukStart}`;
+                }
+                return 'Jadwal Berikutnya';
+            }
+
+            function cekJadwalPresensi() {
+                const now = new Date();
+                const day = now.getDay();
+                const currentTime = getCurrentTime();
+
+                if (!jadwalPresensi[day]) {
+                    return { valid: false, type: null, jadwal: null, message: `Hari Libur<br/>${getHariPresensiBerikutnya(day)}` };
+                }
+
+                const jadwal = jadwalPresensi[day];
+
+                // 1. Logic Masuk
+                if (!sudahMasuk) {
+                    // Allow check-in anytime before 'pulangStart' for flexibility
+                    if (currentTime < jadwal.pulangStart) {
+                        return { valid: true, type: 'masuk', jadwal: jadwal };
+                    }
+                    return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup` };
+                }
+
+                // 2. Logic Pulang
+                if (sudahMasuk && !sudahPulang) {
+                    // Allow check-out anytime after 'pulangStart'
+                    if (currentTime >= jadwal.pulangStart) {
+                        return { valid: true, type: 'pulang', jadwal: jadwal };
+                    }
+                    return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Belum Waktu Pulang<br/>(${jadwal.pulangStart})` };
+                }
+
+                // 3. Logic Selesai
+                if (sudahMasuk && sudahPulang) {
+                    return { valid: false, type: 'selesai', jadwal: jadwal, message: 'Presensi Selesai' };
+                }
+
+                return { valid: false, type: null, jadwal: jadwal, message: `Tunggu Jadwal` };
+            }
+
+            function hitungJarak(lat1, lon1, lat2, lon2) {
+                if (!lat1 || !lon1) return 99999;
+                const R = 6371000;
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLon = (lon2 - lon1) * Math.PI / 180;
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            }
+
+            // ==========================================
+            // NEW: SweetAlert2 Notification Logic
+            // ==========================================
+            function showNotification(message, type = 'info') {
+                // Map 'info', 'success', 'error' to icons
+                const iconMap = {
+                    'info': 'info',
+                    'success': 'success',
+                    'error': 'error',
+                    'warning': 'warning'
+                };
+
+                // Use SweetAlert2 Toast if available
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top',
+                        icon: iconMap[type] || 'info',
+                        title: message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        customClass: {
+                            popup: '!rounded-xl !shadow-xl !border !border-gray-100 dark:!border-gray-700 dark:!bg-gray-800'
+                        }
+                    });
+                } else {
+                    // Fallback
+                    console.log(`[${type}] ${message}`);
+                    const existing = document.querySelectorAll('.notification-toast');
+                    existing.forEach(el => el.remove());
+
+                    const container = document.createElement('div');
+                    container.className = 'notification-toast fixed top-4 left-1/2 -translate-x-1/2 z-[100] bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-4 min-w-[300px] border-l-4 border-primary flex items-center gap-3 animate-bounce-in';
+                    container.innerHTML = `
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-full text-primary"><span class="material-symbols-rounded">info</span></div>
+                    <div><h4 class="text-sm font-bold text-gray-800 dark:text-white">Informasi</h4><p class="text-xs text-gray-600 dark:text-gray-300 leading-tight">${message}</p></div>
+                    `;
+                    document.body.appendChild(container);
+                    setTimeout(() => {
+                        container.classList.add('opacity-0', 'translate-y-[-20px]');
+                        setTimeout(() => container.remove(), 300);
+                    }, 3000);
+                }
+            }
+
+            function updateButtonDisplay() {
+                const btn = document.getElementById('ambilFotoBtn');
+                const icon = document.getElementById('fotoIcon');
+                const text = document.getElementById('fotoBtnText');
+
+                if (!btn) return;
+
+                const cek = cekJadwalPresensi();
+
+                // 1. Selesai
+                if (sudahMasuk && sudahPulang) {
+                    btn.className = 'w-24 h-24 shrink-0 bg-green-50 dark:bg-green-900/30 rounded-2xl border-2 border-green-300 dark:border-green-700 flex flex-col items-center justify-center gap-1 cursor-default opacity-80';
+                    if (icon) {
+                        icon.textContent = 'check_circle';
+                        icon.className = 'material-symbols-rounded text-green-500 text-3xl';
+                    }
+                    if (text) text.innerHTML = 'Presensi<br/>Selesai';
+                    btn.onclick = null;
+                    return;
+                }
+
+                // 2. Valid
+                if (cek.valid) {
+                    btn.className = 'w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                    if (icon) {
+                        icon.textContent = 'add_a_photo';
+                        icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
+                    }
+                    if (text) {
+                        if (cek.type === 'masuk') {
+                            text.innerHTML = 'Ambil Foto<br/>Masuk';
+                        } else {
+                            text.innerHTML = 'Ambil Foto<br/>Pulang';
+                        }
+                    }
+                    btn.onclick = ambilFoto;
+                    return;
+                }
+
+                // 3a. Tunggu Pulang - Orange (already masuk, waiting for pulang time)
+                if (cek.type === 'tunggu_pulang') {
+                    btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
+                    if (icon) {
+                        icon.textContent = 'add_a_photo';
+                        icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                    }
+                    if (text) {
+                        text.innerHTML = 'Ambil<br/>Foto';
+                        text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
+                    }
+                    btn.onclick = () => {
+                        const notifOverlay = document.getElementById('btnNotification');
+                        const notifText = document.getElementById('btnNotificationText');
+                        if (notifOverlay && notifText) {
+                            notifText.textContent = 'Tunggu Jadwal\nJam Keluar';
+                            notifOverlay.classList.remove('hidden');
+                            notifOverlay.classList.add('flex');
+                            setTimeout(() => {
+                                notifOverlay.classList.add('hidden');
+                                notifOverlay.classList.remove('flex');
+                            }, 2500);
+                        }
+                    };
+                    return;
+                }
+
+                // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, etc)
+                btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                if (icon) {
+                    icon.textContent = 'add_a_photo';
+                    icon.className = 'material-symbols-rounded text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-3xl';
+                }
+                if (text) {
+                    text.innerHTML = 'Ambil<br/>Foto';
+                    text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
+                }
+                btn.onclick = () => {
+                    const notifOverlay = document.getElementById('btnNotification');
+                    const notifText = document.getElementById('btnNotificationText');
+                    if (notifOverlay && notifText) {
+                        notifText.textContent = 'Absen Ditutup\nTunggu Jadwal';
+                        notifOverlay.style.backgroundColor = '#374151';
+                        notifOverlay.classList.remove('hidden');
+                        notifOverlay.classList.add('flex');
+                        setTimeout(() => {
+                            notifOverlay.classList.add('hidden');
+                            notifOverlay.classList.remove('flex');
+                            notifOverlay.style.backgroundColor = '';
+                        }, 2500);
+                    }
+                };
+            }
+
+            function initUIState() {
+                if (sudahMasuk) {
+                    const jamMasukEl = document.getElementById('jamMasuk');
+                    if (jamMasukEl) {
+                        jamMasukEl.textContent = waktuMasuk;
+                        jamMasukEl.classList.remove('text-gray-400', 'dark:text-gray-500');
+                        jamMasukEl.classList.add('text-primary');
+                    }
+                    const presensiText = document.getElementById('presensiText');
+                    if (presensiText) {
+                        presensiText.textContent = 'Sudah Masuk';
+                        presensiText.className = 'text-[9px] font-bold text-blue-500';
+                    }
+                }
+
+                if (sudahPulang) {
+                    const jamKeluarEl = document.getElementById('jamKeluar');
+                    if (jamKeluarEl) {
+                        jamKeluarEl.textContent = waktuPulang;
+                        jamKeluarEl.classList.remove('text-gray-400', 'dark:text-gray-500');
+                        jamKeluarEl.classList.add('text-green-500');
+                    }
+                    const presensiText = document.getElementById('presensiText');
+                    if (presensiText) {
+                        presensiText.textContent = 'Selesai';
+                        presensiText.className = 'text-[9px] font-bold text-green-500';
+                    }
+                }
+            }
+
+            // Camera & Modal
+            // Camera & Modal
+            // Camera Logic
+            let stream = null;
+
+            async function initCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 640 } },
+                        audio: false
+                    });
+                    const video = document.getElementById('cameraVideo');
+                    video.srcObject = stream;
+                    video.play();
+                } catch (err) {
+                    console.error("Camera Error: ", err);
+                    alert("Gagal membuka kamera: " + err.message);
+                    closeCameraModal();
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+            }
+
+            function ambilFoto() {
+                // Strict Radius Validity
+                if (!dalamRadius) {
+                    showNotification('Lokasi Anda di luar radius. Mencoba update lokasi...', 'info');
+                    // Try one last quick check
+                    navigator.geolocation.getCurrentPosition(pos => {
+                        userLat = pos.coords.latitude;
+                        userLng = pos.coords.longitude;
+                        const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
+                        dalamRadius = dist <= RADIUS_METER;
+
+                        if (dalamRadius) {
+                            openCamera();
+                        } else {
+                            showNotification(`Gagal: Lokasi Anda ${Math.round(dist)}m dari titik presensi. Max ${RADIUS_METER}m.`, 'error');
+                        }
+                    }, err => {
+                        showNotification('Gagal mendeteksi lokasi presisi. Pastikan GPS aktif.', 'error');
+                    }, { enableHighAccuracy: true, timeout: 5000 });
+                    return;
+                }
+
+                openCamera();
+            }
+
+            function openCamera() {
+                // Schedule Check
+                const cek = cekJadwalPresensi();
+                if (!cek.valid) {
+                    showNotification(cek.message.replace('<br/>', ' '), 'warning');
+                    return;
+                }
+
+                // Setup UI
+                document.getElementById('cameraModal').classList.remove('hidden');
+                document.getElementById('stepCapture').classList.remove('hidden');
+                document.getElementById('stepConfirm').classList.add('hidden');
+
+                document.getElementById('cameraVideo').classList.remove('hidden');
+                document.getElementById('photoPreview').classList.add('hidden');
+
+                // Metadata
+                const modalNow = new Date();
+                document.getElementById('modalTime').textContent = `${String(modalNow.getHours()).padStart(2, '0')}:${String(modalNow.getMinutes()).padStart(2, '0')} WIB`;
+                const type = (cek.valid && cek.type) ? cek.type : 'masuk';
+                document.getElementById('modalTitle').textContent = (type === 'pulang') ? 'Foto Presensi Pulang' : 'Foto Presensi Masuk';
+                document.getElementById('photoLocation').textContent = `${userLat ? userLat.toFixed(5) : '-'}, ${userLng ? userLng.toFixed(5) : '-'}`;
+
+                // Initialize Camera
+                initCamera();
+            }
+
+            function closeCameraModal() {
+                stopCamera();
+                document.getElementById('cameraModal').classList.add('hidden');
+            }
+
+            let capturedPhotoData = null;
+            function snapPhoto() {
+                const video = document.getElementById('cameraVideo');
+                const canvas = document.getElementById('cameraCanvas');
+                const context = canvas.getContext('2d');
+
+                // Set canvas size to video size
+                if (video.videoWidth && video.videoHeight) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+
+                    // Flip horizontal for mirroring effect if 'user' facing
+                    context.translate(canvas.width, 0);
+                    context.scale(-1, 1);
+
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    capturedPhotoData = canvas.toDataURL('image/jpeg', 0.8);
+
+                    // Show Preview
+                    document.getElementById('photoPreview').src = capturedPhotoData;
+                    document.getElementById('photoPreview').classList.remove('hidden');
+                    document.getElementById('cameraVideo').classList.add('hidden');
+
+                    // Switch Buttons
+                    document.getElementById('stepCapture').classList.add('hidden');
+                    document.getElementById('stepConfirm').classList.remove('hidden');
+
+                    // Stop stream (optional, save battery)
+                    // stopCamera();
+                }
+            }
+
+            function retakePhoto() {
+                document.getElementById('photoPreview').classList.add('hidden');
+                document.getElementById('cameraVideo').classList.remove('hidden');
+                document.getElementById('stepCapture').classList.remove('hidden');
+                document.getElementById('stepConfirm').classList.add('hidden');
+                // if (!stream) initCamera();
+            }
+
+            async function confirmPhoto() {
+                const cek = cekJadwalPresensi();
+                const type = (cek.valid && cek.type) ? cek.type : (sudahMasuk ? 'pulang' : 'masuk');
+                const url = type === 'masuk' ? "{{ route('presensi.masuk') }}" : "{{ route('presensi.pulang') }}";
+
+                const btn = document.querySelector('#cameraModal button.bg-primary');
+                // const originalText = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span> Proses...';
+                btn.disabled = true;
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            foto: capturedPhotoData,
+                            latitude: userLat,
+                            longitude: userLng
+                        })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        showNotification('Berhasil disimpan!');
+                        setTimeout(() => window.location.reload(), 1000);
+                    } else {
+                        alert('Gagal: ' + (data.message || 'Error'));
+                        btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
+                        btn.disabled = false;
+                    }
+                } catch (e) {
+                    console.error(e);
+                    alert('Gagal: Terjadi kesalahan jaringan');
+                    btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
+                    btn.disabled = false;
+                }
+            }
+
+            // Logger Function
+            function log(msg, isError = false) {
+                console.log(msg);
+                const consoleEl = document.getElementById('debugConsole');
+                if (consoleEl) {
+                    // consoleEl.style.display = 'block'; // Auto show on log
+                    const line = document.createElement('div');
+                    line.style.color = isError ? '#ff5555' : '#00ff00';
+                    line.textContent = `> ${msg}`;
+                    consoleEl.appendChild(line);
+                    consoleEl.scrollTop = consoleEl.scrollHeight;
+                }
+            }
+
+            function updateLocation() {
+                const statusText = document.getElementById('radiusText');
+                if (statusText) statusText.textContent = "Mendeteksi...";
+                log("Mulai mendeteksi lokasi...");
+
+                if (!navigator.geolocation) {
+                    log("Geolocation tidak didukung browser ini.", true);
+                    showNotification('Browser tidak support GPS.');
+                    return;
+                }
+
+                // Explicit Timeout for UI feedback
+                const locationTimeout = setTimeout(() => {
+                    log("Timeout: Lokasi terlalu lama (10s).", true);
+                    const statusText = document.getElementById('radiusText');
+                    if (statusText) {
+                        statusText.textContent = "Koneksi Timeout. Refresh.";
+                        statusText.className = 'text-[9px] font-bold text-red-500';
+                    }
+                    showNotification('Gagal: GPS Timeout. Coba refresh halaman.');
+                }, 10000);
+
+                if (window.watchId) {
+                    navigator.geolocation.clearWatch(window.watchId);
+                }
+
+                // Use watchPosition for Realtime updates
+                // Optimization: maximumAge 10000 allows using cached position (up to 10s old) for instant result
+                window.watchId = navigator.geolocation.watchPosition(pos => {
+                    clearTimeout(locationTimeout);
+                    userLat = pos.coords.latitude;
+                    userLng = pos.coords.longitude;
+                    const accuracy = pos.coords.accuracy; // in meters
+
+                    log(`Lokasi: ${userLat.toFixed(5)}, ${userLng.toFixed(5)} (Akurasi: ${Math.round(accuracy)}m)`);
+
+                    // Warn if accuracy is poor (> 100m)
+                    if (accuracy > 100) {
+                        const statusText = document.getElementById('radiusText');
+                        if (statusText) {
+                            statusText.textContent = `Akurasi Rendah (±${Math.round(accuracy)}m)`;
+                            statusText.className = 'text-[9px] font-bold text-orange-500';
+                        }
+                    }
+
+                    // UPDATE MAP MARKER
+                    if (window.dashboardMap) {
+                        if (!window.userMarker) {
+                            // Create Marker
+                            if (window.dashboardMap) {
+                                window.userMarker = L.marker([userLat, userLng], {
+                                    icon: window.userIcon
+                                }).addTo(window.dashboardMap);
+                                // Add accuracy circle
+                                window.accuracyCircle = L.circle([userLat, userLng], {
+                                    radius: accuracy,
+                                    color: '#3b82f6',
+                                    fillColor: '#3b82f6',
+                                    fillOpacity: 0.15,
+                                    weight: 0
+                                }).addTo(window.dashboardMap);
+                            }
+
+                        } else {
+                            // Move Marker
+                            if (window.dashboardMap) {
+                                window.userMarker.setLatLng([userLat, userLng]);
+                                if (window.accuracyCircle) {
+                                    window.accuracyCircle.setLatLng([userLat, userLng]);
+                                    window.accuracyCircle.setRadius(accuracy);
+                                } else {
+                                    window.accuracyCircle = L.circle([userLat, userLng], {
+                                        radius: accuracy,
+                                        color: '#3b82f6',
+                                        fillColor: '#3b82f6',
+                                        fillOpacity: 0.15,
+                                        weight: 0
+                                    }).addTo(window.dashboardMap);
+                                }
+                            }
+                        }
+                    }
+
+                    document.getElementById('userLocation').textContent = `${userLat.toFixed(5)}, ${userLng.toFixed(5)}`;
+
+                    const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
+                    log(`Jarak: ${Math.round(dist)} meter`);
+
+                    dalamRadius = dist <= RADIUS_METER;
+
+                    const badge = document.getElementById('radiusBadge');
+                    const dot = document.getElementById('radiusDot');
+
+                    // Only update radius status if accuracy is decent or if inside radius anyway
+                    // If accuracy is > 100m, we might be inside but reading outside, or vice versa.
+                    // But for user experience, let's show the calculated status but with the warning above.
+
+                    if (dalamRadius) {
+                        const statusText = document.getElementById('radiusText');
+                        if (statusText) {
+                            statusText.textContent = `Dalam Radius ${Math.round(dist)}m`;
+                            statusText.className = 'text-[9px] font-bold text-green-600 dark:text-green-400';
+                        }
+                        if (dot) dot.innerHTML = '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>';
+
+                        if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
+
+                        // Auto center map ONCE
+                        if (!window.hasCentered && window.dashboardMap) {
+                            window.dashboardMap.setView([userLat, userLng], 18);
+                            window.hasCentered = true;
+                        }
+                    } else {
+                        const statusText = document.getElementById('radiusText');
+                        if (statusText && accuracy <= 100) { // Only overwrite warning if accuracy is OK
+                            statusText.textContent = `Luar Radius (${Math.round(dist)}m)`;
+                            statusText.className = 'text-[9px] font-bold text-red-500';
+                        }
+                        if (dot) dot.innerHTML = '<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>';
+
+                        if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
+                    }
+                }, err => {
+                    clearTimeout(locationTimeout);
+                    console.error('GPS Error:', err);
+                    log(`GPS Error: ${err.code} - ${err.message}`, true);
+
+                    let msg = 'Gagal update lokasi.';
+                    if (err.code === 1) msg = 'Izin GPS Ditolak.';
+                    else if (err.code === 2) msg = 'Signal GPS hilang.';
+                    else if (err.code === 3) msg = 'Timeout GPS.';
+
+                    if (!window.isSecureContext && window.location.hostname !== 'localhost') {
+                        msg = 'GPS Error: Wajib HTTPS (Bukan HTTP).';
+                        log("WARN: Not Secure Context!", true);
+                    }
+
+                    showNotification(msg);
+                }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 });
+            }
+
+            // Map
+            function initMap() {
+                if (typeof L === 'undefined') {
+                    console.error('Leaflet not loaded');
+                    return;
+                }
+
+                const mapContainer = document.getElementById('map');
+                if (!mapContainer) return;
+
+                // Fix container size
+                mapContainer.style.height = '100%';
+                mapContainer.style.width = '100%';
+
+                const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+
+                // Small Icon for TPQ
+                var smallIcon = L.icon({
+                    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                    iconSize: [25 * 0.6, 41 * 0.6], // 60% size
+                    iconAnchor: [12 * 0.6, 41 * 0.6],
+                    popupAnchor: [1, -34 * 0.6],
+                    shadowSize: [41 * 0.6, 41 * 0.6]
+                });
+
+                const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('Lokasi TPQ');
+                window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
+
+                // Force map resize and fit to radius circle bounds
+                const invalidateMap = () => {
+                    if (map) {
+                        map.invalidateSize();
+                        if (window.radiusCircle) {
+                            map.fitBounds(window.radiusCircle.getBounds(), {
+                                padding: [20, 20],
+                                animate: false
+                            });
+                        }
+                    }
+                };
+
+                // Multiple triggers to ensure map renders
+                setTimeout(invalidateMap, 200);
+                setTimeout(invalidateMap, 1000);
+                setTimeout(invalidateMap, 3000);
+
+                // Re-center logic
+                setTimeout(() => {
+                    if (map) {
+                        map.flyTo([TPQ_LAT, TPQ_LNG], 17, {
+                            animate: true,
+                            duration: 1.5
+                        });
+                    }
+                }, 3500);
+
+                const statusText = document.getElementById('radiusText');
+                const badge = document.getElementById('radiusBadge');
+                const dot = document.getElementById('radiusDot');
+
+                // FORCE UPDATE ON INIT
+                // FORCE UPDATE ON INIT
+                if (!window.isSecureContext && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                    showNotification('Peringatan: GPS membutuhkan HTTPS.');
+                    // Don't block completely, try anyway but warn
+                }
+
+                updateLocation();
+
+                // Expose Map
+                window.dashboardMap = map;
+            }
+
+            function resetMap() {
+                if (window.dashboardMap && window.radiusCircle) {
+                    window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20] });
+                }
+            }
+
+            // Global exposure for debugging
+            window.hitungJarak = hitungJarak;
+
+
+            // Carousel & Marquee Logic
+            function initCarousel() {
+                const slider = document.querySelector('.cards-slider');
+                const track = document.querySelector('.cards-track');
+                if (!slider || !track) return;
+
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                let velX = 0;
+                let momentumID;
+
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.classList.add('active');
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                    cancelAnimationFrame(momentumID);
+                });
+
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                    beginMomentum();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (isDown) {
+                        isDown = false;
+                        if (slider) slider.classList.remove('active');
+                        beginMomentum();
+                    }
+                });
+
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    const newScrollLeft = scrollLeft - walk;
+
+                    velX = newScrollLeft - slider.scrollLeft;
+                    slider.scrollLeft = newScrollLeft;
+                });
+
+                // Touch handling
+                slider.addEventListener('touchstart', (e) => {
+                    isDown = true;
+                    startX = e.changedTouches[0].pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                    cancelAnimationFrame(momentumID);
+                });
+
+                slider.addEventListener('touchend', () => {
+                    isDown = false;
+                    beginMomentum();
+                });
+
+                slider.addEventListener('touchmove', (e) => {
+                    if (!isDown) return;
+                    const x = e.changedTouches[0].pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    const newScrollLeft = scrollLeft - walk;
+
+                    velX = newScrollLeft - slider.scrollLeft;
+                    slider.scrollLeft = newScrollLeft;
+                });
+
+                // Wheel
+                slider.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                        e.preventDefault();
+                        slider.scrollLeft += e.deltaX;
+                    }
+                });
+
+                function beginMomentum() {
+                    cancelAnimationFrame(momentumID);
+                    function momentumLoop() {
+                        slider.scrollLeft += velX;
+                        velX *= 0.95;
+                        if (Math.abs(velX) > 0.5) {
+                            momentumID = requestAnimationFrame(momentumLoop);
+                        }
+                    }
+                    momentumLoop();
+                }
+            }
+
+            // Clock Logic
+            function initClock() {
+                function update() {
+                    const now = new Date();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const seconds = String(now.getSeconds()).padStart(2, '0');
+                    const timeString = `${hours}:${minutes}:${seconds}`;
+
+                    document.querySelectorAll('#liveClock, #liveClock2').forEach(el => {
+                        el.textContent = timeString;
+                    });
+                }
+                update();
+                setInterval(update, 1000);
+            }
+
+            // Weather Logic
+            async function initWeather() {
+                // Default Bogor
+                const lat = -6.595038;
+                const lon = 106.816635;
+
+                try {
+                    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                    const data = await response.json();
+
+                    if (data.current_weather) {
+                        const temp = Math.round(data.current_weather.temperature);
+                        const code = data.current_weather.weathercode;
+                        const weatherNames = {
+                            0: 'Cerah', 1: 'Cerah Berawan', 2: 'Berawan', 3: 'Mendung',
+                            45: 'Berkabut', 48: 'Berkabut', 51: 'Gerimis', 53: 'Gerimis',
+                            55: 'Gerimis', 61: 'Hujan Ringan', 63: 'Hujan Sedang',
+                            65: 'Hujan Lebat', 80: 'Hujan Ringan', 81: 'Hujan Sedang',
+                            82: 'Hujan Lebat', 95: 'Badai Petir'
+                        };
+                        const text = `${weatherNames[code] || 'Berawan'}, ${temp}°C`;
+
+                        document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
+                            el.textContent = text;
+                        });
+                    }
+                } catch (e) {
+                    console.error('Weather error:', e);
+                    document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
+                        el.textContent = 'Tidak Tersedia';
+                    });
+                }
+            }
+
+            function initMarquees() {
+                const marquees = document.querySelectorAll('.marquee-container');
+                marquees.forEach(container => {
+                    const content = container.querySelector('.marquee-content');
+                    if (!content) return;
+
+                    // Reset animation
+                    content.style.animation = 'none';
+                    content.offsetHeight; /* trigger reflow */
+
+                    // Simple cloning for loop: A -> A+A
+                    if (content.children.length > 0 && content.scrollWidth < container.offsetWidth * 3) {
+                        const originalContent = content.innerHTML;
+                        content.innerHTML = originalContent + originalContent;
+                    }
+
+                    content.style.display = 'flex';
+                    // Apply animation
+                    content.style.animation = 'marquee 30s linear infinite';
+
+                    // Pause on hover
+                    content.addEventListener('mouseenter', () => {
+                        content.style.animationPlayState = 'paused';
+                    });
+                    content.addEventListener('mouseleave', () => {
+                        content.style.animationPlayState = 'running';
+                    });
+                });
+            }
+
+            // CSS Injection for Marquee
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes marquee {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-50%); }
+                }
+                .marquee-content {
+                    width: max-content;
+                }
+                .cards-slider {
+                    overflow-x: auto;
+                    cursor: grab;
+                    scrollbar-width: none; /* Firefox */
+                    -ms-overflow-style: none;  /* IE 10+ */
+                }
+                .cards-slider::-webkit-scrollbar {
+                    display: none;  /* Chrome/Safari */
+                }
+                .cards-slider.active {
+                    cursor: grabbing;
+                    cursor: -webkit-grabbing;
+                }
+            `;
+            document.head.appendChild(style);
+
+            document.addEventListener('DOMContentLoaded', () => {
+                try {
+                    initMap();
+                    initUIState();
+                    updateButtonDisplay();
+                    initCarousel();
+                    initMarquees();
+                    initClock(); // NEW
+                    initWeather(); // NEW
+                    setInterval(updateButtonDisplay, 30000); // 30s
+                } catch (e) {
+                    console.error('Unified Dashboard Error:', e);
+                    // Optional: showNotification('Gagal memuat beberapa fitur dashboard. Silahkan refresh.');
+                }
+            });
+            // Swipe Slider Logic
+            const TOTAL_SLIDES = 3;
+            let currentSlide = 0;
+            let isProgrammaticScroll = false; // Flag to prevent scroll event interference
+
+            function goToSlide(index) {
+                const container = document.getElementById('slideContainer');
+                if (!container) return;
+
+                // Wrap around for infinite loop
+                if (index < 0) index = TOTAL_SLIDES - 1;
+                if (index >= TOTAL_SLIDES) index = 0;
+
+                currentSlide = index;
+                isProgrammaticScroll = true;
+
+                // Calculate exact scroll position
+                const slideWidth = container.offsetWidth;
+                const targetScroll = index * slideWidth;
+
+                // Use scrollTo for more reliable navigation
+                container.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
+                });
+
+                updateDots(index);
+
+                // Reset flag after animation completes
+                setTimeout(() => {
+                    isProgrammaticScroll = false;
+                }, 400);
+            }
+
+            // Navigate to next/previous slide (for infinite loop)
+            function nextSlide() {
+                goToSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentSlide - 1);
+            }
+
+            function updateDots(activeIndex) {
+                const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];
+                dots.forEach((dot, i) => {
+                    if (dot) {
+                        if (i === activeIndex) {
+                            dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+                            dot.classList.add('bg-primary');
+                        } else {
+                            dot.classList.remove('bg-primary');
+                            dot.classList.add('bg-gray-300', 'dark:bg-gray-600');
+                        }
+                    }
+                });
+
+                // Toggle Swipe Up Hint Visibility
+                const hint = document.getElementById('swipeUpHint');
+                if (hint) {
+                    // Show hint ONLY if we are on the Menu slides (index 1 or 2)
+                    if (activeIndex > 0) {
+                        hint.style.opacity = '1';
+                    } else {
+                        hint.style.opacity = '0';
+                    }
+                }
+            }
+
+            // Detect scroll position to update dots
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('slideContainer');
+                if (container) {
+                    container.addEventListener('scroll', () => {
+                        // Skip if this is a programmatic scroll
+                        if (isProgrammaticScroll) return;
+
+                        const scrollPos = container.scrollLeft;
+                        const slideWidth = container.offsetWidth;
+                        const activeIndex = Math.round(scrollPos / slideWidth);
+                        currentSlide = activeIndex; // Sync currentSlide for infinite loop
+                        updateDots(activeIndex);
+                    });
+                }
+
+                // Menu Slider Scroll Logic
+                const menuContainer = document.getElementById('menuSlider');
+                if (menuContainer) {
+                    menuContainer.addEventListener('scroll', () => {
+                        const scrollPos = menuContainer.scrollLeft;
+                        const slideWidth = menuContainer.offsetWidth;
+                        const activeIndex = Math.round(scrollPos / slideWidth);
+
+                        // Update Menu Dots
+                        const dot1 = document.getElementById('menuDot1');
+                        const dot2 = document.getElementById('menuDot2');
+
+                        if (activeIndex === 0) {
+                            if (dot1) { dot1.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot1.classList.add('bg-primary'); }
+                            if (dot2) { dot2.classList.remove('bg-primary'); dot2.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
+                        } else {
+                            if (dot1) { dot1.classList.remove('bg-primary'); dot1.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
+                            if (dot2) { dot2.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot2.classList.add('bg-primary'); }
+                        }
+                    });
+                }
+
+                // Setup swipe detection on map wrapper (entire card area)
+                const mapWrapper = document.getElementById('mapWrapper');
+                const mapEl = document.getElementById('map');
+                const swipeOverlay = document.getElementById('swipeOverlay');
+
+                // Function to setup swipe handlers
+                function setupSwipeHandlers(element) {
+                    const container = document.getElementById('slideContainer');
+                    if (!element || !container) return;
+
+                    let startX = 0;
+                    let startY = 0;
+                    let isSwiping = false;
+
+                    let startTime = 0;
+
+                    element.addEventListener('touchstart', (e) => {
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        startTime = Date.now();
+                        isSwiping = false;
+                    }, { passive: true });
+
+                    element.addEventListener('touchmove', (e) => {
+                        if (!startX || !startY) return;
+
+                        const currentX = e.touches[0].clientX;
+                        const currentY = e.touches[0].clientY;
+                        const diffX = currentX - startX;
+                        const diffY = Math.abs(currentY - startY);
+
+                        // If horizontal swipe is dominant (more than 10px and greater than vertical)
+                        if (Math.abs(diffX) > 10 && Math.abs(diffX) > diffY * 1.5) {
+                            isSwiping = true;
+                            // Disable map dragging immediately
+                            if (window.dashboardMap) {
+                                window.dashboardMap.dragging.disable();
+                            }
+                            // Enable swipe overlay to capture events
+                            if (swipeOverlay) {
+                                swipeOverlay.style.pointerEvents = 'auto';
+                            }
+                        }
+                    }, { passive: true });
+
+                    element.addEventListener('touchend', (e) => {
+                        if (isSwiping) {
+                            const endX = e.changedTouches[0].clientX;
+                            const diffX = endX - startX;
+                            const elapsed = Date.now() - startTime;
+
+                            // Calculate velocity for quick flicks
+                            const velocity = Math.abs(diffX) / elapsed;
+
+                            // Lower threshold for quick swipes (velocity > 0.3), normal threshold for slow swipes
+                            const threshold = velocity > 0.3 ? 20 : 35;
+
+                            // Determine swipe direction and navigate (infinite loop)
+                            if (diffX < -threshold) {
+                                // Swipe left -> go to next slide
+                                nextSlide();
+                            } else if (diffX > threshold) {
+                                // Swipe right -> go to previous slide
+                                prevSlide();
+                            }
+                        }
+
+                        // Re-enable map dragging
+                        setTimeout(() => {
+                            if (window.dashboardMap) {
+                                window.dashboardMap.dragging.enable();
+                            }
+                            if (swipeOverlay) {
+                                swipeOverlay.style.pointerEvents = 'none';
+                            }
+                        }, 100);
+
+                        startX = 0;
+                        startY = 0;
+                        isSwiping = false;
+                    }, { passive: true });
+                }
+
+                // Apply swipe handlers to mapWrapper (entire card area)
+                setupSwipeHandlers(mapWrapper);
+                // Also apply to map element for redundancy
+                setupSwipeHandlers(mapEl);
+
+                // Also add swipe detection directly to the container for areas outside map
+                let containerStartX = 0;
+                let containerStartY = 0;
+                let containerStartTime = 0;
+
+                container.addEventListener('touchstart', (e) => {
+                    containerStartX = e.touches[0].clientX;
+                    containerStartY = e.touches[0].clientY;
+                    containerStartTime = Date.now();
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    const endX = e.changedTouches[0].clientX;
+                    const endY = e.changedTouches[0].clientY;
+                    const diffX = endX - containerStartX;
+                    const diffY = Math.abs(endY - containerStartY);
+                    const elapsed = Date.now() - containerStartTime;
+                    const velocity = Math.abs(diffX) / elapsed;
+
+                    // Check if horizontal swipe is dominant
+                    if (Math.abs(diffX) > diffY && Math.abs(diffX) > 25) {
+                        // Quick swipe (flick) or normal swipe
+                        const isQuickSwipe = velocity > 0.3;
+                        const threshold = isQuickSwipe ? 20 : 40;
+
+                        if (Math.abs(diffX) > threshold) {
+                            if (diffX < 0) {
+                                // Swipe left -> next slide (infinite loop)
+                                nextSlide();
+                            } else {
+                                // Swipe right -> prev slide (infinite loop)
+                                prevSlide();
+                            }
+                        }
+                    }
+                }, { passive: true });
+            });
+
+            // Vertical Swipe for Main Card Logic
+            let isCardExpanded = false;
+            const mainCard = document.getElementById('mainCard');
+            const presensiView = document.getElementById('presensiView');
+            const menuView = document.getElementById('menuView');
+
+            function toggleCardView(forceState = null) {
+                if (!mainCard || !presensiView || !menuView) return;
+                const whiteContainer = document.getElementById('whiteContainer');
+
+                const expand = forceState !== null ? forceState : !isCardExpanded;
+                isCardExpanded = expand;
+
+                if (expand) {
+                    // Expand: Show Menu, Hide Presensi with animation
+                    presensiView.style.opacity = '0';
+
+                    if (whiteContainer) {
+                        whiteContainer.classList.add('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-2');
+                        whiteContainer.classList.remove('rounded-t-[30px]', 'pt-5');
+                    }
+
+                    setTimeout(() => {
+                        presensiView.classList.add('hidden');
+                        menuView.classList.remove('hidden');
+                        menuView.classList.remove('mt-2'); // Remove margin top to go higher
+
+                        // ANIMATION UPDATES:
+                        requestAnimationFrame(() => {
+                            menuView.style.opacity = '1';
+                        });
+
+                        // Make card taller and scrollable if needed
+                        mainCard.style.minHeight = '80vh';
+                    }, 200);
+                } else {
+                    // Collapse
+                    menuView.style.opacity = '0';
+
+                    if (whiteContainer) {
+                        whiteContainer.classList.remove('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-10');
+                        whiteContainer.classList.add('rounded-t-[30px]', 'pt-5');
+                    }
+
+                    setTimeout(() => {
+                        menuView.classList.add('hidden');
+                        presensiView.classList.remove('hidden');
+
+                        // Reset Height
+                        mainCard.style.minHeight = '';
+
+                        requestAnimationFrame(() => {
+                            presensiView.style.opacity = '1';
+                        });
+                    }, 200);
+                }
+            }
+
+
+            // Setup Vertical Swipe on Main Card
+            if (mainCard) {
+                let cardStartY = 0;
+                let cardStartX = 0;
+
+                mainCard.addEventListener('touchstart', (e) => {
+                    cardStartY = e.touches[0].clientY;
+                    cardStartX = e.touches[0].clientX;
+                }, { passive: true });
+
+                mainCard.addEventListener('touchend', (e) => {
+                    const endY = e.changedTouches[0].clientY;
+                    const endX = e.changedTouches[0].clientX;
+                    const diffY = endY - cardStartY;
+                    const diffX = endX - cardStartX;
+
+                    // Ensure vertical swipe is dominant (vert > horiz & abs(vert) > 30px)
+                    if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
+                        // Logic:
+                        // 1. If currently on Map (slide 0) -> Swipe Vertical DISABLED
+                        // 2. If currently on Menu (slide 1) -> Swipe Up ALLOWED
+
+                        // Check if we are on the menu slide (index 1)
+                        if (currentSlide === 1) {
+                            if (diffY < 0 && !isCardExpanded) {
+                                // Swipe Up -> Expand
+                                toggleCardView(true);
+                            } else if (diffY > 0 && isCardExpanded) {
+                                // Swipe Down -> Collapse
+                                toggleCardView(false);
+                            }
+                        } else if (isCardExpanded && diffY > 0) {
+                            // Allow collapsing even if somehow caught in weird state
+                            toggleCardView(false);
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            // Make functions globally available
+            window.toggleCardView = toggleCardView;
+            window.goToSlide = goToSlide;
+        </script>
+        <div id="debugConsole">DEBUG CONSOLE STARTED...<br></div>
+</body>
+
+</html>

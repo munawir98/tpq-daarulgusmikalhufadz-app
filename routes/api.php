@@ -10,13 +10,19 @@ use Illuminate\Support\Facades\Route;
 
 // AUTH
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\SantriAuthController;
+
+// DASHBOARD
+use App\Http\Controllers\Api\DashboardController;
 
 // MASTER DATA
 use App\Http\Controllers\Api\SantriController;
+use App\Http\Controllers\Api\SantriTemplateController;
 use App\Http\Controllers\Api\PengajarController;
 use App\Http\Controllers\Api\UstadzController;
 use App\Http\Controllers\Api\JadwalMengajarController;
 use App\Http\Controllers\Api\KelasController;
+use App\Http\Controllers\SantriImportController;
 
 // SETORAN & INFAQ
 use App\Http\Controllers\Api\SetoranController;
@@ -28,13 +34,6 @@ use App\Http\Controllers\Api\GajiPengajarRekapController;
 
 // PRESENSI
 use App\Http\Controllers\Api\PresensiController;
-use App\Http\Controllers\Api\PresensiPdfController;
-use App\Http\Controllers\Api\PresensiExportController;
-use App\Http\Controllers\Api\PresensiDashboardController;
-use App\Http\Controllers\Api\PresensiChartController;
-use App\Http\Controllers\Api\PresensiLaporanController;
-use App\Http\Controllers\Api\AdminPresensiRekapController;
-use App\Http\Controllers\Api\KelasPresensiRekapController;
 
 // CHAT
 use App\Http\Controllers\Api\ChatPrivateController;
@@ -53,94 +52,126 @@ use App\Http\Controllers\Api\FcmTokenController;
 
 /*
 |--------------------------------------------------------------------------
-| PUBLIC AUTH ROUTES
+| PUBLIC AUTH (TANPA TOKEN)
 |--------------------------------------------------------------------------
 */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/santri/login', [SantriAuthController::class, 'login']);
 
 /*
 |--------------------------------------------------------------------------
-| PROTECTED ROUTES (SANCTUM)
+| REFRESH TOKEN (BUTUH TOKEN, TANPA token.expired)
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth:sanctum')->group(function () {
+Route::post('/refresh-token', [AuthController::class, 'refreshToken'])
+    ->middleware('auth:sanctum');
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC DATA (TANPA AUTH)
+|--------------------------------------------------------------------------
+*/
+Route::get('/kelas-public', [KelasController::class, 'index']);
+
+/*
+|--------------------------------------------------------------------------
+| PROTECTED ROUTES (SANCTUM ONLY — TEST MODE)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum'])->group(function () {
 
     /*
     |--------------------------------------------------------------------------
     | PROFILE
     |--------------------------------------------------------------------------
     */
-    Route::get('/profile', [AuthController::class, 'profile']);
-    Route::post('/profile/upload-photo', [AuthController::class, 'uploadPhoto']);
-    Route::delete('/profile/delete-photo', [AuthController::class, 'deletePhoto']);
-    Route::post('/profile/update', [AuthController::class, 'updateProfile']);
-    Route::post('/profile/change-password', [AuthController::class, 'changePassword']);
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [AuthController::class, 'profile']);
+        Route::post('/update', [AuthController::class, 'updateProfile']);
+        Route::post('/change-password', [AuthController::class, 'changePassword']);
+        Route::post('/upload-photo', [AuthController::class, 'uploadPhoto']);
+        Route::delete('/delete-photo', [AuthController::class, 'deletePhoto']);
+    });
+
     Route::post('/logout', [AuthController::class, 'logout']);
 
     /*
     |--------------------------------------------------------------------------
-    | MASTER DATA
+    | DASHBOARD
     |--------------------------------------------------------------------------
     */
-    Route::apiResource('santri', SantriController::class);
+    Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | SANTRI
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('santri')->group(function () {
+        Route::get('/', [SantriController::class, 'index']);
+        Route::post('/', [SantriController::class, 'store']);
+        Route::get('/{id}', [SantriController::class, 'show']);
+        Route::put('/{id}', [SantriController::class, 'update']);
+        Route::delete('/{id}', [SantriController::class, 'destroy']);
+
+        Route::put('/{id}/assign-kelas', [SantriController::class, 'assignKelas']);
+
+        Route::post('/import', [SantriImportController::class, 'import']);
+        Route::post('/import/preview', [SantriImportController::class, 'previewImport']);
+        Route::get('/template', [SantriTemplateController::class, 'download']);
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | USTADZ & PENGAJAR
+    |--------------------------------------------------------------------------
+    */
     Route::apiResource('ustadz', UstadzController::class);
     Route::apiResource('pengajar', PengajarController::class);
+
+    /*
+    |--------------------------------------------------------------------------
+    | JADWAL
+    |--------------------------------------------------------------------------
+    */
     Route::apiResource('jadwal', JadwalMengajarController::class);
 
-    Route::get('/kelas/search', [KelasController::class, 'search']);
-    Route::apiResource('kelas', KelasController::class);
+    /*
+    |--------------------------------------------------------------------------
+    | KELAS
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('kelas')->group(function () {
+        Route::get('/search', [KelasController::class, 'search']);
+        Route::get('/filter/tingkat/{tingkat}', [KelasController::class, 'filterByTingkat']);
+        Route::get('/filter/ustadz/{ustadzId}', [KelasController::class, 'filterByUstadz']);
+
+        Route::get('/{id}/rekap-presensi', [KelasController::class, 'rekapPresensi']);
+        Route::get('/{id}/statistik', [KelasController::class, 'statistik']);
+
+        Route::get('/', [KelasController::class, 'index']);
+        Route::post('/', [KelasController::class, 'store']);
+        Route::get('/{id}', [KelasController::class, 'show']);
+        Route::put('/{id}', [KelasController::class, 'update']);
+        Route::delete('/{id}', [KelasController::class, 'destroy']);
+    });
 
     /*
     |--------------------------------------------------------------------------
     | SETORAN & INFAQ
     |--------------------------------------------------------------------------
     */
-    Route::apiResource('setoran', SetoranController::class);
-    Route::apiResource('infaq', InfaqController::class);
+    Route::apiResource('setoran', SetoranController::class)->only(['index', 'store', 'show']);
+    Route::apiResource('infaq', InfaqController::class)->only(['index', 'store']);
 
     /*
     |--------------------------------------------------------------------------
     | GAJI
     |--------------------------------------------------------------------------
     */
-    Route::apiResource('gaji', GajiController::class);
+    Route::apiResource('gaji', GajiController::class)->only(['index', 'store']);
     Route::get('/pengajar/rekap-gaji', [GajiPengajarRekapController::class, 'rekap']);
-
-    /*
-    |--------------------------------------------------------------------------
-    | PRIVATE CHAT
-    |--------------------------------------------------------------------------
-    */
-    Route::prefix('chat/private')->group(function () {
-        Route::get('/', [ChatPrivateController::class, 'list']);
-        Route::get('/with/{user_id}', [ChatPrivateController::class, 'chatWith']);
-        Route::post('/send', [ChatPrivateController::class, 'send']);
-        Route::post('/read', [ChatPrivateController::class, 'markAsRead']);
-        Route::post('/typing', [ChatPrivateController::class, 'typing']);
-        Route::get('/unread-count', [ChatPrivateController::class, 'unreadCount']);
-        Route::post('/status', [ChatPrivateController::class, 'setStatusChat']);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | GROUP CHAT
-    |--------------------------------------------------------------------------
-    */
-    Route::prefix('group')->group(function () {
-        Route::get('/', [GroupController::class, 'index']);
-        Route::post('/', [GroupController::class, 'store']);
-        Route::post('/{id}/add', [GroupController::class, 'addMember']);
-        Route::get('/{id}/members', [GroupController::class, 'members']);
-        Route::put('/{id}', [GroupController::class, 'rename']);
-        Route::delete('/{id}', [GroupController::class, 'destroy']);
-        Route::delete('/{groupId}/member/{userId}', [GroupController::class, 'removeMember']);
-
-        Route::get('/{id}/chat', [GroupMessageController::class, 'getMessages']);
-        Route::post('/chat/send', [GroupMessageController::class, 'send']);
-        Route::post('/chat/read', [GroupMessageController::class, 'markAsRead']);
-        Route::post('/chat/typing', [GroupMessageController::class, 'typing']);
-    });
 
     /*
     |--------------------------------------------------------------------------
@@ -148,39 +179,14 @@ Route::middleware('auth:sanctum')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::prefix('presensi')->group(function () {
-        Route::post('/masuk', [PresensiController::class, 'masukSantri']);
-        Route::post('/pulang', [PresensiController::class, 'pulangSantri']);
-
-        Route::prefix('ustadz')->group(function () {
-            Route::post('/masuk', [PresensiController::class, 'masukUstadz']);
-            Route::post('/pulang', [PresensiController::class, 'pulangUstadz']);
-        });
+        Route::post('/santri/masuk', [PresensiController::class, 'masukSantri']);
+        Route::post('/santri/pulang', [PresensiController::class, 'pulangSantri']);
+        Route::post('/ustadz/masuk', [PresensiController::class, 'masukUstadz']);
+        Route::post('/ustadz/pulang', [PresensiController::class, 'pulangUstadz']);
 
         Route::get('/history', [PresensiController::class, 'history']);
-        Route::get('/mingguan', [PresensiController::class, 'rekapMingguan']);
-        Route::get('/bulanan', [PresensiController::class, 'rekapBulanan']);
-    });
-
-    /*
-    |--------------------------------------------------------------------------
-    | PRESENSI REPORT
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/presensi/export/pdf', [PresensiPdfController::class, 'export']);
-    Route::get('/presensi/export/excel', [PresensiExportController::class, 'export']);
-    Route::get('/presensi/dashboard', [PresensiDashboardController::class, 'summary']);
-    Route::get('/presensi/chart', [PresensiChartController::class, 'chart']);
-    Route::get('/presensi/daily', [PresensiLaporanController::class, 'daily']);
-    Route::get('/presensi/weekly', [PresensiLaporanController::class, 'weekly']);
-
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN PRESENSI
-    |--------------------------------------------------------------------------
-    */
-    Route::middleware('role:ADMIN')->group(function () {
-        Route::get('/admin/presensi/rekap-bulanan', [AdminPresensiRekapController::class, 'monthly']);
-        Route::get('/kelas/presensi/rekap', [KelasPresensiRekapController::class, 'rekap']);
+        Route::get('/rekap/mingguan', [PresensiController::class, 'rekapMingguan']);
+        Route::get('/rekap/bulanan', [PresensiController::class, 'rekapBulanan']);
     });
 
     /*
@@ -188,21 +194,43 @@ Route::middleware('auth:sanctum')->group(function () {
     | AKHLAK & NILAI
     |--------------------------------------------------------------------------
     */
-    Route::apiResource('akhlak-santri', AkhlakSantriController::class);
-    Route::apiResource('nilai-ujian', NilaiUjianController::class);
+    Route::apiResource('akhlak-santri', AkhlakSantriController::class)->only(['index', 'store']);
+    Route::apiResource('nilai-ujian', NilaiUjianController::class)->only(['index', 'store']);
 
     /*
     |--------------------------------------------------------------------------
-    | ACTIVITY LOG
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/activity-logs', [ActivityLogController::class, 'index']);
-    Route::get('/activity-summary', [ActivityLogController::class, 'summary']);
-
-    /*
-    |--------------------------------------------------------------------------
-    | FCM TOKEN (FINAL, SATU ROUTE SAJA)
+    | FCM
     |--------------------------------------------------------------------------
     */
     Route::post('/fcm-token', [FcmTokenController::class, 'store']);
 });
+
+/*
+|--------------------------------------------------------------------------
+| ROLE-BASED ROUTES (TANPA token.expired — TEST MODE)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth:sanctum', 'role:ADMIN'])
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'summary']);
+        Route::get('/activity-logs', [ActivityLogController::class, 'index']);
+        Route::get('/activity-logs/summary', [ActivityLogController::class, 'summary']);
+        Route::get('/activity-logs/export/pdf', [ActivityLogController::class, 'exportPdf']);
+        Route::get('/activity-logs/export/excel', [ActivityLogController::class, 'exportExcel']);
+        Route::get('/activity-logs/export/csv', [ActivityLogController::class, 'exportCsv']);
+    });
+
+Route::middleware(['auth:sanctum', 'role:USTADZ'])
+    ->prefix('ustadz')
+    ->group(function () {
+        Route::get('/kelas', [KelasController::class, 'kelasUstadz']);
+        Route::get('/presensi', [PresensiController::class, 'historyUstadz']);
+    });
+
+Route::middleware(['auth:sanctum', 'role:SANTRI'])
+    ->prefix('santri')
+    ->group(function () {
+        Route::get('/progress', [SantriController::class, 'progress']);
+        Route::get('/presensi', [PresensiController::class, 'historySantri']);
+    });

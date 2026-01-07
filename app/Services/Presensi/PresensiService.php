@@ -7,6 +7,8 @@ use App\Repositories\Contracts\JadwalMengajarRepositoryInterface;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use App\Models\Ustadz;
+use App\Models\Santri;
 
 class PresensiService
 {
@@ -25,9 +27,11 @@ class PresensiService
     // =====================================================
     public function cekRadius($lat, $lng)
     {
-        $centerLat = -8.123456;
-        $centerLng = 112.123456;
-        $radiusAllowed = 150;
+        // TODO: Ganti dengan Koordinat TPQ yang Real
+        // Masjid Albir Brigade Arsy, Jl. P Dan K, Kedung Halang, Bogor
+        $centerLat = -6.551824;
+        $centerLng = 106.816065;
+        $radiusAllowed = 50; // 50 meters
 
         $distance = $this->haversine($lat, $lng, $centerLat, $centerLng);
 
@@ -52,7 +56,6 @@ class PresensiService
         return $earth * (2 * atan2(sqrt($a), sqrt(1 - $a)));
     }
 
-
     // =====================================================
     // QR VALIDATION
     // =====================================================
@@ -61,24 +64,27 @@ class PresensiService
         return $qr === "TPQ-GUSMIK-VALID";
     }
 
-
     // =====================================================
-    // SHIFT & TERLAMBAT (USTADZ ONLY)
+    // SHIFT & TERLAMBAT (USTADZ)
     // =====================================================
-    public function detectShiftAndLate($ustadzId)
+    public function detectShiftAndLate(int $ustadzId): array
     {
-        $now = now()->format("H:i");
+        if (!Ustadz::whereKey($ustadzId)->exists()) {
+            return ['jadwal' => null, 'is_late' => false];
+        }
 
+        $now = now()->format("H:i");
         $jadwal = $this->jadwalRepo->findShiftForUser($ustadzId, $now);
 
-        if (!$jadwal) return ['jadwal' => null, 'is_late' => false];
+        if (!$jadwal) {
+            return ['jadwal' => null, 'is_late' => false];
+        }
 
         return [
             'jadwal'  => $jadwal,
             'is_late' => $now > $jadwal->waktu_mulai
         ];
     }
-
 
     // =====================================================
     // DOUBLE CHECK
@@ -89,12 +95,40 @@ class PresensiService
         return $today && $today->tipe === $type;
     }
 
+    // =====================================================
+    // VALIDASI SANTRI (HELPER)
+    // =====================================================
+    private function validateSantri(int $userId)
+    {
+        $santri = Santri::where('user_id', $userId)->first();
+
+        if (!$santri) {
+            return [
+                'status'  => false,
+                'message' => 'User belum terdaftar sebagai santri'
+            ];
+        }
+
+        if (!$santri->kelas_id) {
+            return [
+                'status'  => false,
+                'message' => 'Santri belum terdaftar di kelas'
+            ];
+        }
+
+        return $santri;
+    }
 
     // =====================================================
     // SANTRI MASUK
     // =====================================================
-    public function masukSantri($data)
+    public function masukSantri(array $data)
     {
+        $santri = $this->validateSantri($data['user_id']);
+        if (isset($santri['status']) && $santri['status'] === false) {
+            return $santri;
+        }
+
         if ($this->checkDouble($data['user_id'], 'masuk', false)) {
             return ['status' => false, 'message' => "Sudah presensi MASUK hari ini"];
         }
@@ -111,12 +145,16 @@ class PresensiService
         return $this->repo->create($data);
     }
 
-
     // =====================================================
     // SANTRI PULANG
     // =====================================================
-    public function pulangSantri($data)
+    public function pulangSantri(array $data)
     {
+        $santri = $this->validateSantri($data['user_id']);
+        if (isset($santri['status']) && $santri['status'] === false) {
+            return $santri;
+        }
+
         if ($this->checkDouble($data['user_id'], 'pulang', false)) {
             return ['status' => false, 'message' => "Sudah presensi PULANG hari ini"];
         }
@@ -132,13 +170,14 @@ class PresensiService
         return $this->repo->create($data);
     }
 
-
     // =====================================================
     // USTADZ MASUK
     // =====================================================
-    public function masukUstadz($data)
+    public function masukUstadz(array $data)
     {
-        if ($this->checkDouble($data['ustadz_id'], 'masuk', true)) {
+        $ustadzId = (int) $data['ustadz_id'];
+
+        if ($this->checkDouble($ustadzId, 'masuk', true)) {
             return ['status' => false, 'message' => "Sudah presensi MASUK hari ini"];
         }
 
@@ -146,7 +185,7 @@ class PresensiService
             $data['foto'] = $data['foto']->store('presensi/ustadz', 'public');
         }
 
-        $shift = $this->detectShiftAndLate($data['ustadz_id']);
+        $shift = $this->detectShiftAndLate($ustadzId);
 
         $data['tanggal']         = today();
         $data['jam']             = now()->format("H:i:s");
@@ -154,18 +193,19 @@ class PresensiService
         $data['user_id']         = null;
         $data['jadwal_id']       = $shift['jadwal']->id ?? null;
         $data['is_late']         = $shift['is_late'];
-        $data['status_presensi'] = $shift['is_late'] ? "TERLAMBAT" : "HADIR";
+        $data['status_presensi'] = $shift['is_late'] ? 'TERLAMBAT' : 'HADIR';
 
         return $this->repo->create($data);
     }
 
-
     // =====================================================
     // USTADZ PULANG
     // =====================================================
-    public function pulangUstadz($data)
+    public function pulangUstadz(array $data)
     {
-        if ($this->checkDouble($data['ustadz_id'], 'pulang', true)) {
+        $ustadzId = (int) $data['ustadz_id'];
+
+        if ($this->checkDouble($ustadzId, 'pulang', true)) {
             return ['status' => false, 'message' => "Sudah presensi PULANG hari ini"];
         }
 
@@ -173,7 +213,7 @@ class PresensiService
             $data['foto'] = $data['foto']->store('presensi/ustadz', 'public');
         }
 
-        $shift = $this->detectShiftAndLate($data['ustadz_id']);
+        $shift = $this->detectShiftAndLate($ustadzId);
 
         $data['tanggal']   = today();
         $data['jam']       = now()->format("H:i:s");
@@ -184,43 +224,50 @@ class PresensiService
         return $this->repo->create($data);
     }
 
-
     // =====================================================
     // IZIN
     // =====================================================
-    public function izin($userId, $ket)
+    public function izin(int $userId, string $ket)
     {
+        $santri = $this->validateSantri($userId);
+        if (isset($santri['status']) && $santri['status'] === false) {
+            return $santri;
+        }
+
         return $this->repo->create([
             'user_id'         => $userId,
             'tanggal'         => today(),
             'jam'             => now()->format("H:i:s"),
-            'tipe'            => 'masuk',        // sesuai migration
+            'tipe'            => 'masuk',
             'status_presensi' => 'IZIN',
             'keterangan'      => $ket
         ]);
     }
 
-
     // =====================================================
     // SAKIT
     // =====================================================
-    public function sakit($userId, $ket)
+    public function sakit(int $userId, string $ket)
     {
+        $santri = $this->validateSantri($userId);
+        if (isset($santri['status']) && $santri['status'] === false) {
+            return $santri;
+        }
+
         return $this->repo->create([
             'user_id'         => $userId,
             'tanggal'         => today(),
             'jam'             => now()->format("H:i:s"),
-            'tipe'            => 'masuk',        // sesuai migration
+            'tipe'            => 'masuk',
             'status_presensi' => 'SAKIT',
             'keterangan'      => $ket
         ]);
     }
 
-
     // =====================================================
     // OFFLINE SYNC
     // =====================================================
-    public function syncOffline($items)
+    public function syncOffline(array $items)
     {
         foreach ($items as $item) {
             $this->repo->create($item);
@@ -228,42 +275,28 @@ class PresensiService
         return true;
     }
 
-
     // =====================================================
-    // TODAY
+    // TODAY / HISTORY / REKAP
     // =====================================================
     public function today($id, $isUstadz = false)
     {
         return $this->repo->checkToday($id, $isUstadz);
     }
 
-
-    // =====================================================
-    // HISTORY
-    // =====================================================
     public function history($userId)
     {
         return $this->repo->byUser($userId);
     }
 
-
-    // =====================================================
-    // REKAP MINGGUAN
-    // =====================================================
     public function rekapMingguan($userId)
     {
         return $this->repo->rekapMingguan($userId);
     }
 
-
-    // =====================================================
-    // REKAP BULANAN
-    // =====================================================
     public function rekapBulanan($userId, $bulan = null)
     {
         return $this->repo->rekapBulanan($userId, $bulan);
     }
-
 
     // =====================================================
     // EXPORT PDF
@@ -284,9 +317,8 @@ class PresensiService
         ];
     }
 
-
     // =====================================================
-    // CHART
+    // CHART & FILTER
     // =====================================================
     public function chartBulanan($bulan)
     {
@@ -332,10 +364,6 @@ class PresensiService
         ", [$start, $end]);
     }
 
-
-    // =====================================================
-    // FILTER DATA
-    // =====================================================
     public function filterData($type, $value)
     {
         $column = match ($type) {

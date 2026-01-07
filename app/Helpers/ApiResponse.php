@@ -2,37 +2,77 @@
 
 namespace App\Helpers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 class ApiResponse
 {
-    public static function success($data = null, $message = 'Success', $code = 200)
-    {
+    /**
+     * =========================
+     * SUCCESS RESPONSE
+     * =========================
+     */
+    public static function success(
+        $data = null,
+        string $message = 'OK',
+        int $code = 200
+    ): JsonResponse {
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data' => $data,
+            'data'    => $data,
         ], $code);
     }
 
-    public static function error($message = 'Error', $code = 400, $errors = null)
-    {
-        return response()->json([
+    /**
+     * =========================
+     * ERROR RESPONSE
+     * =========================
+     */
+    public static function error(
+        string $message = 'Error',
+        int $code = 400,
+        $errors = null
+    ): JsonResponse {
+        $response = [
             'success' => false,
             'message' => $message,
-            'errors' => $errors,
-        ], $code);
+        ];
+
+        if (!is_null($errors)) {
+            $response['errors'] = $errors;
+        }
+
+        return response()->json($response, $code);
     }
 
-    public static function paginate($data, $message = 'Success')
-    {
+    /**
+     * =========================
+     * PAGINATION RESPONSE
+     * =========================
+     */
+    public static function paginate(
+        LengthAwarePaginator $paginator,
+        string $resourceClass = null,
+        string $message = 'Data berhasil dimuat',
+        int $code = 200
+    ): JsonResponse {
+        $items = collect($paginator->items());
+
+        if ($resourceClass) {
+            $items = $resourceClass::collection($items);
+        }
+
         return response()->json([
             'success' => true,
             'message' => $message,
-            'data' => $data->items(),
-            'pagination' => [
-                'current_page' => $data->currentPage(),
-                'per_page' => $data->perPage(),
-                'total' => $data->total(),
-            ]
-        ]);
+            'data'    => $items,
+            'meta'    => [
+                'current_page' => $paginator->currentPage(),
+                'last_page'    => $paginator->lastPage(),
+                'per_page'     => $paginator->perPage(),
+                'total'        => $paginator->total(),
+            ],
+        ], $code);
     }
 }

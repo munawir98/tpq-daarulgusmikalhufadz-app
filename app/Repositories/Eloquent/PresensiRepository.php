@@ -52,7 +52,7 @@ class PresensiRepository implements PresensiRepositoryInterface
     }
 
     // ===============================
-    // PRESENSI HARI INI (SANTRI/USTADZ)
+    // PRESENSI HARI INI (SANTRI / USTADZ)
     // ===============================
     public function checkToday($id, $isUstadz = false)
     {
@@ -123,7 +123,7 @@ class PresensiRepository implements PresensiRepositoryInterface
     }
 
     // ===============================
-    // GET BY TANGGAL (BARU DITAMBAHKAN)
+    // GET BY TANGGAL
     // ===============================
     public function byDate($date)
     {

@@ -2,13 +2,21 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\KelasResource;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\KehadiranResource;
+use App\Http\Resources\ProgressHafalanResource;
 
 class SantriResource extends JsonResource
 {
-    public function toArray($request)
+    public function toArray(Request $request): array
     {
         return [
+            // =========================
+            // DATA UTAMA SANTRI
+            // =========================
             'id'              => $this->id,
             'user_id'         => $this->user_id,
             'nis'             => $this->nis,
@@ -24,18 +32,32 @@ class SantriResource extends JsonResource
             'tanggal_masuk'   => $this->tanggal_masuk,
             'status_aktif'    => $this->status_aktif,
 
-            // RELASI: KELAS
-            'kelas' => $this->kelas ? [
-                'id'   => $this->kelas->id,
-                'nama' => $this->kelas->nama_kelas,
-                'kode' => $this->kelas->kode_kelas,
-            ] : null,
+            // =========================
+            // RELASI
+            // =========================
+            'kelas' => $this->whenLoaded(
+                'kelas',
+                fn () => new KelasResource($this->kelas)
+            ),
 
-            // RELASI: KEHADIRAN
-            'kehadiran' => $this->whenLoaded('kehadiran'),
+            'user' => $this->whenLoaded(
+                'user',
+                fn () => new UserResource($this->user)
+            ),
 
-            // RELASI: PROGRESS HAFALAN
-            'progress_hafalan' => $this->whenLoaded('progressHafalan'),
+            'kehadiran' => KehadiranResource::collection(
+                $this->whenLoaded('kehadiran')
+            ),
+
+            'progress_hafalan' => ProgressHafalanResource::collection(
+                $this->whenLoaded('progressHafalan')
+            ),
+
+            // =========================
+            // META
+            // =========================
+            'created_at' => optional($this->created_at)->toISOString(),
+            'updated_at' => optional($this->updated_at)->toISOString(),
         ];
     }
 }

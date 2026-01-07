@@ -2,63 +2,56 @@
 
 namespace App\Services\Santri;
 
-use App\Repositories\Contracts\SantriRepositoryInterface;
-use App\Http\Resources\SantriResource;
+use App\Models\Santri;
+use Illuminate\Support\Collection;
 
 class SantriService
 {
-    protected $santriRepo;
-
-    public function __construct(SantriRepositoryInterface $santriRepo)
+    /**
+     * MOBILE LIST (RINGAN)
+     */
+    public function index(): Collection
     {
-        $this->santriRepo = $santriRepo;
+        return Santri::query()
+            ->select([
+                'id',
+                'nis',
+                'nama_lengkap',
+                'kelas_id',
+            ])
+            ->orderBy('nama_lengkap')
+            ->get(); // ⬅️ PASTI Collection
     }
 
-    public function index()
+    public function store(array $data): Santri
     {
-        return response()->json([
-            'status' => true,
-            'data' => SantriResource::collection($this->santriRepo->all())
-        ]);
+        return Santri::create($data);
     }
 
-    public function store($data)
+    public function show(int $id): Santri
     {
-        $santri = $this->santriRepo->create($data);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Santri berhasil ditambahkan',
-            'data' => new SantriResource($santri)
-        ]);
+        return Santri::findOrFail($id);
     }
 
-    public function show($id)
+    public function update(array $data, int $id): Santri
     {
-        return response()->json([
-            'status' => true,
-            'data' => new SantriResource($this->santriRepo->find($id))
-        ]);
+        $santri = Santri::findOrFail($id);
+        $santri->update($data);
+
+        return $santri;
     }
 
-    public function update($data, $id)
+    public function destroy(int $id): void
     {
-        $santri = $this->santriRepo->update($id, $data);
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Santri berhasil diperbarui',
-            'data' => new SantriResource($santri)
-        ]);
+        Santri::findOrFail($id)->delete();
     }
 
-    public function destroy($id)
+    public function assignKelas(int $id, int $kelasId): Santri
     {
-        $this->santriRepo->delete($id);
+        $santri = Santri::findOrFail($id);
+        $santri->kelas_id = $kelasId;
+        $santri->save();
 
-        return response()->json([
-            'status' => true,
-            'message' => 'Santri berhasil dihapus'
-        ]);
+        return $santri;
     }
 }

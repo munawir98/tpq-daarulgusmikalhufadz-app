@@ -6,43 +6,74 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+
+// ============================
+// TRAIT CUSTOM
+// ============================
 use App\Traits\ActivityLogDefault;
 use App\Traits\HasActivityLog;
-use Spatie\Activitylog\LogOptions;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use ActivityLogDefault;
-    use HasActivityLog; // jika Anda memang sudah membuat trait ini
+    use ActivityLogDefault, HasActivityLog;
 
+    /**
+     * ============================
+     * TABLE
+     * ============================
+     */
     protected $table = 'users';
 
+    /**
+     * ============================
+     * MASS ASSIGNMENT
+     * ============================
+     */
     protected $fillable = [
         'name',
         'email',
         'password',
         'role',
+        'nis',
         'no_hp',
         'alamat',
         'foto',
         'status',
         'last_login',
         'fcm_token',
+        'instansi',
+
+        // RELASI
+        'kelas_id',
     ];
 
+    /**
+     * ============================
+     * HIDDEN ATTRIBUTE
+     * ============================
+     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
+    /**
+     * ============================
+     * CAST ATTRIBUTE
+     * ============================
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'last_login'        => 'datetime',
+        // Note: password hashing handled manually with Hash::make()
     ];
 
     /**
-     * 🔥 Custom Activity Log User
+     * ============================
+     * ACTIVITY LOG (SPATIE)
+     * ============================
      */
     public function getActivitylogOptions(): LogOptions
     {
@@ -54,60 +85,89 @@ class User extends Authenticatable
             ->setDescriptionForEvent(function (string $eventName) {
 
                 $namaUser = $this->name ?? 'User';
-                $actor = auth()->user()->name ?? 'Sistem';
+                $actor    = auth()->check()
+                    ? auth()->user()->name
+                    : 'Sistem';
 
                 return match ($eventName) {
                     'created' => "{$actor} membuat akun user {$namaUser}",
                     'updated' => "{$actor} memperbarui akun user {$namaUser}",
                     'deleted' => "{$actor} menghapus akun user {$namaUser}",
-                    default => "{$actor} melakukan perubahan pada akun user {$namaUser}",
+                    default   => "{$actor} melakukan perubahan pada akun user {$namaUser}",
                 };
             });
     }
 
-    // ============================
-    // RELASI USER
-    // ============================
+    /**
+     * ============================
+     * RELASI
+     * ============================
+     */
 
+    /**
+     * 🔹 USER → KELAS
+     */
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'kelas_id');
+    }
+
+    /**
+     * 🔹 USER → USTADZ
+     */
     public function ustadz()
     {
         return $this->hasOne(Ustadz::class, 'user_id');
     }
 
+    /**
+     * 🔹 USER → SANTRI
+     */
     public function santri()
     {
         return $this->hasOne(Santri::class, 'user_id');
     }
 
     /**
-     * Relasi ke tabel user_tokens (FCM multi-device)
+     * 🔔 USER → FCM TOKENS (MULTI DEVICE)
      */
-    public function tokens()
+    public function fcmTokens()
     {
-        return $this->hasMany(UserToken::class);
+        return $this->hasMany(UserToken::class, 'user_id');
     }
 
-    // ============================
-    // HELPER ROLE
-    // ============================
-
-    public function isAdmin()
+    /**
+     * ============================
+     * HELPER ROLE
+     * ============================
+     */
+    public function isAdmin(): bool
     {
         return $this->role === 'ADMIN';
     }
 
-    public function isUstadz()
+    public function isUstadz(): bool
     {
         return $this->role === 'USTADZ';
     }
 
-    public function isSantri()
+    public function isSantri(): bool
     {
         return $this->role === 'SANTRI';
     }
 
-    public function isWaliSantri()
+    public function isWali(): bool
     {
-        return $this->role === 'WALI SANTRI';
+        return $this->role === 'WALI';
+    }
+
+    /**
+     * ============================
+     * HELPER STATUS
+     * ============================
+     */
+    public function isActive(): bool
+    {
+        return $this->status === 'AKTIF';
     }
 }

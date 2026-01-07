@@ -21,7 +21,7 @@ class Kernel extends HttpKernel
     ];
 
     /**
-     * Route middleware groups.
+     * Middleware groups.
      */
     protected $middlewareGroups = [
         'web' => [
@@ -33,8 +33,9 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
+        // ✅ API GROUP UNTUK FLUTTER / MOBILE
         'api' => [
-            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
+            'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -43,17 +44,20 @@ class Kernel extends HttpKernel
      * Route middleware.
      */
     protected $routeMiddleware = [
-        'auth'               => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'         => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'cache.headers'      => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'                => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'              => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'password.confirm'   => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed'             => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'           => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'           => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // ✅ PAKAI Authenticate CUSTOM (BUKAN VENDOR)
+        'auth'             => \App\Http\Middleware\Authenticate::class,
 
-        // === OUR CUSTOM ROLE MIDDLEWARE ===
-        'role'               => \App\Http\Middleware\RoleMiddleware::class,
+        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        // CUSTOM PROJECT
+        'role'          => \App\Http\Middleware\RoleMiddleware::class,
+        'token.expired' => \App\Http\Middleware\CheckTokenExpired::class,
     ];
 }

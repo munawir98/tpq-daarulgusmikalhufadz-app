@@ -6,76 +6,141 @@ use App\Http\Controllers\Controller;
 use App\Services\Ustadz\UstadzService;
 use Illuminate\Http\Request;
 use App\Helpers\ApiResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UstadzController extends Controller
 {
-    protected $service;
+    protected UstadzService $service;
 
     public function __construct(UstadzService $service)
     {
         $this->service = $service;
 
-        // Hanya admin / superadmin boleh CRUD Ustadz
+        // Middleware role (opsional)
         // $this->middleware('role:superadmin,admin');
     }
 
-    public function index()
+    /*
+    |--------------------------------------------------------------------------
+    | GET /api/ustadz
+    |--------------------------------------------------------------------------
+    */
+    public function index(Request $request)
     {
-        $data = $this->service->index();
+        $paginator = $this->service->index($request);
 
-        if ($data->isEmpty()) {
-            return ApiResponse::error("Data ustadz kosong", 404);
-        }
-
-        return ApiResponse::success($data, "Data ustadz ditemukan");
+        return ApiResponse::paginate(
+            $paginator,
+            'Data ustadz berhasil diambil'
+        );
     }
 
-    public function show($id)
+    /*
+    |--------------------------------------------------------------------------
+    | GET /api/ustadz/{id}
+    |--------------------------------------------------------------------------
+    */
+    public function show(int $id)
     {
-        $data = $this->service->show($id);
+        try {
+            $data = $this->service->show($id);
 
-        if (!$data) {
-            return ApiResponse::error("Data ustadz tidak ditemukan", 404);
+            return ApiResponse::success(
+                $data,
+                'Detail ustadz ditemukan'
+            );
+
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'Data ustadz tidak ditemukan',
+                Response::HTTP_NOT_FOUND
+            );
         }
-
-        return ApiResponse::success($data, "Detail ustadz ditemukan");
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | POST /api/ustadz
+    |--------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'user_id'        => 'nullable|exists:users,id',
             'nama'           => 'required|string|max:255',
+            'nik'            => 'nullable|string|max:50',
             'jenis_kelamin'  => 'required|in:L,P',
             'tanggal_lahir'  => 'required|date',
             'no_hp'          => 'required|string|max:20',
             'alamat'         => 'required|string',
-            'status_aktif'   => 'required|in:aktif,nonaktif',
+            'tanggal_mulai_mengajar' => 'nullable|date',
+            'status_aktif'   => 'boolean',
         ]);
 
-        $data = $this->service->store($request->all());
+        $data = $this->service->store($validated);
 
-        return ApiResponse::success($data, "Ustadz berhasil ditambahkan");
+        return ApiResponse::success(
+            $data,
+            'Ustadz berhasil ditambahkan',
+            Response::HTTP_CREATED
+        );
     }
 
-    public function update(Request $request, $id)
+    /*
+    |--------------------------------------------------------------------------
+    | PUT /api/ustadz/{id}
+    |--------------------------------------------------------------------------
+    */
+    public function update(Request $request, int $id)
     {
-        $data = $this->service->update($id, $request->all());
+        $validated = $request->validate([
+            'nama'           => 'sometimes|required|string|max:255',
+            'nik'            => 'sometimes|nullable|string|max:50',
+            'jenis_kelamin'  => 'sometimes|required|in:L,P',
+            'tanggal_lahir'  => 'sometimes|required|date',
+            'no_hp'          => 'sometimes|required|string|max:20',
+            'alamat'         => 'sometimes|required|string',
+            'tanggal_mulai_mengajar' => 'sometimes|nullable|date',
+            'status_aktif'   => 'sometimes|boolean',
+        ]);
 
-        if (!$data) {
-            return ApiResponse::error("Gagal memperbarui data ustadz", 400);
+        try {
+            $data = $this->service->update($id, $validated);
+
+            return ApiResponse::success(
+                $data,
+                'Ustadz berhasil diperbarui'
+            );
+
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'Gagal memperbarui data ustadz',
+                Response::HTTP_BAD_REQUEST
+            );
         }
-
-        return ApiResponse::success($data, "Ustadz berhasil diperbarui");
     }
 
-    public function destroy($id)
+    /*
+    |--------------------------------------------------------------------------
+    | DELETE /api/ustadz/{id}
+    |--------------------------------------------------------------------------
+    | Soft delete via status_aktif
+    */
+    public function destroy(int $id)
     {
-        $deleted = $this->service->destroy($id);
+        try {
+            $this->service->destroy($id);
 
-        if (!$deleted) {
-            return ApiResponse::error("Gagal menghapus ustadz", 400);
+            return ApiResponse::success(
+                null,
+                'Ustadz berhasil dinonaktifkan'
+            );
+
+        } catch (\Throwable $e) {
+            return ApiResponse::error(
+                'Gagal menghapus ustadz',
+                Response::HTTP_BAD_REQUEST
+            );
         }
-
-        return ApiResponse::success(null, "Ustadz berhasil dihapus");
     }
 }

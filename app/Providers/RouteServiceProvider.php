@@ -12,6 +12,14 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        /**
+         * 🔑 PENTING:
+         * Matikan singularisasi otomatis pada resource parameters.
+         * Wajib untuk aplikasi dengan nama resource non-Inggris
+         * seperti: kelas, santri, ustadz, presensi, dll.
+         */
+        Route::singularResourceParameters(false);
+
         $this->routes(function () {
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));

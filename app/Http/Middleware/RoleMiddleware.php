@@ -9,16 +9,13 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        $user = auth()->user();
+        $user = $request->user();
 
-        // Jika belum login
-        if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-        // Jika role user tidak ada di daftar role
-        if (!in_array($user->role, $roles)) {
-            return response()->json(['message' => 'Forbidden - Access Denied'], 403);
+        if (!$user || !in_array($user->role, $roles)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Akses ditolak'
+            ], 403);
         }
 
         return $next($request);
