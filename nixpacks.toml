@@ -1,3 +1,4 @@
+# Force rebuild: 2026-01-08-v2
 [phases.install]
 cmds = [
     "composer install --optimize-autoloader --no-scripts --no-interaction --ignore-platform-reqs",
