@@ -12,9 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('kelas', function (Blueprint $table) {
-            $table->index('status');
-            $table->index('tingkat');
-            $table->index('ustadz_id');
+            // Get existing indexes
+            $sm = Schema::getConnection()->getDoctrineSchemaManager();
+            $existingIndexes = collect(Schema::getIndexes('kelas'))->pluck('name')->toArray();
+
+            if (!in_array('kelas_status_index', $existingIndexes)) {
+                $table->index('status');
+            }
+            if (!in_array('kelas_tingkat_index', $existingIndexes)) {
+                $table->index('tingkat');
+            }
+            if (!in_array('kelas_ustadz_id_index', $existingIndexes)) {
+                $table->index('ustadz_id');
+            }
         });
     }
 
