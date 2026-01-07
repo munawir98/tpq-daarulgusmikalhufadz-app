@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
+        // Trust all proxies (Railway uses a reverse proxy/load balancer)
+        $middleware->trustProxies(at: '*');
+
         /*
         |--------------------------------------------------------------------------
         | Middleware Aliases (Laravel 10)
