@@ -11,21 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('kelas', function (Blueprint $table) {
-            // Get existing indexes
-            $sm = Schema::getConnection()->getDoctrineSchemaManager();
-            $existingIndexes = collect(Schema::getIndexes('kelas'))->pluck('name')->toArray();
+        // Skip if indexes already exist (using try-catch for SQLite compatibility)
+        try {
+            Schema::table('kelas', function (Blueprint $table) {
+                $table->index('status', 'kelas_status_index');
+            });
+        } catch (\Exception $e) {
+            // Index already exists, skip
+        }
 
-            if (!in_array('kelas_status_index', $existingIndexes)) {
-                $table->index('status');
-            }
-            if (!in_array('kelas_tingkat_index', $existingIndexes)) {
-                $table->index('tingkat');
-            }
-            if (!in_array('kelas_ustadz_id_index', $existingIndexes)) {
-                $table->index('ustadz_id');
-            }
-        });
+        try {
+            Schema::table('kelas', function (Blueprint $table) {
+                $table->index('tingkat', 'kelas_tingkat_index');
+            });
+        } catch (\Exception $e) {
+            // Index already exists, skip
+        }
+
+        try {
+            Schema::table('kelas', function (Blueprint $table) {
+                $table->index('ustadz_id', 'kelas_ustadz_id_index');
+            });
+        } catch (\Exception $e) {
+            // Index already exists, skip
+        }
     }
 
     /**
