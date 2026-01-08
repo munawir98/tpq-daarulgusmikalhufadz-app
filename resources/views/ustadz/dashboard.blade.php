@@ -505,6 +505,58 @@
                             </div>
                         </div>
 
+
+
+
+
+                        <div class="flex gap-4 mb-3">
+                            <div id="ambilFotoBtn" onclick="ambilFoto()"
+                                class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
+                                <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
+                                    <span id="fotoIcon"
+                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
+                                    <span id="fotoBtnText"
+                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil
+                                        Foto<br />Masuk</span>
+                                </div>
+                                <img id="fotoPreview" src="" alt="Foto Presensi"
+                                    class="w-full h-full object-cover absolute inset-0 hidden" />
+                                <div id="fotoOverlay"
+                                    class="absolute inset-0 bg-black/40 hidden flex items-center justify-center">
+                                    <span class="material-symbols-rounded text-white text-2xl">check_circle</span>
+                                </div>
+                                <!-- In-Button Notification Overlay -->
+                                <div id="btnNotification"
+                                    class="absolute inset-0 bg-orange-500 rounded-2xl hidden flex-col items-center justify-center p-2 z-40 transition-all">
+                                    <span class="material-symbols-rounded text-white text-lg mb-0.5">schedule</span>
+                                    <span id="btnNotificationText"
+                                        class="text-[7px] font-bold text-white text-center leading-tight"></span>
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-center gap-1.5">
+                                <div
+                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[10px] text-gray-500 font-medium">Jam Masuk</span>
+                                    <span id="jamMasuk"
+                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        --</span>
+                                </div>
+                                <div
+                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[10px] text-gray-500 font-medium">Jam Keluar</span>
+                                    <span id="jamKeluar"
+                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        --</span>
+                                </div>
+                                <div id="presensiStatus"
+                                    class="bg-gray-50 dark:bg-gray-800 rounded-lg px-2 py-1 flex justify-between items-center border border-gray-200 dark:border-gray-700 shadow-sm">
+                                    <span class="text-[9px] text-gray-500 font-medium">Status</span>
+                                    <span id="presensiText"
+                                        class="text-[9px] font-bold text-gray-400 dark:text-gray-500">-------</span>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Map/Menu Swipe Slider -->
                         <div id="mapSliderSection" class="mt-2 mb-3">
                             <!-- Swipeable Container -->
@@ -680,56 +732,6 @@
                                     class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
                                 <button id="dot2" onclick="goToSlide(2)"
                                     class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
-                            </div>
-                        </div>
-
-
-
-                        <div class="flex gap-4 mb-3">
-                            <div id="ambilFotoBtn" onclick="ambilFoto()"
-                                class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
-                                <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
-                                    <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
-                                    <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil
-                                        Foto<br />Masuk</span>
-                                </div>
-                                <img id="fotoPreview" src="" alt="Foto Presensi"
-                                    class="w-full h-full object-cover absolute inset-0 hidden" />
-                                <div id="fotoOverlay"
-                                    class="absolute inset-0 bg-black/40 hidden flex items-center justify-center">
-                                    <span class="material-symbols-rounded text-white text-2xl">check_circle</span>
-                                </div>
-                                <!-- In-Button Notification Overlay -->
-                                <div id="btnNotification"
-                                    class="absolute inset-0 bg-orange-500 rounded-2xl hidden flex-col items-center justify-center p-2 z-40 transition-all">
-                                    <span class="material-symbols-rounded text-white text-lg mb-0.5">schedule</span>
-                                    <span id="btnNotificationText"
-                                        class="text-[7px] font-bold text-white text-center leading-tight"></span>
-                                </div>
-                            </div>
-                            <div class="flex-1 flex flex-col justify-center gap-1.5">
-                                <div
-                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[10px] text-gray-500 font-medium">Jam Masuk</span>
-                                    <span id="jamMasuk"
-                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
-                                        --</span>
-                                </div>
-                                <div
-                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[10px] text-gray-500 font-medium">Jam Keluar</span>
-                                    <span id="jamKeluar"
-                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
-                                        --</span>
-                                </div>
-                                <div id="presensiStatus"
-                                    class="bg-gray-50 dark:bg-gray-800 rounded-lg px-2 py-1 flex justify-between items-center border border-gray-200 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[9px] text-gray-500 font-medium">Status</span>
-                                    <span id="presensiText"
-                                        class="text-[9px] font-bold text-gray-400 dark:text-gray-500">-------</span>
-                                </div>
                             </div>
                         </div>
 
