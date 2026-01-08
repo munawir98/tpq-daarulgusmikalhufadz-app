@@ -1502,7 +1502,7 @@
                 console.log(msg);
                 const consoleEl = document.getElementById('debugConsole');
                 if (consoleEl) {
-                    // consoleEl.style.display = 'block'; // Auto show on log
+                    consoleEl.style.display = 'block'; // Auto show on log
                     const line = document.createElement('div');
                     line.style.color = isError ? '#ff5555' : '#00ff00';
                     line.textContent = `> ${msg}`;
