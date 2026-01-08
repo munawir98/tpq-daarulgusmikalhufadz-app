@@ -41,7 +41,7 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-text-main-light dark:text-gray-100 selection:bg-primary selection:text-white">
+    class="bg-white dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-text-main-light dark:text-gray-100 selection:bg-primary selection:text-white">
 
     <!-- Header -->
     <div
