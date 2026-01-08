@@ -63,7 +63,7 @@
 
     <!-- Content Card -->
     <div
-        class="flex-1 bg-white dark:bg-[#1f2937] rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-24 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        class="flex-1 bg-white dark:bg-[#1f2937] rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-10 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
         <div class="p-6">
             <!-- Search & Filter -->
             <div class="mb-6">
@@ -195,40 +195,7 @@
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
-    <div
-        class="fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 py-2 pb-5 z-30 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-        <div class="flex items-center justify-between relative">
-            <a class="flex flex-col items-center gap-1 w-12 text-gray-400 hover:text-blue-500 transition-colors"
-                href="{{ route('ustadz.dashboard') }}">
-                <span class="material-symbols-rounded text-2xl">home</span>
-                <span class="text-[10px] font-medium">Beranda</span>
-            </a>
-            <a class="flex flex-col items-center gap-1 w-12 text-gray-400 hover:text-blue-500 transition-colors"
-                href="{{ route('chat.index') }}">
-                <span class="material-icons-round text-2xl">chat_bubble_outline</span>
-                <span class="text-[10px] font-medium">Pesan</span>
-            </a>
-            <div class="relative -top-6">
-                <!-- Center Button: Scan/Presensi? -->
-                <!-- Use 'ustadz.presensi' if that is the intended main feature, or '#' -->
-                <a href="{{ route('ustadz.presensi') }}"
-                    class="w-16 h-16 rounded-full bg-[#3b82f6] hover:bg-blue-600 text-white shadow-lg shadow-blue-500/30 flex items-center justify-center transform transition-transform hover:scale-105 border-4 border-white dark:border-gray-900">
-                    <span class="material-icons-round text-3xl">qr_code_scanner</span>
-                </a>
-            </div>
-            <a class="flex flex-col items-center gap-1 w-12 text-gray-400 hover:text-blue-500 transition-colors"
-                href="{{ route('ustadz.hafalan.index') }}">
-                <span class="material-icons-round text-2xl">history</span>
-                <span class="text-[10px] font-medium">Riwayat</span>
-            </a>
-            <a class="flex flex-col items-center gap-1 w-12 text-gray-400 hover:text-blue-500 transition-colors"
-                href="{{ route('ustadz.settings') }}">
-                <span class="material-icons-round text-2xl">person_outline</span>
-                <span class="text-[10px] font-medium">Akun</span>
-            </a>
-        </div>
-    </div>
+
 
 </body>
 
