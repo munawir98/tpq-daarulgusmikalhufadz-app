@@ -310,8 +310,8 @@
         }
 
         #debugConsole {
-            display: block;
-            /* VISIBLE for debugging GPS issues */
+            display: none;
+            /* Hidden after debugging */
             position: fixed;
             bottom: 0;
             left: 0;
@@ -1613,92 +1613,60 @@
 
                         log(`Lokasi: ${userLat.toFixed(5)}, ${userLng.toFixed(5)} (Akurasi: ${Math.round(accuracy)}m)`);
 
-                        // Warn if accuracy is poor (> 100m)
-                        if (accuracy > 100) {
-                            const statusText = document.getElementById('radiusText');
-                            if (statusText) {
-                                statusText.textContent = `Akurasi Rendah (±${Math.round(accuracy)}m)`;
-                                statusText.className = 'text-[9px] font-bold text-orange-500';
-                            }
-                        }
-
                         // UPDATE MAP MARKER
                         if (window.dashboardMap) {
                             if (!window.userMarker) {
-                                // Create Marker
-                                if (window.dashboardMap) {
-                                    window.userMarker = L.marker([userLat, userLng], {
-                                        icon: window.userIcon
-                                    }).addTo(window.dashboardMap);
-                                    // Add accuracy circle
-                                    window.accuracyCircle = L.circle([userLat, userLng], {
-                                        radius: accuracy,
-                                        color: '#3b82f6',
-                                        fillColor: '#3b82f6',
-                                        fillOpacity: 0.15,
-                                        weight: 0
-                                    }).addTo(window.dashboardMap);
-                                }
-
+                                window.userMarker = L.marker([userLat, userLng], { icon: window.userIcon }).addTo(window.dashboardMap);
+                                window.accuracyCircle = L.circle([userLat, userLng], {
+                                    radius: accuracy, color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 0
+                                }).addTo(window.dashboardMap);
                             } else {
-                                // Move Marker
-                                if (window.dashboardMap) {
-                                    window.userMarker.setLatLng([userLat, userLng]);
-                                    if (window.accuracyCircle) {
-                                        window.accuracyCircle.setLatLng([userLat, userLng]);
-                                        window.accuracyCircle.setRadius(accuracy);
-                                    } else {
-                                        window.accuracyCircle = L.circle([userLat, userLng], {
-                                            radius: accuracy,
-                                            color: '#3b82f6',
-                                            fillColor: '#3b82f6',
-                                            fillOpacity: 0.15,
-                                            weight: 0
-                                        }).addTo(window.dashboardMap);
-                                    }
+                                window.userMarker.setLatLng([userLat, userLng]);
+                                if (window.accuracyCircle) {
+                                    window.accuracyCircle.setLatLng([userLat, userLng]);
+                                    window.accuracyCircle.setRadius(accuracy);
                                 }
                             }
                         }
 
-                        document.getElementById('userLocation').textContent = `${userLat.toFixed(5)}, ${userLng.toFixed(5)}`;
-
+                        // Calculate Distance
                         const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
                         log(`Jarak: ${Math.round(dist)} meter`);
 
                         dalamRadius = dist <= RADIUS_METER;
-
-                        const badge = document.getElementById('radiusBadge');
+                        const statusText = document.getElementById('radiusText');
                         const dot = document.getElementById('radiusDot');
 
-                        // Only update radius status if accuracy is decent or if inside radius anyway
-                        // If accuracy is > 100m, we might be inside but reading outside, or vice versa.
-                        // But for user experience, let's show the calculated status but with the warning above.
-
+                        // FORCE UPDATE TEXT - Don't leave it as "Mendeteksi..."
                         if (dalamRadius) {
-                            const statusText = document.getElementById('radiusText');
                             if (statusText) {
-                                statusText.textContent = `Dalam Radius ${Math.round(dist)}m`;
+                                statusText.textContent = `Dalam Radius (${Math.round(dist)}m)`;
                                 statusText.className = 'text-[9px] font-bold text-green-600 dark:text-green-400';
                             }
                             if (dot) dot.innerHTML = '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>';
-
                             if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
 
-                            // Auto center map ONCE
+                            // Auto center map ONCE if inside radius
                             if (!window.hasCentered && window.dashboardMap) {
                                 window.dashboardMap.setView([userLat, userLng], 18);
                                 window.hasCentered = true;
                             }
                         } else {
-                            const statusText = document.getElementById('radiusText');
-                            if (statusText && accuracy <= 100) { // Only overwrite warning if accuracy is OK
-                                statusText.textContent = `Luar Radius (${Math.round(dist)}m)`;
+                            if (statusText) {
+                                // Show distance AND accuracy warning if needed
+                                let text = `Luar Radius (${Math.round(dist)}m)`;
+                                if (accuracy > 100) text += ` ±${Math.round(accuracy)}m`;
+
+                                statusText.textContent = text;
                                 statusText.className = 'text-[9px] font-bold text-red-500';
                             }
                             if (dot) dot.innerHTML = '<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>';
-
                             if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                         }
+
+                        // Update Coordinates Text
+                        const userLocEl = document.getElementById('userLocation');
+                        if (userLocEl) userLocEl.textContent = `${userLat.toFixed(5)}, ${userLng.toFixed(5)}`;
                     } // end processPosition
                 } // end startGeolocation
             } // end updateLocation
