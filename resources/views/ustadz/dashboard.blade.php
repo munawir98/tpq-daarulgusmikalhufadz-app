@@ -1616,14 +1616,14 @@
                         // UPDATE MAP MARKER
                         if (window.dashboardMap) {
                             if (!window.userMarker) {
-                                // USER REQUEST: BLUE CIRCLE ONLY
+                                // USER REQUEST: BLUE CIRCLE ONLY (Resized)
                                 window.userMarker = L.circleMarker([userLat, userLng], {
-                                    radius: 8,
+                                    radius: 5, // Smaller dot
                                     fillColor: '#3b82f6',
                                     color: '#ffffff',
                                     weight: 2,
                                     opacity: 1,
-                                    fillOpacity: 0.8
+                                    fillOpacity: 0.9
                                 }).addTo(window.dashboardMap);
 
                                 window.accuracyCircle = L.circle([userLat, userLng], {
@@ -1697,14 +1697,14 @@
                 const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-                // RED Icon for TPQ (Target)
+                // RED Icon for TPQ (Target) - Resized Smaller
                 var smallIcon = L.icon({
                     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
+                    iconSize: [25 * 0.7, 41 * 0.7], // Resized to 70%
+                    iconAnchor: [12 * 0.7, 41 * 0.7],
+                    popupAnchor: [1, -34 * 0.7],
+                    shadowSize: [41 * 0.7, 41 * 0.7]
                 });
 
                 const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
