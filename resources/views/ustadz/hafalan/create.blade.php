@@ -1196,7 +1196,21 @@
             }, 100);
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        // Auto-Select Santri if ID present in URL or passed from Controller
+        window.addEventListener('load', function () {
+            @if (isset($selectedSantriId) && $selectedSantriId)
+                // Find name from list
+                const santriItem = document.querySelector(`.santri-item[data-id="{{ $selectedSantriId }}"]`);
+            if (santriItem) {
+                const name = santriItem.getAttribute('data-name');
+                selectSantri("{{ $selectedSantriId }}", name);
+            }
+            @endif
+        });
+    </script>
 </body>
 
 </html>

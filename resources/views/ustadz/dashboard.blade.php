@@ -761,116 +761,162 @@
                         <!-- Full Menu Grid (3 rows) -->
                         <!-- Menu Slider Container -->
                         <!-- Full Menu Grid (All Items consolidated) -->
-                        <div id="menuGrid" class="grid grid-cols-4 gap-4 px-1 py-1 overflow-y-auto max-h-[60vh] pb-8">
-                            <!-- Hafalan -->
-                            <a href="{{ route('ustadz.hafalan.create') }}"
-                                class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">menu_book</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
-                            </a>
+                        <!-- Full Menu Grid (All Items consolidated) -->
+                        <!-- Full Menu Grid (Grouped by Category) -->
+                        <div id="menuGrid" class="flex flex-col gap-5 px-1 py-1 overflow-y-auto max-h-[60vh] pb-12">
 
-                            <!-- Laporan -->
-                            <a href="{{ route('ustadz.hafalan.index') }}"
-                                class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">analytics</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
-                            </a>
+                            <!-- Section: Akademik -->
+                            <div>
+                                <h3
+                                    class="text-[10px] font-bold text-gray-400 mb-3 px-2 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span> Akademik
+                                </h3>
+                                <div class="grid grid-cols-4 gap-4">
+                                    <!-- 1. Santri -->
+                                    <a href="{{ route('ustadz.santri.index') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-600 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">group</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
+                                    </a>
 
-                            <!-- Pesan -->
-                            <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">chat</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
-                            </a>
+                                    <!-- 2. Hafalan -->
+                                    <a href="{{ route('ustadz.hafalan.create') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">menu_book</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                    </a>
 
-                            <!-- Santri -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">group</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
-                            </a>
+                                    <!-- 3. Absensi -->
+                                    <a href="#" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">how_to_reg</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Absensi</span>
+                                    </a>
 
-                            <!-- Jadwal -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">calendar_month</span>
+                                    <!-- 4. Nilai -->
+                                    <a href="#" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">grade</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Nilai</span>
+                                    </a>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
-                            </a>
+                            </div>
 
-                            <!-- Presensi -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">how_to_reg</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
-                            </a>
+                            <!-- Section: Administrasi -->
+                            <div>
+                                <h3
+                                    class="text-[10px] font-bold text-gray-400 mb-3 px-2 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span> Administrasi
+                                </h3>
+                                <div class="grid grid-cols-4 gap-4">
+                                    <!-- 5. Jadwal -->
+                                    <a href="#" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">calendar_month</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
+                                    </a>
 
-                            <!-- Info -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">campaign</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
-                            </a>
+                                    <!-- 6. Keuangan -->
+                                    <a href="#" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">payments</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Keuangan</span>
+                                    </a>
 
-                            <!-- Akun -->
-                            <a href="{{ route('profile.index') }}" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">person</span>
+                                    <!-- 8. Laporan (Moved here) -->
+                                    <a href="{{ route('ustadz.hafalan.index') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">analytics</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
+                                    </a>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
-                            </a>
+                            </div>
 
-                            <!-- Notifikasi -->
-                            <a href="{{ route('notifications.index') }}" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">notifications</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
-                            </a>
+                            <!-- Section: Umum -->
+                            <div>
+                                <h3
+                                    class="text-[10px] font-bold text-gray-400 mb-3 px-2 uppercase tracking-wider flex items-center gap-2">
+                                    <span class="w-1 h-1 bg-gray-400 rounded-full"></span> Umum
+                                </h3>
+                                <div class="grid grid-cols-4 gap-4">
+                                    <!-- 7. Pesan -->
+                                    <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">chat</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
+                                    </a>
 
-                            <!-- Agenda -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">event</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
-                            </a>
+                                    <!-- 9. Aktivitas -->
+                                    <a href="#" class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">history</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Aktivitas</span>
+                                    </a>
 
-                            <!-- Riwayat -->
-                            <a href="#" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">history</span>
-                                </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
-                            </a>
+                                    <!-- 10. Notifikasi -->
+                                    <a href="{{ route('notifications.index') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-600 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">notifications</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
+                                    </a>
 
-                            <!-- Pengaturan -->
-                            <a href="{{ route('ustadz.settings') }}" class="flex flex-col items-center gap-2 group">
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                    <span class="material-symbols-rounded text-2xl">settings</span>
+                                    <!-- 11. Profil -->
+                                    <a href="{{ route('profile.index') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">person</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Profil</span>
+                                    </a>
+
+                                    <!-- 12. Pengaturan -->
+                                    <a href="{{ route('ustadz.settings') }}"
+                                        class="flex flex-col items-center gap-2 group">
+                                        <div
+                                            class="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                            <span class="material-symbols-rounded text-2xl">settings</span>
+                                        </div>
+                                        <span
+                                            class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
+                                    </a>
                                 </div>
-                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
-                            </a>
+                            </div>
                         </div>
 
                         <!-- Swipe Down Hint -->

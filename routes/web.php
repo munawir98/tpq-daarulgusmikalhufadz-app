@@ -231,6 +231,12 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/dashboard', [DashboardController::class, 'ustadz'])
             ->name('dashboard');
 
+        // Santri Management
+        Route::resource('santri', \App\Http\Controllers\Web\UstadzSantriController::class);
+        Route::get('santri/{id}/akhlak/create', [\App\Http\Controllers\Web\UstadzSantriController::class, 'createAkhlak'])->name('santri.akhlak.create');
+        Route::post('santri/{id}/akhlak', [\App\Http\Controllers\Web\UstadzSantriController::class, 'storeAkhlak'])->name('santri.akhlak.store');
+
+
         Route::get('/kelas', fn () => view('ustadz.kelas'))
             ->name('kelas');
 
