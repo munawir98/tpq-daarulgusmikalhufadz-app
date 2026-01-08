@@ -1140,13 +1140,20 @@
                     return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup<br/>(Max ${jadwal.masukEnd})` };
                 }
 
-                // 2. Logic Pulang
+                // 2. Logic Pulang (STRICT MODE)
                 if (sudahMasuk && !sudahPulang) {
-                    // Allow check-out anytime after 'pulangStart'
-                    if (currentTime >= jadwal.pulangStart) {
+                    // Belum Waktunya (Sebelum Jam Pulang)
+                    if (currentTime < jadwal.pulangStart) {
+                        return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Belum Waktu Pulang<br/>(${jadwal.pulangStart})` };
+                    }
+
+                    // On Time (Dalam Range Pulang)
+                    if (currentTime >= jadwal.pulangStart && currentTime <= jadwal.pulangEnd) {
                         return { valid: true, type: 'pulang', jadwal: jadwal };
                     }
-                    return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Belum Waktu Pulang<br/>(${jadwal.pulangStart})` };
+
+                    // Terlambat (Lewat Jam Pulang)
+                    return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: `Absen Pulang Ditutup<br/>(Max ${jadwal.pulangEnd})` };
                 }
 
                 // 3. Logic Selesai
@@ -1287,21 +1294,23 @@
                     return;
                 }
 
-                // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, etc)
+                // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, terlambat pulang, etc)
                 btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
                 if (icon) {
-                    icon.textContent = 'add_a_photo';
-                    icon.className = 'material-symbols-rounded text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-3xl';
+                    icon.textContent = 'block'; // Changed icon for closed state
+                    icon.className = 'material-symbols-rounded text-gray-400 dark:text-gray-500 group-hover:text-gray-500 transition-colors text-3xl';
                 }
                 if (text) {
-                    text.innerHTML = 'Ambil<br/>Foto';
+                    text.innerHTML = 'Absen<br/>Tutup';
                     text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
                 }
                 btn.onclick = () => {
                     const notifOverlay = document.getElementById('btnNotification');
                     const notifText = document.getElementById('btnNotificationText');
                     if (notifOverlay && notifText) {
-                        notifText.textContent = 'Absen Ditutup\nTunggu Jadwal';
+                        // Use dynamic message from logic if available, else default
+                        notifText.innerHTML = cek.message ? cek.message.replace('<br/>', '\n') : 'Absen Ditutup\nTunggu Jadwal';
+
                         notifOverlay.style.backgroundColor = '#374151';
                         notifOverlay.classList.remove('hidden');
                         notifOverlay.classList.add('flex');
