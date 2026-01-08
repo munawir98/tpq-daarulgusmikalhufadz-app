@@ -60,6 +60,39 @@
         </div>
     </div>
 
+    <!-- Riwayat Hafalan Cards (New) -->
+    <div class="space-y-3">
+        <h3 class="font-bold text-gray-800 dark:text-gray-200 px-1">Hafalan Terakhir</h3>
+        @if(isset($riwayatHafalan) && $riwayatHafalan->count() > 0)
+        @foreach($riwayatHafalan as $hafalan)
+        <a href="{{ route('ustadz.hafalan.show', $hafalan->id) }}"
+            class="block bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
+            <div class="flex justify-between items-start mb-1">
+                <h4 class="font-bold text-gray-800 dark:text-gray-100">{{ $hafalan->surah }}</h4>
+                <span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                    {{ \Carbon\Carbon::parse($hafalan->created_at)->format('d M') }}
+                </span>
+            </div>
+            <div class="flex justify-between items-end">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Ayat {{ $hafalan->ayat_awal }} - {{ $hafalan->ayat_akhir }}
+                </p>
+                <span class="text-xs font-medium {{
+                        $hafalan->nilai == 'Sempurna' || $hafalan->nilai == 'Mumtaz' ? 'text-green-600' :
+                        ($hafalan->nilai == 'Lancar' || $hafalan->nilai == 'Jayyid Jiddan' ? 'text-blue-600' : 'text-orange-600')
+                    }}">
+                    {{ $hafalan->nilai }}
+                </span>
+            </div>
+        </a>
+        @endforeach
+        @else
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm text-center">
+            <p class="text-gray-400 text-sm">Belum ada data hafalan</p>
+        </div>
+        @endif
+    </div>
+
     <!-- Menu Actions -->
     <div class="grid gap-3">
         <h3 class="font-bold text-gray-800 dark:text-gray-200 px-1">Menu Santri</h3>

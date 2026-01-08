@@ -26,7 +26,14 @@ class UstadzSantriController extends Controller
     public function show($id)
     {
         $santri = Santri::with(['user', 'kelas'])->findOrFail($id);
-        return view('ustadz.santri.show', compact('santri'));
+
+        // Fetch recent hafalan history (limit 5)
+        $riwayatHafalan = \App\Models\Hafalan::where('santri_id', $id)
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('ustadz.santri.show', compact('santri', 'riwayatHafalan'));
     }
 
     /**
