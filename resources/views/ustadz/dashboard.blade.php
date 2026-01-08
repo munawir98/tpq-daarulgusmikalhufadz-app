@@ -842,14 +842,13 @@
                                     <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
                                 </a>
 
-                                <!-- 9. Aktivitas -->
-                                <a href="#" class="flex flex-col items-center gap-2 group">
+                                <!-- 9. Info -->
+                                <a href="{{ route('info') }}" class="flex flex-col items-center gap-2 group">
                                     <div
                                         class="w-12 h-12 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">history</span>
+                                        <span class="material-symbols-rounded text-2xl">info</span>
                                     </div>
-                                    <span
-                                        class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Aktivitas</span>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
                                 </a>
 
                                 <!-- 10. Notifikasi -->
