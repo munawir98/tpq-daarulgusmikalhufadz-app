@@ -42,7 +42,7 @@
         .leaflet-marker-icon,
         .leaflet-marker-shadow,
         path.leaflet-interactive {
-            transition: all 0.5s linear;
+            transition: transform 1s cubic-bezier(0.25, 0.1, 0.25, 1);
         }
 
         /* Custom Toast Animation */
@@ -564,7 +564,7 @@
                     </div>
 
                     <!-- VIEW 2: Expanded Menu (Hidden by default) -->
-                    <div id="menuView" class="hidden transition-all duration-300">
+                    <div id="menuView" class="hidden transition-all duration-500 ease-in-out">
                         <div class="flex justify-between items-center mb-4 mt-2">
                             <h2 class="text-sm font-bold text-text-main-light dark:text-white flex items-center gap-2">
                                 Menu Utama
@@ -724,17 +724,17 @@
                                     <div
                                         class="absolute top-1/2 -translate-y-1/2 right-2 z-[1000] flex flex-col gap-1.5">
                                         <button onclick="zoomIn()"
-                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
                                             <span
                                                 class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">add</span>
                                         </button>
                                         <button onclick="zoomOut()"
-                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
                                             <span
                                                 class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">remove</span>
                                         </button>
                                         <button onclick="resetMap()"
-                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors mt-0.5">
+                                            class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200 mt-0.5">
                                             <span
                                                 class="material-symbols-rounded text-primary text-[14px]">restart_alt</span>
                                         </button>
@@ -1701,7 +1701,7 @@
                 mapContainer.style.height = '100%';
                 mapContainer.style.width = '100%';
 
-                const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
+                const map = L.map('map', { zoomControl: false, attributionControl: false, zoomAnimation: true, markerZoomAnimation: true }).setView([TPQ_LAT, TPQ_LNG], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
                 // RED Icon for TPQ (Target) - Resized Smaller
