@@ -612,16 +612,16 @@
                                 <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
                                     <div class="grid grid-cols-4 gap-3 py-1">
                                         <!-- Row 1 -->
-                                        <a href="{{ route('ustadz.hafalan.create') }}"
+                                        <a href="{{ route('ustadz.hafalan.index') }}"
                                             class="flex flex-col items-center gap-1 group">
                                             <div
                                                 class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
                                                 <span class="material-symbols-rounded text-xl">menu_book</span>
                                             </div>
                                             <span
-                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Setoran</span>
                                         </a>
-                                        <a href="{{ route('ustadz.hafalan.index') }}"
+                                        <a href="{{ route('ustadz.laporan.index') }}"
                                             class="flex flex-col items-center gap-1 group">
                                             <div
                                                 class="w-11 h-11 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
@@ -778,13 +778,13 @@
                                 </a>
 
                                 <!-- 2. Hafalan -->
-                                <a href="{{ route('ustadz.hafalan.create') }}"
+                                <a href="{{ route('ustadz.hafalan.index') }}"
                                     class="flex flex-col items-center gap-2 group">
                                     <div
                                         class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
                                         <span class="material-symbols-rounded text-2xl">menu_book</span>
                                     </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Setoran</span>
                                 </a>
 
                                 <!-- 3. Absensi -->
