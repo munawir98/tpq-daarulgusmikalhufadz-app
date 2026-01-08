@@ -310,7 +310,8 @@
         }
 
         #debugConsole {
-            display: none;
+            display: block;
+            /* VISIBLE for debugging GPS issues */
             position: fixed;
             bottom: 0;
             left: 0;
