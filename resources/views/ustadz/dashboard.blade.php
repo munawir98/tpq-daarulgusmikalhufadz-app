@@ -1511,7 +1511,174 @@
                 }
             }
 
-            // ... (updateLocation code unchanged)
+            function updateLocation() {
+                const statusText = document.getElementById('radiusText');
+                if (statusText) statusText.textContent = "Mendeteksi...";
+                log("Mulai mendeteksi lokasi...");
+
+                if (!navigator.geolocation) {
+                    log("Geolocation tidak didukung browser ini.", true);
+                    if (statusText) {
+                        statusText.textContent = "GPS Tidak Didukung";
+                        statusText.className = 'text-[9px] font-bold text-red-500';
+                    }
+                    showNotification('Browser tidak support GPS.');
+                    return;
+                }
+
+                // Directly start geolocation - handle permission errors in callback
+                startGeolocation();
+
+                function startGeolocation() {
+                    // Explicit Timeout for UI feedback
+                    const locationTimeout = setTimeout(() => {
+                        log("Timeout: Lokasi terlalu lama (15s).", true);
+                        const statusText = document.getElementById('radiusText');
+                        if (statusText) {
+                            statusText.textContent = "GPS Timeout";
+                            statusText.className = 'text-[9px] font-bold text-orange-500';
+                        }
+                        showNotification('GPS lambat. Pastikan lokasi aktif dan di luar ruangan.');
+
+                        // Fallback: Try low accuracy GPS
+                        log("Mencoba GPS akurasi rendah...");
+                        tryLowAccuracyGPS();
+                    }, 15000);
+
+                    if (window.watchId) {
+                        navigator.geolocation.clearWatch(window.watchId);
+                    }
+
+                    // First try: High accuracy GPS
+                    window.watchId = navigator.geolocation.watchPosition(handleGPSSuccess, handleGPSError, {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 10000
+                    });
+
+                    function handleGPSSuccess(pos) {
+                        clearTimeout(locationTimeout);
+                        processPosition(pos);
+                    }
+
+                    function handleGPSError(err) {
+                        clearTimeout(locationTimeout);
+                        console.error('GPS High Accuracy Error:', err);
+                        log(`GPS High Error: ${err.code} - ${err.message}`, true);
+
+                        // Try low accuracy as fallback
+                        tryLowAccuracyGPS();
+                    }
+
+                    function tryLowAccuracyGPS() {
+                        navigator.geolocation.getCurrentPosition(
+                            pos => {
+                                log("GPS Low Accuracy berhasil!");
+                                processPosition(pos);
+                            },
+                            err => {
+                                log(`GPS Low Error: ${err.code} - ${err.message}`, true);
+                                const statusText = document.getElementById('radiusText');
+
+                                let msg = 'Gagal mendapatkan lokasi.';
+                                if (err.code === 1) {
+                                    msg = 'Izin GPS Ditolak';
+                                    if (statusText) {
+                                        statusText.textContent = "GPS Diblokir";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                } else if (err.code === 2) {
+                                    msg = 'Signal GPS tidak tersedia';
+                                    if (statusText) {
+                                        statusText.textContent = "No Signal";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                } else {
+                                    if (statusText) {
+                                        statusText.textContent = "GPS Error";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                }
+                                showNotification(msg, 'error');
+                            },
+                            { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                        );
+                    }
+
+                    function processPosition(pos) {
+                        clearTimeout(locationTimeout);
+                        userLat = pos.coords.latitude;
+                        userLng = pos.coords.longitude;
+                        const accuracy = pos.coords.accuracy; // in meters
+
+                        log(`Lokasi: ${userLat.toFixed(5)}, ${userLng.toFixed(5)} (Akurasi: ${Math.round(accuracy)}m)`);
+
+                        // UPDATE MAP MARKER
+                        if (window.dashboardMap) {
+                            if (!window.userMarker) {
+                                // USER REQUEST: BLUE CIRCLE ONLY
+                                window.userMarker = L.circleMarker([userLat, userLng], {
+                                    radius: 8,
+                                    fillColor: '#3b82f6',
+                                    color: '#ffffff',
+                                    weight: 2,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                }).addTo(window.dashboardMap);
+
+                                window.accuracyCircle = L.circle([userLat, userLng], {
+                                    radius: accuracy, color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 0
+                                }).addTo(window.dashboardMap);
+                            } else {
+                                window.userMarker.setLatLng([userLat, userLng]);
+                                if (window.accuracyCircle) {
+                                    window.accuracyCircle.setLatLng([userLat, userLng]);
+                                    window.accuracyCircle.setRadius(accuracy);
+                                }
+                            }
+                        }
+
+                        // Calculate Distance
+                        const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
+                        log(`Jarak: ${Math.round(dist)} meter`);
+
+                        dalamRadius = dist <= RADIUS_METER;
+                        const statusText = document.getElementById('radiusText');
+                        const dot = document.getElementById('radiusDot');
+
+                        // FORCE UPDATE TEXT - Don't leave it as "Mendeteksi..."
+                        if (dalamRadius) {
+                            if (statusText) {
+                                statusText.textContent = `Dalam Radius (${Math.round(dist)}m)`;
+                                statusText.className = 'text-[9px] font-bold text-green-600 dark:text-green-400';
+                            }
+                            if (dot) dot.innerHTML = '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>';
+                            if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
+
+                            // Auto center map ONCE if inside radius
+                            if (!window.hasCentered && window.dashboardMap) {
+                                window.dashboardMap.setView([userLat, userLng], 18);
+                                window.hasCentered = true;
+                            }
+                        } else {
+                            if (statusText) {
+                                // Show distance AND accuracy warning if needed
+                                let text = `Luar Radius (${Math.round(dist)}m)`;
+                                if (accuracy > 100) text += ` ±${Math.round(accuracy)}m`;
+
+                                statusText.textContent = text;
+                                statusText.className = 'text-[9px] font-bold text-red-500';
+                            }
+                            if (dot) dot.innerHTML = '<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>';
+                            if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
+                        }
+
+                        // Update Coordinates Text
+                        const userLocEl = document.getElementById('userLocation');
+                        if (userLocEl) userLocEl.textContent = `${userLat.toFixed(5)}, ${userLng.toFixed(5)}`;
+                    } // end processPosition
+                } // end startGeolocation
+            } // end updateLocation
 
             // Map
             function initMap() {
@@ -1543,15 +1710,7 @@
                 const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
                 window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
 
-                // User Icon (Blue) for Realtime Location
-                window.userIcon = L.icon({
-                    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
-                    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                    iconSize: [25, 41],
-                    iconAnchor: [12, 41],
-                    popupAnchor: [1, -34],
-                    shadowSize: [41, 41]
-                });
+
 
                 // Force map resize and fit to radius circle bounds
                 const invalidateMap = () => {
