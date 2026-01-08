@@ -1701,8 +1701,7 @@
                 mapContainer.style.height = '100%';
                 mapContainer.style.width = '100%';
 
-                const map = L.map('map', { zoomControl: true, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
-                map.zoomControl.setPosition('bottomright'); // Move zoom control to bottom right
+                const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
                 // RED Icon for TPQ (Target) - Resized Smaller
