@@ -225,10 +225,8 @@ class HafalanWebController extends Controller
             $endOfMonth = now()->endOfMonth();
 
             $totalAyatBulanIni = \App\Models\Hafalan::whereBetween('created_at', [$startOfMonth, $endOfMonth])
-                ->get()
-                ->sum(function ($h) {
-                    return max(0, $h->ayat_akhir - $h->ayat_awal + 1);
-                });
+                ->selectRaw('SUM(CASE WHEN (ayat_akhir - ayat_awal + 1) > 0 THEN (ayat_akhir - ayat_awal + 1) ELSE 0 END) as total_ayat')
+                ->value('total_ayat') ?? 0;
 
             // Deployment trigger check v2
 

@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "The Laravel Framework for TPQ Daarul Gusmikal Hufadz (v2.1)",
     "keywords": [
         "laravel",
         "framework"
