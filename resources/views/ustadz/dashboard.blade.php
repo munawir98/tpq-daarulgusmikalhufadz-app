@@ -1764,6 +1764,14 @@
                 window.dashboardMap = map;
             }
 
+            function zoomIn() {
+                if (window.dashboardMap) window.dashboardMap.zoomIn();
+            }
+
+            function zoomOut() {
+                if (window.dashboardMap) window.dashboardMap.zoomOut();
+            }
+
             function resetMap() {
                 if (window.dashboardMap && window.radiusCircle) {
                     window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20] });
