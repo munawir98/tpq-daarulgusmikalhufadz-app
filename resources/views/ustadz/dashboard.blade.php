@@ -760,227 +760,125 @@
 
                         <!-- Full Menu Grid (3 rows) -->
                         <!-- Menu Slider Container -->
-                        <div id="menuSlider"
-                            class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar pb-4"
-                            style="scroll-snap-type: x mandatory;">
+                        <!-- Full Menu Grid (All Items consolidated) -->
+                        <div id="menuGrid" class="grid grid-cols-4 gap-4 px-1 py-1 overflow-y-auto max-h-[60vh] pb-8">
+                            <!-- Hafalan -->
+                            <a href="{{ route('ustadz.hafalan.create') }}"
+                                class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">menu_book</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                            </a>
 
-                            <!-- PAGE 1 (8 Items) -->
-                            <div class="snap-center snap-always shrink-0 w-full grid grid-cols-4 gap-4 px-1"
-                                style="min-width: 100%;">
-                                <!-- Row 1 -->
-                                <a href="{{ route('ustadz.hafalan.create') }}"
-                                    class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">menu_book</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
-                                </a>
-                                <a href="{{ route('ustadz.hafalan.index') }}"
-                                    class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">analytics</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
-                                </a>
-                                <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">chat</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
-                                </a>
-                                <a href="#" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">group</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
-                                </a>
+                            <!-- Laporan -->
+                            <a href="{{ route('ustadz.hafalan.index') }}"
+                                class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">analytics</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
+                            </a>
 
-                                <!-- Row 2 -->
-                                <a href="#" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">calendar_month</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
-                                </a>
-                                <a href="#" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">how_to_reg</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
-                                </a>
-                                <a href="#" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">campaign</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
-                                </a>
-                                <a href="{{ route('profile.index') }}" class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">person</span>
-                                    </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
-                                </a>
-                            </div>
+                            <!-- Pesan -->
+                            <a href="{{ route('chat.index') }}" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">chat</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
+                            </a>
 
-                            <!-- PAGE 2 (4 Items) -->
-                            <div class="snap-center snap-always shrink-0 w-full grid grid-cols-4 gap-4 px-1"
-                                style="min-width: 100%;">
-                                <a href="{{ route('notifications.index') }}"
-                                    class="flex flex-col items-center gap-1.5 group">
-                                    <div
-                                        class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                        <span class="material-symbols-rounded text-2xl">notifications</span>
-                                    </div>
-                                    <!-- Full Menu Grid (All Items) -->
-                                    <div id="menuGrid" class="grid grid-cols-4 gap-4 px-1 py-2 overflow-y-auto">
-                                        <!-- Hafalan -->
-                                        <a href="{{ route('ustadz.hafalan.create') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">menu_book</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
-                                        </a>
+                            <!-- Santri -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">group</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
+                            </a>
 
-                                        <!-- Laporan -->
-                                        <a href="{{ route('ustadz.hafalan.index') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">analytics</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
-                                        </a>
+                            <!-- Jadwal -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">calendar_month</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
+                            </a>
 
-                                        <!-- Pesan -->
-                                        <a href="{{ route('chat.index') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">chat</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
-                                        </a>
+                            <!-- Presensi -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">how_to_reg</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
+                            </a>
 
-                                        <!-- Santri -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">group</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
-                                        </a>
+                            <!-- Info -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">campaign</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
+                            </a>
 
-                                        <!-- Jadwal -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">calendar_month</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
-                                        </a>
+                            <!-- Akun -->
+                            <a href="{{ route('profile.index') }}" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">person</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
+                            </a>
 
-                                        <!-- Presensi -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">how_to_reg</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
-                                        </a>
+                            <!-- Notifikasi -->
+                            <a href="{{ route('notifications.index') }}" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">notifications</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
+                            </a>
 
-                                        <!-- Info -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">campaign</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Info</span>
-                                        </a>
+                            <!-- Agenda -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">event</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
+                            </a>
 
-                                        <!-- Akun -->
-                                        <a href="{{ route('profile.index') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">person</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
-                                        </a>
+                            <!-- Riwayat -->
+                            <a href="#" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">history</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
+                            </a>
 
-                                        <!-- Notifikasi -->
-                                        <a href="{{ route('notifications.index') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">notifications</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
-                                        </a>
-
-                                        <!-- Agenda -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">event</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
-                                        </a>
-
-                                        <!-- Riwayat -->
-                                        <a href="#" class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">history</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
-                                        </a>
-
-                                        <!-- Pengaturan -->
-                                        <a href="{{ route('ustadz.settings') }}"
-                                            class="flex flex-col items-center gap-2 group">
-                                            <div
-                                                class="w-14 h-14 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                <span class="material-symbols-rounded text-2xl">settings</span>
-                                            </div>
-                                            <span
-                                                class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
-                                        </a>
-                                    </div>
-
-                                    <!-- Swipe Down Hint -->
-                                    <div class="flex justify-center items-center gap-1 mt-8 opacity-50">
-                                        <span
-                                            class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_more</span>
-                                        <span class="text-[7px] text-gray-400 font-medium">Swipe ke bawah untuk
-                                            presensi</span>
-                                    </div>
-                            </div>
-
-
-
+                            <!-- Pengaturan -->
+                            <a href="{{ route('ustadz.settings') }}" class="flex flex-col items-center gap-2 group">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                    <span class="material-symbols-rounded text-2xl">settings</span>
+                                </div>
+                                <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
+                            </a>
                         </div>
 
+                        <!-- Swipe Down Hint -->
+                        <div class="flex justify-center items-center gap-1 mt-4 opacity-50 pb-4">
+                            <span
+                                class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_more</span>
+                            <span class="text-[7px] text-gray-400 font-medium">Swipe ke bawah untuk kembali</span>
+                        </div>
 
                     </div><!-- End Main Card -->
                 </div>
@@ -2338,39 +2236,28 @@
                             // Expand: Show Menu, Hide Presensi with animation
                             presensiView.style.opacity = '0';
 
-                            if (whiteContainer) {
-                                whiteContainer.classList.add('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-2');
-                                whiteContainer.classList.remove('rounded-t-[30px]', 'pt-5');
-                            }
+                            // NO Fullscreen expansion for whiteContainer as per request
+                            // We keep the card size native/constrained
 
                             setTimeout(() => {
                                 presensiView.classList.add('hidden');
                                 menuView.classList.remove('hidden');
-                                menuView.classList.remove('mt-2'); // Remove margin top to go higher
+                                menuView.classList.remove('mt-2');
 
                                 // ANIMATION UPDATES:
                                 requestAnimationFrame(() => {
                                     menuView.style.opacity = '1';
                                 });
-
-                                // Make card taller and scrollable if needed
-                                mainCard.style.minHeight = '80vh';
                             }, 200);
                         } else {
                             // Collapse
                             menuView.style.opacity = '0';
 
-                            if (whiteContainer) {
-                                whiteContainer.classList.remove('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-10');
-                                whiteContainer.classList.add('rounded-t-[30px]', 'pt-5');
-                            }
+                            // Reset container if it was modified (not anymore)
 
                             setTimeout(() => {
                                 menuView.classList.add('hidden');
                                 presensiView.classList.remove('hidden');
-
-                                // Reset Height
-                                mainCard.style.minHeight = '';
 
                                 requestAnimationFrame(() => {
                                     presensiView.style.opacity = '1';
