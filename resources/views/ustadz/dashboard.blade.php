@@ -38,6 +38,13 @@
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* Smooth Marker Transitions */
+        .leaflet-marker-icon,
+        .leaflet-marker-shadow,
+        path.leaflet-interactive {
+            transition: all 0.5s linear;
+        }
+
         /* Custom Toast Animation */
         .swal2-popup.swal2-toast {
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
@@ -1694,7 +1701,8 @@
                 mapContainer.style.height = '100%';
                 mapContainer.style.width = '100%';
 
-                const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
+                const map = L.map('map', { zoomControl: true, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
+                map.zoomControl.setPosition('bottomright'); // Move zoom control to bottom right
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
                 // RED Icon for TPQ (Target) - Resized Smaller
