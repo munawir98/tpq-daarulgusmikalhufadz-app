@@ -81,24 +81,28 @@
         <div class="pt-6 px-6 pb-2 shrink-0">
             <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-4 mask-fade-right">
                 <button
-                    class="px-5 py-2 rounded-full bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap active:scale-95 transition-transform">
+                    class="px-5 py-2.5 rounded-full bg-blue-600 text-white text-sm font-semibold shadow-lg shadow-blue-500/30 whitespace-nowrap active:scale-95 transition-transform flex items-center gap-2">
                     Semua
                 </button>
                 <button
-                    class="px-5 py-2 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs font-semibold whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-700 transition active:scale-95">
-                    📢 Pengumuman
+                    class="px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition active:scale-95 flex items-center gap-2">
+                    <span class="material-icons-round text-red-500 text-lg">campaign</span>
+                    Pengumuman
                 </button>
                 <button
-                    class="px-5 py-2 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs font-semibold whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-700 transition active:scale-95">
-                    🎓 Akademik
+                    class="px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition active:scale-95 flex items-center gap-2">
+                    <span class="material-icons-round text-gray-600 dark:text-gray-400 text-lg">school</span>
+                    Akademik
                 </button>
                 <button
-                    class="px-5 py-2 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs font-semibold whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-700 transition active:scale-95">
-                    💡 Tips
+                    class="px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition active:scale-95 flex items-center gap-2">
+                    <span class="material-icons-round text-orange-400 text-lg">lightbulb</span>
+                    Tips
                 </button>
                 <button
-                    class="px-5 py-2 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs font-semibold whitespace-nowrap hover:bg-gray-100 dark:hover:bg-gray-700 transition active:scale-95">
-                    🗓️ Jadwal
+                    class="px-5 py-2.5 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-600 dark:text-gray-300 text-sm font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition active:scale-95 flex items-center gap-2">
+                    <span class="material-icons-round text-purple-500 text-lg">event</span>
+                    Kegiatan
                 </button>
             </div>
         </div>
