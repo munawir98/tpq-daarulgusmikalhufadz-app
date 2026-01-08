@@ -1668,266 +1668,267 @@
 
                         showNotification(msg);
                     }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 });
+                } // end startGeolocation
+            } // end updateLocation
+
+            // Map
+            function initMap() {
+                if (typeof L === 'undefined') {
+                    console.error('Leaflet not loaded');
+                    return;
                 }
 
-                // Map
-                function initMap() {
-                    if (typeof L === 'undefined') {
-                        console.error('Leaflet not loaded');
-                        return;
-                    }
+                const mapContainer = document.getElementById('map');
+                if (!mapContainer) return;
 
-                    const mapContainer = document.getElementById('map');
-                    if (!mapContainer) return;
+                // Fix container size
+                mapContainer.style.height = '100%';
+                mapContainer.style.width = '100%';
 
-                    // Fix container size
-                    mapContainer.style.height = '100%';
-                    mapContainer.style.width = '100%';
+                const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-                    const map = L.map('map', { zoomControl: false, attributionControl: false }).setView([TPQ_LAT, TPQ_LNG], 15);
-                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+                // Small Icon for TPQ
+                var smallIcon = L.icon({
+                    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+                    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+                    iconSize: [25 * 0.6, 41 * 0.6], // 60% size
+                    iconAnchor: [12 * 0.6, 41 * 0.6],
+                    popupAnchor: [1, -34 * 0.6],
+                    shadowSize: [41 * 0.6, 41 * 0.6]
+                });
 
-                    // Small Icon for TPQ
-                    var smallIcon = L.icon({
-                        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-                        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-                        iconSize: [25 * 0.6, 41 * 0.6], // 60% size
-                        iconAnchor: [12 * 0.6, 41 * 0.6],
-                        popupAnchor: [1, -34 * 0.6],
-                        shadowSize: [41 * 0.6, 41 * 0.6]
-                    });
+                const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('Lokasi TPQ');
+                window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
 
-                    const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('Lokasi TPQ');
-                    window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
-
-                    // Force map resize and fit to radius circle bounds
-                    const invalidateMap = () => {
-                        if (map) {
-                            map.invalidateSize();
-                            if (window.radiusCircle) {
-                                map.fitBounds(window.radiusCircle.getBounds(), {
-                                    padding: [20, 20],
-                                    animate: false
-                                });
-                            }
-                        }
-                    };
-
-                    // Multiple triggers to ensure map renders
-                    setTimeout(invalidateMap, 200);
-                    setTimeout(invalidateMap, 1000);
-                    setTimeout(invalidateMap, 3000);
-
-                    // Re-center logic
-                    setTimeout(() => {
-                        if (map) {
-                            map.flyTo([TPQ_LAT, TPQ_LNG], 17, {
-                                animate: true,
-                                duration: 1.5
+                // Force map resize and fit to radius circle bounds
+                const invalidateMap = () => {
+                    if (map) {
+                        map.invalidateSize();
+                        if (window.radiusCircle) {
+                            map.fitBounds(window.radiusCircle.getBounds(), {
+                                padding: [20, 20],
+                                animate: false
                             });
                         }
-                    }, 3500);
-
-                    const statusText = document.getElementById('radiusText');
-                    const badge = document.getElementById('radiusBadge');
-                    const dot = document.getElementById('radiusDot');
-
-                    // FORCE UPDATE ON INIT
-                    // FORCE UPDATE ON INIT
-                    if (!window.isSecureContext && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-                        showNotification('Peringatan: GPS membutuhkan HTTPS.');
-                        // Don't block completely, try anyway but warn
                     }
+                };
 
-                    updateLocation();
+                // Multiple triggers to ensure map renders
+                setTimeout(invalidateMap, 200);
+                setTimeout(invalidateMap, 1000);
+                setTimeout(invalidateMap, 3000);
 
-                    // Expose Map
-                    window.dashboardMap = map;
+                // Re-center logic
+                setTimeout(() => {
+                    if (map) {
+                        map.flyTo([TPQ_LAT, TPQ_LNG], 17, {
+                            animate: true,
+                            duration: 1.5
+                        });
+                    }
+                }, 3500);
+
+                const statusText = document.getElementById('radiusText');
+                const badge = document.getElementById('radiusBadge');
+                const dot = document.getElementById('radiusDot');
+
+                // FORCE UPDATE ON INIT
+                // FORCE UPDATE ON INIT
+                if (!window.isSecureContext && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                    showNotification('Peringatan: GPS membutuhkan HTTPS.');
+                    // Don't block completely, try anyway but warn
                 }
 
-                function resetMap() {
-                    if (window.dashboardMap && window.radiusCircle) {
-                        window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20] });
-                    }
+                updateLocation();
+
+                // Expose Map
+                window.dashboardMap = map;
+            }
+
+            function resetMap() {
+                if (window.dashboardMap && window.radiusCircle) {
+                    window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20] });
                 }
+            }
 
-                // Global exposure for debugging
-                window.hitungJarak = hitungJarak;
+            // Global exposure for debugging
+            window.hitungJarak = hitungJarak;
 
 
-                // Carousel & Marquee Logic
-                function initCarousel() {
-                    const slider = document.querySelector('.cards-slider');
-                    const track = document.querySelector('.cards-track');
-                    if (!slider || !track) return;
+            // Carousel & Marquee Logic
+            function initCarousel() {
+                const slider = document.querySelector('.cards-slider');
+                const track = document.querySelector('.cards-track');
+                if (!slider || !track) return;
 
-                    let isDown = false;
-                    let startX;
-                    let scrollLeft;
-                    let velX = 0;
-                    let momentumID;
+                let isDown = false;
+                let startX;
+                let scrollLeft;
+                let velX = 0;
+                let momentumID;
 
-                    slider.addEventListener('mousedown', (e) => {
-                        isDown = true;
-                        slider.classList.add('active');
-                        startX = e.pageX - slider.offsetLeft;
-                        scrollLeft = slider.scrollLeft;
-                        cancelAnimationFrame(momentumID);
-                    });
+                slider.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    slider.classList.add('active');
+                    startX = e.pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                    cancelAnimationFrame(momentumID);
+                });
 
-                    slider.addEventListener('mouseleave', () => {
+                slider.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    slider.classList.remove('active');
+                    beginMomentum();
+                });
+
+                window.addEventListener('mouseup', () => {
+                    if (isDown) {
                         isDown = false;
-                        slider.classList.remove('active');
+                        if (slider) slider.classList.remove('active');
                         beginMomentum();
-                    });
+                    }
+                });
 
-                    window.addEventListener('mouseup', () => {
-                        if (isDown) {
-                            isDown = false;
-                            if (slider) slider.classList.remove('active');
-                            beginMomentum();
-                        }
-                    });
+                slider.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    const newScrollLeft = scrollLeft - walk;
 
-                    slider.addEventListener('mousemove', (e) => {
-                        if (!isDown) return;
+                    velX = newScrollLeft - slider.scrollLeft;
+                    slider.scrollLeft = newScrollLeft;
+                });
+
+                // Touch handling
+                slider.addEventListener('touchstart', (e) => {
+                    isDown = true;
+                    startX = e.changedTouches[0].pageX - slider.offsetLeft;
+                    scrollLeft = slider.scrollLeft;
+                    cancelAnimationFrame(momentumID);
+                });
+
+                slider.addEventListener('touchend', () => {
+                    isDown = false;
+                    beginMomentum();
+                });
+
+                slider.addEventListener('touchmove', (e) => {
+                    if (!isDown) return;
+                    const x = e.changedTouches[0].pageX - slider.offsetLeft;
+                    const walk = (x - startX) * 2;
+                    const newScrollLeft = scrollLeft - walk;
+
+                    velX = newScrollLeft - slider.scrollLeft;
+                    slider.scrollLeft = newScrollLeft;
+                });
+
+                // Wheel
+                slider.addEventListener('wheel', (e) => {
+                    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
                         e.preventDefault();
-                        const x = e.pageX - slider.offsetLeft;
-                        const walk = (x - startX) * 2;
-                        const newScrollLeft = scrollLeft - walk;
-
-                        velX = newScrollLeft - slider.scrollLeft;
-                        slider.scrollLeft = newScrollLeft;
-                    });
-
-                    // Touch handling
-                    slider.addEventListener('touchstart', (e) => {
-                        isDown = true;
-                        startX = e.changedTouches[0].pageX - slider.offsetLeft;
-                        scrollLeft = slider.scrollLeft;
-                        cancelAnimationFrame(momentumID);
-                    });
-
-                    slider.addEventListener('touchend', () => {
-                        isDown = false;
-                        beginMomentum();
-                    });
-
-                    slider.addEventListener('touchmove', (e) => {
-                        if (!isDown) return;
-                        const x = e.changedTouches[0].pageX - slider.offsetLeft;
-                        const walk = (x - startX) * 2;
-                        const newScrollLeft = scrollLeft - walk;
-
-                        velX = newScrollLeft - slider.scrollLeft;
-                        slider.scrollLeft = newScrollLeft;
-                    });
-
-                    // Wheel
-                    slider.addEventListener('wheel', (e) => {
-                        if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-                            e.preventDefault();
-                            slider.scrollLeft += e.deltaX;
-                        }
-                    });
-
-                    function beginMomentum() {
-                        cancelAnimationFrame(momentumID);
-                        function momentumLoop() {
-                            slider.scrollLeft += velX;
-                            velX *= 0.95;
-                            if (Math.abs(velX) > 0.5) {
-                                momentumID = requestAnimationFrame(momentumLoop);
-                            }
-                        }
-                        momentumLoop();
+                        slider.scrollLeft += e.deltaX;
                     }
-                }
+                });
 
-                // Clock Logic
-                function initClock() {
-                    function update() {
-                        const now = new Date();
-                        const hours = String(now.getHours()).padStart(2, '0');
-                        const minutes = String(now.getMinutes()).padStart(2, '0');
-                        const seconds = String(now.getSeconds()).padStart(2, '0');
-                        const timeString = `${hours}:${minutes}:${seconds}`;
-
-                        document.querySelectorAll('#liveClock, #liveClock2').forEach(el => {
-                            el.textContent = timeString;
-                        });
-                    }
-                    update();
-                    setInterval(update, 1000);
-                }
-
-                // Weather Logic
-                async function initWeather() {
-                    // Default Bogor
-                    const lat = -6.595038;
-                    const lon = 106.816635;
-
-                    try {
-                        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
-                        const data = await response.json();
-
-                        if (data.current_weather) {
-                            const temp = Math.round(data.current_weather.temperature);
-                            const code = data.current_weather.weathercode;
-                            const weatherNames = {
-                                0: 'Cerah', 1: 'Cerah Berawan', 2: 'Berawan', 3: 'Mendung',
-                                45: 'Berkabut', 48: 'Berkabut', 51: 'Gerimis', 53: 'Gerimis',
-                                55: 'Gerimis', 61: 'Hujan Ringan', 63: 'Hujan Sedang',
-                                65: 'Hujan Lebat', 80: 'Hujan Ringan', 81: 'Hujan Sedang',
-                                82: 'Hujan Lebat', 95: 'Badai Petir'
-                            };
-                            const text = `${weatherNames[code] || 'Berawan'}, ${temp}°C`;
-
-                            document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
-                                el.textContent = text;
-                            });
+                function beginMomentum() {
+                    cancelAnimationFrame(momentumID);
+                    function momentumLoop() {
+                        slider.scrollLeft += velX;
+                        velX *= 0.95;
+                        if (Math.abs(velX) > 0.5) {
+                            momentumID = requestAnimationFrame(momentumLoop);
                         }
-                    } catch (e) {
-                        console.error('Weather error:', e);
+                    }
+                    momentumLoop();
+                }
+            }
+
+            // Clock Logic
+            function initClock() {
+                function update() {
+                    const now = new Date();
+                    const hours = String(now.getHours()).padStart(2, '0');
+                    const minutes = String(now.getMinutes()).padStart(2, '0');
+                    const seconds = String(now.getSeconds()).padStart(2, '0');
+                    const timeString = `${hours}:${minutes}:${seconds}`;
+
+                    document.querySelectorAll('#liveClock, #liveClock2').forEach(el => {
+                        el.textContent = timeString;
+                    });
+                }
+                update();
+                setInterval(update, 1000);
+            }
+
+            // Weather Logic
+            async function initWeather() {
+                // Default Bogor
+                const lat = -6.595038;
+                const lon = 106.816635;
+
+                try {
+                    const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                    const data = await response.json();
+
+                    if (data.current_weather) {
+                        const temp = Math.round(data.current_weather.temperature);
+                        const code = data.current_weather.weathercode;
+                        const weatherNames = {
+                            0: 'Cerah', 1: 'Cerah Berawan', 2: 'Berawan', 3: 'Mendung',
+                            45: 'Berkabut', 48: 'Berkabut', 51: 'Gerimis', 53: 'Gerimis',
+                            55: 'Gerimis', 61: 'Hujan Ringan', 63: 'Hujan Sedang',
+                            65: 'Hujan Lebat', 80: 'Hujan Ringan', 81: 'Hujan Sedang',
+                            82: 'Hujan Lebat', 95: 'Badai Petir'
+                        };
+                        const text = `${weatherNames[code] || 'Berawan'}, ${temp}°C`;
+
                         document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
-                            el.textContent = 'Tidak Tersedia';
+                            el.textContent = text;
                         });
                     }
-                }
-
-                function initMarquees() {
-                    const marquees = document.querySelectorAll('.marquee-container');
-                    marquees.forEach(container => {
-                        const content = container.querySelector('.marquee-content');
-                        if (!content) return;
-
-                        // Reset animation
-                        content.style.animation = 'none';
-                        content.offsetHeight; /* trigger reflow */
-
-                        // Simple cloning for loop: A -> A+A
-                        if (content.children.length > 0 && content.scrollWidth < container.offsetWidth * 3) {
-                            const originalContent = content.innerHTML;
-                            content.innerHTML = originalContent + originalContent;
-                        }
-
-                        content.style.display = 'flex';
-                        // Apply animation
-                        content.style.animation = 'marquee 30s linear infinite';
-
-                        // Pause on hover
-                        content.addEventListener('mouseenter', () => {
-                            content.style.animationPlayState = 'paused';
-                        });
-                        content.addEventListener('mouseleave', () => {
-                            content.style.animationPlayState = 'running';
-                        });
+                } catch (e) {
+                    console.error('Weather error:', e);
+                    document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
+                        el.textContent = 'Tidak Tersedia';
                     });
                 }
+            }
 
-                // CSS Injection for Marquee
-                const style = document.createElement('style');
-                style.innerHTML = `
+            function initMarquees() {
+                const marquees = document.querySelectorAll('.marquee-container');
+                marquees.forEach(container => {
+                    const content = container.querySelector('.marquee-content');
+                    if (!content) return;
+
+                    // Reset animation
+                    content.style.animation = 'none';
+                    content.offsetHeight; /* trigger reflow */
+
+                    // Simple cloning for loop: A -> A+A
+                    if (content.children.length > 0 && content.scrollWidth < container.offsetWidth * 3) {
+                        const originalContent = content.innerHTML;
+                        content.innerHTML = originalContent + originalContent;
+                    }
+
+                    content.style.display = 'flex';
+                    // Apply animation
+                    content.style.animation = 'marquee 30s linear infinite';
+
+                    // Pause on hover
+                    content.addEventListener('mouseenter', () => {
+                        content.style.animationPlayState = 'paused';
+                    });
+                    content.addEventListener('mouseleave', () => {
+                        content.style.animationPlayState = 'running';
+                    });
+                });
+            }
+
+            // CSS Injection for Marquee
+            const style = document.createElement('style');
+            style.innerHTML = `
                 @keyframes marquee {
                     0% { transform: translateX(0); }
                     100% { transform: translateX(-50%); }
@@ -1949,357 +1950,357 @@
                     cursor: -webkit-grabbing;
                 }
             `;
-                document.head.appendChild(style);
+            document.head.appendChild(style);
 
-                document.addEventListener('DOMContentLoaded', () => {
-                    try {
-                        initMap();
-                        initUIState();
-                        updateButtonDisplay();
-                        initCarousel();
-                        initMarquees();
-                        initClock(); // NEW
-                        initWeather(); // NEW
-                        setInterval(updateButtonDisplay, 30000); // 30s
-                    } catch (e) {
-                        console.error('Unified Dashboard Error:', e);
-                        // Optional: showNotification('Gagal memuat beberapa fitur dashboard. Silahkan refresh.');
-                    }
+            document.addEventListener('DOMContentLoaded', () => {
+                try {
+                    initMap();
+                    initUIState();
+                    updateButtonDisplay();
+                    initCarousel();
+                    initMarquees();
+                    initClock(); // NEW
+                    initWeather(); // NEW
+                    setInterval(updateButtonDisplay, 30000); // 30s
+                } catch (e) {
+                    console.error('Unified Dashboard Error:', e);
+                    // Optional: showNotification('Gagal memuat beberapa fitur dashboard. Silahkan refresh.');
+                }
+            });
+            // Swipe Slider Logic
+            const TOTAL_SLIDES = 3;
+            let currentSlide = 0;
+            let isProgrammaticScroll = false; // Flag to prevent scroll event interference
+
+            function goToSlide(index) {
+                const container = document.getElementById('slideContainer');
+                if (!container) return;
+
+                // Wrap around for infinite loop
+                if (index < 0) index = TOTAL_SLIDES - 1;
+                if (index >= TOTAL_SLIDES) index = 0;
+
+                currentSlide = index;
+                isProgrammaticScroll = true;
+
+                // Calculate exact scroll position
+                const slideWidth = container.offsetWidth;
+                const targetScroll = index * slideWidth;
+
+                // Use scrollTo for more reliable navigation
+                container.scrollTo({
+                    left: targetScroll,
+                    behavior: 'smooth'
                 });
-                // Swipe Slider Logic
-                const TOTAL_SLIDES = 3;
-                let currentSlide = 0;
-                let isProgrammaticScroll = false; // Flag to prevent scroll event interference
 
-                function goToSlide(index) {
-                    const container = document.getElementById('slideContainer');
-                    if (!container) return;
+                updateDots(index);
 
-                    // Wrap around for infinite loop
-                    if (index < 0) index = TOTAL_SLIDES - 1;
-                    if (index >= TOTAL_SLIDES) index = 0;
+                // Reset flag after animation completes
+                setTimeout(() => {
+                    isProgrammaticScroll = false;
+                }, 400);
+            }
 
-                    currentSlide = index;
-                    isProgrammaticScroll = true;
+            // Navigate to next/previous slide (for infinite loop)
+            function nextSlide() {
+                goToSlide(currentSlide + 1);
+            }
 
-                    // Calculate exact scroll position
-                    const slideWidth = container.offsetWidth;
-                    const targetScroll = index * slideWidth;
+            function prevSlide() {
+                goToSlide(currentSlide - 1);
+            }
 
-                    // Use scrollTo for more reliable navigation
-                    container.scrollTo({
-                        left: targetScroll,
-                        behavior: 'smooth'
-                    });
-
-                    updateDots(index);
-
-                    // Reset flag after animation completes
-                    setTimeout(() => {
-                        isProgrammaticScroll = false;
-                    }, 400);
-                }
-
-                // Navigate to next/previous slide (for infinite loop)
-                function nextSlide() {
-                    goToSlide(currentSlide + 1);
-                }
-
-                function prevSlide() {
-                    goToSlide(currentSlide - 1);
-                }
-
-                function updateDots(activeIndex) {
-                    const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];
-                    dots.forEach((dot, i) => {
-                        if (dot) {
-                            if (i === activeIndex) {
-                                dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
-                                dot.classList.add('bg-primary');
-                            } else {
-                                dot.classList.remove('bg-primary');
-                                dot.classList.add('bg-gray-300', 'dark:bg-gray-600');
-                            }
-                        }
-                    });
-
-                    // Toggle Swipe Up Hint Visibility
-                    const hint = document.getElementById('swipeUpHint');
-                    if (hint) {
-                        // Show hint ONLY if we are on the Menu slides (index 1 or 2)
-                        if (activeIndex > 0) {
-                            hint.style.opacity = '1';
+            function updateDots(activeIndex) {
+                const dots = [document.getElementById('dot0'), document.getElementById('dot1'), document.getElementById('dot2')];
+                dots.forEach((dot, i) => {
+                    if (dot) {
+                        if (i === activeIndex) {
+                            dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+                            dot.classList.add('bg-primary');
                         } else {
-                            hint.style.opacity = '0';
+                            dot.classList.remove('bg-primary');
+                            dot.classList.add('bg-gray-300', 'dark:bg-gray-600');
                         }
                     }
-                }
-
-                // Detect scroll position to update dots
-                document.addEventListener('DOMContentLoaded', () => {
-                    const container = document.getElementById('slideContainer');
-                    if (container) {
-                        container.addEventListener('scroll', () => {
-                            // Skip if this is a programmatic scroll
-                            if (isProgrammaticScroll) return;
-
-                            const scrollPos = container.scrollLeft;
-                            const slideWidth = container.offsetWidth;
-                            const activeIndex = Math.round(scrollPos / slideWidth);
-                            currentSlide = activeIndex; // Sync currentSlide for infinite loop
-                            updateDots(activeIndex);
-                        });
-                    }
-
-                    // Menu Slider Scroll Logic
-                    const menuContainer = document.getElementById('menuSlider');
-                    if (menuContainer) {
-                        menuContainer.addEventListener('scroll', () => {
-                            const scrollPos = menuContainer.scrollLeft;
-                            const slideWidth = menuContainer.offsetWidth;
-                            const activeIndex = Math.round(scrollPos / slideWidth);
-
-                            // Update Menu Dots
-                            const dot1 = document.getElementById('menuDot1');
-                            const dot2 = document.getElementById('menuDot2');
-
-                            if (activeIndex === 0) {
-                                if (dot1) { dot1.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot1.classList.add('bg-primary'); }
-                                if (dot2) { dot2.classList.remove('bg-primary'); dot2.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
-                            } else {
-                                if (dot1) { dot1.classList.remove('bg-primary'); dot1.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
-                                if (dot2) { dot2.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot2.classList.add('bg-primary'); }
-                            }
-                        });
-                    }
-
-                    // Setup swipe detection on map wrapper (entire card area)
-                    const mapWrapper = document.getElementById('mapWrapper');
-                    const mapEl = document.getElementById('map');
-                    const swipeOverlay = document.getElementById('swipeOverlay');
-
-                    // Function to setup swipe handlers
-                    function setupSwipeHandlers(element) {
-                        const container = document.getElementById('slideContainer');
-                        if (!element || !container) return;
-
-                        let startX = 0;
-                        let startY = 0;
-                        let isSwiping = false;
-
-                        let startTime = 0;
-
-                        element.addEventListener('touchstart', (e) => {
-                            startX = e.touches[0].clientX;
-                            startY = e.touches[0].clientY;
-                            startTime = Date.now();
-                            isSwiping = false;
-                        }, { passive: true });
-
-                        element.addEventListener('touchmove', (e) => {
-                            if (!startX || !startY) return;
-
-                            const currentX = e.touches[0].clientX;
-                            const currentY = e.touches[0].clientY;
-                            const diffX = currentX - startX;
-                            const diffY = Math.abs(currentY - startY);
-
-                            // If horizontal swipe is dominant (more than 10px and greater than vertical)
-                            if (Math.abs(diffX) > 10 && Math.abs(diffX) > diffY * 1.5) {
-                                isSwiping = true;
-                                // Disable map dragging immediately
-                                if (window.dashboardMap) {
-                                    window.dashboardMap.dragging.disable();
-                                }
-                                // Enable swipe overlay to capture events
-                                if (swipeOverlay) {
-                                    swipeOverlay.style.pointerEvents = 'auto';
-                                }
-                            }
-                        }, { passive: true });
-
-                        element.addEventListener('touchend', (e) => {
-                            if (isSwiping) {
-                                const endX = e.changedTouches[0].clientX;
-                                const diffX = endX - startX;
-                                const elapsed = Date.now() - startTime;
-
-                                // Calculate velocity for quick flicks
-                                const velocity = Math.abs(diffX) / elapsed;
-
-                                // Lower threshold for quick swipes (velocity > 0.3), normal threshold for slow swipes
-                                const threshold = velocity > 0.3 ? 20 : 35;
-
-                                // Determine swipe direction and navigate (infinite loop)
-                                if (diffX < -threshold) {
-                                    // Swipe left -> go to next slide
-                                    nextSlide();
-                                } else if (diffX > threshold) {
-                                    // Swipe right -> go to previous slide
-                                    prevSlide();
-                                }
-                            }
-
-                            // Re-enable map dragging
-                            setTimeout(() => {
-                                if (window.dashboardMap) {
-                                    window.dashboardMap.dragging.enable();
-                                }
-                                if (swipeOverlay) {
-                                    swipeOverlay.style.pointerEvents = 'none';
-                                }
-                            }, 100);
-
-                            startX = 0;
-                            startY = 0;
-                            isSwiping = false;
-                        }, { passive: true });
-                    }
-
-                    // Apply swipe handlers to mapWrapper (entire card area)
-                    setupSwipeHandlers(mapWrapper);
-                    // Also apply to map element for redundancy
-                    setupSwipeHandlers(mapEl);
-
-                    // Also add swipe detection directly to the container for areas outside map
-                    let containerStartX = 0;
-                    let containerStartY = 0;
-                    let containerStartTime = 0;
-
-                    container.addEventListener('touchstart', (e) => {
-                        containerStartX = e.touches[0].clientX;
-                        containerStartY = e.touches[0].clientY;
-                        containerStartTime = Date.now();
-                    }, { passive: true });
-
-                    container.addEventListener('touchend', (e) => {
-                        const endX = e.changedTouches[0].clientX;
-                        const endY = e.changedTouches[0].clientY;
-                        const diffX = endX - containerStartX;
-                        const diffY = Math.abs(endY - containerStartY);
-                        const elapsed = Date.now() - containerStartTime;
-                        const velocity = Math.abs(diffX) / elapsed;
-
-                        // Check if horizontal swipe is dominant
-                        if (Math.abs(diffX) > diffY && Math.abs(diffX) > 25) {
-                            // Quick swipe (flick) or normal swipe
-                            const isQuickSwipe = velocity > 0.3;
-                            const threshold = isQuickSwipe ? 20 : 40;
-
-                            if (Math.abs(diffX) > threshold) {
-                                if (diffX < 0) {
-                                    // Swipe left -> next slide (infinite loop)
-                                    nextSlide();
-                                } else {
-                                    // Swipe right -> prev slide (infinite loop)
-                                    prevSlide();
-                                }
-                            }
-                        }
-                    }, { passive: true });
                 });
 
-                // Vertical Swipe for Main Card Logic
-                let isCardExpanded = false;
-                const mainCard = document.getElementById('mainCard');
-                const presensiView = document.getElementById('presensiView');
-                const menuView = document.getElementById('menuView');
-
-                function toggleCardView(forceState = null) {
-                    if (!mainCard || !presensiView || !menuView) return;
-                    const whiteContainer = document.getElementById('whiteContainer');
-
-                    const expand = forceState !== null ? forceState : !isCardExpanded;
-                    isCardExpanded = expand;
-
-                    if (expand) {
-                        // Expand: Show Menu, Hide Presensi with animation
-                        presensiView.style.opacity = '0';
-
-                        if (whiteContainer) {
-                            whiteContainer.classList.add('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-2');
-                            whiteContainer.classList.remove('rounded-t-[30px]', 'pt-5');
-                        }
-
-                        setTimeout(() => {
-                            presensiView.classList.add('hidden');
-                            menuView.classList.remove('hidden');
-                            menuView.classList.remove('mt-2'); // Remove margin top to go higher
-
-                            // ANIMATION UPDATES:
-                            requestAnimationFrame(() => {
-                                menuView.style.opacity = '1';
-                            });
-
-                            // Make card taller and scrollable if needed
-                            mainCard.style.minHeight = '80vh';
-                        }, 200);
+                // Toggle Swipe Up Hint Visibility
+                const hint = document.getElementById('swipeUpHint');
+                if (hint) {
+                    // Show hint ONLY if we are on the Menu slides (index 1 or 2)
+                    if (activeIndex > 0) {
+                        hint.style.opacity = '1';
                     } else {
-                        // Collapse
-                        menuView.style.opacity = '0';
-
-                        if (whiteContainer) {
-                            whiteContainer.classList.remove('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-10');
-                            whiteContainer.classList.add('rounded-t-[30px]', 'pt-5');
-                        }
-
-                        setTimeout(() => {
-                            menuView.classList.add('hidden');
-                            presensiView.classList.remove('hidden');
-
-                            // Reset Height
-                            mainCard.style.minHeight = '';
-
-                            requestAnimationFrame(() => {
-                                presensiView.style.opacity = '1';
-                            });
-                        }, 200);
+                        hint.style.opacity = '0';
                     }
                 }
+            }
 
+            // Detect scroll position to update dots
+            document.addEventListener('DOMContentLoaded', () => {
+                const container = document.getElementById('slideContainer');
+                if (container) {
+                    container.addEventListener('scroll', () => {
+                        // Skip if this is a programmatic scroll
+                        if (isProgrammaticScroll) return;
 
-                // Setup Vertical Swipe on Main Card
-                if (mainCard) {
-                    let cardStartY = 0;
-                    let cardStartX = 0;
+                        const scrollPos = container.scrollLeft;
+                        const slideWidth = container.offsetWidth;
+                        const activeIndex = Math.round(scrollPos / slideWidth);
+                        currentSlide = activeIndex; // Sync currentSlide for infinite loop
+                        updateDots(activeIndex);
+                    });
+                }
 
-                    mainCard.addEventListener('touchstart', (e) => {
-                        cardStartY = e.touches[0].clientY;
-                        cardStartX = e.touches[0].clientX;
+                // Menu Slider Scroll Logic
+                const menuContainer = document.getElementById('menuSlider');
+                if (menuContainer) {
+                    menuContainer.addEventListener('scroll', () => {
+                        const scrollPos = menuContainer.scrollLeft;
+                        const slideWidth = menuContainer.offsetWidth;
+                        const activeIndex = Math.round(scrollPos / slideWidth);
+
+                        // Update Menu Dots
+                        const dot1 = document.getElementById('menuDot1');
+                        const dot2 = document.getElementById('menuDot2');
+
+                        if (activeIndex === 0) {
+                            if (dot1) { dot1.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot1.classList.add('bg-primary'); }
+                            if (dot2) { dot2.classList.remove('bg-primary'); dot2.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
+                        } else {
+                            if (dot1) { dot1.classList.remove('bg-primary'); dot1.classList.add('bg-gray-300', 'dark:bg-gray-600'); }
+                            if (dot2) { dot2.classList.remove('bg-gray-300', 'dark:bg-gray-600'); dot2.classList.add('bg-primary'); }
+                        }
+                    });
+                }
+
+                // Setup swipe detection on map wrapper (entire card area)
+                const mapWrapper = document.getElementById('mapWrapper');
+                const mapEl = document.getElementById('map');
+                const swipeOverlay = document.getElementById('swipeOverlay');
+
+                // Function to setup swipe handlers
+                function setupSwipeHandlers(element) {
+                    const container = document.getElementById('slideContainer');
+                    if (!element || !container) return;
+
+                    let startX = 0;
+                    let startY = 0;
+                    let isSwiping = false;
+
+                    let startTime = 0;
+
+                    element.addEventListener('touchstart', (e) => {
+                        startX = e.touches[0].clientX;
+                        startY = e.touches[0].clientY;
+                        startTime = Date.now();
+                        isSwiping = false;
                     }, { passive: true });
 
-                    mainCard.addEventListener('touchend', (e) => {
-                        const endY = e.changedTouches[0].clientY;
-                        const endX = e.changedTouches[0].clientX;
-                        const diffY = endY - cardStartY;
-                        const diffX = endX - cardStartX;
+                    element.addEventListener('touchmove', (e) => {
+                        if (!startX || !startY) return;
 
-                        // Ensure vertical swipe is dominant (vert > horiz & abs(vert) > 30px)
-                        if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
-                            // Logic:
-                            // 1. If currently on Map (slide 0) -> Swipe Vertical DISABLED
-                            // 2. If currently on Menu (slide 1) -> Swipe Up ALLOWED
+                        const currentX = e.touches[0].clientX;
+                        const currentY = e.touches[0].clientY;
+                        const diffX = currentX - startX;
+                        const diffY = Math.abs(currentY - startY);
 
-                            // Check if we are on the menu slide (index 1)
-                            if (currentSlide === 1) {
-                                if (diffY < 0 && !isCardExpanded) {
-                                    // Swipe Up -> Expand
-                                    toggleCardView(true);
-                                } else if (diffY > 0 && isCardExpanded) {
-                                    // Swipe Down -> Collapse
-                                    toggleCardView(false);
-                                }
-                            } else if (isCardExpanded && diffY > 0) {
-                                // Allow collapsing even if somehow caught in weird state
+                        // If horizontal swipe is dominant (more than 10px and greater than vertical)
+                        if (Math.abs(diffX) > 10 && Math.abs(diffX) > diffY * 1.5) {
+                            isSwiping = true;
+                            // Disable map dragging immediately
+                            if (window.dashboardMap) {
+                                window.dashboardMap.dragging.disable();
+                            }
+                            // Enable swipe overlay to capture events
+                            if (swipeOverlay) {
+                                swipeOverlay.style.pointerEvents = 'auto';
+                            }
+                        }
+                    }, { passive: true });
+
+                    element.addEventListener('touchend', (e) => {
+                        if (isSwiping) {
+                            const endX = e.changedTouches[0].clientX;
+                            const diffX = endX - startX;
+                            const elapsed = Date.now() - startTime;
+
+                            // Calculate velocity for quick flicks
+                            const velocity = Math.abs(diffX) / elapsed;
+
+                            // Lower threshold for quick swipes (velocity > 0.3), normal threshold for slow swipes
+                            const threshold = velocity > 0.3 ? 20 : 35;
+
+                            // Determine swipe direction and navigate (infinite loop)
+                            if (diffX < -threshold) {
+                                // Swipe left -> go to next slide
+                                nextSlide();
+                            } else if (diffX > threshold) {
+                                // Swipe right -> go to previous slide
+                                prevSlide();
+                            }
+                        }
+
+                        // Re-enable map dragging
+                        setTimeout(() => {
+                            if (window.dashboardMap) {
+                                window.dashboardMap.dragging.enable();
+                            }
+                            if (swipeOverlay) {
+                                swipeOverlay.style.pointerEvents = 'none';
+                            }
+                        }, 100);
+
+                        startX = 0;
+                        startY = 0;
+                        isSwiping = false;
+                    }, { passive: true });
+                }
+
+                // Apply swipe handlers to mapWrapper (entire card area)
+                setupSwipeHandlers(mapWrapper);
+                // Also apply to map element for redundancy
+                setupSwipeHandlers(mapEl);
+
+                // Also add swipe detection directly to the container for areas outside map
+                let containerStartX = 0;
+                let containerStartY = 0;
+                let containerStartTime = 0;
+
+                container.addEventListener('touchstart', (e) => {
+                    containerStartX = e.touches[0].clientX;
+                    containerStartY = e.touches[0].clientY;
+                    containerStartTime = Date.now();
+                }, { passive: true });
+
+                container.addEventListener('touchend', (e) => {
+                    const endX = e.changedTouches[0].clientX;
+                    const endY = e.changedTouches[0].clientY;
+                    const diffX = endX - containerStartX;
+                    const diffY = Math.abs(endY - containerStartY);
+                    const elapsed = Date.now() - containerStartTime;
+                    const velocity = Math.abs(diffX) / elapsed;
+
+                    // Check if horizontal swipe is dominant
+                    if (Math.abs(diffX) > diffY && Math.abs(diffX) > 25) {
+                        // Quick swipe (flick) or normal swipe
+                        const isQuickSwipe = velocity > 0.3;
+                        const threshold = isQuickSwipe ? 20 : 40;
+
+                        if (Math.abs(diffX) > threshold) {
+                            if (diffX < 0) {
+                                // Swipe left -> next slide (infinite loop)
+                                nextSlide();
+                            } else {
+                                // Swipe right -> prev slide (infinite loop)
+                                prevSlide();
+                            }
+                        }
+                    }
+                }, { passive: true });
+            });
+
+            // Vertical Swipe for Main Card Logic
+            let isCardExpanded = false;
+            const mainCard = document.getElementById('mainCard');
+            const presensiView = document.getElementById('presensiView');
+            const menuView = document.getElementById('menuView');
+
+            function toggleCardView(forceState = null) {
+                if (!mainCard || !presensiView || !menuView) return;
+                const whiteContainer = document.getElementById('whiteContainer');
+
+                const expand = forceState !== null ? forceState : !isCardExpanded;
+                isCardExpanded = expand;
+
+                if (expand) {
+                    // Expand: Show Menu, Hide Presensi with animation
+                    presensiView.style.opacity = '0';
+
+                    if (whiteContainer) {
+                        whiteContainer.classList.add('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-2');
+                        whiteContainer.classList.remove('rounded-t-[30px]', 'pt-5');
+                    }
+
+                    setTimeout(() => {
+                        presensiView.classList.add('hidden');
+                        menuView.classList.remove('hidden');
+                        menuView.classList.remove('mt-2'); // Remove margin top to go higher
+
+                        // ANIMATION UPDATES:
+                        requestAnimationFrame(() => {
+                            menuView.style.opacity = '1';
+                        });
+
+                        // Make card taller and scrollable if needed
+                        mainCard.style.minHeight = '80vh';
+                    }, 200);
+                } else {
+                    // Collapse
+                    menuView.style.opacity = '0';
+
+                    if (whiteContainer) {
+                        whiteContainer.classList.remove('!fixed', '!inset-0', '!z-50', '!rounded-none', '!pt-10');
+                        whiteContainer.classList.add('rounded-t-[30px]', 'pt-5');
+                    }
+
+                    setTimeout(() => {
+                        menuView.classList.add('hidden');
+                        presensiView.classList.remove('hidden');
+
+                        // Reset Height
+                        mainCard.style.minHeight = '';
+
+                        requestAnimationFrame(() => {
+                            presensiView.style.opacity = '1';
+                        });
+                    }, 200);
+                }
+            }
+
+
+            // Setup Vertical Swipe on Main Card
+            if (mainCard) {
+                let cardStartY = 0;
+                let cardStartX = 0;
+
+                mainCard.addEventListener('touchstart', (e) => {
+                    cardStartY = e.touches[0].clientY;
+                    cardStartX = e.touches[0].clientX;
+                }, { passive: true });
+
+                mainCard.addEventListener('touchend', (e) => {
+                    const endY = e.changedTouches[0].clientY;
+                    const endX = e.changedTouches[0].clientX;
+                    const diffY = endY - cardStartY;
+                    const diffX = endX - cardStartX;
+
+                    // Ensure vertical swipe is dominant (vert > horiz & abs(vert) > 30px)
+                    if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
+                        // Logic:
+                        // 1. If currently on Map (slide 0) -> Swipe Vertical DISABLED
+                        // 2. If currently on Menu (slide 1) -> Swipe Up ALLOWED
+
+                        // Check if we are on the menu slide (index 1)
+                        if (currentSlide === 1) {
+                            if (diffY < 0 && !isCardExpanded) {
+                                // Swipe Up -> Expand
+                                toggleCardView(true);
+                            } else if (diffY > 0 && isCardExpanded) {
+                                // Swipe Down -> Collapse
                                 toggleCardView(false);
                             }
+                        } else if (isCardExpanded && diffY > 0) {
+                            // Allow collapsing even if somehow caught in weird state
+                            toggleCardView(false);
                         }
-                    }, { passive: true });
-                }
+                    }
+                }, { passive: true });
+            }
 
-                // Make functions globally available
-                window.toggleCardView = toggleCardView;
-                window.goToSlide = goToSlide;
+            // Make functions globally available
+            window.toggleCardView = toggleCardView;
+            window.goToSlide = goToSlide;
         </script>
         <div id="debugConsole">DEBUG CONSOLE STARTED...<br></div>
 </body>
