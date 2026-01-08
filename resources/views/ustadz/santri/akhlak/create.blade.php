@@ -1,4 +1,5 @@
 @extends('layouts.ustadz')
+{{-- Fix for blade compiler --}}
 
 @section('content')
 <div class="space-y-6 pb-20">
