@@ -257,10 +257,12 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
             Route::get('/{id}/edit', [HafalanWebController::class, 'edit'])->name('edit');
             Route::put('/{id}', [HafalanWebController::class, 'update'])->name('update');
             Route::get('/{id}', [HafalanWebController::class, 'show'])->name('show');
+            Route::get('/statistik/semua', [HafalanWebController::class, 'laporan'])->name('laporan');
         });
 
         // Laporan Hafalan
-        Route::get('/laporan', [HafalanWebController::class, 'laporan'])->name('laporan');
+        // Hub Laporan
+        Route::get('/laporan', fn() => view('ustadz.laporan.index'))->name('laporan.index');
 
         // Nilai
         Route::prefix('nilai')->name('nilai.')->group(function () {

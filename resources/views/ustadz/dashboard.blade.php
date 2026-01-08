@@ -824,7 +824,7 @@
                                 </a>
 
                                 <!-- 7. Laporan -->
-                                <a href="{{ route('ustadz.hafalan.index') }}"
+                                <a href="{{ route('ustadz.laporan.index') }}"
                                     class="flex flex-col items-center gap-2 group">
                                     <div
                                         class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">

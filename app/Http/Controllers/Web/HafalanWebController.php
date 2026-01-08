@@ -875,6 +875,6 @@ class HafalanWebController extends Controller
             'avg_percent' => $avgPercent,
         ];
 
-        return view('ustadz.laporan.index', compact('santriStats', 'summary'));
+        return view('ustadz.hafalan.laporan', compact('santriStats', 'summary'));
     }
 }
