@@ -136,6 +136,7 @@ Route::middleware('web.auth')->group(function () {
     */
     Route::get('/help', fn () => view('pages.help'))->name('help');
     Route::get('/about', fn () => view('pages.about'))->name('about');
+    Route::get('/info', fn () => view('pages.info'))->name('info');
 
     /*
     |--------------------------------------------------------------------------
