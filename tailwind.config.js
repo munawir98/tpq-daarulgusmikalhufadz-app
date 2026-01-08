@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   // Forced rebuild at 2026-01-09
+  darkMode: 'class',
   content: [
     "./resources/views/**/*.blade.php",
     "./resources/js/**/*.js",
