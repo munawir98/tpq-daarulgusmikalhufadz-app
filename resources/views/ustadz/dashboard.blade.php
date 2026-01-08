@@ -1408,6 +1408,7 @@
                     // Camera & Modal
                     // Camera & Modal
                     // Camera Logic
+                    console.log('App Version: v2.2 (Hafalan Fix)');
                     let stream = null;
 
                     async function initCamera() {
