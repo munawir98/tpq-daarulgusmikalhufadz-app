@@ -1538,15 +1538,73 @@
                             statusText.className = 'text-[9px] font-bold text-orange-500';
                         }
                         showNotification('GPS lambat. Pastikan lokasi aktif dan di luar ruangan.');
+
+                        // Fallback: Try low accuracy GPS
+                        log("Mencoba GPS akurasi rendah...");
+                        tryLowAccuracyGPS();
                     }, 15000);
 
                     if (window.watchId) {
                         navigator.geolocation.clearWatch(window.watchId);
                     }
 
-                    // Use watchPosition for Realtime updates
-                    // Optimization: maximumAge 10000 allows using cached position (up to 10s old) for instant result
-                    window.watchId = navigator.geolocation.watchPosition(pos => {
+                    // First try: High accuracy GPS
+                    window.watchId = navigator.geolocation.watchPosition(handleGPSSuccess, handleGPSError, {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 10000
+                    });
+
+                    function handleGPSSuccess(pos) {
+                        clearTimeout(locationTimeout);
+                        processPosition(pos);
+                    }
+
+                    function handleGPSError(err) {
+                        clearTimeout(locationTimeout);
+                        console.error('GPS High Accuracy Error:', err);
+                        log(`GPS High Error: ${err.code} - ${err.message}`, true);
+
+                        // Try low accuracy as fallback
+                        tryLowAccuracyGPS();
+                    }
+
+                    function tryLowAccuracyGPS() {
+                        navigator.geolocation.getCurrentPosition(
+                            pos => {
+                                log("GPS Low Accuracy berhasil!");
+                                processPosition(pos);
+                            },
+                            err => {
+                                log(`GPS Low Error: ${err.code} - ${err.message}`, true);
+                                const statusText = document.getElementById('radiusText');
+
+                                let msg = 'Gagal mendapatkan lokasi.';
+                                if (err.code === 1) {
+                                    msg = 'Izin GPS Ditolak';
+                                    if (statusText) {
+                                        statusText.textContent = "GPS Diblokir";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                } else if (err.code === 2) {
+                                    msg = 'Signal GPS tidak tersedia';
+                                    if (statusText) {
+                                        statusText.textContent = "No Signal";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                } else {
+                                    if (statusText) {
+                                        statusText.textContent = "GPS Error";
+                                        statusText.className = 'text-[9px] font-bold text-red-500';
+                                    }
+                                }
+                                showNotification(msg, 'error');
+                            },
+                            { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                        );
+                    }
+
+                    function processPosition(pos) {
                         clearTimeout(locationTimeout);
                         userLat = pos.coords.latitude;
                         userLng = pos.coords.longitude;
@@ -1640,23 +1698,7 @@
 
                             if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                         }
-                    }, err => {
-                        clearTimeout(locationTimeout);
-                        console.error('GPS Error:', err);
-                        log(`GPS Error: ${err.code} - ${err.message}`, true);
-
-                        let msg = 'Gagal update lokasi.';
-                        if (err.code === 1) msg = 'Izin GPS Ditolak.';
-                        else if (err.code === 2) msg = 'Signal GPS hilang.';
-                        else if (err.code === 3) msg = 'Timeout GPS.';
-
-                        if (!window.isSecureContext && window.location.hostname !== 'localhost') {
-                            msg = 'GPS Error: Wajib HTTPS (Bukan HTTP).';
-                            log("WARN: Not Secure Context!", true);
-                        }
-
-                        showNotification(msg);
-                    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 });
+                    } // end processPosition
                 } // end startGeolocation
             } // end updateLocation
 
