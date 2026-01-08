@@ -41,8 +41,15 @@
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm space-y-6">
             <h3 class="font-bold border-b pb-2 dark:border-gray-700">Penilaian Karakter</h3>
 
-            @foreach(['disiplin' => 'Kedisiplinan', 'kerajinan' => 'Kerajinan', 'kesopanan' => 'Kesopanan & Adab'] as
-            $key => $label)
+            @php
+            $kriteria = [
+            'disiplin' => 'Kedisiplinan',
+            'kerajinan' => 'Kerajinan',
+            'kesopanan' => 'Kesopanan & Adab'
+            ];
+            @endphp
+
+            @foreach($kriteria as $key => $label)
             <div class="space-y-2">
                 <div class="flex justify-between items-center">
                     <label class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ $label }}</label>
