@@ -2277,21 +2277,12 @@
 
                     // Ensure vertical swipe is dominant (vert > horiz & abs(vert) > 30px)
                     if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 30) {
-                        // Logic:
-                        // 1. If currently on Map (slide 0) -> Swipe Vertical DISABLED
-                        // 2. If currently on Menu (slide 1) -> Swipe Up ALLOWED
-
-                        // Check if we are on the menu slide (index 1)
-                        if (currentSlide === 1) {
-                            if (diffY < 0 && !isCardExpanded) {
-                                // Swipe Up -> Expand
-                                toggleCardView(true);
-                            } else if (diffY > 0 && isCardExpanded) {
-                                // Swipe Down -> Collapse
-                                toggleCardView(false);
-                            }
-                        } else if (isCardExpanded && diffY > 0) {
-                            // Allow collapsing even if somehow caught in weird state
+                        // Swipe Up -> Expand (from any slide)
+                        if (diffY < 0 && !isCardExpanded) {
+                            toggleCardView(true);
+                        }
+                        // Swipe Down -> Collapse (if expanded)
+                        else if (diffY > 0 && isCardExpanded) {
                             toggleCardView(false);
                         }
                     }
