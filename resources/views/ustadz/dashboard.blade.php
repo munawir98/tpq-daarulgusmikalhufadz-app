@@ -1155,45 +1155,54 @@
             // NEW: SweetAlert2 Notification Logic
             // ==========================================
             function showNotification(message, type = 'info') {
-                // Map 'info', 'success', 'error' to icons
-                const iconMap = {
-                    'info': 'info',
-                    'success': 'success',
-                    'error': 'error',
-                    'warning': 'warning'
-                };
+                console.log('[Notif]', type, message); // Debug log
 
-                // Use SweetAlert2 Toast if available
-                if (typeof Swal !== 'undefined') {
-                    Swal.fire({
-                        toast: true,
-                        position: 'top',
-                        icon: iconMap[type] || 'info',
-                        title: message,
-                        showConfirmButton: false,
-                        timer: 3000,
-                        timerProgressBar: true,
-                        customClass: {
-                            popup: '!rounded-xl !shadow-xl !border !border-gray-100 dark:!border-gray-700 dark:!bg-gray-800'
-                        }
-                    });
-                } else {
-                    // Fallback
-                    console.log(`[${type}] ${message}`);
-                    const existing = document.querySelectorAll('.notification-toast');
-                    existing.forEach(el => el.remove());
+                try {
+                    // Map 'info', 'success', 'error' to icons
+                    const iconMap = {
+                        'info': 'info',
+                        'success': 'success',
+                        'error': 'error',
+                        'warning': 'warning'
+                    };
 
-                    const container = document.createElement('div');
-                    container.className = 'notification-toast fixed top-4 left-1/2 -translate-x-1/2 z-[100] bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-4 min-w-[300px] border-l-4 border-primary flex items-center gap-3 animate-bounce-in';
-                    container.innerHTML = `
-                    <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-full text-primary"><span class="material-symbols-rounded">info</span></div>
-                    <div><h4 class="text-sm font-bold text-gray-800 dark:text-white">Informasi</h4><p class="text-xs text-gray-600 dark:text-gray-300 leading-tight">${message}</p></div>
-                    `;
-                    document.body.appendChild(container);
-                    setTimeout(() => {
-                        container.classList.add('opacity-0', 'translate-y-[-20px]');
-                        setTimeout(() => container.remove(), 300);
-                    }, 3000);
+                    // Use SweetAlert2 Toast if available
+                    if (typeof Swal !== 'undefined' && Swal.fire) {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top',
+                            icon: iconMap[type] || 'info',
+                            title: message,
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: '!rounded-xl !shadow-xl !border !border-gray-100 dark:!border-gray-700 dark:!bg-gray-800'
+                            }
+                        });
+                    } else {
+                        // Fallback HTML notification
+                        const existing = document.querySelectorAll('.notification-toast');
+                        existing.forEach(el => el.remove());
+
+                        const container = document.createElement('div');
+                        container.className = 'notification-toast fixed top-4 left-1/2 -translate-x-1/2 z-[9999] bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-4 min-w-[280px] max-w-[90vw] border-l-4 border-blue-500 flex items-center gap-3';
+                        container.style.transform = 'translateX(-50%)';
+                        container.innerHTML = `
+                        <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-full text-blue-500"><span class="material-symbols-rounded">info</span></div>
+                        <div><p class="text-sm text-gray-800 dark:text-white">${message}</p></div>
+                        `;
+                        document.body.appendChild(container);
+                        setTimeout(() => {
+                            container.style.opacity = '0';
+                            container.style.transition = 'opacity 0.3s';
+                            setTimeout(() => container.remove(), 300);
+                        }, 3000);
+                    }
+                } catch (e) {
+                    console.error('Notification error:', e);
+                    // Ultimate fallback - simple alert
+                    // alert(message); // Uncomment if needed for debugging
                 }
             }
 
