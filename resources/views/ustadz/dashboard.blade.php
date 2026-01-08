@@ -558,7 +558,7 @@
                         </div>
 
                         <!-- Map/Menu Swipe Slider -->
-                        <div id="mapSliderSection" class="mt-2 mb-3">
+                        <div id="mapSliderSection" class="mt-6 mb-3">
                             <!-- Swipeable Container -->
                             <div id="slideContainer"
                                 class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
