@@ -230,6 +230,8 @@ class HafalanWebController extends Controller
                     return max(0, $h->ayat_akhir - $h->ayat_awal + 1);
                 });
 
+            // Deployment trigger check v2
+
             $targetAyatBulanIni = 1000;
 
             $stats = [
