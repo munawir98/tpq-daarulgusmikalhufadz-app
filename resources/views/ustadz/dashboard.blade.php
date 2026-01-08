@@ -1516,28 +1516,8 @@
                     return;
                 }
 
-                // Check permission first using Permissions API
-                if (navigator.permissions) {
-                    navigator.permissions.query({ name: 'geolocation' }).then(result => {
-                        log(`Permission status: ${result.state}`);
-                        if (result.state === 'denied') {
-                            if (statusText) {
-                                statusText.textContent = "GPS Diblokir";
-                                statusText.className = 'text-[9px] font-bold text-red-500';
-                            }
-                            showNotification('Izin lokasi diblokir. Aktifkan di pengaturan browser.');
-                            return;
-                        }
-                        // Proceed with geolocation
-                        startGeolocation();
-                    }).catch(() => {
-                        // Permissions API not supported, try anyway
-                        startGeolocation();
-                    });
-                } else {
-                    // Permissions API not available, try directly
-                    startGeolocation();
-                }
+                // Directly start geolocation - handle permission errors in callback
+                startGeolocation();
 
                 function startGeolocation() {
                     // Explicit Timeout for UI feedback
