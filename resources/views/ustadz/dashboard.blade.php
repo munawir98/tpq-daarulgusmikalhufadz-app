@@ -2237,10 +2237,12 @@
                             let startX = 0;
                             let startY = 0;
                             let isSwiping = false;
-
                             let startTime = 0;
 
                             element.addEventListener('touchstart', (e) => {
+                                // Ignore multi-touch (e.g. pinch to zoom)
+                                if (e.touches.length > 1) return;
+
                                 startX = e.touches[0].clientX;
                                 startY = e.touches[0].clientY;
                                 startTime = Date.now();
@@ -2255,14 +2257,17 @@
                                 const diffX = currentX - startX;
                                 const diffY = Math.abs(currentY - startY);
 
-                                // If horizontal swipe is dominant (more than 10px and greater than vertical)
-                                if (Math.abs(diffX) > 10 && Math.abs(diffX) > diffY * 1.5) {
+                                // Strict horizontal check: Horizontal diff must be significant AND dominant
+                                // Increased factor to 2.0 to prevent accidental swipes when scrolling vertically
+                                if (Math.abs(diffX) > 15 && Math.abs(diffX) > diffY * 2) {
                                     isSwiping = true;
-                                    // Disable map dragging immediately
-                                    if (window.dashboardMap) {
+
+                                    // Disable map dragging immediately if this is the map
+                                    if (window.dashboardMap && (element.id === 'map' || element.id === 'mapWrapper')) {
                                         window.dashboardMap.dragging.disable();
                                     }
-                                    // Enable swipe overlay to capture events
+
+                                    // Enable swipe overlay to capture events and prevent map interaction
                                     if (swipeOverlay) {
                                         swipeOverlay.style.pointerEvents = 'auto';
                                     }
@@ -2307,47 +2312,13 @@
                             }, { passive: true });
                         }
 
-                        // Apply swipe handlers to mapWrapper (entire card area)
+                        // Apply swipe handlers ONLY to mapWrapper (to handle map vs swipe conflict)
+                        // For other slides (Menus), we rely on native CSS scroll snapping which is smoother
                         setupSwipeHandlers(mapWrapper);
-                        // Also apply to map element for redundancy
-                        setupSwipeHandlers(mapEl);
 
-                        // Also add swipe detection directly to the container for areas outside map
-                        let containerStartX = 0;
-                        let containerStartY = 0;
-                        let containerStartTime = 0;
-
-                        container.addEventListener('touchstart', (e) => {
-                            containerStartX = e.touches[0].clientX;
-                            containerStartY = e.touches[0].clientY;
-                            containerStartTime = Date.now();
-                        }, { passive: true });
-
-                        container.addEventListener('touchend', (e) => {
-                            const endX = e.changedTouches[0].clientX;
-                            const endY = e.changedTouches[0].clientY;
-                            const diffX = endX - containerStartX;
-                            const diffY = Math.abs(endY - containerStartY);
-                            const elapsed = Date.now() - containerStartTime;
-                            const velocity = Math.abs(diffX) / elapsed;
-
-                            // Check if horizontal swipe is dominant
-                            if (Math.abs(diffX) > diffY && Math.abs(diffX) > 25) {
-                                // Quick swipe (flick) or normal swipe
-                                const isQuickSwipe = velocity > 0.3;
-                                const threshold = isQuickSwipe ? 20 : 40;
-
-                                if (Math.abs(diffX) > threshold) {
-                                    if (diffX < 0) {
-                                        // Swipe left -> next slide (infinite loop)
-                                        nextSlide();
-                                    } else {
-                                        // Swipe right -> prev slide (infinite loop)
-                                        prevSlide();
-                                    }
-                                }
-                            }
-                        }, { passive: true });
+                        // Also apply to map elements specifically
+                        const mapObj = document.getElementById('map');
+                        if (mapObj) setupSwipeHandlers(mapObj);
                     });
 
                     // Vertical Swipe for Main Card Logic
