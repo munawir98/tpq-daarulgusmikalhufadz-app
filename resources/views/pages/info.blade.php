@@ -42,10 +42,11 @@
 </head>
 
 <body
-    class="bg-[#f0f4f8] dark:bg-[#111827] h-screen w-full overflow-hidden flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-[#3498db] selection:text-white">
+    class="bg-[#F2F4F8] dark:bg-[#111827] h-screen w-full overflow-hidden flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-[#3498db] selection:text-white">
 
     <!-- Header -->
-    <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
+    <div
+        class="bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-10 px-6">
             <div class="flex items-center gap-4 mb-6">
