@@ -232,14 +232,15 @@ class HafalanWebController extends Controller
 
             // Deployment trigger check v2
 
-            $targetAyatBulanIni = 1000;
+            // Deployment trigger check v3
+            $targetAyatMonth = 1000;
 
             $stats = [
                 'title' => 'Target Bulan Ini',
-                'percent' => min(100, round(($totalAyatBulanIni / $targetAyatBulanIni) * 100)),
+                'percent' => min(100, round(($totalAyatBulanIni / $targetAyatMonth) * 100)),
                 'achieved' => $totalAyatBulanIni,
-                'target' => $targetAyatBulanIni,
-                'remaining' => max(0, $targetAyatBulanIni - $totalAyatBulanIni),
+                'target' => $targetAyatMonth,
+                'remaining' => max(0, $targetAyatMonth - $totalAyatBulanIni),
                 'label_achieved' => 'Capaian',
                 'label_target' => 'Target',
                 'duration' => now()->translatedFormat('F Y'), // "Januari 2026"
