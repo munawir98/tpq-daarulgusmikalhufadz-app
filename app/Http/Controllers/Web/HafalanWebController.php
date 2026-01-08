@@ -224,6 +224,7 @@ class HafalanWebController extends Controller
             $startOfMonth = now()->startOfMonth();
             $endOfMonth = now()->endOfMonth();
 
+            // Fix for SQLite compatibility (Railway)
             $totalAyatBulanIni = \App\Models\Hafalan::whereBetween('created_at', [$startOfMonth, $endOfMonth])
                 ->selectRaw('SUM(CASE WHEN (ayat_akhir - ayat_awal + 1) > 0 THEN (ayat_akhir - ayat_awal + 1) ELSE 0 END) as total_ayat')
                 ->value('total_ayat') ?? 0;
