@@ -505,6 +505,8 @@
                             </div>
                         </div>
 
+
+
                         <div class="flex gap-4 mb-3">
                             <div id="ambilFotoBtn" onclick="ambilFoto()"
                                 class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
@@ -795,182 +797,185 @@
                                     </div>
                             </div>
 
-                            <!-- Map/Menu Swipe Slider -->
-                            <div id="mapSliderSection" class="mt-2 mb-3">
-                                <!-- Swipeable Container -->
-                                <div id="slideContainer"
-                                    class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
-                                    style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
-                                    <!-- Slide 1: Map -->
-                                    <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
-                                        <div id="mapWrapper"
-                                            class="relative w-full h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
-                                            <!-- Swipe Handle Overlay (for touch events) -->
-                                            <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none">
-                                            </div>
-                                            <!-- Leaflet Map Container -->
-                                            <div id="map" class="w-full h-full z-0"></div>
 
-                                            <!-- Map Controls (Center Right) -->
-                                            <div
-                                                class="absolute top-1/2 -translate-y-1/2 right-2 z-[1000] flex flex-col gap-1.5">
-                                                <button onclick="zoomIn()"
-                                                    class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
-                                                    <span
-                                                        class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">add</span>
-                                                </button>
-                                                <button onclick="zoomOut()"
-                                                    class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
-                                                    <span
-                                                        class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">remove</span>
-                                                </button>
-                                                <button onclick="resetMap()"
-                                                    class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200 mt-0.5">
-                                                    <span
-                                                        class="material-symbols-rounded text-primary text-[14px]">restart_alt</span>
-                                                </button>
-                                            </div>
 
-                                            <!-- Location Info Overlay -->
-                                            <div
-                                                class="absolute bottom-0 left-0 z-[1000] m-1.5 px-1.5 py-0.5 bg-white/90 dark:bg-gray-800/90 rounded-md shadow-sm">
-                                                <div class="flex items-center gap-0.5">
-                                                    <span
-                                                        class="material-symbols-rounded text-primary text-[10px]">location_on</span>
-                                                    <span
-                                                        class="text-[6px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Lokasi</span>
-                                                </div>
-                                                <p class="text-[8px] font-mono font-bold text-primary truncate tracking-tight"
-                                                    id="userLocation">Mendeteksi...</p>
-                                            </div>
+                        </div>
+
+                        <!-- Map/Menu Swipe Slider -->
+                        <div id="mapSliderSection" class="mt-2 mb-3">
+                            <!-- Swipeable Container -->
+                            <div id="slideContainer"
+                                class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth hide-scrollbar"
+                                style="scroll-snap-type: x mandatory; scroll-behavior: smooth;">
+                                <!-- Slide 1: Map -->
+                                <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                    <div id="mapWrapper"
+                                        class="relative w-full h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
+                                        <!-- Swipe Handle Overlay (for touch events) -->
+                                        <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none">
                                         </div>
-                                    </div>
+                                        <!-- Leaflet Map Container -->
+                                        <div id="map" class="w-full h-full z-0"></div>
 
-                                    <!-- Slide 2: Quick Menu -->
-                                    <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
-                                        <div class="grid grid-cols-4 gap-3 py-1">
-                                            <!-- Row 1 -->
-                                            <a href="{{ route('ustadz.hafalan.create') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">menu_book</span>
-                                                </div>
+                                        <!-- Map Controls (Center Right) -->
+                                        <div
+                                            class="absolute top-1/2 -translate-y-1/2 right-2 z-[1000] flex flex-col gap-1.5">
+                                            <button onclick="zoomIn()"
+                                                class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
                                                 <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
-                                            </a>
-                                            <a href="{{ route('ustadz.hafalan.index') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">analytics</span>
-                                                </div>
+                                                    class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">add</span>
+                                            </button>
+                                            <button onclick="zoomOut()"
+                                                class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200">
                                                 <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
-                                            </a>
-                                            <a href="{{ route('chat.index') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">chat</span>
-                                                </div>
+                                                    class="material-symbols-rounded text-gray-600 dark:text-gray-300 text-[14px]">remove</span>
+                                            </button>
+                                            <button onclick="resetMap()"
+                                                class="w-6 h-6 bg-white dark:bg-gray-700 rounded-md shadow-sm border border-gray-200 dark:border-gray-600 flex items-center justify-center hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-90 transition-all duration-200 mt-0.5">
                                                 <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
-                                            </a>
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">group</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
-                                            </a>
-                                            <!-- Row 2 -->
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">calendar_month</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
-                                            </a>
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">how_to_reg</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
-                                            </a>
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">campaign</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Info</span>
-                                            </a>
-                                            <a href="{{ route('profile.index') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">person</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
-                                            </a>
+                                                    class="material-symbols-rounded text-primary text-[14px]">restart_alt</span>
+                                            </button>
                                         </div>
-                                    </div>
-                                    <!-- Slide 3: More Menu -->
-                                    <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
-                                        <div class="grid grid-cols-4 gap-3 py-1">
-                                            <a href="{{ route('notifications.index') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">notifications</span>
-                                                </div>
+
+                                        <!-- Location Info Overlay -->
+                                        <div
+                                            class="absolute bottom-0 left-0 z-[1000] m-1.5 px-1.5 py-0.5 bg-white/90 dark:bg-gray-800/90 rounded-md shadow-sm">
+                                            <div class="flex items-center gap-0.5">
                                                 <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
-                                            </a>
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">event</span>
-                                                </div>
+                                                    class="material-symbols-rounded text-primary text-[10px]">location_on</span>
                                                 <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
-                                            </a>
-                                            <a href="#" class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">history</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
-                                            </a>
-                                            <a href="{{ route('ustadz.settings') }}"
-                                                class="flex flex-col items-center gap-1 group">
-                                                <div
-                                                    class="w-11 h-11 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
-                                                    <span class="material-symbols-rounded text-xl">settings</span>
-                                                </div>
-                                                <span
-                                                    class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
-                                            </a>
+                                                    class="text-[6px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Lokasi</span>
+                                            </div>
+                                            <p class="text-[8px] font-mono font-bold text-primary truncate tracking-tight"
+                                                id="userLocation">Mendeteksi...</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- Dot Indicators -->
-                                <div class="flex justify-center gap-2 mt-2">
-                                    <button id="dot0" onclick="goToSlide(0)"
-                                        class="w-2 h-2 rounded-full bg-primary transition-all"></button>
-                                    <button id="dot1" onclick="goToSlide(1)"
-                                        class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
-                                    <button id="dot2" onclick="goToSlide(2)"
-                                        class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
+                                <!-- Slide 2: Quick Menu -->
+                                <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                    <div class="grid grid-cols-4 gap-3 py-1">
+                                        <!-- Row 1 -->
+                                        <a href="{{ route('ustadz.hafalan.create') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-primary dark:text-blue-400 group-hover:bg-primary group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">menu_book</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Hafalan</span>
+                                        </a>
+                                        <a href="{{ route('ustadz.hafalan.index') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">analytics</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Laporan</span>
+                                        </a>
+                                        <a href="{{ route('chat.index') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">chat</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
+                                        </a>
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">group</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
+                                        </a>
+                                        <!-- Row 2 -->
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">calendar_month</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
+                                        </a>
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">how_to_reg</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
+                                        </a>
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-500 group-hover:bg-amber-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">campaign</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Info</span>
+                                        </a>
+                                        <a href="{{ route('profile.index') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">person</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Akun</span>
+                                        </a>
+                                    </div>
                                 </div>
+                                <!-- Slide 3: More Menu -->
+                                <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
+                                    <div class="grid grid-cols-4 gap-3 py-1">
+                                        <a href="{{ route('notifications.index') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-red-100 dark:bg-red-900/30 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">notifications</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Notifikasi</span>
+                                        </a>
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">event</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Agenda</span>
+                                        </a>
+                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-lime-100 dark:bg-lime-900/30 flex items-center justify-center text-lime-600 group-hover:bg-lime-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">history</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Riwayat</span>
+                                        </a>
+                                        <a href="{{ route('ustadz.settings') }}"
+                                            class="flex flex-col items-center gap-1 group">
+                                            <div
+                                                class="w-11 h-11 rounded-2xl bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 group-hover:bg-gray-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
+                                                <span class="material-symbols-rounded text-xl">settings</span>
+                                            </div>
+                                            <span
+                                                class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pengaturan</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dot Indicators -->
+                            <div class="flex justify-center gap-2 mt-2">
+                                <button id="dot0" onclick="goToSlide(0)"
+                                    class="w-2 h-2 rounded-full bg-primary transition-all"></button>
+                                <button id="dot1" onclick="goToSlide(1)"
+                                    class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
+                                <button id="dot2" onclick="goToSlide(2)"
+                                    class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 transition-all"></button>
                             </div>
                         </div>
                     </div><!-- End Main Card -->
