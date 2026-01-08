@@ -1124,13 +1124,20 @@
 
                 const jadwal = jadwalPresensi[day];
 
-                // 1. Logic Masuk
+                // 1. Logic Masuk (STRICT MODE)
                 if (!sudahMasuk) {
-                    // Allow check-in anytime before 'pulangStart' for flexibility
-                    if (currentTime < jadwal.pulangStart) {
+                    // Terlalu Pagi (Belum Masuk Jam Start)
+                    if (currentTime < jadwal.masukStart) {
+                        return { valid: false, type: 'tunggu_masuk', jadwal: jadwal, message: `Belum Jam Masuk<br/>(${jadwal.masukStart})` };
+                    }
+
+                    // On Time (Dalam Range Masuk)
+                    if (currentTime >= jadwal.masukStart && currentTime <= jadwal.masukEnd) {
                         return { valid: true, type: 'masuk', jadwal: jadwal };
                     }
-                    return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup` };
+
+                    // Terlambat (Lewat Jam End)
+                    return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup<br/>(Max ${jadwal.masukEnd})` };
                 }
 
                 // 2. Logic Pulang
@@ -1253,22 +1260,22 @@
                     return;
                 }
 
-                // 3a. Tunggu Pulang - Orange (already masuk, waiting for pulang time)
-                if (cek.type === 'tunggu_pulang') {
+                // 3a. Tunggu (Masuk/Pulang) - Orange
+                if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
                     btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
                     if (icon) {
-                        icon.textContent = 'add_a_photo';
+                        icon.textContent = 'schedule'; // Changed from add_a_photo to schedule for waiting
                         icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
                     }
                     if (text) {
-                        text.innerHTML = 'Ambil<br/>Foto';
+                        text.innerHTML = 'Tunggu<br/>Jadwal';
                         text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                     }
                     btn.onclick = () => {
                         const notifOverlay = document.getElementById('btnNotification');
                         const notifText = document.getElementById('btnNotificationText');
                         if (notifOverlay && notifText) {
-                            notifText.textContent = 'Tunggu Jadwal\nJam Keluar';
+                            notifText.innerHTML = cek.message.replace('<br/>', '\n');
                             notifOverlay.classList.remove('hidden');
                             notifOverlay.classList.add('flex');
                             setTimeout(() => {
