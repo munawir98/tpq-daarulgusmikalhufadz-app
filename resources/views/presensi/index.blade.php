@@ -74,6 +74,81 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes growWidth {
+            from {
+                width: 0;
+            }
+        }
+
+        .santri-item {
+            animation: slideIn 0.3s ease-out forwards;
+            opacity: 0;
+            /* Initial state hidden */
+        }
+
+        /* Staggered delay for up to 20 items */
+        .santri-item:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .santri-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .santri-item:nth-child(3) {
+            animation-delay: 0.15s;
+        }
+
+        .santri-item:nth-child(4) {
+            animation-delay: 0.2s;
+        }
+
+        .santri-item:nth-child(5) {
+            animation-delay: 0.25s;
+        }
+
+        .santri-item:nth-child(6) {
+            animation-delay: 0.3s;
+        }
+
+        .santri-item:nth-child(7) {
+            animation-delay: 0.35s;
+        }
+
+        .santri-item:nth-child(8) {
+            animation-delay: 0.4s;
+        }
+
+        .santri-item:nth-child(9) {
+            animation-delay: 0.45s;
+        }
+
+        .santri-item:nth-child(10) {
+            animation-delay: 0.5s;
+        }
+
+        .progress-bar {
+            animation: growWidth 1s ease-out forwards;
+        }
+
+        /* Filter Transition */
+        .santri-item.hidden {
+            display: none;
+        }
     </style>
 </head>
 
@@ -140,16 +215,17 @@
                 </div>
                 <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
                     <div onclick="filterStatus('all')"
-                        class="cursor-pointer block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card"
+                        class="cursor-pointer block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card group"
                         data-card="all">
                         <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
                         <div class="flex items-end gap-2">
-                            <span class="text-2xl font-bold text-slate-800 dark:text-white">42</span>
+                            <span
+                                class="text-2xl font-bold text-slate-800 dark:text-white group-hover:text-teal-600 transition-colors">42</span>
                             <span class="text-[10px] text-slate-400 mb-1">Anak</span>
                         </div>
                     </div>
                     <div onclick="filterStatus('hadir')"
-                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card group"
                         data-card="hadir">
                         <p class="text-[10px] text-teal-600 font-medium uppercase mb-1">Hadir</p>
                         <div class="flex items-end gap-2">
@@ -158,7 +234,7 @@
                         </div>
                     </div>
                     <div onclick="filterStatus('izin')"
-                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-amber-500 transition-all active:scale-[0.98] stats-card"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-amber-500 transition-all active:scale-[0.98] stats-card group"
                         data-card="izin">
                         <p class="text-[10px] text-amber-500 font-medium uppercase mb-1">Izin/Sakit</p>
                         <div class="flex items-end gap-2">
@@ -167,7 +243,7 @@
                         </div>
                     </div>
                     <div onclick="filterStatus('alfa')"
-                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-rose-500 transition-all active:scale-[0.98] stats-card"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-rose-500 transition-all active:scale-[0.98] stats-card group"
                         data-card="alfa">
                         <p class="text-[10px] text-rose-500 font-medium uppercase mb-1">Alfa</p>
                         <div class="flex items-end gap-2">
@@ -223,7 +299,7 @@
                             <h3 class="font-bold text-slate-800 dark:text-white text-sm">Ahmad Syafi'i</h3>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="h-1.5 flex-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-teal-500 w-[90%]"></div>
+                                    <div class="progress-bar h-full bg-teal-500 w-[90%]"></div>
                                 </div>
                                 <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">20/22</span>
                             </div>
@@ -251,7 +327,7 @@
                             <h3 class="font-bold text-slate-800 dark:text-white text-sm">Fatimah Az-Zahra</h3>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="h-1.5 flex-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-teal-500 w-[100%]"></div>
+                                    <div class="progress-bar h-full bg-teal-500 w-[100%]"></div>
                                 </div>
                                 <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">22/22</span>
                             </div>
@@ -268,7 +344,7 @@
                         <div class="relative">
                             <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
                                 <img alt="Zaid" class="w-full h-full object-cover"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfIaFGef7kJbbHeCJ7uIqe8USsDGpfavgHU1Ain5qOydInqyoDQAd8XkyBrhGBq8rBGZZoCwPiN_2pD-jVYTMwASJEf7hTurUSlfFk-Af9FtgkYckQ4DCY2-48VwN2NJsDxGv4F-FQ5KSaX29ZYpjZgNo3Lkkx8IwRBXgHHkTZcXcMocipuOz8bto0-Volvug9iJVs9aHDOsk4qckfOcpqI0iuGeFIXnIGlosMga3WKg-MevaOSGzaUKGLyq-OxAVg-Q3tPNNDTjVG" />
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfIaFGef7kJbbHeCJ7uIqe8USsDGpfavgHU1Ain5qOydInqyoDQAd8XkyBrhGBq8rBGZZoCwPiN_2pD-jVYTMwASJEf7hTurUSlfFk-Af9FtgkYckQ4DCY2-48VwN2NJsDxGv4F-FQ5KSaX29ZYpjZgNo3Lkkx8IwRBXgHHkTZcXcMocipuOz8bto0-Volvug9iJVs9aHDOsk4qckQ4DCY2-48VwN2NJsDxGv4F-FQ5KSaX29ZYpjZgNo3Lkkx8IwRBXgHHkTZcXcMocipuOz8bto0-Volvug9iJVs9aHDOsk4qckfOcpqI0iuGeFIXnIGlosMga3WKg-MevaOSGzaUKGLyq-OxAVg-Q3tPNNDTjVG" />
                             </div>
                             <div
                                 class="absolute -bottom-1 -right-1 w-5 h-5 bg-amber-500 border-2 border-white dark:border-slate-800 rounded-full flex items-center justify-center">
@@ -279,7 +355,7 @@
                             <h3 class="font-bold text-slate-800 dark:text-white text-sm">Zaid Al-Khoir</h3>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="h-1.5 flex-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-teal-500 w-[72%]"></div>
+                                    <div class="progress-bar h-full bg-teal-500 w-[72%]"></div>
                                 </div>
                                 <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">16/22</span>
                             </div>
@@ -307,7 +383,7 @@
                             <h3 class="font-bold text-slate-800 dark:text-white text-sm">Maryam Nurul Huda</h3>
                             <div class="flex items-center gap-2 mt-1">
                                 <div class="h-1.5 flex-1 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div class="h-full bg-teal-500 w-[86%]"></div>
+                                    <div class="progress-bar h-full bg-teal-500 w-[86%]"></div>
                                 </div>
                                 <span class="text-[10px] font-medium text-slate-500 dark:text-slate-400">19/22</span>
                             </div>
@@ -450,20 +526,35 @@
 
             // Visual feedback for cards
             cards.forEach(card => {
-                card.classList.remove('border-teal-500', 'ring-2', 'ring-teal-500/20');
+                const type = card.getAttribute('data-card');
+                card.classList.remove(
+                    'border-teal-500', 'ring-2', 'ring-teal-500/20', 'bg-teal-50', 'dark:bg-teal-900/10',
+                    'border-amber-500', 'ring-amber-500/20', 'bg-amber-50', 'dark:bg-amber-900/10',
+                    'border-rose-500', 'ring-rose-500/20', 'bg-rose-50', 'dark:bg-rose-900/10'
+                );
                 card.classList.add('border-transparent');
 
-                if (card.getAttribute('data-card') === status) {
+                if (type === status) {
                     card.classList.remove('border-transparent');
-                    card.classList.add('border-teal-500', 'ring-2', 'ring-teal-500/20');
+                    if (type === 'all' || type === 'hadir') {
+                        card.classList.add('border-teal-500', 'ring-2', 'ring-teal-500/20', 'bg-teal-50', 'dark:bg-teal-900/10');
+                    } else if (type === 'izin') {
+                        card.classList.add('border-amber-500', 'ring-2', 'ring-amber-500/20', 'bg-amber-50', 'dark:bg-amber-900/10');
+                    } else if (type === 'alfa') {
+                        card.classList.add('border-rose-500', 'ring-2', 'ring-rose-500/20', 'bg-rose-50', 'dark:bg-rose-900/10');
+                    }
                 }
             });
 
-            // Filter items
+            // Filter items with simple animation reset
             items.forEach(item => {
                 const itemStatus = item.getAttribute('data-status');
                 if (status === 'all' || itemStatus === status) {
                     item.classList.remove('hidden');
+                    // Reset animation
+                    item.style.animation = 'none';
+                    item.offsetHeight; /* trigger reflow */
+                    item.style.animation = null;
                 } else {
                     item.classList.add('hidden');
                 }
