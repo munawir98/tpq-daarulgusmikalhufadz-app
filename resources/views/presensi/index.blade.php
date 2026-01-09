@@ -112,14 +112,17 @@
                 </div>
             </div>
         </div>
+        <!-- Fake Curve Overlay -->
+        <div class="absolute -bottom-0.5 left-0 w-full h-8 bg-white dark:bg-background-dark rounded-t-[2.5rem] z-20">
+        </div>
     </div>
 
-    <!-- Spacer for Fixed Header (Height approx 180px) -->
-    <div class="w-full h-[180px] shrink-0"></div>
+    <!-- Spacer for Fixed Header (Height approx 160px - adjusted for curve overlap) -->
+    <div class="w-full h-[160px] shrink-0"></div>
 
     <div
-        class="flex-1 bg-white dark:bg-background-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-36 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div class="p-6">
+        class="flex-1 bg-white dark:bg-background-dark relative z-20 overflow-y-auto pb-36 px-0 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        <div class="p-6 pt-2">
 
             <!-- Collapsible Header Content -->
             <div id="expandableHeader"
