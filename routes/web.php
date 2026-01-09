@@ -248,6 +248,12 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
             ->name('presensi');
 
         // Hafalan / Setoran
+
+        Route::get('/presensi/pdf', function () {
+            // In real app, pass data like $santri, $month, etc.
+            return view('presensi.pdf_preview');
+        })->name('presensi.pdf');
+
         Route::prefix('hafalan')->name('hafalan.')->group(function () {
             Route::get('/', [HafalanWebController::class, 'index'])->name('index');
             Route::get('/input', [HafalanWebController::class, 'inputForm'])->name('input');

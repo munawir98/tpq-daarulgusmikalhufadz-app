@@ -208,9 +208,15 @@ class PresensiWebController extends Controller
     public function index(Request $request)
     {
         $userId = session('user.id');
-        $range = $request->get('range', 7); // Default 7 days
 
-        // 1. Data Hari Ini
+        // Handle Month Filter (format: YYYY-MM)
+        $monthInput = $request->input('month', now()->format('Y-m'));
+        $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+
+        // 1. Data Hari Ini (Only relevant if selected month is current month, otherwise maybe hide or show average)
+        // For simplicity, we keep showing today's data or maybe null if looking at past months.
+        // Let's keep it simple: "Hari Ini" block always shows REAL TODAY regardless of filter,
+        // because it's a "dashboard" status widget.
         $today = now()->format('Y-m-d');
         $jamMasuk = \App\Models\Presensi::where('user_id', $userId)
             ->where('tanggal', $today)
@@ -221,38 +227,49 @@ class PresensiWebController extends Controller
             ->where('tipe', 'pulang')
             ->first();
 
-        // 2. Statistik Bulanan (Current Month)
-        $month = now()->month;
+        // 2. Statistik Bulanan (Based on Selected Month)
         $totalHadir = \App\Models\Presensi::where('user_id', $userId)
-            ->whereMonth('created_at', $month)
+            ->whereYear('tanggal', $date->year)
+            ->whereMonth('tanggal', $date->month)
+            ->where('status_presensi', 'HADIR')
             ->selectRaw('count(distinct tanggal) as total')
             ->value('total');
 
-        // Simple heuristic for working days (exclude sunday) - for now just count records
-        $totalHariKerja = $totalHadir; // Simplified
+        $totalIzin = \App\Models\Presensi::where('user_id', $userId)
+            ->whereYear('tanggal', $date->year)
+            ->whereMonth('tanggal', $date->month)
+            ->where('status_presensi', 'IZIN')
+            ->count();
 
-        // 3. Riwayat (Minggu Ini / Range)
-        $startDate = now()->subDays($range)->format('Y-m-d');
+        $totalAlfa = \App\Models\Presensi::where('user_id', $userId)
+            ->whereYear('tanggal', $date->year)
+            ->whereMonth('tanggal', $date->month)
+            ->where('status_presensi', 'ALFA')
+            ->count();
+
+        // Simple heuristic for working days
+        $totalHariKerja = 22; // Placeholder/Standard
+
+        // 3. Riwayat (Filtered by Month)
         $riwayatRaw = \App\Models\Presensi::where('user_id', $userId)
-            ->whereDate('tanggal', '>=', $startDate)
+            ->whereYear('tanggal', $date->year)
+            ->whereMonth('tanggal', $date->month)
             ->orderBy('tanggal', 'desc')
             ->orderBy('jam', 'asc')
             ->get();
 
-        $riwayatMingguIni = $riwayatRaw->groupBy('tanggal');
-
-        // 4. Calendar Data (Full Month/Year)
-        // Fetch all for current year/month to populate calendar
-        $presensiData = $riwayatRaw->groupBy('tanggal'); // Use same data for now or fetch more if needed
+        $riwayatMingguIni = $riwayatRaw->groupBy('tanggal'); // Variable name kept for compatibility but holds Month data now
 
         return view('presensi.index', [
             'jamMasuk' => $jamMasuk,
             'jamPulang' => $jamPulang,
-            'totalHadir' => $totalHadir,
+            'totalHadir' => $totalHadir ?? 0,
+            'totalIzin' => $totalIzin ?? 0,
+            'totalAlfa' => $totalAlfa ?? 0,
             'totalHariKerja' => $totalHariKerja,
+            'riwayat' => $riwayatMingguIni, // Renaming recommended but sticking to view expectations or creating alias
             'riwayatMingguIni' => $riwayatMingguIni,
-            'presensiData' => $riwayatMingguIni, // Mapping for calendar
-            'range' => $range,
+            'selectedDate' => $date, // Pass Carbon object for view title
         ]);
     }
 

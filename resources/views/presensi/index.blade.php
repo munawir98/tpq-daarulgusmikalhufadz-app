@@ -120,12 +120,13 @@
                         <div>
                             <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider leading-none">
                                 Periode</p>
-                            <p class="text-sm font-semibold dark:text-white">Oktober 2023</p>
+                            <p class="text-sm font-semibold dark:text-white">{{
+                                $selectedDate->locale('id')->isoFormat('MMMM Y') }}</p>
                         </div>
                     </div>
-                    <button
-                        class="text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full">
-                        Ganti
+                    <button onclick="openDatePicker()"
+                        class="text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full hover:bg-teal-100 transition-colors">
+                        Pilih
                     </button>
                 </div>
             </div>
@@ -291,21 +292,51 @@
             </div>
         </div>
     </div>
+    <!-- Dynamic Period Script -->
+    <form id="periodForm" action="{{ route('ustadz.presensi') }}" method="GET" class="hidden">
+        <input type="month" name="month" id="monthInput" onchange="this.form.submit()">
+    </form>
+
     <div
         class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-4 pb-8 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <div class="flex gap-3 max-w-md mx-auto">
-            <button
+            <a href="{{ route('ustadz.presensi.pdf') }}"
                 class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white py-3.5 px-4 rounded-2xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
                 <span class="material-icons-round text-xl leading-none">picture_as_pdf</span>
                 <span class="text-sm">Cetak PDF</span>
-            </button>
-            <button
+            </a>
+            <button id="mainShareBtn"
                 class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-3.5 px-4 rounded-2xl font-semibold transition-all active:scale-[0.98]">
-                <span class="material-symbols-outlined text-xl leading-none font-bold">description</span>
-                <span class="text-sm">Export Excel</span>
+                <span class="material-symbols-outlined text-xl leading-none font-bold">share</span>
+                <span class="text-sm">Bagikan</span>
             </button>
         </div>
     </div>
+
+    <script>
+        // Period Picker Logic
+        function openDatePicker() {
+            document.getElementById('monthInput').showPicker();
+        }
+
+        // Share Logic
+        document.getElementById('mainShareBtn').addEventListener('click', async () => {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: 'Laporan Kehadiran Santri',
+                        text: 'Laporan kehadiran santri periode {{ now()->translatedFormat("F Y") }}',
+                        url: window.location.href,
+                    });
+                } catch (err) {
+                    console.log('Share dismissed');
+                }
+            } else {
+                // Fallback
+                alert('Fitur share tidak didukung browser ini. Silakan screenshot atau copy URL.');
+            }
+        });
+    </script>
 
 </body>
 
