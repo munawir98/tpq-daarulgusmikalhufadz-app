@@ -57,11 +57,11 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* A4 Paper Simulation */
+        /* A4 Paper Simulation (Landscape) */
         @media screen {
             .a4-paper {
-                width: 210mm;
-                min-height: 297mm;
+                width: 297mm;
+                min-height: 210mm;
                 padding: 20mm;
                 margin: 0 auto;
             }
@@ -70,12 +70,17 @@
         /* Mobile adjustment */
         @media screen and (max-width: 640px) {
             .a4-paper {
-                width: 100%;
+                width: 297mm; /* Force landscape width even on mobile to allow scroll */
+                min-width: 100%;
                 padding: 15px;
             }
         }
 
         @media print {
+            @page {
+                size: A4 landscape;
+                margin: 0;
+            }
             body * {
                 visibility: hidden;
             }
@@ -113,7 +118,7 @@
     </header>
 
     <!-- Content Preview -->
-    <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
+    <main class="flex-1 overflow-auto p-4 md:p-8 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
         <!-- A4 Paper Container -->
         <div class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-24 relative rounded-sm">
 
