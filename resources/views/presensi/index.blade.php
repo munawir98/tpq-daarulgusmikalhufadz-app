@@ -111,7 +111,7 @@
     <div
         class="flex-1 bg-white dark:bg-background-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-36 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
         <div class="p-6">
-            <div class="mb-6">
+            <div id="periodSelector" class="mb-6">
                 <div
                     class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between">
                     <div class="flex items-center gap-3">
@@ -131,7 +131,7 @@
                     </button>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-3 mb-6">
+            <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
                 <a href="/ustadz/santri"
                     class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
                     <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
@@ -357,10 +357,29 @@
         const sortBtn = document.getElementById('sortBtn');
         let isAscending = true;
 
+        const periodSelector = document.getElementById('periodSelector');
+        const statsGrid = document.getElementById('statsGrid');
+
         searchBtn.addEventListener('click', () => {
-            searchInputContainer.classList.toggle('hidden');
-            if (!searchInputContainer.classList.contains('hidden')) {
+            const isHidden = searchInputContainer.classList.contains('hidden');
+
+            if (isHidden) {
+                // Open Search
+                searchInputContainer.classList.remove('hidden');
+                periodSelector.classList.add('hidden');
+                statsGrid.classList.add('hidden');
                 searchInput.focus();
+                searchBtn.innerHTML = '<span class="material-icons-round text-xl">close</span>';
+                searchBtn.classList.add('text-teal-600', 'bg-teal-50');
+            } else {
+                // Close Search
+                searchInputContainer.classList.add('hidden');
+                periodSelector.classList.remove('hidden');
+                statsGrid.classList.remove('hidden');
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('keyup')); // Reset list
+                searchBtn.innerHTML = '<span class="material-icons-round text-xl">search</span>';
+                searchBtn.classList.remove('text-teal-600', 'bg-teal-50');
             }
         });
 
