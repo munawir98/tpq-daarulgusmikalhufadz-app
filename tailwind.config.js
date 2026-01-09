@@ -21,7 +21,7 @@ export default {
         "text-sub-light": "#A0AEC0",
       },
       fontFamily: {
-        display: ["Manrope", "sans-serif"],
+        display: ["Poppins", "sans-serif"],
       },
       borderRadius: {
         "2xl": "1rem",

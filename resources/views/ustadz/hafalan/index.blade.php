@@ -55,6 +55,54 @@
             scrollbar-width: none;
         }
 
+        /* Gradient Texture Overlay - like reference image */
+        @keyframes moveTexture {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -40px 0;
+            }
+        }
+
+        /* Separate static highlight */
+        .highlight-overlay {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.02) 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.08) 100%);
+        }
+
+        /* Unified seamless stripe pattern */
+        .islamic-pattern {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%,
+                    transparent);
+            background-size: 40px 40px;
+            animation: moveTexture 3s linear infinite;
+        }
+
+        .islamic-pattern.pattern-dark {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(30, 64, 175, 0.08) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(30, 64, 175, 0.08) 50%,
+                    rgba(30, 64, 175, 0.08) 75%,
+                    transparent 75%,
+                    transparent);
+        }
+
         .material-symbols-rounded {
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
@@ -94,6 +142,10 @@
             </div>
             <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
             </div>
+            <div class="absolute top-[100px] left-[50%] w-32 h-32 bg-[#6BB8DE] rounded-full blur-2xl opacity-30">
+            </div>
+            <div class="absolute inset-0 highlight-overlay"></div>
+            <div class="absolute inset-0 islamic-pattern"></div>
         </div>
 
         <!-- Scrollable Content -->
