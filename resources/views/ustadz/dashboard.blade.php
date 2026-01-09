@@ -571,7 +571,7 @@
                                         <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none">
                                         </div>
                                         <!-- Leaflet Map Container -->
-                                        <div id="map" class="w-full h-full z-0"></div>
+                                        <div id="map" class="w-full h-full z-0 bg-gray-200 dark:bg-gray-700"></div>
 
                                         <!-- Map Controls (Center Right) -->
                                         <div
