@@ -31,6 +31,7 @@
                         "green-accent": "#2ecc71",
                     },
                     fontFamily: {
+                        sans: ["Poppins", "sans-serif"],
                         display: ["Poppins", "sans-serif"],
                     },
                     borderRadius: {
@@ -63,7 +64,7 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark h-screen w-full flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white overflow-hidden">
+    class="bg-background-light dark:bg-background-dark h-screen w-full flex flex-col font-sans text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white overflow-hidden">
 
     <!-- Fixed Header Gradient -->
     <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
