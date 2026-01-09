@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-</script>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan - TPQ Daarul Gusmik Alhufadz</title>
-
-    <!-- Fonts -->
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Laporan Screen</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
@@ -22,14 +14,42 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3498db",
+                        "ocean-dark": "#2980b9",
+                        "ocean-light": "#5dade2",
+                        "background-light": "#f0f4f8",
+                        "background-dark": "#111827",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1f2937",
+                        "orange-accent": "#f39c12",
+                        "green-accent": "#2ecc71",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    backgroundImage: {
+                        'header-pattern': "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px)",
+                    }
+                },
+            },
+        };
+    </script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            min-height: max(600px, 100dvh);
+            min-height: 100vh;
         }
 
         .scrollbar-hide::-webkit-scrollbar {
@@ -40,26 +60,25 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-
-        .bg-header-pattern {
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.05) 10px, rgba(255, 255, 255, 0.05) 20px);
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
         }
     </style>
 </head>
 
 <body
-    class="bg-white dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-text-main-light dark:text-gray-100 selection:bg-primary selection:text-white">
-
-    <!-- Header -->
-    <div
-        class="bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
+    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white">
+    <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-14 px-6">
             <div class="flex items-center gap-4 mb-2">
-                <a href="{{ route('ustadz.dashboard') }}"
-                    class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors">
+                <button
+                    class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors"
+                    onclick="history.back()">
                     <span class="material-icons-round">arrow_back</span>
-                </a>
+                </button>
                 <div class="text-white">
                     <h1 class="text-xl font-bold leading-tight">Laporan</h1>
                     <p class="text-xs opacity-75 mt-0.5">Pusat Data &amp; Statistik TPQ</p>
@@ -67,12 +86,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Content Card -->
     <div
-        class="flex-1 bg-white dark:bg-[#1f2937] rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-10 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-24 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
         <div class="p-6">
-            <!-- Search & Filter -->
             <div class="mb-6">
                 <div class="relative mb-4">
                     <input
@@ -85,7 +101,6 @@
                         <span class="material-icons-round text-lg">tune</span>
                     </button>
                 </div>
-                <!-- Tabs -->
                 <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
                     <button
                         class="px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap">Semua</button>
@@ -97,11 +112,7 @@
                         class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700">Semester</button>
                 </div>
             </div>
-
-            <!-- Menu List -->
             <div class="space-y-4">
-
-                <!-- 1. Laporan Kehadiran Santri -->
                 <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="{{ route('ustadz.presensi') }}">
                     <div class="flex items-center gap-4">
@@ -120,8 +131,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- 2. Laporan Setoran Hafalan -->
                 <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="{{ route('ustadz.hafalan.laporan') }}">
                     <div class="flex items-center gap-4">
@@ -139,8 +148,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- 3. Laporan Nilai Santri -->
                 <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="{{ route('ustadz.nilai.index') }}">
                     <div class="flex items-center gap-4">
@@ -158,8 +165,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- 4. Laporan Keuangan (Placeholder) -->
                 <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="#">
                     <div class="flex items-center gap-4">
@@ -177,8 +182,6 @@
                         </div>
                     </div>
                 </a>
-
-                <!-- 5. Laporan Kegiatan (Placeholder) -->
                 <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="#">
                     <div class="flex items-center gap-4">
@@ -197,12 +200,9 @@
                         </div>
                     </div>
                 </a>
-
             </div>
         </div>
     </div>
-
-
 
 </body>
 
