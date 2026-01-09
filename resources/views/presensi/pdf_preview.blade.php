@@ -253,7 +253,7 @@
             <button onclick="window.print()"
                 class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white py-4 px-4 rounded-2xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
                 <span class="material-icons-round text-xl">print</span>
-                <span class="text-sm">Cetak / Simpan</span>
+                <span class="text-sm">Cetak</span>
             </button>
             <button id="btnShare"
                 class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-4 px-4 rounded-2xl font-semibold transition-all active:scale-[0.98]">
