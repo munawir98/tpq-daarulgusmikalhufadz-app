@@ -220,18 +220,22 @@
 
             <!-- Signature Section -->
             <div class="mt-auto pt-10 flex justify-end">
-                <div class="text-center w-64">
+                <div class="text-center w-64 relative">
                     <p class="text-xs text-slate-600 mb-1">Kota Madani, {{ now()->locale('id')->isoFormat('D MMMM Y') }}
                     </p>
-                    <p class="text-xs font-bold">Kepala TPQ Al-Istiqomah</p>
-                    <div class="h-24 flex items-center justify-center opacity-50 relative">
-                        <!-- Space for signature or stamp -->
-                        <div
-                            class="border-2 border-slate-200 border-dashed rounded-lg w-full h-full flex items-center justify-center text-[10px] text-slate-400">
-                            (Tanda Tangan & Stempel)
-                        </div>
+                    <p class="text-xs font-bold relative z-10">Kepala TPQ Al-Istiqomah</p>
+                    <div class="h-28 flex items-center justify-center relative">
+                        <!-- Tanda Tangan -->
+                        <img src="{{ asset('ttd-kepala.png') }}"
+                            class="h-full w-auto object-contain relative z-10 scale-125" alt="Tanda Tangan">
+
+                        <!-- Stempel (Overlapping) -->
+                        <img src="{{ asset('stempel.png') }}"
+                            class="absolute -left-4 top-1/2 -translate-y-1/2 h-24 w-auto object-contain opacity-80 -rotate-12 mix-blend-multiply"
+                            alt="Stempel">
                     </div>
-                    <p class="text-xs font-bold border-b border-slate-800 inline-block px-1 mb-1">Ust. H. Abdul Malik,
+                    <p class="text-xs font-bold border-b border-slate-800 inline-block px-1 mb-1 relative z-10">Ust. H.
+                        Abdul Malik,
                         Lc</p>
                     <p class="text-[10px] text-slate-500">NIP. 19820512 201001 1 002</p>
                 </div>
