@@ -130,14 +130,14 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-3 mb-6">
-                <div
-                    class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                <a href="/admin/santri"
+                    class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
                     <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
                     <div class="flex items-end gap-2">
                         <span class="text-2xl font-bold text-slate-800 dark:text-white">42</span>
                         <span class="text-[10px] text-slate-400 mb-1">Anak</span>
                     </div>
-                </div>
+                </a>
                 <div
                     class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
                     <p class="text-[10px] text-teal-600 font-medium uppercase mb-1">Hadir</p>
