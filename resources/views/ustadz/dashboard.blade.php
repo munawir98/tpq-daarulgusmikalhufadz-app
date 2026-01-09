@@ -1268,18 +1268,51 @@
                         // 2. Valid
                         if (cek.valid) {
                             btn.className = 'w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
-                            if (icon) {
-                                icon.textContent = 'add_a_photo';
-                                icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
-                            }
-                            if (text) {
-                                if (cek.type === 'masuk') {
-                                    text.innerHTML = 'Ambil Foto<br/>Masuk';
-                                } else {
-                                    text.innerHTML = 'Ambil Foto<br/>Pulang';
+
+                            // Check if photo is captured but not sent
+                            if (capturedPhotoData) {
+                                if (icon) {
+                                    icon.textContent = 'check_circle';
+                                    icon.className = 'material-symbols-rounded text-green-500 text-3xl z-10'; // z-10 to stay above img
                                 }
+                                if (text) {
+                                    text.innerHTML = 'Klik OK<br/>Untuk Absen';
+                                    text.className = 'text-[8px] font-bold text-white z-10 drop-shadow-md text-center leading-tight';
+                                }
+                                // Ensure preview is visible (handled in snapPhoto, but good to ensure)
+                                const preview = document.getElementById('fotoPreview');
+                                if (preview) {
+                                    preview.src = capturedPhotoData;
+                                    preview.classList.remove('hidden');
+                                }
+
+                                // Specific overlay for readability
+                                const overlay = document.getElementById('fotoOverlay');
+                                if (overlay) {
+                                    overlay.classList.remove('hidden'); // Darken image
+                                    // Remove the check_circle from overlay since we use the icon now?
+                                    // Actually, let's keep the design simple:
+                                    overlay.classList.add('flex');
+                                    overlay.innerHTML = ''; // Clear icon in overlay, use button text
+                                }
+
+                                btn.onclick = confirmPhoto;
+                            } else {
+                                // Default State (No photo yet)
+                                if (icon) {
+                                    icon.textContent = 'add_a_photo';
+                                    icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
+                                }
+                                if (text) {
+                                    if (cek.type === 'masuk') {
+                                        text.innerHTML = 'Ambil Foto<br/>Masuk';
+                                    } else {
+                                        text.innerHTML = 'Ambil Foto<br/>Pulang';
+                                    }
+                                    text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
+                                }
+                                btn.onclick = ambilFoto;
                             }
-                            btn.onclick = ambilFoto;
                             return;
                         }
 
@@ -1474,37 +1507,46 @@
 
                             capturedPhotoData = canvas.toDataURL('image/jpeg', 0.8);
 
-                            // Show Preview
-                            document.getElementById('photoPreview').src = capturedPhotoData;
-                            document.getElementById('photoPreview').classList.remove('hidden');
-                            document.getElementById('cameraVideo').classList.add('hidden');
+                            // Update Dashboard Preview immediately
+                            const dashboardPreview = document.getElementById('fotoPreview');
+                            if (dashboardPreview) {
+                                dashboardPreview.src = capturedPhotoData;
+                                dashboardPreview.classList.remove('hidden');
+                            }
 
-                            // Switch Buttons
-                            document.getElementById('stepCapture').classList.add('hidden');
-                            document.getElementById('stepConfirm').classList.remove('hidden');
+                            // Close Modal immediately
+                            closeCameraModal();
 
-                            // Stop stream (optional, save battery)
-                            // stopCamera();
+                            // Trigger UI update to change button to "Confirm/Submit" state
+                            updateButtonDisplay();
                         }
                     }
 
                     function retakePhoto() {
-                        document.getElementById('photoPreview').classList.add('hidden');
-                        document.getElementById('cameraVideo').classList.remove('hidden');
-                        document.getElementById('stepCapture').classList.remove('hidden');
-                        document.getElementById('stepConfirm').classList.add('hidden');
-                        // if (!stream) initCamera();
+                        capturedPhotoData = null;
+                        document.getElementById('fotoPreview').classList.add('hidden');
+                        updateButtonDisplay();
+                        ambilFoto(); // Re-open camera
                     }
 
                     async function confirmPhoto() {
+                        if (!capturedPhotoData) {
+                            showNotification('Foto belum diambil!', 'error');
+                            return;
+                        }
+
                         const cek = cekJadwalPresensi();
                         const type = (cek.valid && cek.type) ? cek.type : (sudahMasuk ? 'pulang' : 'masuk');
                         const url = type === 'masuk' ? "{{ route('presensi.masuk') }}" : "{{ route('presensi.pulang') }}";
 
-                        const btn = document.querySelector('#cameraModal button.bg-primary');
-                        // const originalText = btn.innerHTML;
-                        btn.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span> Proses...';
-                        btn.disabled = true;
+                        // Show Loading on Dashboard Button
+                        const icon = document.getElementById('fotoIcon');
+                        const text = document.getElementById('fotoBtnText');
+                        const btn = document.getElementById('ambilFotoBtn');
+
+                        if (icon) icon.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span>';
+                        if (text) text.innerHTML = 'Proses...';
+                        if (btn) btn.onclick = null; // Disable click
 
                         try {
                             const response = await fetch(url, {
@@ -1526,15 +1568,51 @@
                                 setTimeout(() => window.location.reload(), 1000);
                             } else {
                                 alert('Gagal: ' + (data.message || 'Error'));
-                                btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
-                                btn.disabled = false;
+                                updateButtonDisplay(); // Reset UI
                             }
                         } catch (e) {
                             console.error(e);
                             alert('Gagal: Terjadi kesalahan jaringan');
+                            updateButtonDisplay(); // Reset UI
+                        }
+                    }
+                    const type = (cek.valid && cek.type) ? cek.type : (sudahMasuk ? 'pulang' : 'masuk');
+                    const url = type === 'masuk' ? "{{ route('presensi.masuk') }}" : "{{ route('presensi.pulang') }}";
+
+                    const btn = document.querySelector('#cameraModal button.bg-primary');
+                    // const originalText = btn.innerHTML;
+                    btn.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span> Proses...';
+                    btn.disabled = true;
+
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                foto: capturedPhotoData,
+                                latitude: userLat,
+                                longitude: userLng
+                            })
+                        });
+                        const data = await response.json();
+                        if (data.success) {
+                            showNotification('Berhasil disimpan!');
+                            setTimeout(() => window.location.reload(), 1000);
+                        } else {
+                            alert('Gagal: ' + (data.message || 'Error'));
                             btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
                             btn.disabled = false;
                         }
+                    } catch (e) {
+                        console.error(e);
+                        alert('Gagal: Terjadi kesalahan jaringan');
+                        btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
+                        btn.disabled = false;
+                    }
                     }
 
                     // Logger Function
