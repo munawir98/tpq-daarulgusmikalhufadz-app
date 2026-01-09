@@ -105,13 +105,13 @@
                 <!-- Filters -->
                 <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
                     <button data-filter="all"
-                        class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all">Semua</button>
+                        class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700">Semua</button>
                     <button data-filter="harian"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Harian</button>
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Harian</button>
                     <button data-filter="bulanan"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Bulanan</button>
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Bulanan</button>
                     <button data-filter="semester"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Semester</button>
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Semester</button>
                 </div>
             </div>
 
@@ -225,12 +225,12 @@
                 btn.addEventListener('click', function () {
                     // Update Active State
                     filterBtns.forEach(b => {
-                        b.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/30');
-                        b.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-500', 'dark:text-gray-400', 'border');
+                        // Reset to inactive styles with hover
+                        b.className = 'filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all';
                     });
 
-                    this.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-500', 'dark:text-gray-400', 'border');
-                    this.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/30');
+                    // Set active styles
+                    this.className = 'filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700';
 
                     currentFilter = this.getAttribute('data-filter');
                     filterReports();
