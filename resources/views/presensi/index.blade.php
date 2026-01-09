@@ -299,17 +299,17 @@
     </form>
 
     <div
-        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-4 pb-8 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-6 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <div class="flex gap-3 max-w-md mx-auto">
             <a href="{{ route('ustadz.presensi.pdf') }}"
-                class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white py-3.5 px-4 rounded-2xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
-                <span class="material-icons-round text-xl leading-none">picture_as_pdf</span>
-                <span class="text-sm">Cetak PDF</span>
+                class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white py-3 px-4 rounded-xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
+                <span class="material-icons-round text-lg leading-none">picture_as_pdf</span>
+                <span class="text-xs">Cetak PDF</span>
             </a>
             <button
-                class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-3.5 px-4 rounded-2xl font-semibold transition-all active:scale-[0.98]">
-                <span class="material-symbols-outlined text-xl leading-none font-bold">description</span>
-                <span class="text-sm">Export Excel</span>
+                class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-3 px-4 rounded-xl font-semibold transition-all active:scale-[0.98]">
+                <span class="material-symbols-outlined text-lg leading-none font-bold">description</span>
+                <span class="text-xs">Export Excel</span>
             </button>
         </div>
     </div>
