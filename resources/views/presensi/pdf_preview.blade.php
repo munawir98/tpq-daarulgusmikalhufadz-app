@@ -102,11 +102,11 @@
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-6 px-6 flex items-center gap-4">
             <button class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors"
-                onclick="history.back()">
-                <span class="material-icons-round">arrow_back</span>
+                onclick="window.print()">
+                <span class="material-icons-round">print</span>
             </button>
             <div class="text-white">
-                <h1 class="text-lg font-bold leading-tight">Pratinjau Cetak</h1>
+                <h1 class="text-lg font-bold leading-tight">Pratinjau</h1>
                 <p class="text-[10px] opacity-80 uppercase tracking-widest mt-0.5">Laporan Kehadiran</p>
             </div>
         </div>
