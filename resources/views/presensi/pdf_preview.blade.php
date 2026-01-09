@@ -118,9 +118,9 @@
     </header>
 
     <!-- Content Preview -->
-    <main class="flex-1 overflow-auto p-4 md:p-8 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
+    <main class="flex-1 overflow-auto p-4 md:p-8 pb-40 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
         <!-- A4 Paper Container -->
-        <div class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-24 relative rounded-sm">
+        <div class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-10 relative rounded-sm">
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
