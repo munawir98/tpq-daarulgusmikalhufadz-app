@@ -1816,8 +1816,10 @@
                         // Initialize Map if not already initialized
                         if (window.dashboardMap) {
                             window.dashboardMap.remove(); // Reset if exists
+                            window.dashboardMap = null;
                         }
 
+                        // Initialize Map with default center first
                         const map = L.map('map', {
                             zoomControl: false,
                             attributionControl: false,
@@ -1827,45 +1829,47 @@
 
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-                        // RED Icon for TPQ (Target) - Resized Smaller
+                        // RED Icon for TPQ (Target)
                         var smallIcon = L.icon({
                             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
                             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                            iconSize: [25 * 0.7, 41 * 0.7], // Resized to 70%
+                            iconSize: [25 * 0.7, 41 * 0.7],
                             iconAnchor: [12 * 0.7, 41 * 0.7],
                             popupAnchor: [1, -34 * 0.7],
                             shadowSize: [41 * 0.7, 41 * 0.7]
                         });
 
-                        const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
+                        L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
+
+                        // DRAW RADIUS IMMEDIATELY
                         window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
 
                         window.dashboardMap = map;
 
                         // CRITICAL: Fix for Map not showing in slider/tabs
-                        // We need to invalidate size AFTER the browser has finished layout
                         function fixMapLayout() {
                             if (window.dashboardMap) {
                                 window.dashboardMap.invalidateSize();
-                                if (window.radiusCircle) {
+                                // Only fit bounds if we haven't centered on user yet
+                                if (window.radiusCircle && !window.hasCentered) {
                                     window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20], animate: false });
                                 }
                             }
                         }
 
-                        // Multiple triggers to ensure map renders
+                        // Aggressive Layout Fixes
                         setTimeout(fixMapLayout, 100);
                         setTimeout(fixMapLayout, 500);
                         setTimeout(fixMapLayout, 1000);
+                        setTimeout(fixMapLayout, 2000);
 
                         // Also hook into slider scroll to refresh map when it comes into view
                         const slider = document.getElementById('slideContainer');
                         if (slider) {
                             slider.addEventListener('scroll', () => {
-                                // Debounce slightly
                                 clearTimeout(window.mapScrollTimeout);
                                 window.mapScrollTimeout = setTimeout(() => {
-                                    if (slider.scrollLeft < 50) { // If near the start (Map Slide)
+                                    if (slider.scrollLeft < 50) {
                                         fixMapLayout();
                                     }
                                 }, 150);
@@ -1874,15 +1878,10 @@
 
                         // Re-center logic specific
                         setTimeout(() => {
-                            if (map) {
-                                map.flyTo([TPQ_LAT, TPQ_LNG], 17, {
-                                    animate: true,
-                                    duration: 1.5
-                                });
+                            if (map && !window.hasCentered) {
+                                map.flyTo([TPQ_LAT, TPQ_LNG], 17, { animate: true, duration: 1.5 });
                             }
                         }, 2500);
-
-                        const statusText = document.getElementById('radiusText');
 
                         // FORCE UPDATE ON INIT
                         if (!window.isSecureContext && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
