@@ -78,7 +78,7 @@
 </head>
 
 <body
-    class="bg-white dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
+    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
     <div class="bg-gradient-to-br from-teal-600 to-teal-800 dark:from-teal-900 dark:to-slate-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-14 px-6">
@@ -150,8 +150,7 @@
                             Kelas {{ $santri->kelas->nama_kelas ?? 'Belum ada' }}
                         </div>
                     </div>
-                    <button onclick="window.location.href='/admin/santri/{{ $santri->id }}'"
-                        class="text-slate-300 group-hover:text-teal-500 transition-colors">
+                    <button class="text-slate-300 group-hover:text-teal-500 transition-colors">
                         <span class="material-icons-round">chevron_right</span>
                     </button>
                 </div>
@@ -187,7 +186,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>
