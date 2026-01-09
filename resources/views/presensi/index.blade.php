@@ -183,26 +183,30 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between mb-4 px-2">
-                <h2 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-tight">Rincian Per
-                    Santri</h2>
-                <div class="flex gap-2">
-                    <button id="searchBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
-                        <span class="material-icons-round text-xl">search</span>
-                    </button>
-                    <button id="sortBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
-                        <span class="material-icons-round text-xl">sort</span>
-                    </button>
+            <!-- Sticky Search Header -->
+            <div class="sticky top-0 z-20 bg-white dark:bg-background-dark pb-4 pt-2 -mx-2 px-2">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-tight">Rincian
+                        Per
+                        Santri</h2>
+                    <div class="flex gap-2">
+                        <button id="searchBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
+                            <span class="material-icons-round text-xl">search</span>
+                        </button>
+                        <button id="sortBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
+                            <span class="material-icons-round text-xl">sort</span>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Search Input (Hidden by default) -->
-            <div id="searchInputContainer" class="hidden mb-4 px-2">
-                <div class="relative">
-                    <span
-                        class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
-                    <input type="text" id="searchInput" placeholder="Cari nama santri..."
-                        class="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-teal-500 placeholder-slate-400">
+                <!-- Search Input (Hidden by default) -->
+                <div id="searchInputContainer" class="hidden">
+                    <div class="relative">
+                        <span
+                            class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                        <input type="text" id="searchInput" placeholder="Cari nama santri..."
+                            class="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-teal-500 placeholder-slate-400">
+                    </div>
                 </div>
             </div>
 
