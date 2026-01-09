@@ -1808,11 +1808,23 @@
                         const mapContainer = document.getElementById('map');
                         if (!mapContainer) return;
 
-                        // Fix container size
-                        mapContainer.style.height = '100%';
-                        mapContainer.style.width = '100%';
+                        // Ensure container has dimension
+                        if (mapContainer.clientHeight === 0) {
+                            mapContainer.style.height = '150px'; // Force height if 0
+                        }
 
-                        const map = L.map('map', { zoomControl: false, attributionControl: false, zoomAnimation: true, markerZoomAnimation: true }).setView([TPQ_LAT, TPQ_LNG], 15);
+                        // Initialize Map if not already initialized
+                        if (window.dashboardMap) {
+                            window.dashboardMap.remove(); // Reset if exists
+                        }
+
+                        const map = L.map('map', {
+                            zoomControl: false,
+                            attributionControl: false,
+                            zoomAnimation: true,
+                            markerZoomAnimation: true
+                        }).setView([TPQ_LAT, TPQ_LNG], 15);
+
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
                         // RED Icon for TPQ (Target) - Resized Smaller
@@ -1828,27 +1840,39 @@
                         const marker = L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
                         window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
 
+                        window.dashboardMap = map;
 
-
-                        // Force map resize and fit to radius circle bounds
-                        const invalidateMap = () => {
-                            if (map) {
-                                map.invalidateSize();
+                        // CRITICAL: Fix for Map not showing in slider/tabs
+                        // We need to invalidate size AFTER the browser has finished layout
+                        function fixMapLayout() {
+                            if (window.dashboardMap) {
+                                window.dashboardMap.invalidateSize();
                                 if (window.radiusCircle) {
-                                    map.fitBounds(window.radiusCircle.getBounds(), {
-                                        padding: [20, 20],
-                                        animate: false
-                                    });
+                                    window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20], animate: false });
                                 }
                             }
-                        };
+                        }
 
                         // Multiple triggers to ensure map renders
-                        setTimeout(invalidateMap, 200);
-                        setTimeout(invalidateMap, 1000);
-                        setTimeout(invalidateMap, 3000);
+                        setTimeout(fixMapLayout, 100);
+                        setTimeout(fixMapLayout, 500);
+                        setTimeout(fixMapLayout, 1000);
 
-                        // Re-center logic
+                        // Also hook into slider scroll to refresh map when it comes into view
+                        const slider = document.getElementById('slideContainer');
+                        if (slider) {
+                            slider.addEventListener('scroll', () => {
+                                // Debounce slightly
+                                clearTimeout(window.mapScrollTimeout);
+                                window.mapScrollTimeout = setTimeout(() => {
+                                    if (slider.scrollLeft < 50) { // If near the start (Map Slide)
+                                        fixMapLayout();
+                                    }
+                                }, 150);
+                            }, { passive: true });
+                        }
+
+                        // Re-center logic specific
                         setTimeout(() => {
                             if (map) {
                                 map.flyTo([TPQ_LAT, TPQ_LNG], 17, {
@@ -1856,23 +1880,16 @@
                                     duration: 1.5
                                 });
                             }
-                        }, 3500);
+                        }, 2500);
 
                         const statusText = document.getElementById('radiusText');
-                        const badge = document.getElementById('radiusBadge');
-                        const dot = document.getElementById('radiusDot');
 
-                        // FORCE UPDATE ON INIT
                         // FORCE UPDATE ON INIT
                         if (!window.isSecureContext && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
                             showNotification('Peringatan: GPS membutuhkan HTTPS.');
-                            // Don't block completely, try anyway but warn
                         }
 
                         updateLocation();
-
-                        // Expose Map
-                        window.dashboardMap = map;
                     }
 
                     function zoomIn() {
