@@ -70,6 +70,7 @@
 
 <body
     class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white">
+    <!-- Header Gradient -->
     <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-14 px-6">
@@ -86,36 +87,39 @@
             </div>
         </div>
     </div>
-    <div
-        class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-24 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div class="p-6">
-            <div class="mb-6">
-                <!-- Search Input -->
-                <div class="relative mb-4">
-                    <input id="searchInput"
-                        class="w-full bg-gray-50 dark:bg-gray-800 border-none text-sm rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-blue-500/50 shadow-sm placeholder-gray-400 text-gray-700 dark:text-gray-200 transition-shadow"
-                        placeholder="Cari jenis laporan..." type="text" />
-                    <span
-                        class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                    <button
-                        class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-white dark:bg-gray-700 rounded-lg shadow-sm text-gray-500 hover:text-blue-500 transition-colors">
-                        <span class="material-icons-round text-lg">tune</span>
-                    </button>
-                </div>
-                <!-- Filters -->
-                <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
-                    <button data-filter="all"
-                        class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700">Semua</button>
-                    <button data-filter="harian"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Harian</button>
-                    <button data-filter="bulanan"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Bulanan</button>
-                    <button data-filter="semester"
-                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Semester</button>
-                </div>
-            </div>
 
-            <!-- Report List -->
+    <!-- Main Card - Fixed Layout -->
+    <div
+        class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 flex flex-col overflow-hidden shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+
+        <!-- Fixed Header Section (Search & Filter) -->
+        <div class="px-6 pt-6 pb-2 shrink-0 z-30 bg-card-light dark:bg-card-dark rounded-t-[2.5rem]">
+            <!-- Search Input -->
+            <div class="relative mb-4">
+                <input id="searchInput"
+                    class="w-full bg-gray-50 dark:bg-gray-800 border-none text-sm rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-blue-500/50 shadow-sm placeholder-gray-400 text-gray-700 dark:text-gray-200 transition-shadow"
+                    placeholder="Cari jenis laporan..." type="text" />
+                <span class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                <button
+                    class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-white dark:bg-gray-700 rounded-lg shadow-sm text-gray-500 hover:text-blue-500 transition-colors">
+                    <span class="material-icons-round text-lg">tune</span>
+                </button>
+            </div>
+            <!-- Filters -->
+            <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
+                <button data-filter="all"
+                    class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700">Semua</button>
+                <button data-filter="harian"
+                    class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Harian</button>
+                <button data-filter="bulanan"
+                    class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Bulanan</button>
+                <button data-filter="semester"
+                    class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-gray-700 dark:hover:text-blue-400 transition-all">Semester</button>
+            </div>
+        </div>
+
+        <!-- Scrollable Report List -->
+        <div class="flex-1 overflow-y-auto px-6 pt-2 pb-24" id="reportScanner">
             <div class="space-y-4" id="reportList">
                 <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="{{ route('ustadz.presensi') }}" data-category="harian bulanan"
