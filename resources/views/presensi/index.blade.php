@@ -299,7 +299,7 @@
     </form>
 
     <div
-        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-6 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-3 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <div class="flex gap-3 max-w-sm mx-auto">
             <a href="{{ route('ustadz.presensi.pdf') }}"
                 class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white p-3.5 rounded-xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
