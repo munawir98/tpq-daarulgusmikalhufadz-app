@@ -100,7 +100,8 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <button class="bg-white/20 p-2 rounded-xl backdrop-blur-sm text-white">
+                    <button id="headerShareBtn"
+                        class="bg-white/20 p-2 rounded-xl backdrop-blur-sm text-white hover:bg-white/30 transition-colors">
                         <span class="material-icons-round text-xl">share</span>
                     </button>
                 </div>
@@ -305,10 +306,10 @@
                 <span class="material-icons-round text-xl leading-none">picture_as_pdf</span>
                 <span class="text-sm">Cetak PDF</span>
             </a>
-            <button id="mainShareBtn"
+            <button
                 class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-3.5 px-4 rounded-2xl font-semibold transition-all active:scale-[0.98]">
-                <span class="material-symbols-outlined text-xl leading-none font-bold">share</span>
-                <span class="text-sm">Bagikan</span>
+                <span class="material-symbols-outlined text-xl leading-none font-bold">description</span>
+                <span class="text-sm">Export Excel</span>
             </button>
         </div>
     </div>
@@ -320,12 +321,12 @@
         }
 
         // Share Logic
-        document.getElementById('mainShareBtn').addEventListener('click', async () => {
+        document.getElementById('headerShareBtn').addEventListener('click', async () => {
             if (navigator.share) {
                 try {
                     await navigator.share({
                         title: 'Laporan Kehadiran Santri',
-                        text: 'Laporan kehadiran santri periode {{ now()->translatedFormat("F Y") }}',
+                        text: 'Laporan kehadiran santri periode {{ $selectedDate->translatedFormat("F Y") }}',
                         url: window.location.href,
                     });
                 } catch (err) {
