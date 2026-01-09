@@ -2,6 +2,8 @@
 <script>
     if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 </script>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -47,7 +49,7 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-text-main-light dark:text-gray-100 selection:bg-primary selection:text-white">
+    class="bg-white dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-text-main-light dark:text-gray-100 selection:bg-primary selection:text-white">
 
     <!-- Header -->
     <div

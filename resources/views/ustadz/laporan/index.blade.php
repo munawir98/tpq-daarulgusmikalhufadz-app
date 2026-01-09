@@ -2,6 +2,8 @@
 <script>
     if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 </script>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
