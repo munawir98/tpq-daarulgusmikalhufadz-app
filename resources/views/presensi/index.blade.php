@@ -130,7 +130,7 @@
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-3 mb-6">
-                <a href="/admin/santri"
+                <a href="/ustadz/santri"
                     class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
                     <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
                     <div class="flex items-end gap-2">

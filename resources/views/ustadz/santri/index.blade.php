@@ -1,70 +1,195 @@
-@extends('layouts.ustadz')
+<!DOCTYPE html>
+<script>
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+</script>
+<html lang="id">
 
-@section('content')
-<div class="space-y-4">
-    <!-- Header -->
-    <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-xl font-bold">Data Santri</h1>
-            <p class="text-xs text-gray-500">Daftar santri aktif TPQ</p>
-        </div>
-        <!-- Filter/Search Button -->
-        <button
-            class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 shadow-sm flex items-center justify-center text-gray-600 dark:text-gray-300">
-            <span class="material-symbols-rounded">filter_list</span>
-        </button>
-    </div>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Data Santri</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#0d9488",
+                        "ocean-dark": "#0f766e",
+                        "ocean-light": "#2dd4bf",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f172a",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        display: ["Poppins", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    backgroundImage: {
+                        'header-pattern': "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px)",
+                    }
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #0d9488;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pagination-container nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
 
-    <!-- Search Bar -->
-    <div class="relative">
-        <span class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-        <input type="text" placeholder="Cari nama santri..."
-            class="w-full pl-10 pr-4 py-3 rounded-2xl bg-white dark:bg-gray-800 border-none shadow-sm text-sm focus:ring-2 focus:ring-primary/50 placeholder:text-gray-400">
-    </div>
-
-    <!-- Santri List -->
-    <div class="grid gap-3">
-        @forelse($santri as $item)
-        <a href="{{ route('ustadz.santri.show', $item->id) }}"
-            class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm flex items-center gap-4 active:scale-[0.98] transition-transform">
-            <!-- Avatar -->
-            <div class="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 overflow-hidden flex-shrink-0">
-                @if($item->user && $item->user->foto)
-                <img src="{{ asset('storage/' . $item->user->foto) }}" class="w-full h-full object-cover">
-                @else
-                <div class="w-full h-full flex items-center justify-center text-gray-400">
-                    <span class="material-symbols-rounded text-2xl">person</span>
+<body
+    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
+    <div class="bg-gradient-to-br from-teal-600 to-teal-800 dark:from-teal-900 dark:to-slate-950 relative shrink-0">
+        <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
+        <div class="relative z-10 pt-12 pb-14 px-6">
+            <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-4">
+                    <button
+                        class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors"
+                        onclick="history.back()">
+                        <span class="material-icons-round">arrow_back</span>
+                    </button>
+                    <div class="text-white">
+                        <h1 class="text-xl font-bold leading-tight">Data Santri</h1>
+                        <p class="text-xs opacity-75 mt-0.5">Daftar santri aktif TPQ</p>
+                    </div>
                 </div>
-                @endif
             </div>
-
-            <!-- Info -->
-            <div class="flex-1 min-w-0">
-                <h3 class="font-bold text-gray-800 dark:text-gray-200 truncate">{{ $item->nama_lengkap }}</h3>
-                <div class="flex items-center gap-2 text-xs text-gray-500 mt-0.5">
-                    <span class="bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium text-[10px]">{{
-                        $item->kelas?->nama ?? 'Belum Ada Kelas' }}</span>
-                    <span>• {{ $item->nis }}</span>
+        </div>
+    </div>
+    <div
+        class="flex-1 bg-background-light dark:bg-background-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-32 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        <div class="p-6">
+            <div class="mb-6">
+                <!-- Total Count if available, or just header -->
+                <div
+                    class="bg-white dark:bg-card-dark p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4">
+                    <div
+                        class="w-12 h-12 bg-teal-50 dark:bg-teal-900/30 rounded-xl flex items-center justify-center text-teal-600">
+                        <span class="material-icons-round text-2xl">groups</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-none mb-1">
+                            Total Santri</p>
+                        <!-- Checking if $santri is Paginated or Collection for count -->
+                        <p class="text-lg font-bold dark:text-white text-teal-600">{{ $santri->total() }} <span
+                                class="text-slate-400 font-medium">Anak</span></p>
+                    </div>
                 </div>
             </div>
-
-            <!-- Arrow -->
-            <span class="material-symbols-rounded text-gray-400">chevron_right</span>
-        </a>
-        @empty
-        <div class="text-center py-10">
-            <div
-                class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
-                <span class="material-symbols-rounded text-3xl">sentiment_dissatisfied</span>
+            <div class="flex gap-3 mb-6">
+                <div class="flex-1 relative">
+                    <span
+                        class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+                    <input id="searchInput"
+                        class="w-full pl-12 pr-4 py-3 bg-white dark:bg-card-dark border-none rounded-2xl text-sm shadow-sm focus:ring-2 focus:ring-teal-500 dark:placeholder-slate-500"
+                        placeholder="Cari Nama atau NIS..." type="text" />
+                </div>
+                <button class="bg-white dark:bg-card-dark p-3 rounded-2xl shadow-sm text-slate-500">
+                    <span class="material-icons-round">tune</span>
+                </button>
             </div>
-            <p class="text-gray-500 text-sm">Belum ada data santri</p>
+            <div class="space-y-3" id="santriListContainer">
+                @forelse($santri as $item)
+                <div class="santri-item bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-50 dark:border-slate-800 flex items-center gap-4 group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors active:scale-[0.99]"
+                    onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
+                    data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-teal-50 dark:border-slate-700">
+                        @if($item->user && $item->user->foto)
+                        <img alt="Santri" class="w-full h-full object-cover"
+                            src="{{ asset('storage/' . $item->user->foto) }}" />
+                        @else
+                        <img alt="Santri" class="w-full h-full object-cover"
+                            src="https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=0d9488&color=fff" />
+                        @endif
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="font-bold text-slate-800 dark:text-white leading-tight">{{ $item->nama ??
+                            $item->nama_lengkap }}</h3>
+                        <p class="text-[10px] font-medium text-slate-400 mt-0.5">NIS: {{ $item->nis ?? '-' }}</p>
+                        <div
+                            class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 text-[9px] font-bold uppercase tracking-wider">
+                            Kelas {{ $item->kelas->nama_kelas ?? ($item->kelas->nama ?? 'Belum ada') }}
+                        </div>
+                    </div>
+                    <button class="text-slate-300 group-hover:text-teal-500 transition-colors">
+                        <span class="material-icons-round">chevron_right</span>
+                    </button>
+                </div>
+                @empty
+                <div class="text-center p-8 text-gray-500">
+                    <p>Belum ada data santri</p>
+                </div>
+                @endforelse
+            </div>
+
+            <!-- Pagination -->
+            <div class="mt-6 pagination-container">
+                {{ $santri->links() }}
+            </div>
         </div>
-        @endforelse
     </div>
 
-    <!-- Pagination -->
-    <div class="mt-4">
-        {{ $santri->links() }}
-    </div>
-</div>
-@endsection
+    <script>
+        // Simple client-side filter for visible items (though pagination handles most)
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const query = e.target.value.toLowerCase();
+            document.querySelectorAll('.santri-item').forEach(item => {
+                const name = item.dataset.name;
+                const nis = item.dataset.nis || '';
+                if (name.includes(query) || nis.includes(query)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
