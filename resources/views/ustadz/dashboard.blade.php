@@ -1576,44 +1576,7 @@
                             updateButtonDisplay(); // Reset UI
                         }
                     }
-                    const type = (cek.valid && cek.type) ? cek.type : (sudahMasuk ? 'pulang' : 'masuk');
-                    const url = type === 'masuk' ? "{{ route('presensi.masuk') }}" : "{{ route('presensi.pulang') }}";
 
-                    const btn = document.querySelector('#cameraModal button.bg-primary');
-                    // const originalText = btn.innerHTML;
-                    btn.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span> Proses...';
-                    btn.disabled = true;
-
-                    try {
-                        const response = await fetch(url, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                                'Accept': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                foto: capturedPhotoData,
-                                latitude: userLat,
-                                longitude: userLng
-                            })
-                        });
-                        const data = await response.json();
-                        if (data.success) {
-                            showNotification('Berhasil disimpan!');
-                            setTimeout(() => window.location.reload(), 1000);
-                        } else {
-                            alert('Gagal: ' + (data.message || 'Error'));
-                            btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
-                            btn.disabled = false;
-                        }
-                    } catch (e) {
-                        console.error(e);
-                        alert('Gagal: Terjadi kesalahan jaringan');
-                        btn.innerHTML = '<span class="material-symbols-rounded text-lg">check</span> Konfirmasi';
-                        btn.disabled = false;
-                    }
-                    }
 
                     // Logger Function
                     function log(msg, isError = false) {
