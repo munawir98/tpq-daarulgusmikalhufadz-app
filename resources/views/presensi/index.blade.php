@@ -386,7 +386,7 @@
 
                 // Collapse Header smoothly
                 expandableHeader.classList.remove('max-h-[1000px]', 'opacity-100');
-                expandableHeader.classList.add('max-h-0', 'opacity-0', '-mb-6'); // Negative margin to pull up
+                expandableHeader.classList.add('max-h-0', 'opacity-0'); // Removed -mb-6 to keep spacing
 
                 searchInput.focus();
                 searchBtn.innerHTML = '<span class="material-icons-round text-xl">close</span>';
@@ -396,7 +396,7 @@
                 searchInputContainer.classList.add('hidden');
 
                 // Expand Header smoothly
-                expandableHeader.classList.remove('max-h-0', 'opacity-0', '-mb-6');
+                expandableHeader.classList.remove('max-h-0', 'opacity-0');
                 expandableHeader.classList.add('max-h-[1000px]', 'opacity-100');
 
                 searchInput.value = '';
