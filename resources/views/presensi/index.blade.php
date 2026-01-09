@@ -169,17 +169,28 @@
                 <h2 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-tight">Rincian Per
                     Santri</h2>
                 <div class="flex gap-2">
-                    <button class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
+                    <button id="searchBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
                         <span class="material-icons-round text-xl">search</span>
                     </button>
-                    <button class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
+                    <button id="sortBtn" class="p-1.5 text-slate-400 hover:text-teal-600 transition-colors">
                         <span class="material-icons-round text-xl">sort</span>
                     </button>
                 </div>
             </div>
-            <div class="space-y-3">
-                <button
-                    class="w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
+
+            <!-- Search Input (Hidden by default) -->
+            <div id="searchInputContainer" class="hidden mb-4 px-2">
+                <div class="relative">
+                    <span
+                        class="material-icons-round absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+                    <input type="text" id="searchInput" placeholder="Cari nama santri..."
+                        class="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border-none rounded-xl text-sm focus:ring-2 focus:ring-teal-500 placeholder-slate-400">
+                </div>
+            </div>
+
+            <div id="santriList" class="space-y-3">
+                <button data-name="Ahmad Syafi'i"
+                    class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
@@ -206,8 +217,8 @@
                         </div>
                     </div>
                 </button>
-                <button
-                    class="w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
+                <button data-name="Fatimah Az-Zahra"
+                    class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
@@ -234,8 +245,8 @@
                         </div>
                     </div>
                 </button>
-                <button
-                    class="w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
+                <button data-name="Zaid Al-Khoir"
+                    class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
@@ -262,8 +273,8 @@
                         </div>
                     </div>
                 </button>
-                <button
-                    class="w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
+                <button data-name="Maryam Nurul Huda"
+                    class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
                             <div class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
@@ -336,6 +347,56 @@
                 // Fallback
                 alert('Fitur share tidak didukung browser ini. Silakan screenshot atau copy URL.');
             }
+        });
+
+        // Search & Sort Logic
+        const searchBtn = document.getElementById('searchBtn');
+        const searchInputContainer = document.getElementById('searchInputContainer');
+        const searchInput = document.getElementById('searchInput');
+        const santriList = document.getElementById('santriList');
+        const sortBtn = document.getElementById('sortBtn');
+        let isAscending = true;
+
+        searchBtn.addEventListener('click', () => {
+            searchInputContainer.classList.toggle('hidden');
+            if (!searchInputContainer.classList.contains('hidden')) {
+                searchInput.focus();
+            }
+        });
+
+        searchInput.addEventListener('keyup', (e) => {
+            const term = e.target.value.toLowerCase();
+            const items = santriList.querySelectorAll('.santri-item');
+
+            items.forEach(item => {
+                const name = item.getAttribute('data-name').toLowerCase();
+                if (name.includes(term)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        sortBtn.addEventListener('click', () => {
+            const items = Array.from(santriList.querySelectorAll('.santri-item'));
+            items.sort((a, b) => {
+                const nameA = a.getAttribute('data-name').toLowerCase();
+                const nameB = b.getAttribute('data-name').toLowerCase();
+
+                if (isAscending) {
+                    return nameA < nameB ? -1 : 1;
+                } else {
+                    return nameA > nameB ? -1 : 1;
+                }
+            });
+
+            // Toggle Sort Order
+            isAscending = !isAscending;
+
+            // Re-append sorted items
+            santriList.innerHTML = '';
+            items.forEach(item => santriList.appendChild(item));
         });
     </script>
 
