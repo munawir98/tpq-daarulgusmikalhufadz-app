@@ -90,8 +90,9 @@
         class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-24 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
         <div class="p-6">
             <div class="mb-6">
+                <!-- Search Input -->
                 <div class="relative mb-4">
-                    <input
+                    <input id="searchInput"
                         class="w-full bg-gray-50 dark:bg-gray-800 border-none text-sm rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-blue-500/50 shadow-sm placeholder-gray-400 text-gray-700 dark:text-gray-200 transition-shadow"
                         placeholder="Cari jenis laporan..." type="text" />
                     <span
@@ -101,20 +102,24 @@
                         <span class="material-icons-round text-lg">tune</span>
                     </button>
                 </div>
-                <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-                    <button
-                        class="px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap">Semua</button>
-                    <button
-                        class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700">Harian</button>
-                    <button
-                        class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700">Bulanan</button>
-                    <button
-                        class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700">Semester</button>
+                <!-- Filters -->
+                <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
+                    <button data-filter="all"
+                        class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all">Semua</button>
+                    <button data-filter="harian"
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Harian</button>
+                    <button data-filter="bulanan"
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Bulanan</button>
+                    <button data-filter="semester"
+                        class="filter-btn px-4 py-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 rounded-full text-xs font-medium whitespace-nowrap hover:bg-gray-50 dark:hover:bg-gray-700 transition-all">Semester</button>
                 </div>
             </div>
-            <div class="space-y-4">
-                <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="{{ route('ustadz.presensi') }}">
+
+            <!-- Report List -->
+            <div class="space-y-4" id="reportList">
+                <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+                    href="{{ route('ustadz.presensi') }}" data-category="harian bulanan"
+                    data-title="Laporan Kehadiran Santri">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -131,8 +136,9 @@
                         </div>
                     </div>
                 </a>
-                <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="{{ route('ustadz.hafalan.laporan') }}">
+                <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+                    href="{{ route('ustadz.hafalan.laporan') }}" data-category="harian bulanan"
+                    data-title="Laporan Setoran Hafalan">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -148,8 +154,8 @@
                         </div>
                     </div>
                 </a>
-                <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="{{ route('ustadz.nilai.index') }}">
+                <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+                    href="{{ route('ustadz.nilai.index') }}" data-category="semester" data-title="Laporan Nilai Santri">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -165,8 +171,8 @@
                         </div>
                     </div>
                 </a>
-                <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="#">
+                <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+                    href="#" data-category="bulanan semester" data-title="Laporan Keuangan">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -182,8 +188,8 @@
                         </div>
                     </div>
                 </a>
-                <a class="group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="#">
+                <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
+                    href="#" data-category="harian bulanan" data-title="Laporan Kegiatan">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-105 transition-transform">
@@ -204,6 +210,56 @@
         </div>
     </div>
 
+    <!-- Logic Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInput');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const reportItems = document.querySelectorAll('.report-item');
+
+            let currentFilter = 'all';
+            let currentSearch = '';
+
+            // Filter Buttons Logic
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function () {
+                    // Update Active State
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/30');
+                        b.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-500', 'dark:text-gray-400', 'border');
+                    });
+
+                    this.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-500', 'dark:text-gray-400', 'border');
+                    this.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-500/30');
+
+                    currentFilter = this.getAttribute('data-filter');
+                    filterReports();
+                });
+            });
+
+            // Search Logic
+            searchInput.addEventListener('input', function (e) {
+                currentSearch = e.target.value.toLowerCase();
+                filterReports();
+            });
+
+            function filterReports() {
+                reportItems.forEach(item => {
+                    const title = item.getAttribute('data-title').toLowerCase();
+                    const categories = item.getAttribute('data-category');
+
+                    const matchesSearch = title.includes(currentSearch);
+                    const matchesFilter = currentFilter === 'all' || categories.includes(currentFilter);
+
+                    if (matchesSearch && matchesFilter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
