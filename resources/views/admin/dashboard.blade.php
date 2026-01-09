@@ -119,8 +119,8 @@
                     Overview
                 </h3>
                 <div class="grid grid-cols-2 gap-3">
-                    <div
-                        class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col relative overflow-hidden group">
+                    <a href="/admin/santri"
+                        class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col relative overflow-hidden group hover:shadow-md transition-all active:scale-[0.98]">
                         <div
                             class="absolute -right-4 -top-4 w-24 h-24 bg-blue-50 dark:bg-blue-900/10 rounded-full transition-transform group-hover:scale-110">
                         </div>
@@ -131,7 +131,7 @@
                         </div>
                         <p class="text-3xl font-extrabold text-gray-900 dark:text-white relative z-10">312</p>
                         <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 relative z-10">Total Santri</p>
-                    </div>
+                    </a>
                     <div
                         class="bg-surface-light dark:bg-surface-dark p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col relative overflow-hidden group">
                         <div

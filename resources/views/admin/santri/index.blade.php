@@ -129,7 +129,8 @@
             </div>
             <div class="space-y-3" id="santriListContainer">
                 @forelse($santriList as $santri)
-                <div class="santri-item bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-50 dark:border-slate-800 flex items-center gap-4 group"
+                <div class="santri-item bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-50 dark:border-slate-800 flex items-center gap-4 group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors active:scale-[0.99]"
+                    onclick="window.location.href='/admin/santri/{{ $santri->id }}'"
                     data-name="{{ strtolower($santri->nama ?? $santri->name) }}" data-nis="{{ $santri->nis }}">
                     <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-teal-50 dark:border-slate-700">
                         @if($santri->foto)
