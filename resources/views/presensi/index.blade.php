@@ -139,32 +139,36 @@
                     </div>
                 </div>
                 <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
-                    <a href="/ustadz/santri"
-                        class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
+                    <div onclick="filterStatus('all')"
+                        class="cursor-pointer block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card"
+                        data-card="all">
                         <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
                         <div class="flex items-end gap-2">
                             <span class="text-2xl font-bold text-slate-800 dark:text-white">42</span>
                             <span class="text-[10px] text-slate-400 mb-1">Anak</span>
                         </div>
-                    </a>
-                    <div
-                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                    </div>
+                    <div onclick="filterStatus('hadir')"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-teal-500 transition-all active:scale-[0.98] stats-card"
+                        data-card="hadir">
                         <p class="text-[10px] text-teal-600 font-medium uppercase mb-1">Hadir</p>
                         <div class="flex items-end gap-2">
                             <span class="text-2xl font-bold text-teal-600">94%</span>
                             <span class="text-[10px] text-teal-400 mb-1">Avg</span>
                         </div>
                     </div>
-                    <div
-                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                    <div onclick="filterStatus('izin')"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-amber-500 transition-all active:scale-[0.98] stats-card"
+                        data-card="izin">
                         <p class="text-[10px] text-amber-500 font-medium uppercase mb-1">Izin/Sakit</p>
                         <div class="flex items-end gap-2">
                             <span class="text-2xl font-bold text-amber-500">12</span>
                             <span class="text-[10px] text-amber-400 mb-1">Sesi</span>
                         </div>
                     </div>
-                    <div
-                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                    <div onclick="filterStatus('alfa')"
+                        class="cursor-pointer bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border-2 border-transparent hover:border-rose-500 transition-all active:scale-[0.98] stats-card"
+                        data-card="alfa">
                         <p class="text-[10px] text-rose-500 font-medium uppercase mb-1">Alfa</p>
                         <div class="flex items-end gap-2">
                             <span class="text-2xl font-bold text-rose-500">3</span>
@@ -202,7 +206,7 @@
             </div>
 
             <div id="santriList" class="space-y-3">
-                <button data-name="Ahmad Syafi'i"
+                <button data-name="Ahmad Syafi'i" data-status="hadir"
                     class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
@@ -230,7 +234,7 @@
                         </div>
                     </div>
                 </button>
-                <button data-name="Fatimah Az-Zahra"
+                <button data-name="Fatimah Az-Zahra" data-status="hadir"
                     class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
@@ -258,7 +262,7 @@
                         </div>
                     </div>
                 </button>
-                <button data-name="Zaid Al-Khoir"
+                <button data-name="Zaid Al-Khoir" data-status="izin"
                     class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
@@ -286,7 +290,7 @@
                         </div>
                     </div>
                 </button>
-                <button data-name="Maryam Nurul Huda"
+                <button data-name="Maryam Nurul Huda" data-status="hadir"
                     class="santri-item w-full group bg-white dark:bg-card-dark border border-slate-100 dark:border-slate-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all text-left">
                     <div class="flex items-center gap-4">
                         <div class="relative">
@@ -435,6 +439,64 @@
             santriList.innerHTML = '';
             items.forEach(item => santriList.appendChild(item));
         });
+
+        // Filter Status Logic
+        let currentStatusFilter = 'all';
+
+        function filterStatus(status) {
+            currentStatusFilter = status;
+            const items = santriList.querySelectorAll('.santri-item');
+            const cards = document.querySelectorAll('.stats-card');
+
+            // Visual feedback for cards
+            cards.forEach(card => {
+                card.classList.remove('border-teal-500', 'ring-2', 'ring-teal-500/20');
+                card.classList.add('border-transparent');
+
+                if (card.getAttribute('data-card') === status) {
+                    card.classList.remove('border-transparent');
+                    card.classList.add('border-teal-500', 'ring-2', 'ring-teal-500/20');
+                }
+            });
+
+            // Filter items
+            items.forEach(item => {
+                const itemStatus = item.getAttribute('data-status');
+                if (status === 'all' || itemStatus === status) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Ensure search still works combinatorially (optional, for now reset search or re-trigger)
+            // Ideally we re-trigger search to filter within the visible subset
+            if (searchInput.value) {
+                searchInput.dispatchEvent(new Event('keyup'));
+            }
+        }
+
+        // Rewrite search logic to respect status filter
+        searchInput.addEventListener('keyup', (e) => {
+            const term = e.target.value.toLowerCase();
+            const items = santriList.querySelectorAll('.santri-item');
+
+            items.forEach(item => {
+                const name = item.getAttribute('data-name').toLowerCase();
+                const itemStatus = item.getAttribute('data-status');
+                const matchesName = name.includes(term);
+                const matchesStatus = currentStatusFilter === 'all' || itemStatus === currentStatusFilter;
+
+                if (matchesName && matchesStatus) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        // Trigger 'all' filter initially to set styles
+        filterStatus('all');
     </script>
 
 </body>
