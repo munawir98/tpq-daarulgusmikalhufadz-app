@@ -76,6 +76,10 @@
         }
     </style>
     <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             min-height: max(884px, 100dvh);
         }
@@ -116,60 +120,66 @@
     <div
         class="flex-1 bg-white dark:bg-background-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-36 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
         <div class="p-6">
-            <div id="periodSelector" class="mb-6">
-                <div
-                    class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="p-2 bg-teal-50 dark:bg-teal-900/30 rounded-lg text-teal-600">
-                            <span class="material-icons-round">calendar_month</span>
+
+            <!-- Collapsible Header Content -->
+            <div id="expandableHeader"
+                class="transition-all duration-500 ease-in-out overflow-hidden max-h-[1000px] opacity-100">
+                <div id="periodSelector" class="mb-6">
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-teal-50 dark:bg-teal-900/30 rounded-lg text-teal-600">
+                                <span class="material-icons-round">calendar_month</span>
+                            </div>
+                            <div>
+                                <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider leading-none">
+                                    Periode</p>
+                                <p class="text-sm font-semibold dark:text-white">{{
+                                    $selectedDate->locale('id')->isoFormat('MMMM Y') }}</p>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider leading-none">
-                                Periode</p>
-                            <p class="text-sm font-semibold dark:text-white">{{
-                                $selectedDate->locale('id')->isoFormat('MMMM Y') }}</p>
+                        <button onclick="openDatePicker()"
+                            class="text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full hover:bg-teal-100 transition-colors">
+                            Pilih
+                        </button>
+                    </div>
+                </div>
+                <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
+                    <a href="/ustadz/santri"
+                        class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
+                        <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
+                        <div class="flex items-end gap-2">
+                            <span class="text-2xl font-bold text-slate-800 dark:text-white">42</span>
+                            <span class="text-[10px] text-slate-400 mb-1">Anak</span>
+                        </div>
+                    </a>
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                        <p class="text-[10px] text-teal-600 font-medium uppercase mb-1">Hadir</p>
+                        <div class="flex items-end gap-2">
+                            <span class="text-2xl font-bold text-teal-600">94%</span>
+                            <span class="text-[10px] text-teal-400 mb-1">Avg</span>
                         </div>
                     </div>
-                    <button onclick="openDatePicker()"
-                        class="text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full hover:bg-teal-100 transition-colors">
-                        Pilih
-                    </button>
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                        <p class="text-[10px] text-amber-500 font-medium uppercase mb-1">Izin/Sakit</p>
+                        <div class="flex items-end gap-2">
+                            <span class="text-2xl font-bold text-amber-500">12</span>
+                            <span class="text-[10px] text-amber-400 mb-1">Sesi</span>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+                        <p class="text-[10px] text-rose-500 font-medium uppercase mb-1">Alfa</p>
+                        <div class="flex items-end gap-2">
+                            <span class="text-2xl font-bold text-rose-500">3</span>
+                            <span class="text-[10px] text-rose-400 mb-1">Sesi</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
-                <a href="/ustadz/santri"
-                    class="block bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-[0.98]">
-                    <p class="text-[10px] text-slate-500 font-medium uppercase mb-1">Total Santri</p>
-                    <div class="flex items-end gap-2">
-                        <span class="text-2xl font-bold text-slate-800 dark:text-white">42</span>
-                        <span class="text-[10px] text-slate-400 mb-1">Anak</span>
-                    </div>
-                </a>
-                <div
-                    class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <p class="text-[10px] text-teal-600 font-medium uppercase mb-1">Hadir</p>
-                    <div class="flex items-end gap-2">
-                        <span class="text-2xl font-bold text-teal-600">94%</span>
-                        <span class="text-[10px] text-teal-400 mb-1">Avg</span>
-                    </div>
-                </div>
-                <div
-                    class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <p class="text-[10px] text-amber-500 font-medium uppercase mb-1">Izin/Sakit</p>
-                    <div class="flex items-end gap-2">
-                        <span class="text-2xl font-bold text-amber-500">12</span>
-                        <span class="text-[10px] text-amber-400 mb-1">Sesi</span>
-                    </div>
-                </div>
-                <div
-                    class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
-                    <p class="text-[10px] text-rose-500 font-medium uppercase mb-1">Alfa</p>
-                    <div class="flex items-end gap-2">
-                        <span class="text-2xl font-bold text-rose-500">3</span>
-                        <span class="text-[10px] text-rose-400 mb-1">Sesi</span>
-                    </div>
-                </div>
-            </div>
+
             <div class="flex items-center justify-between mb-4 px-2">
                 <h2 class="text-sm font-bold text-slate-700 dark:text-slate-200 uppercase tracking-tight">Rincian Per
                     Santri</h2>
@@ -362,8 +372,7 @@
         const sortBtn = document.getElementById('sortBtn');
         let isAscending = true;
 
-        const periodSelector = document.getElementById('periodSelector');
-        const statsGrid = document.getElementById('statsGrid');
+        const expandableHeader = document.getElementById('expandableHeader');
 
         searchBtn.addEventListener('click', () => {
             const isHidden = searchInputContainer.classList.contains('hidden');
@@ -371,16 +380,22 @@
             if (isHidden) {
                 // Open Search
                 searchInputContainer.classList.remove('hidden');
-                periodSelector.classList.add('hidden');
-                statsGrid.classList.add('hidden');
+
+                // Collapse Header smoothly
+                expandableHeader.classList.remove('max-h-[1000px]', 'opacity-100');
+                expandableHeader.classList.add('max-h-0', 'opacity-0', '-mb-6'); // Negative margin to pull up
+
                 searchInput.focus();
                 searchBtn.innerHTML = '<span class="material-icons-round text-xl">close</span>';
                 searchBtn.classList.add('text-teal-600', 'bg-teal-50');
             } else {
                 // Close Search
                 searchInputContainer.classList.add('hidden');
-                periodSelector.classList.remove('hidden');
-                statsGrid.classList.remove('hidden');
+
+                // Expand Header smoothly
+                expandableHeader.classList.remove('max-h-0', 'opacity-0', '-mb-6');
+                expandableHeader.classList.add('max-h-[1000px]', 'opacity-100');
+
                 searchInput.value = '';
                 searchInput.dispatchEvent(new Event('keyup')); // Reset list
                 searchBtn.innerHTML = '<span class="material-icons-round text-xl">search</span>';
