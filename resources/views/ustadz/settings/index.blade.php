@@ -3,6 +3,8 @@
     // Dark mode init
     if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
     }
 </script>
 <html lang="en">
@@ -44,7 +46,7 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark font-display text-[#111813] dark:text-white transition-colors duration-200">
+    class="bg-white dark:bg-background-dark font-display text-[#111813] dark:text-white transition-colors duration-200">
     <div
         class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
 
