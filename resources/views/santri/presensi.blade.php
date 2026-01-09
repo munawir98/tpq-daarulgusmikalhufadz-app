@@ -230,8 +230,8 @@
             },
             {
                 enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 0
+                timeout: 20000,
+                maximumAge: 30000
             }
         );
     }

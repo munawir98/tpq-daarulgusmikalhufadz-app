@@ -1633,8 +1633,8 @@
                             // First try: High accuracy GPS
                             window.watchId = navigator.geolocation.watchPosition(handleGPSSuccess, handleGPSError, {
                                 enableHighAccuracy: true,
-                                timeout: 15000,
-                                maximumAge: 10000
+                                timeout: 20000,
+                                maximumAge: 30000
                             });
 
                             function handleGPSSuccess(pos) {
