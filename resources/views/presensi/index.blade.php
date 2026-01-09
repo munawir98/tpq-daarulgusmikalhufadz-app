@@ -70,24 +70,18 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
-    <style>
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
+    html, body {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none; /* Prevent pull-to-refresh effecting fixed elements */
+    }
+    /* Remove conflicting min-heights */
 </head>
 
 <body
-    class="bg-white dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
+    class="bg-white dark:bg-background-dark w-full flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
     <div
         class="fixed top-0 left-0 w-full z-30 bg-gradient-to-br from-teal-600 to-teal-800 dark:from-teal-900 dark:to-slate-950">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
