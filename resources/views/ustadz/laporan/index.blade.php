@@ -95,13 +95,13 @@
                     class="w-full bg-gray-50 dark:bg-gray-800 border-none text-sm rounded-2xl py-3.5 pl-12 pr-4 focus:ring-2 focus:ring-blue-500/50 shadow-sm placeholder-gray-400 text-gray-700 dark:text-gray-200 transition-shadow"
                     placeholder="Cari jenis laporan..." type="text" />
                 <span class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
-                <button
+                <button id="toggleFilterBtn"
                     class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 bg-white dark:bg-gray-700 rounded-lg shadow-sm text-gray-500 hover:text-blue-500 transition-colors">
                     <span class="material-icons-round text-lg">tune</span>
                 </button>
             </div>
             <!-- Filters -->
-            <div class="flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
+            <div class="hidden flex gap-2 overflow-x-auto scrollbar-hide pb-2" id="filterContainer">
                 <button data-filter="all"
                     class="filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700">Semua</button>
                 <button data-filter="harian"
@@ -215,6 +215,22 @@
             const searchInput = document.getElementById('searchInput');
             const filterBtns = document.querySelectorAll('.filter-btn');
             const reportItems = document.querySelectorAll('.report-item');
+            const toggleFilterBtn = document.getElementById('toggleFilterBtn');
+            const filterContainer = document.getElementById('filterContainer');
+
+            // Toggle Filter Container
+            toggleFilterBtn.addEventListener('click', function () {
+                filterContainer.classList.toggle('hidden');
+
+                // Visual feedback for active state
+                if (!filterContainer.classList.contains('hidden')) {
+                    this.classList.add('text-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                    this.classList.remove('text-gray-500', 'bg-white', 'dark:bg-gray-700');
+                } else {
+                    this.classList.remove('text-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                    this.classList.add('text-gray-500', 'bg-white', 'dark:bg-gray-700');
+                }
+            });
 
             let currentFilter = 'all';
             let currentSearch = '';
@@ -230,6 +246,9 @@
 
                     // Set active styles
                     this.className = 'filter-btn active px-4 py-2 bg-blue-600 text-white rounded-full text-xs font-semibold shadow-md shadow-blue-500/30 whitespace-nowrap transition-all hover:bg-blue-700';
+
+                    // Scroll into view
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
                     currentFilter = this.getAttribute('data-filter');
                     filterReports();
