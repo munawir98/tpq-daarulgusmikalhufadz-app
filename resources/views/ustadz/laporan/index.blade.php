@@ -49,6 +49,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            /* Allow body to scroll naturally */
             min-height: 100vh;
         }
 
@@ -61,16 +62,12 @@
             scrollbar-width: none;
         }
     </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white">
-    <!-- Header Gradient -->
+    class="bg-background-light dark:bg-background-dark w-full flex flex-col font-display text-gray-800 dark:text-gray-100 selection:bg-primary selection:text-white pb-10">
+
+    <!-- Header Gradient (Scrolls naturally) -->
     <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-14 px-6">
@@ -88,12 +85,12 @@
         </div>
     </div>
 
-    <!-- Main Card - Fixed Layout -->
+    <!-- Main Card Content -->
     <div
-        class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 flex flex-col overflow-hidden shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
+        class="flex-1 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] -mt-8 relative z-20 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] pb-8 min-h-[80vh]">
 
-        <!-- Fixed Header Section (Search & Filter) -->
-        <div class="px-6 pt-6 pb-2 shrink-0 z-30 bg-card-light dark:bg-card-dark rounded-t-[2.5rem]">
+        <!-- Sticky Header Section (Search & Filter) -->
+        <div class="sticky top-0 z-30 bg-card-light dark:bg-card-dark rounded-t-[2.5rem] px-6 pt-6 pb-2 shadow-sm">
             <!-- Search Input -->
             <div class="relative mb-4">
                 <input id="searchInput"
@@ -118,9 +115,9 @@
             </div>
         </div>
 
-        <!-- Scrollable Report List -->
-        <div class="flex-1 overflow-y-auto px-6 pt-2 pb-24" id="reportScanner">
-            <div class="space-y-4" id="reportList">
+        <!-- Scrollable Report List (Natural Scroll) -->
+        <div class="px-6 pt-2" id="reportList">
+            <div class="space-y-4">
                 <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
                     href="{{ route('ustadz.presensi') }}" data-category="harian bulanan"
                     data-title="Laporan Kehadiran Santri">
