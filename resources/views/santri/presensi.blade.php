@@ -25,17 +25,17 @@
 @section('content')
 
 {{-- Status Card --}}
-<div class="bg-primary rounded-3xl p-6 shadow-lg shadow-primary/20">
+<div class="bg-white dark:bg-gray-800 rounded-3xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
     <div class="flex flex-col items-center text-center">
-        <div class="bg-[#102216]/10 p-4 rounded-2xl mb-4">
-            <span class="material-symbols-outlined text-[#102216]" style="font-size: 48px;">
+        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-2xl mb-4">
+            <span class="material-symbols-outlined text-green-600 dark:text-green-400" style="font-size: 48px;">
                 {{ $hasPresensi ? 'check_circle' : 'fingerprint' }}
             </span>
         </div>
-        <h3 class="text-2xl font-bold text-[#102216] mb-1">
+        <h3 class="text-2xl font-bold text-[#102216] dark:text-white mb-1">
             {{ $hasPresensi ? 'Sudah Presensi!' : 'Presensi Hari Ini' }}
         </h3>
-        <p class="text-[#102216]/80 text-sm">
+        <p class="text-gray-500 dark:text-gray-400 text-sm">
             @if($hasPresensi)
             Masuk: {{ $presensiTime }} WIB
             @else
