@@ -156,18 +156,18 @@
                 <div id="map" class="w-full h-full z-0"></div>
 
                 <!-- Map Controls (Right Side) -->
-                <div class="absolute bottom-4 right-4 flex flex-col space-y-2 z-[400]">
+                <div class="absolute bottom-4 right-4 flex flex-col space-y-1.5 z-[400]">
                     <button onclick="map.zoomIn()"
-                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-700 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
-                        <span class="material-icons-round text-lg">add</span>
+                        class="w-6 h-6 bg-white/90 backdrop-blur text-gray-700 rounded-lg shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
+                        <span class="material-icons-round text-[14px]">add</span>
                     </button>
                     <button onclick="resetMap()"
-                        class="w-8 h-8 bg-blue-500/90 backdrop-blur text-white rounded-full shadow-lg shadow-blue-500/30 flex items-center justify-center hover:bg-blue-600 active:scale-95 border border-blue-400/50">
-                        <span class="material-icons-round text-lg">near_me</span>
+                        class="w-6 h-6 bg-white/90 backdrop-blur text-blue-600 rounded-lg shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-blue-200/50">
+                        <span class="material-icons-round text-[14px]">restart_alt</span>
                     </button>
                     <button onclick="map.zoomOut()"
-                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-700 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
-                        <span class="material-icons-round text-lg">remove</span>
+                        class="w-6 h-6 bg-white/90 backdrop-blur text-gray-700 rounded-lg shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
+                        <span class="material-icons-round text-[14px]">remove</span>
                     </button>
                 </div>
 
