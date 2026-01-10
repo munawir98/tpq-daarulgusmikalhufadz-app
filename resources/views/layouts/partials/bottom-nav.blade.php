@@ -36,7 +36,7 @@ default => [
 
 $centerButton = match($role) {
 'ADMIN' => ['route' => 'admin.settings', 'icon' => 'qr_code_scanner', 'label' => 'QRIS'],
-'USTADZ' => ['route' => 'ustadz.dashboard', 'icon' => 'qr_code_scanner', 'label' => 'QRIS'],
+'USTADZ' => ['route' => 'ustadz.dashboard', 'icon' => 'fingerprint', 'label' => 'Presensi'],
 default => ['route' => 'santri.presensi', 'icon' => 'fingerprint', 'label' => 'Absen'],
 };
 @endphp
