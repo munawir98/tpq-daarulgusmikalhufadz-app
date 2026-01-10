@@ -131,12 +131,17 @@
                     challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
                     rp: { name: "TPQ Daarul Gusmik", id: window.location.hostname },
                     user: {
-                        id: Uint8Array.from(santriId, c => c.charCodeAt(0)), // Using Santri ID as User Handle? Or Random? Using SantriID for now.
+                        id: Uint8Array.from(santriId, c => c.charCodeAt(0)),
                         name: "santri-" + santriId,
                         displayName: $("#santriSelect option:selected").text()
                     },
                     pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
-                    authenticatorSelection: { userVerification: "required" },
+                    authenticatorSelection: {
+                        authenticatorAttachment: "platform", // Use internal sensor (optional, but good for phone)
+                        userVerification: "required",
+                        residentKey: "required", // Force Passkey / Discoverable Credential
+                        requireResidentKey: true
+                    },
                     timeout: 60000,
                     attestation: "none"
                 };

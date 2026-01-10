@@ -70,7 +70,7 @@ class BiometricWebController extends Controller
             'longitude' => $request->longitude
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Absen berhasil dicatat.']);
+        return response()->json(['success' => true, 'message' => "Absen {$santri->nama_lengkap} berhasil dicatat."]);
     }
 
     public function register()
