@@ -72,12 +72,12 @@
         <header class="flex items-center justify-between mt-4 mb-6">
             <div class="flex items-center space-x-3">
                 <a href="{{ route('ustadz.dashboard') }}"
-                    class="w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
-                    <span class="material-icons-round text-white text-2xl">arrow_back</span>
+                    class="w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
+                    <span class="material-icons-round text-white text-xl">arrow_back</span>
                 </a>
                 <div>
-                    <h1 class="text-xl font-bold leading-tight">Presensi Kehadiran</h1>
-                    <p class="text-white/70 text-xs">Ustadz &amp; Pengajar</p>
+                    <h1 class="text-lg font-bold leading-tight">Presensi Kehadiran</h1>
+                    <p class="text-white/70 text-[10px]">Ustadz &amp; Pengajar</p>
                 </div>
             </div>
             <a href="{{ route('notifications.index') }}"
