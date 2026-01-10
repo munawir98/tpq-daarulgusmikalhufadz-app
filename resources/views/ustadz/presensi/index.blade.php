@@ -180,6 +180,13 @@
                     </button>
                 </div>
 
+                <!-- Small Status Badge on Map -->
+                <div id="mapStatusBadge"
+                    class="absolute top-3 left-3 z-[400] flex items-center space-x-1.5 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full shadow-sm border border-white/20 transition-all transform scale-95 opacity-0">
+                    <div id="mapStatusIcon" class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
+                    <span id="mapStatusText" class="text-[10px] font-bold text-gray-600">Mencari Lokasi...</span>
+                </div>
+
 
 
 
@@ -213,10 +220,7 @@
                 </button>
             </div>
 
-            <button id="locationStatusBtn" onclick="window.location.reload()"
-                class="w-full py-4 bg-white/20 hover:bg-white/30 border border-white/30 rounded-2xl font-bold text-sm tracking-[0.2em] uppercase transition-all mb-8">
-                Mendeteksi Lokasi...
-            </button>
+
         </div>
 
         <!-- Rekapitulasi Form -->
@@ -451,25 +455,27 @@
 
                 // Calculate Distance
                 const distance = map.distance([currentLat, currentLng], [SENTRA_LAT, SENTRA_LNG]);
-                const statusBtn = document.getElementById('locationStatusBtn');
 
-                if (distance <= RADIUS_METER) {
-                    isWithinRadius = true;
-                    if (statusBtn) {
-                        statusBtn.textContent = `Dalam Radius ${Math.round(distance)} Meter`;
-                        statusBtn.classList.remove('bg-red-500/20', 'border-red-500/30', 'text-red-200');
-                        statusBtn.classList.add('bg-green-500/20', 'border-green-500/30', 'text-white');
-                    }
-                    if (circle) circle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
+                // Update Map Badge
+                const badge = document.getElementById('mapStatusBadge');
+                const badgeIcon = document.getElementById('mapStatusIcon');
+                const badgeText = document.getElementById('mapStatusText');
 
-                } else {
-                    isWithinRadius = false;
-                    if (statusBtn) {
-                        statusBtn.textContent = `Luar Radius ${Math.round(distance)} Meter`;
-                        statusBtn.classList.remove('bg-green-500/20', 'border-green-500/30', 'text-white');
-                        statusBtn.classList.add('bg-red-500/20', 'border-red-500/30', 'text-white');
+                if (badge) {
+                    badge.classList.remove('scale-95', 'opacity-0');
+                    if (distance <= RADIUS_METER) {
+                        isWithinRadius = true;
+                        badgeIcon.className = 'w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]';
+                        badgeText.textContent = `Dalam Radius (${Math.round(distance)}m)`;
+                        badgeText.className = 'text-[10px] font-bold text-green-600';
+                        if (circle) circle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
+                    } else {
+                        isWithinRadius = false;
+                        badgeIcon.className = 'w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]';
+                        badgeText.textContent = `Luar Radius (${Math.round(distance)}m)`;
+                        badgeText.className = 'text-[10px] font-bold text-red-600';
+                        if (circle) circle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                     }
-                    if (circle) circle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                 }
             }
 
