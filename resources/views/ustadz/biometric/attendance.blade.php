@@ -54,6 +54,10 @@
         </div>
 
         <h2 class="text-xl font-bold text-gray-800 mb-1">Absen Sidik Jari</h2>
+        <a href="{{ route('ustadz.biometric.register') }}"
+            class="absolute right-4 top-4 text-primary hover:text-green-600 transition-colors">
+            <span class="material-icons-round">person_add</span>
+        </a>
         <p class="text-gray-500 text-xs mb-6">Pilih Santri & Tempelkan Jari Anda (Ustadz)</p>
 
         <!-- Form Santri -->

@@ -130,6 +130,14 @@ class User extends Authenticatable
     }
 
     /**
+     * 🔑 USER → BIOMETRIC CREDENTIALS
+     */
+    public function biometricCredentials(): HasMany
+    {
+        return $this->hasMany(BiometricCredential::class);
+    }
+
+    /**
      * 🔔 USER → FCM TOKENS (MULTI DEVICE)
      */
     public function fcmTokens()

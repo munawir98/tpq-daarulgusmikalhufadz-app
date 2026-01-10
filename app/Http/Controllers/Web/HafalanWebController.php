@@ -298,7 +298,7 @@ class HafalanWebController extends Controller
     /**
      * Show input setoran form
      */
-    public function inputForm()
+    public function inputForm(Request $request)
     {
         $user = session('user');
         $querySantri = \App\Models\User::where('role', 'SANTRI');
@@ -322,8 +322,12 @@ class HafalanWebController extends Controller
             $santri->last_hafalan = $lastHafalans->get($santri->id);
         });
 
+        // Check for specific santri selected via URL
+        $selectedSantriId = $request->query('santri_id');
+
         return view('ustadz.hafalan.input', [
             'santris' => $santris,
+            'selectedSantriId' => $selectedSantriId,
         ]);
     }
 

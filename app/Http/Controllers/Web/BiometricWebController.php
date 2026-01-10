@@ -73,6 +73,45 @@ class BiometricWebController extends Controller
         return response()->json(['success' => true, 'message' => 'Absen berhasil dicatat.']);
     }
 
+    public function register()
+    {
+        // Get active Santri
+        $santris = \App\Models\Santri::where('status_aktif', 1)
+            ->orderBy('nama_lengkap', 'asc')
+            ->get();
+
+        return view('ustadz.biometric.register', compact('santris'));
+    }
+
+    public function storeCredential(Request $request)
+    {
+        $request->validate([
+            'santri_id' => 'required|exists:santri,id',
+            'credential_id' => 'required|string',
+            'name' => 'required|string|max:50',
+        ]);
+
+        try {
+            $santri = \App\Models\Santri::find($request->santri_id);
+            $userId = $santri->user_id;
+
+            if (!$userId) {
+                return response()->json(['success' => false, 'message' => 'Santri tidak memiliki akun user.'], 400);
+            }
+
+            \App\Models\BiometricCredential::create([
+                'user_id' => $userId,
+                'credential_id' => $request->credential_id,
+                'name' => $request->name,
+            ]);
+
+            return response()->json(['success' => true, 'message' => 'Sidik jari berhasil didaftarkan.']);
+
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error: ' . $e->getMessage()], 500);
+        }
+    }
+
     public function store(Request $request)
     {
         // In a real WebAuthn implementation, we would verify the attestation object here.

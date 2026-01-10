@@ -241,6 +241,25 @@
     </div>
 
     <script>
+        // Check for auto-selected santri from Controller
+        @if (isset($selectedSantriId) && $selectedSantriId)
+            document.addEventListener('DOMContentLoaded', function () {
+                const targetId = {{ $selectedSantriId }
+            };
+        // Iterate over buttons to find the name (inefficient but safe given structure)
+        const buttons = document.querySelectorAll('.santri-item');
+        for (let btn of buttons) {
+            // Parse the onclick attribute or distinct ID approach
+            // Easier: just look at onclick string or data attribute if I added one.
+            // I'll add data-id to the button first for easier selection.
+            if (btn.getAttribute('onclick').includes('selectSantri(' + targetId + ',')) {
+                btn.click();
+                break;
+            }
+        }
+        });
+        @endif
+
         // Star Rating
         function setRating(rating) {
             document.getElementById('nilaiInput').value = rating;
