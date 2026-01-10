@@ -109,7 +109,7 @@
     </style>
 </head>
 
-<body class="bg-[#4a90e2] dark:bg-[#0f172a] min-h-screen text-white">
+<body class="bg-blue-600 dark:bg-[#0f172a] min-h-screen text-white">
     <div class="max-w-md mx-auto min-h-screen flex flex-col p-6 relative overflow-hidden">
         <header class="flex items-center justify-between mt-4 mb-6">
             <div class="flex items-center space-x-3">
