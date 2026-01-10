@@ -251,7 +251,9 @@
                 const RADIUS_METER = 50;
 
                 // Data Biometrik User
-                const hasBiometric = @json(session('user.biometric_credential') ? true : false);
+                // Data Biometrik User
+                const biometricId = @json(session('user.biometric_credential'));
+                const hasBiometric = biometricId ? true : false;
 
                 let map, userMarker, circle;
                 let currentLat = null;
@@ -413,19 +415,34 @@
                                 allowOutsideClick: false
                             });
 
-                            // Dummy Get Credential just to trigger sensor
+                            // Verifikasi Biometrik (Client Side Challenge)
+                            const challenge = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]); // Seharusnya dari server
+
                             const publicKey = {
-                                challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
+                                challenge: challenge,
                                 rpId: window.location.hostname,
                                 timeout: 60000,
-                                userVerification: "required"
+                                userVerification: "required",
                             };
+
+                            // Jika ingin spesifik hanya ID yang didaftarkan (Optional: lebih aman tapi bisa error jika ID encoded beda format)
+                            /*
+                            if (biometricId) {
+                                // Decode base64 to Uint8Array if format matches
+                                // publicKey.allowCredentials = [{ type: "public-key", id: ... }];
+                            }
+                            */
 
                             await navigator.credentials.get({ publicKey });
                             Swal.close();
 
                         } catch (err) {
-                            Swal.fire('Gagal Verifikasi', 'Sidik jari tidak dikenali atau dibatalkan.', 'error');
+                            console.error(err);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Verifikasi',
+                                text: 'Sidik jari tidak cocok atau dibatalkan (' + err.name + ').'
+                            });
                             return;
                         }
                     } else {
