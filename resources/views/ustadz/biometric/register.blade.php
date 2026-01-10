@@ -189,7 +189,7 @@
                 Swal.fire('Gagal', error.message || 'Terjadi kesalahan.', 'error');
             } finally {
                 btn.innerHTML = originalContent;
-                if ($('#santriSelect').val() && $('#credentialName').val()) btn.disabled = false;
+                checkForm(); // Re-evaluate button state correctly
             }
         }
     </script>
