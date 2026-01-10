@@ -109,8 +109,7 @@
     </style>
 </head>
 
-<body
-    class="bg-gradient-to-br from-[#4a90e2] via-[#6366f1] to-[#2c5282] dark:from-[#1e293b] dark:to-[#0f172a] min-h-screen text-white animate-gradient-x bg-[length:400%_400%]">
+<body class="bg-[#4a90e2] dark:bg-[#0f172a] min-h-screen text-white">
     <div class="max-w-md mx-auto min-h-screen flex flex-col p-6 relative overflow-hidden">
         <header class="flex items-center justify-between mt-4 mb-6">
             <div class="flex items-center space-x-3">
