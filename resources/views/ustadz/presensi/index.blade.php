@@ -212,10 +212,10 @@
 
                 <!-- Selfie Button (Pulang) -->
                 <button onclick="checkBiometricAndSubmit('pulang')"
-                    class="relative flex flex-col items-center justify-center p-5 bg-white/10 border border-white/20 rounded-2xl text-white active:scale-95 transition-transform hover:bg-white/20">
-                    <span class="material-symbols-outlined text-4xl mb-2">logout</span>
+                    class="relative flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-xl text-orange-600 active:scale-95 transition-transform overflow-hidden group">
+                    <span class="material-symbols-outlined text-4xl mb-2 text-orange-600">logout</span>
                     <span class="text-[10px] font-bold uppercase tracking-wide">Presensi Pulang</span>
-                    <div class="mt-2 flex items-center text-[8px] text-white/50 font-medium">
+                    <div class="mt-2 flex items-center text-[8px] text-orange-500 font-medium">
                         <span class="material-icons-round text-[10px] mr-0.5">photo_camera</span>
                         Selfie Check
                     </div>
