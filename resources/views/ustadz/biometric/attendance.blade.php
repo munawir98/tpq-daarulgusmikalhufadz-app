@@ -163,7 +163,7 @@
             // Using the existing PresensiWebController endpoint via fetch
 
             try {
-                const response = await fetch("{{ route('ustadz.presensi.masuk') }}", { // Note: Check if this route exists/accepts generic post
+                const response = await fetch("{{ route('ustadz.biometric.submit') }}", {
                     // Actually, the existing route might be for "Self" or "Bulk".
                     // Let's assume we need a proper endpoint.
                     // For THIS Task, we will mock the success to show the flow,

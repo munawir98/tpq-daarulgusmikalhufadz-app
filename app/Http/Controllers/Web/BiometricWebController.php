@@ -24,6 +24,55 @@ class BiometricWebController extends Controller
         return view('ustadz.biometric.attendance', compact('santris'));
     }
 
+    public function submitAttendance(Request $request)
+    {
+        $request->validate([
+            'santri_id' => 'required|exists:santri,id',
+            'latitude' => 'nullable', // Optional for biometric/ustadz mode
+            'longitude' => 'nullable',
+        ]);
+
+        $santri = \App\Models\Santri::find($request->santri_id);
+        if (!$santri) return response()->json(['success' => false, 'message' => 'Santri tidak ditemukan'], 404);
+
+        // Use Santri's linked user ID if available, or just record by Santri ID if Presensi supports it.
+        // Looking at Presensi model, it links to User.
+        // We assume Santri has a User account.
+        $userId = $santri->user_id;
+
+        if (!$userId) {
+             // Fallback or Error if system requires User ID
+             // For now, let's assume we need a user ID.
+             return response()->json(['success' => false, 'message' => 'Santri belum memiliki akun User terhubung.'], 400);
+        }
+
+        $today = now()->format('Y-m-d');
+
+        // Cek Double
+        $exists = \App\Models\Presensi::where('user_id', $userId)
+            ->where('tanggal', $today)
+            ->where('tipe', 'masuk')
+            ->exists();
+
+        if ($exists) {
+             return response()->json(['success' => true, 'message' => 'Santri sudah absen hari ini.']);
+        }
+
+        \App\Models\Presensi::create([
+            'user_id' => $userId,
+            'ustadz_id' => auth()->id(), // Recorded by Ustadz
+            'tanggal' => $today,
+            'jam' => now()->format('H:i:s'),
+            'tipe' => 'masuk',
+            'status_presensi' => 'HADIR',
+            'metode' => 'BIOMETRIC', // or FINGERPRINT
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Absen berhasil dicatat.']);
+    }
+
     public function store(Request $request)
     {
         // In a real WebAuthn implementation, we would verify the attestation object here.

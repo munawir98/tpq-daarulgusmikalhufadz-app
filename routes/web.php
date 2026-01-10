@@ -253,6 +253,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/biometric', [BiometricWebController::class, 'index'])->name('biometric.index');
         Route::post('/biometric', [BiometricWebController::class, 'store'])->name('biometric.store');
         Route::get('/biometric/attendance', [BiometricWebController::class, 'attendance'])->name('biometric.attendance');
+        Route::post('/biometric/attendance', [BiometricWebController::class, 'submitAttendance'])->name('biometric.submit');
 
         // Hafalan / Setoran
 
