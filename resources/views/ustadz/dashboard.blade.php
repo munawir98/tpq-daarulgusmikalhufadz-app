@@ -514,9 +514,9 @@
                                 class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
                                 <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
                                     <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">fingerprint</span>
+                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-5xl">fingerprint</span>
                                     <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Tap<br />Presensi</span>
+                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Presensi<br />Masuk</span>
                                 </div>
                                 <img id="fotoPreview" src="" alt="Foto Presensi"
                                     class="w-full h-full object-cover absolute inset-0 hidden" />
@@ -1333,9 +1333,9 @@
                                     icon.style.display = 'block';
                                     icon.textContent = 'fingerprint';
                                     if (cek.type === 'pulang') {
-                                        icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                                        icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-5xl';
                                     } else {
-                                        icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
+                                        icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-5xl';
                                     }
                                 }
                                 if (text) {
