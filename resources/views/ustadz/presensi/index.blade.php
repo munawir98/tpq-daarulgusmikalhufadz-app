@@ -155,15 +155,15 @@
             <div class="w-full h-40 bg-white/5 rounded-2xl mb-6 relative overflow-hidden border border-white/10 group">
                 <div id="map" class="w-full h-full z-0"></div>
 
-                <!-- Map Controls (Bottom Center) -->
-                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-row space-x-3 z-[400]">
+                <!-- Map Controls (Right Side) -->
+                <div class="absolute bottom-4 right-4 flex flex-col space-y-2 z-[400]">
                     <button onclick="map.zoomIn()"
                         class="w-8 h-8 bg-white/90 backdrop-blur text-gray-700 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
                         <span class="material-icons-round text-lg">add</span>
                     </button>
                     <button onclick="resetMap()"
                         class="w-8 h-8 bg-blue-500/90 backdrop-blur text-white rounded-full shadow-lg shadow-blue-500/30 flex items-center justify-center hover:bg-blue-600 active:scale-95 border border-blue-400/50">
-                        <span class="material-icons-round text-lg">my_location</span>
+                        <span class="material-icons-round text-lg">near_me</span>
                     </button>
                     <button onclick="map.zoomOut()"
                         class="w-8 h-8 bg-white/90 backdrop-blur text-gray-700 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
