@@ -38,8 +38,8 @@ class BiometricWebController extends Controller
 
             // Update session
             $sessionUser = session('user');
-            if ($sessionUser) {
-                $sessionUser->biometric_credential = $request->credential_id;
+            if ($sessionUser && is_array($sessionUser)) {
+                $sessionUser['biometric_credential'] = $request->credential_id;
                 session(['user' => $sessionUser]);
             }
 
