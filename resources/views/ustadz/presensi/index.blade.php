@@ -252,11 +252,12 @@
                         <span>Tampilkan</span>
                     </button>
                     <div
-                        class="bg-white/10 border border-white/20 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[60px]">
-                        <span class="text-[8px] text-white/60 uppercase tracking-wider">Total</span>
+                        class="bg-white/10 border border-white/20 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[70px]">
+                        <span class="text-[8px] text-white/60 uppercase tracking-wider">Total Hadir</span>
                         <span class="text-xs font-bold text-white leading-none">
-                            {{ \App\Models\Presensi::where('user_id', auth()->id())->whereMonth('created_at',
-                            date('m'))->count() }}
+                            {{ \App\Models\Presensi::where('user_id', auth()->id())
+                            ->whereBetween('created_at', [date('Y-m-01'), date('Y-m-d') . ' 23:59:59'])
+                            ->count() }}
                         </span>
                     </div>
                 </div>
