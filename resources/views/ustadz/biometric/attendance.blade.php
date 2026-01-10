@@ -66,43 +66,9 @@
             <span class="text-lg">Mulai Scan</span>
         </button>
 
-        <div class="relative w-full my-6">
-            <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-gray-200"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-                <span class="px-2 bg-white text-gray-400">Atau pilih manual</span>
-            </div>
-        </div>
-
-        <!-- Manual Selection (Fallback) -->
-        <div class="w-full">
-            <select id="santriSelect" onchange="enableManual()" class="w-full text-sm">
-                <option value="" selected disabled>Cari nama santri...</option>
-                @foreach($santris as $santri)
-                <option value="{{ $santri->id }}">{{ $santri->nama_lengkap }}</option>
-                @endforeach
-            </select>
-
-            <button id="btnManual" onclick="manualCheckIn()" disabled
-                class="mt-3 w-full py-3 bg-gray-100 text-gray-400 rounded-xl font-semibold text-sm transition-colors">
-                Absen Manual
-            </button>
-        </div>
-
     </div>
 
     <script>
-        $(document).ready(function () {
-            $('#santriSelect').select2({ placeholder: "Cari nama santri...", width: '100%' });
-        });
-
-        function enableManual() {
-            const btn = document.getElementById('btnManual');
-            btn.disabled = false;
-            btn.className = 'mt-3 w-full py-3 bg-gray-800 text-white rounded-xl font-semibold text-sm hover:bg-gray-700 transition-colors shadow-md';
-        }
-
         function resetBtns() {
             const btn = document.getElementById('btnScanIdentify');
             btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Mulai Scan</span>';
@@ -183,9 +149,6 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + santriId;
-                        } else {
-                            // Reset form for next Santri if not inputting setoran
-                            $('#santriSelect').val(null).trigger('change');
                         }
                     });
                 } else {
@@ -197,23 +160,6 @@
                 console.error(err);
                 Swal.fire('Error', 'Terjadi kesalahan sistem.', 'error');
             }
-        }
-
-        async function manualCheckIn() {
-            const santriId = $('#santriSelect').val();
-            if (!santriId) return;
-
-            Swal.fire({
-                title: 'Absen Manual?',
-                text: 'Pastikan santri benar-benar hadir.',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Hadir'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    submitAttendance(santriId, { id: 'manual' });
-                }
-            });
         }
     </script>
 
