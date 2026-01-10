@@ -213,9 +213,56 @@
             </div>
 
             <button onclick="window.location.reload()"
-                class="w-full py-4 bg-white/20 hover:bg-white/30 border border-white/30 rounded-2xl font-bold text-sm tracking-[0.2em] uppercase transition-all mb-4">
+                class="w-full py-4 bg-white/20 hover:bg-white/30 border border-white/30 rounded-2xl font-bold text-sm tracking-[0.2em] uppercase transition-all mb-8">
                 Refresh Lokasi
-            </button> <!-- ... rest of the file ... -->
+            </button>
+
+            <!-- Riwayat Pekan Ini -->
+            <div class="flex-1 pb-24">
+                <div class="flex items-center justify-between mb-4 px-2">
+                    <h3 class="font-bold text-lg">Riwayat Pekan Ini</h3>
+                    <a href="{{ route('ustadz.laporan.index') }}"
+                        class="text-xs text-white/70 font-medium hover:text-white transition-colors">Lihat Semua</a>
+                </div>
+                <div class="space-y-3">
+                    @forelse($riwayat as $item)
+                    <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-10 h-10 {{ $item->tipe == 'masuk' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400' }} rounded-xl flex items-center justify-center">
+                                <span class="material-icons-round">{{ $item->tipe == 'masuk' ? 'login' : 'logout'
+                                    }}</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-sm text-white">{{ $item->tipe == 'masuk' ? 'Masuk Kelas' :
+                                    'Pulang / Selesai' }}</p>
+                                <p class="text-[11px] text-white/50">
+                                    {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('l, d M') }},
+                                    {{ \Carbon\Carbon::parse($item->jam)->format('H:i') }} WIB
+                                </p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span
+                                class="text-[10px] {{ $item->tipe == 'masuk' ? 'bg-green-500/20 text-green-400' : 'bg-white/10 text-white/70' }} px-2 py-1 rounded-lg">
+                                {{ $item->tipe == 'masuk' ? 'Verified Radius' : 'Selfie Check' }}
+                            </span>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="text-center py-8 text-white/50 text-xs">
+                        Belum ada riwayat presensi pekan ini.
+                    </div>
+                    @endforelse
+                </div>
+            </div>
+
+            <footer class="mt-8 text-center text-[10px] text-white/40 pb-24">
+                <p>&copy; {{ date('Y') }} TPQ Daarul Gusmik Al-Hufadz • Versi 2.1.0</p>
+            </footer>
+
+            <!-- Bottom Navigation -->
+            @include('layouts.partials.bottom-nav')
 
             <!-- Leaflet JS -->
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
