@@ -114,7 +114,7 @@
                         <span class="text-[10px] font-medium text-gray-600 dark:text-gray-400 text-center">Jadwal</span>
                     </a>
 
-                    <a href="{{ route('santri.riwayat') }}" class="flex flex-col items-center gap-2 group">
+                    <a href="{{ route('santri.hafalan.index') }}" class="flex flex-col items-center gap-2 group">
                         <div
                             class="size-12 rounded-2xl bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 flex items-center justify-center shadow-sm group-hover:bg-orange-100 dark:group-hover:bg-orange-900/30 transition-colors">
                             <span class="material-symbols-outlined">history</span>

@@ -29,7 +29,7 @@ $rightItems = match($role) {
 ['route' => 'profile.index', 'icon' => 'person', 'label' => 'Akun'],
 ],
 default => [
-['route' => 'santri.riwayat', 'icon' => 'history_edu', 'label' => 'Riwayat'],
+['route' => 'santri.hafalan.index', 'icon' => 'history_edu', 'label' => 'Riwayat'],
 ['route' => 'profile.index', 'icon' => 'person', 'label' => 'Profil'],
 ],
 };
