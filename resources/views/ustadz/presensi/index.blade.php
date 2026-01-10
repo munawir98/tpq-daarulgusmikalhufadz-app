@@ -142,7 +142,7 @@
                         <span class="material-icons-round">login</span>
                     </div>
                     <div>
-                        <p class="text-[10px] text-gray-500 font-medium">Jam Masuk</p>
+                        <p class="text-[10px] text-gray-500 font-medium">Masuk</p>
                         <p class="text-sm font-bold text-gray-900 tracking-wide">{{ $jamMasuk ?
                             \Carbon\Carbon::parse($jamMasuk->jam)->format('H:i') : '--:--' }}</p>
                     </div>
@@ -155,7 +155,7 @@
                         <span class="material-icons-round">logout</span>
                     </div>
                     <div>
-                        <p class="text-[10px] text-gray-500 font-medium">Jam Pulang</p>
+                        <p class="text-[10px] text-gray-500 font-medium">Pulang</p>
                         <p class="text-sm font-bold text-gray-900 tracking-wide">{{ $jamPulang ?
                             \Carbon\Carbon::parse($jamPulang->jam)->format('H:i') : '--:--' }}</p>
                     </div>
