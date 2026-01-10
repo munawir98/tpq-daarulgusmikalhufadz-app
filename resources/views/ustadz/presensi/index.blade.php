@@ -89,13 +89,13 @@
         <div class="glass-card rounded-3xl p-4 mb-6 flex items-center justify-between">
             <div class="flex items-center space-x-4">
                 <div class="relative">
-                    @if(auth()->user()->foto)
+                    @if(session('user.foto'))
                     <img alt="Profile" class="w-12 h-12 rounded-2xl border-2 border-white/30 object-cover"
-                        src="{{ asset('storage/' . auth()->user()->foto) }}" />
+                        src="{{ asset('storage/' . session('user.foto')) }}" />
                     @else
                     <div
                         class="w-12 h-12 rounded-2xl border-2 border-white/30 bg-white/20 flex items-center justify-center text-xl font-bold">
-                        {{ substr(auth()->user()->name, 0, 1) }}
+                        {{ substr(session('user.name'), 0, 1) }}
                     </div>
                     @endif
                     <div
@@ -105,13 +105,13 @@
                 <div>
                     <p class="text-xs text-white/70">Assalamu'alaikum,</p>
                     <h2 class="text-md font-bold leading-tight">
-                        @if(auth()->user()->jenis_kelamin == 'P') Ustadzah @else Ust. @endif
-                        {{ explode(' ', auth()->user()->name)[0] }}
+                        @if(session('user.jenis_kelamin') == 'P') Ustadzah @else Ust. @endif
+                        {{ explode(' ', session('user.name'))[0] }}
                     </h2>
                 </div>
             </div>
             <div class="text-right">
-                <p class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full inline-block">ID: {{ auth()->user()->username
+                <p class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full inline-block">ID: {{ session('user.username')
                     ?? '---' }}</p>
             </div>
         </div>
