@@ -514,9 +514,9 @@
                                 class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
                                 <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
                                     <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-5xl">fingerprint</span>
+                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
                                     <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Presensi<br />Masuk</span>
+                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil<br />Foto</span>
                                 </div>
                                 <img id="fotoPreview" src="" alt="Foto Presensi"
                                     class="w-full h-full object-cover absolute inset-0 hidden" />
@@ -1329,93 +1329,92 @@
                                 btn.onclick = showZoomModal; // Click photo to Zoom
                             } else {
                                 // Default State (No photo yet)
-                                if (icon) {
-                                    icon.style.display = 'block';
-                                    icon.textContent = 'fingerprint';
-                                    if (cek.type === 'pulang') {
-                                        icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-5xl';
-                                    } else {
-                                        icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-5xl';
-                                    }
+                                icon.style.display = 'block';
+                                icon.textContent = 'add_a_photo';
+                                if (cek.type === 'pulang') {
+                                    icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                                } else {
+                                    icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
                                 }
-                                if (text) {
-                                    text.style.display = 'block';
-                                    if (cek.type === 'masuk') {
-                                        text.innerHTML = 'Presensi<br/>Masuk';
-                                        text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
-                                    } else { // Pulang
-                                        text.innerHTML = 'Presensi<br/>Pulang';
-                                        text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
-                                    }
-
-                                }
-
-                                // Reset Preview & Overlay
-                                const preview = document.getElementById('fotoPreview');
-                                if (preview) preview.classList.add('hidden');
-                                const overlay = document.getElementById('fotoOverlay');
-                                if (overlay) overlay.classList.add('hidden');
-
-                                btn.onclick = ambilFoto;
-                            }
-                            return;
-                        }
-
-
-                        // 3a. Tunggu (Masuk/Pulang) - Orange
-                        if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
-                            btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
-                            if (icon) {
-                                icon.textContent = 'schedule'; // Changed from add_a_photo to schedule for waiting
-                                icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
                             }
                             if (text) {
-                                text.innerHTML = 'Tunggu<br/>Jadwal';
-                                text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
-                            }
-                            btn.onclick = () => {
-                                const notifOverlay = document.getElementById('btnNotification');
-                                const notifText = document.getElementById('btnNotificationText');
-                                if (notifOverlay && notifText) {
-                                    notifText.innerHTML = cek.message.replace('<br/>', '\n');
-                                    notifOverlay.classList.remove('hidden');
-                                    notifOverlay.classList.add('flex');
-                                    setTimeout(() => {
-                                        notifOverlay.classList.add('hidden');
-                                        notifOverlay.classList.remove('flex');
-                                    }, 2500);
+                                text.style.display = 'block';
+                                if (cek.type === 'masuk') {
+                                    text.innerHTML = 'Ambil Foto<br/>Masuk';
+                                    text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
+                                } else { // Pulang
+                                    text.innerHTML = 'Ambil Foto<br/>Pulang';
+                                    text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                                 }
-                            };
-                            return;
-                        }
 
-                        // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, terlambat pulang, etc)
-                        btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                            }
+
+                            // Reset Preview & Overlay
+                            const preview = document.getElementById('fotoPreview');
+                            if (preview) preview.classList.add('hidden');
+                            const overlay = document.getElementById('fotoOverlay');
+                            if (overlay) overlay.classList.add('hidden');
+
+                            btn.onclick = ambilFoto;
+                        }
+                        return;
+                    }
+
+
+                    // 3a. Tunggu (Masuk/Pulang) - Orange
+                    if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
+                        btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
                         if (icon) {
-                            icon.textContent = 'block'; // Changed icon for closed state
-                            icon.className = 'material-symbols-rounded text-gray-400 dark:text-gray-500 group-hover:text-gray-500 transition-colors text-3xl';
+                            icon.textContent = 'schedule'; // Changed from add_a_photo to schedule for waiting
+                            icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
                         }
                         if (text) {
-                            text.innerHTML = 'Absen<br/>Tutup';
-                            text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
+                            text.innerHTML = 'Tunggu<br/>Jadwal';
+                            text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                         }
                         btn.onclick = () => {
                             const notifOverlay = document.getElementById('btnNotification');
                             const notifText = document.getElementById('btnNotificationText');
                             if (notifOverlay && notifText) {
-                                // Use dynamic message from logic if available, else default
-                                notifText.innerHTML = cek.message ? cek.message.replace('<br/>', '\n') : 'Absen Ditutup\nTunggu Jadwal';
-
-                                notifOverlay.style.backgroundColor = '#374151';
+                                notifText.innerHTML = cek.message.replace('<br/>', '\n');
                                 notifOverlay.classList.remove('hidden');
                                 notifOverlay.classList.add('flex');
                                 setTimeout(() => {
                                     notifOverlay.classList.add('hidden');
                                     notifOverlay.classList.remove('flex');
-                                    notifOverlay.style.backgroundColor = '';
                                 }, 2500);
                             }
                         };
+                        return;
+                    }
+
+                    // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, terlambat pulang, etc)
+                    btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                    if (icon) {
+                        icon.textContent = 'block'; // Changed icon for closed state
+                        icon.className = 'material-symbols-rounded text-gray-400 dark:text-gray-500 group-hover:text-gray-500 transition-colors text-3xl';
+                    }
+                    if (text) {
+                        text.innerHTML = 'Absen<br/>Tutup';
+                        text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
+                    }
+                    btn.onclick = () => {
+                        const notifOverlay = document.getElementById('btnNotification');
+                        const notifText = document.getElementById('btnNotificationText');
+                        if (notifOverlay && notifText) {
+                            // Use dynamic message from logic if available, else default
+                            notifText.innerHTML = cek.message ? cek.message.replace('<br/>', '\n') : 'Absen Ditutup\nTunggu Jadwal';
+
+                            notifOverlay.style.backgroundColor = '#374151';
+                            notifOverlay.classList.remove('hidden');
+                            notifOverlay.classList.add('flex');
+                            setTimeout(() => {
+                                notifOverlay.classList.add('hidden');
+                                notifOverlay.classList.remove('flex');
+                                notifOverlay.style.backgroundColor = '';
+                            }, 2500);
+                        }
+                    };
                     }
 
                     function initUIState() {
