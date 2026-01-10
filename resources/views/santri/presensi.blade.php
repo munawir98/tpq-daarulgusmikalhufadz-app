@@ -146,7 +146,7 @@
     const TPQ_LNG = 106.816065;
     const RADIUS_METER = 50; // 50 meters
 
-    let map, userMarker, circle;
+    let map, userMarker, circle, accuracyCircle;
     let currentLat, currentLng;
     let isWithinRadius = false;
 
@@ -174,25 +174,40 @@
 
         try {
             // Default view centered on TPQ
-            map = L.map('map').setView([TPQ_LAT, TPQ_LNG], 17);
+            map = L.map('map', {
+                zoomControl: false,
+                attributionControl: false,
+                zoomAnimation: true,
+                markerZoomAnimation: true
+            }).setView([TPQ_LAT, TPQ_LNG], 16);
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; OpenStreetMap'
             }).addTo(map);
 
-            // Add TPQ Radius Circle
+            // Red Icon for TPQ (Target) like Dashboard
+            var smallIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25 * 0.7, 41 * 0.7],
+                iconAnchor: [12 * 0.7, 41 * 0.7],
+                popupAnchor: [1, -34 * 0.7],
+                shadowSize: [41 * 0.7, 41 * 0.7]
+            });
+
+            // Add TPQ Marker
+            L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map)
+                .bindPopup("<b>Lokasi TPQ</b><br>Absen di sini")
+                .openPopup();
+
+            // Add Radius Circle (Start Red)
             circle = L.circle([TPQ_LAT, TPQ_LNG], {
                 color: '#ef4444', // Red
                 fillColor: '#ef4444',
                 fillOpacity: 0.2,
                 radius: RADIUS_METER
             }).addTo(map);
-
-            // Add TPQ Marker
-            L.marker([TPQ_LAT, TPQ_LNG]).addTo(map)
-                .bindPopup("Lokasi TPQ")
-                .openPopup();
 
             log("Map initialized. Starting Geolocation...");
             getLocation();
@@ -202,31 +217,35 @@
     }
 
     function getLocation() {
+        const statusText = document.getElementById('locationText');
+
         if (!navigator.geolocation) {
             log("Geolocation API not supported", true);
-            alert("Geolocation is not supported by this browser.");
-            document.getElementById('locationText').innerText = "Browser tidak mendukung GPS.";
+            statusText.innerText = "Browser tidak mendukung GPS.";
             return;
         }
 
         log("Requesting position...");
 
-        // Set timeout for location request
+        // Timeout Handler
         const locationTimeout = setTimeout(() => {
-            log("Timeout triggered after 10s", true);
-            showError({ code: 3, message: "Timeout - requesting location took too long." });
-        }, 10000);
+            log("Timeout triggering fallback...", true);
+            statusText.innerText = "GPS lambat. Mencoba mode hemat...";
 
+            // Try fallback
+            tryLowAccuracyGPS();
+        }, 15000);
+
+        // High Accuracy
         navigator.geolocation.watchPosition(
             (position) => {
                 clearTimeout(locationTimeout);
-                log("Position received: " + position.coords.latitude.toFixed(6));
-                showPosition(position);
+                handlePositionSuccess(position);
             },
             (error) => {
                 clearTimeout(locationTimeout);
-                log("Geolocation error: " + error.code + " - " + error.message, true);
-                showError(error);
+                log("High Accuracy Error: " + error.code, true);
+                tryLowAccuracyGPS();
             },
             {
                 enableHighAccuracy: true,
@@ -234,31 +253,65 @@
                 maximumAge: 30000
             }
         );
+
+        function tryLowAccuracyGPS() {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    handlePositionSuccess(position);
+                },
+                (error) => {
+                    showError(error);
+                },
+                { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+            );
+        }
+
+        function handlePositionSuccess(position) {
+            log("Position received: " + position.coords.latitude.toFixed(6));
+            showPosition(position);
+        }
     }
 
     function showPosition(position) {
         currentLat = position.coords.latitude;
         currentLng = position.coords.longitude;
+        const accuracy = position.coords.accuracy;
 
-        // Update User Marker
+        // Update User Marker (Blue Dot)
         if (userMarker) {
             userMarker.setLatLng([currentLat, currentLng]);
+            if (accuracyCircle) {
+                accuracyCircle.setLatLng([currentLat, currentLng]);
+                accuracyCircle.setRadius(accuracy);
+            }
         } else {
-            userMarker = L.marker([currentLat, currentLng], {
-                icon: L.divIcon({
-                    className: 'bg-green-500 w-4 h-4 rounded-full border-2 border-white shadow-lg',
-                    iconSize: [16, 16]
-                })
+            // Blue Circle Marker
+            userMarker = L.circleMarker([currentLat, currentLng], {
+                radius: 6,
+                fillColor: '#3b82f6',
+                color: '#ffffff',
+                weight: 2,
+                opacity: 1,
+                fillOpacity: 0.9
+            }).addTo(map);
+
+            // Accuracy Circle
+            accuracyCircle = L.circle([currentLat, currentLng], {
+                radius: accuracy,
+                color: '#3b82f6',
+                fillColor: '#3b82f6',
+                fillOpacity: 0.15,
+                weight: 0
             }).addTo(map);
 
             // Center map initially
-            map.setView([currentLat, currentLng], 17);
+            map.flyTo([currentLat, currentLng], 17);
         }
 
         // Calculate Distance
         const distance = calculateDistance(currentLat, currentLng, TPQ_LAT, TPQ_LNG);
         log("Distance calculated: " + Math.round(distance) + "m");
-        updateStatus(distance);
+        updateStatus(distance, accuracy);
     }
 
     function calculateDistance(lat1, lon1, lat2, lon2) {
@@ -276,7 +329,7 @@
         return R * c; // Distance in meters
     }
 
-    function updateStatus(distance) {
+    function updateStatus(distance, accuracy) {
         const statusTextEl = document.getElementById('locationText');
         const distanceEl = document.getElementById('distanceText');
         const btnScan = document.getElementById('btnScan');
@@ -287,12 +340,15 @@
 
         if (distance <= RADIUS_METER) {
             isWithinRadius = true;
-            statusTextEl.innerText = "Anda berada di area TPQ";
+            statusTextEl.innerText = "Anda berada di DALAM radius TPQ";
             statusTextEl.className = "text-sm text-green-600 mt-1 font-bold";
 
             // Update Card Style
             locationCard.className = "shrink-0 p-3 rounded-xl bg-green-100 dark:bg-green-900/30 text-green-600";
             locationCard.innerHTML = '<span class="material-symbols-outlined">check_circle</span>';
+
+            // Update Radius Circle Color to GREEN
+            if (circle) circle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
 
             // Enable Buttons
             if (btnScan) {
@@ -306,12 +362,18 @@
 
         } else {
             isWithinRadius = false;
-            statusTextEl.innerText = "Anda di luar area TPQ (Max 50m)";
+            let msg = `Anda di LUAR radius (Max ${RADIUS_METER}m)`;
+            if (accuracy > 50) msg += ` ±${Math.round(accuracy)}m`;
+
+            statusTextEl.innerText = msg;
             statusTextEl.className = "text-sm text-red-600 mt-1 font-bold";
 
             // Update Card Style
             locationCard.className = "shrink-0 p-3 rounded-xl bg-red-100 dark:bg-red-900/30 text-red-600";
             locationCard.innerHTML = '<span class="material-symbols-outlined">fmd_bad</span>';
+
+            // Update Radius Circle Color to RED
+            if (circle) circle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
 
             // Disable Buttons
             if (btnScan) {
@@ -329,29 +391,25 @@
         let msg = "";
         switch (error.code) {
             case error.PERMISSION_DENIED:
-                msg = "Akses lokasi ditolak. Mohon izinkan lokasi di pengaturan browser.";
+                msg = "Akses lokasi ditolak. Izinkan lokasi di browser.";
                 break;
             case error.POSITION_UNAVAILABLE:
-                msg = "Informasi lokasi tidak tersedia. Pastikan GPS aktif.";
+                msg = "GPS tidak tersedia. Pastikan fitur lokasi aktif.";
                 break;
             case error.TIMEOUT:
-            case 3: // Custom timeout code
-                msg = "Waktu habis. Gagal mendapatkan lokasi. Coba refresh.";
+                msg = "Waktu habis. Gagal mendapatkan lokasi.";
                 break;
             default:
-                msg = "Terjadi kesalahan tidak diketahui (" + error.message + ").";
+                msg = "Terjadi kesalahan: " + error.message;
                 break;
         }
         log("Show Error: " + msg, true);
+        const statusText = document.getElementById('locationText');
+        if (statusText) statusText.innerHTML = `<span class="text-red-500 font-bold">${msg}</span>`;
 
-        // Update UI logic
-        document.getElementById('locationText').innerHTML = `<span class="text-red-600 font-bold">${msg}</span>`;
-        document.getElementById('distanceText').innerText = "Gagal memuat";
-
-        // Show SSL warning if on http and not localhost (heuristic)
+        // Show SSL warning if on http and not localhost
         if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
-            log("WARN: Non-secure context detected!", true);
-            alert('PERHATIAN: Fitur GPS biasanya tidak berjalan di HTTP. Pastikan browser HP sudah disetting "Insecure origins treated as secure".');
+            alert('PERHATIAN: GPS membutuhkan koneksi HTTPS (Secure).');
         }
     }
 
