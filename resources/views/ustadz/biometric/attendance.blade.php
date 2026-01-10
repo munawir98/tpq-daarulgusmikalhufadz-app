@@ -66,6 +66,13 @@
             <span class="text-lg">Scan Sidik Jari</span>
         </button>
 
+        <!-- Register Link Button -->
+        <a href="{{ route('ustadz.biometric.register') }}"
+            class="mt-4 w-full py-3 bg-white border-2 border-green-100 text-green-600 rounded-xl font-bold hover:bg-green-50 transition-colors flex items-center justify-center gap-2">
+            <span class="material-icons-round">person_add</span>
+            Daftarkan Jari Santri
+        </a>
+
     </div>
 
     <script>
