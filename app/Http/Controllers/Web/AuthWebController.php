@@ -190,10 +190,14 @@ class AuthWebController extends Controller
     */
     public function logout(Request $request)
     {
-        // OPTIONAL: panggil API logout kalau ada
-        if (session('api_token')) {
-            Http::withToken(session('api_token'))
-                ->post(config('app.url') . '/api/logout');
+        // Hapus Token Sanctum jika ada user di session
+        if ($userId = session('user.id')) {
+            $user = \App\Models\User::find($userId);
+            if ($user) {
+                // Hapus token yang dibuat saat login (web-session)
+                // Atau hapus semua jika ingin strict: $user->tokens()->delete();
+                $user->tokens()->where('name', 'web-session')->delete();
+            }
         }
 
         // HAPUS SESSION
