@@ -89,11 +89,14 @@
 
     <script>
         $(document).ready(function () {
-            $('#santriSelect').select2({ placeholder: "Cari nama santri...", width: '100%' });
+            // Init Select2 and Open it immediately
+            const select = $('#santriSelect').select2({ placeholder: "Cari nama santri...", width: '100%' });
+
+            // Auto open for UX
+            setTimeout(() => select.select2('open'), 500);
 
             function checkForm() {
                 const santri = $('#santriSelect').val();
-                // Name is now optional
                 const btn = document.getElementById('btnRegister');
 
                 if (santri) {
@@ -105,8 +108,8 @@
                 }
             }
 
-            $('#santriSelect').on('change', checkForm);
-            // $('#credentialName').on('input', checkForm); // Not needed as it's optional
+            // Bind to both change AND select2:select for reliability
+            $('#santriSelect').on('change select2:select', checkForm);
         });
 
         async function registerProcess() {
