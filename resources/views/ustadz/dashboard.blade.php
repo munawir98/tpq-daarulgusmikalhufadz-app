@@ -2303,7 +2303,10 @@
                         if (!mainCard || !presensiView || !menuView) return;
                         const whiteContainer = document.getElementById('whiteContainer');
 
-                        if (expand) {
+                        const shouldExpand = forceState !== null ? forceState : !isCardExpanded;
+
+                        if (shouldExpand) {
+                            isCardExpanded = true;
                             // Expand: Show Menu, Hide Presensi with animation
                             presensiView.style.opacity = '0';
 
