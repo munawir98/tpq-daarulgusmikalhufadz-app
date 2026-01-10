@@ -47,6 +47,7 @@ class User extends Authenticatable
 
         // RELASI
         'kelas_id',
+        'biometric_credential', // WebAuthn Credential ID
     ];
 
     /**

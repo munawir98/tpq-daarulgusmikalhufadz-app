@@ -244,8 +244,13 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/menu', fn () => view('ustadz.menu'))
             ->name('menu');
 
+        // Presensi Ustadz
         Route::get('/presensi', [PresensiWebController::class, 'ustadzIndex'])
             ->name('presensi');
+
+        // Biometric
+        Route::get('/biometric', [BiometricWebController::class, 'index'])->name('biometric.index');
+        Route::post('/biometric', [BiometricWebController::class, 'store'])->name('biometric.store');
 
         // Hafalan / Setoran
 

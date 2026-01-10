@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
+
+class BiometricWebController extends Controller
+{
+    public function index()
+    {
+        return view('ustadz.biometric.index');
+    }
+
+    public function store(Request $request)
+    {
+        // In a real WebAuthn implementation, we would verify the attestation object here.
+        // For this implementation, we trust the client has successfully retrieved a credential
+        // and we store the Credential ID.
+
+        $request->validate([
+            'credential_id' => 'required|string',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $user = User::find(auth()->id());
+            $user->biometric_credential = $request->credential_id;
+            $user->save();
+
+            // Update session
+            $sessionUser = session('user');
+            if ($sessionUser) {
+                $sessionUser->biometric_credential = $request->credential_id;
+                session(['user' => $sessionUser]);
+            }
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Sidik jari berhasil didaftarkan.'
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal menyimpan data biometrik: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+}
