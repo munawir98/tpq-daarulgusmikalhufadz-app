@@ -48,11 +48,7 @@
             <span class="material-icons-round">arrow_back</span>
         </a>
 
-        <!-- Register Link -->
-        <a href="{{ route('ustadz.biometric.register') }}"
-            class="absolute right-4 top-4 text-primary hover:text-green-600 transition-colors">
-            <span class="material-icons-round">person_add</span>
-        </a>
+
 
         <!-- Icon -->
         <div
