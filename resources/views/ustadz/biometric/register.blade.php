@@ -71,8 +71,8 @@
 
             <!-- Nama Jari -->
             <div>
-                <label class="block text-xs font-bold text-gray-700 mb-2 ml-1">Nama Jari / Perangkat</label>
-                <input type="text" id="credentialName" placeholder="Contoh: Jari Telunjuk Kanan"
+                <label class="block text-xs font-bold text-gray-700 mb-2 ml-1">Nama Jari / Perangkat (Opsional)</label>
+                <input type="text" id="credentialName" placeholder="Contoh: Jari Telunjuk (Otomatis jika kosong)"
                     class="w-full h-12 rounded-xl border-gray-200 text-sm focus:ring-purple-500 focus:border-purple-500">
             </div>
 
@@ -82,7 +82,7 @@
         <button id="btnRegister" onclick="registerProcess()" disabled
             class="mt-8 w-full py-4 bg-gray-200 text-gray-400 rounded-xl font-bold shadow-none transition-all duration-300 flex items-center justify-center gap-2">
             <span class="material-icons-round">fingerprint</span>
-            Scan & Simpan
+            Daftarkan
         </button>
 
     </div>
@@ -93,10 +93,10 @@
 
             function checkForm() {
                 const santri = $('#santriSelect').val();
-                const name = $('#credentialName').val();
+                // Name is now optional
                 const btn = document.getElementById('btnRegister');
 
-                if (santri && name) {
+                if (santri) {
                     btn.disabled = false;
                     btn.className = 'mt-8 w-full py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer';
                 } else {
@@ -106,14 +106,14 @@
             }
 
             $('#santriSelect').on('change', checkForm);
-            $('#credentialName').on('input', checkForm);
+            // $('#credentialName').on('input', checkForm); // Not needed as it's optional
         });
 
         async function registerProcess() {
             const santriId = $('#santriSelect').val();
             const name = $('#credentialName').val();
 
-            if (!santriId || !name) return;
+            if (!santriId) return; // Name can be empty
 
             const btn = document.getElementById('btnRegister');
             const originalContent = btn.innerHTML;

@@ -88,7 +88,7 @@ class BiometricWebController extends Controller
         $request->validate([
             'santri_id' => 'required|exists:santri,id',
             'credential_id' => 'required|string',
-            'name' => 'required|string|max:50',
+            'name' => 'nullable|string|max:50',
         ]);
 
         try {
@@ -99,10 +99,12 @@ class BiometricWebController extends Controller
                 return response()->json(['success' => false, 'message' => 'Santri tidak memiliki akun user.'], 400);
             }
 
+            $name = $request->name ?? 'Jari ' . now()->format('d/m H:i');
+
             \App\Models\BiometricCredential::create([
                 'user_id' => $userId,
                 'credential_id' => $request->credential_id,
-                'name' => $request->name,
+                'name' => $name,
             ]);
 
             return response()->json(['success' => true, 'message' => 'Sidik jari berhasil didaftarkan.']);
