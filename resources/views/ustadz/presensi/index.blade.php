@@ -180,11 +180,12 @@
                     </button>
                 </div>
 
-                <!-- Small Status Badge on Map -->
+                <!-- Small Status Indicator on Map -->
                 <div id="mapStatusBadge"
-                    class="absolute top-3 left-3 z-[400] flex items-center space-x-1.5 bg-white/90 backdrop-blur px-3 py-1.5 rounded-full shadow-sm border border-white/20 transition-all transform scale-95 opacity-0">
-                    <div id="mapStatusIcon" class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
-                    <span id="mapStatusText" class="text-[10px] font-bold text-gray-600">Mencari Lokasi...</span>
+                    class="absolute top-2 left-2 z-[400] flex items-center space-x-1 transition-all transform opacity-0">
+                    <div id="mapStatusIcon" class="w-1.5 h-1.5 rounded-full bg-gray-400 animate-pulse shadow-sm"></div>
+                    <span id="mapStatusText"
+                        class="text-[9px] font-bold text-gray-700 drop-shadow-sm shadow-black">Mencari...</span>
                 </div>
 
 
