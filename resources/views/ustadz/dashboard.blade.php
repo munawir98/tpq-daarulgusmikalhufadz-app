@@ -1415,7 +1415,7 @@
                             }, 2500);
                         }
                     };
-
+                    }
 
                     function initUIState() {
                         if (sudahMasuk) {
