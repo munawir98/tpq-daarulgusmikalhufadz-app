@@ -222,6 +222,35 @@
             </button>
         </div>
 
+        <!-- Rekapitulasi Form -->
+        <div class="glass-card rounded-2xl p-5 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+            <div class="flex items-center space-x-2 mb-4">
+                <span class="material-symbols-outlined text-yellow-400">calendar_month</span>
+                <h3 class="font-bold text-sm">Rekapitulasi Presensi</h3>
+            </div>
+            <form action="{{ route('presensi.index') }}" method="GET">
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Awal</label>
+                        <input type="date" name="start_date"
+                            class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            value="{{ date('Y-m-01') }}">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Akhir</label>
+                        <input type="date" name="end_date"
+                            class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                            value="{{ date('Y-m-d') }}">
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center space-x-2">
+                    <span class="material-icons-round text-sm">print</span>
+                    <span>Tampilkan Laporan</span>
+                </button>
+            </form>
+        </div>
+
         <!-- Riwayat Pekan Ini -->
         <div class="flex-1 pb-24">
             <div class="flex items-center justify-between mb-4 px-2">
