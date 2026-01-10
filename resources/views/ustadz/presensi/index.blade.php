@@ -155,19 +155,25 @@
             <div class="w-full h-40 bg-white/5 rounded-2xl mb-6 relative overflow-hidden border border-white/10 group">
                 <div id="map" class="w-full h-full z-0"></div>
 
-                <!-- Map Controls (Zoom/Reset) -->
-                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-row space-x-3 z-[400]">
+                <!-- Coordinate Display -->
+                <div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-sm text-white text-[10px] font-mono px-3 py-1.5 rounded-lg z-[400] pointer-events-none border border-white/10"
+                    id="coordDisplay">
+                    Scanning GPS...
+                </div>
+
+                <!-- Map Controls (Right Side) -->
+                <div class="absolute bottom-4 right-4 flex flex-col space-y-2 z-[400]">
                     <button onclick="map.zoomIn()"
-                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-600 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200">
-                        <span class="material-icons-round text-lg">add</span>
+                        class="w-10 h-10 bg-white/90 backdrop-blur text-gray-700 rounded-xl shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
+                        <span class="material-icons-round text-xl">add</span>
                     </button>
                     <button onclick="resetMap()"
-                        class="w-8 h-8 bg-blue-500/90 backdrop-blur text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 active:scale-95 border border-blue-400">
-                        <span class="material-icons-round text-lg">my_location</span>
+                        class="w-10 h-10 bg-blue-500/90 backdrop-blur text-white rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center hover:bg-blue-600 active:scale-95 border border-blue-400/50">
+                        <span class="material-icons-round text-xl">my_location</span>
                     </button>
                     <button onclick="map.zoomOut()"
-                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-600 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200">
-                        <span class="material-icons-round text-lg">remove</span>
+                        class="w-10 h-10 bg-white/90 backdrop-blur text-gray-700 rounded-xl shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200/50">
+                        <span class="material-icons-round text-xl">remove</span>
                     </button>
                 </div>
 
@@ -374,16 +380,19 @@
 
                     // Calculate Distance
                     const distance = map.distance([currentLat, currentLng], [SENTRA_LAT, SENTRA_LNG]);
-                    const locationNameEl = document.getElementById('locationName'); // Check if element exists in view
                     const statusTextEl = document.getElementById('statusText');
-                    const statusIconEl = document.getElementById('statusIcon'); // Check if exists
                     const badgeOk = document.getElementById('radiusStatusBadge');
                     const badgeErr = document.getElementById('radiusStatusBadgeError');
+                    const coordEl = document.getElementById('coordDisplay');
+
+                    // Update Coords Display
+                    if (coordEl) {
+                        coordEl.innerHTML = `<div>Lat: ${currentLat.toFixed(6)}</div><div>Lon: ${currentLng.toFixed(6)}</div>`;
+                    }
 
                     if (distance <= RADIUS_METER) {
                         isWithinRadius = true;
-                        // Assuming locationNameEl might be missing in this view, checking or using safe access if tailored
-                        // Keeping previous logic but enhancing
+
                         if (statusTextEl) statusTextEl.textContent = `Akurat (${Math.round(distance)}m)`;
 
                         if (badgeOk) badgeOk.style.display = 'flex';
