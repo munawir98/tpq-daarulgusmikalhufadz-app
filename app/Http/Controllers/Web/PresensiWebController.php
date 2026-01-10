@@ -275,7 +275,18 @@ class PresensiWebController extends Controller
 
     public function ustadzIndex(Request $request)
     {
-        return $this->index($request);
+        $userId = session('user.id');
+
+        // Ambil data riwayat presensi 7 hari terakhir untuk ditampilkan di halaman presensi
+        $riwayat = \App\Models\Presensi::where('user_id', $userId)
+            ->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'))
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('jam', 'desc')
+            ->get();
+
+        return view('ustadz.presensi.index', [
+            'riwayat' => $riwayat
+        ]);
     }
 
     public function santriIndex()

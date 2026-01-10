@@ -103,7 +103,7 @@
             <div class="px-6 mb-8">
                 <h3 class="text-sm font-bold text-text-main-light dark:text-white mb-4 px-1">Akses Cepat</h3>
                 <div class="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                    <a href="{{ route('presensi.index') }}"
+                    <a href="{{ route('ustadz.presensi') }}"
                         class="shrink-0 w-[70px] flex flex-col items-center gap-2 group">
                         <div
                             class="w-14 h-14 rounded-[18px] bg-blue-50 dark:bg-gray-800 flex items-center justify-center group-hover:bg-primary transition-colors duration-300 shadow-sm">

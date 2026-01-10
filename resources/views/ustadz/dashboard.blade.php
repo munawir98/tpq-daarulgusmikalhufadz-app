@@ -656,7 +656,8 @@
                                             <span
                                                 class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Jadwal</span>
                                         </a>
-                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <a href="{{ route('ustadz.presensi') }}"
+                                            class="flex flex-col items-center gap-1 group">
                                             <div
                                                 class="w-11 h-11 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-500 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
                                                 <span class="material-symbols-rounded text-xl">how_to_reg</span>
@@ -787,13 +788,13 @@
                                     <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Setoran</span>
                                 </a>
 
-                                <!-- 3. Absensi -->
-                                <a href="#" class="flex flex-col items-center gap-2 group">
+                                <!-- 3. Presensi -->
+                                <a href="{{ route('ustadz.presensi') }}" class="flex flex-col items-center gap-2 group">
                                     <div
                                         class="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-teal-600 group-hover:bg-teal-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
                                         <span class="material-symbols-rounded text-2xl">how_to_reg</span>
                                     </div>
-                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Absensi</span>
+                                    <span class="text-[10px] font-bold text-gray-600 dark:text-gray-400">Presensi</span>
                                 </a>
 
                                 <!-- 4. Nilai -->
