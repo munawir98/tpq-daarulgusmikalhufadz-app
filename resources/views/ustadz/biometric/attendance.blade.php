@@ -76,6 +76,10 @@
         }
 
         async function identifyUser() {
+            // DEBUG: Alert to confirm button click
+            // alert("Tombol diklik. Memulai scan...");
+            console.log("Starting identification...");
+
             const btn = document.getElementById('btnScanIdentify');
             const originalContent = btn.innerHTML;
             btn.innerHTML = '<span class="animate-spin material-icons-round text-2xl">sync</span> Mencari...';
