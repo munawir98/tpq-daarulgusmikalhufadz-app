@@ -264,30 +264,38 @@
                     // Initialize map with a default view roughly around Indonesia or expected area
                     map = L.map('map', {
                         zoomControl: false,
-                        attributionControl: false
+                        attributionControl: false,
+                        zoomAnimation: true,
+                        markerZoomAnimation: true
                     }).setView([SENTRA_LAT, SENTRA_LNG], 16);
 
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                        maxZoom: 19
+                        maxZoom: 19,
+                        attribution: '&copy; OpenStreetMap'
                     }).addTo(map);
 
-                    // Draw Radius Circle
-                    circle = L.circle([SENTRA_LAT, SENTRA_LNG], {
-                        color: 'green',
-                        fillColor: '#4ade80',
-                        fillOpacity: 0.2,
-                        radius: RADIUS_METER
-                    }).addTo(map);
+                    // Red Icon for TPQ
+                    var smallIcon = L.icon({
+                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+                        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                        iconSize: [25 * 0.7, 41 * 0.7],
+                        iconAnchor: [12 * 0.7, 41 * 0.7],
+                        popupAnchor: [1, -34 * 0.7],
+                        shadowSize: [41 * 0.7, 41 * 0.7]
+                    });
 
                     // Add Destination Marker (Sentra TPQ)
                     L.marker([SENTRA_LAT, SENTRA_LNG], {
-                        icon: L.divIcon({
-                            className: 'custom-div-icon',
-                            html: "<span class='material-icons-round text-red-600 text-3xl drop-shadow-md' style='margin-top:-24px; margin-left:-12px;'>location_on</span>",
-                            iconSize: [24, 24],
-                            iconAnchor: [12, 24]
-                        })
-                    }).addTo(map).bindPopup("Lokasi TPQ").openPopup();
+                        icon: smallIcon
+                    }).addTo(map).bindPopup("<b>Lokasi TPQ</b><br>Absen di sini").openPopup();
+
+                    // Draw Radius Circle
+                    circle = L.circle([SENTRA_LAT, SENTRA_LNG], {
+                        color: '#ef4444',
+                        fillColor: '#ef4444',
+                        fillOpacity: 0.2,
+                        radius: RADIUS_METER
+                    }).addTo(map);
 
                     getLocation();
                 }
@@ -301,74 +309,108 @@
                 }
 
                 function getLocation() {
+                    const statusText = document.getElementById('statusText');
+
                     if (navigator.geolocation) {
-                        navigator.geolocation.watchPosition(showPosition, showError, {
-                            enableHighAccuracy: true,
-                            timeout: 10000,
-                            maximumAge: 0
-                        });
+                        const locationTimeout = setTimeout(() => {
+                            statusText.textContent = "GPS lambat. Mencoba mode hemat...";
+                            tryLowAccuracyGPS();
+                        }, 15000);
+
+                        navigator.geolocation.watchPosition(
+                            (position) => {
+                                clearTimeout(locationTimeout);
+                                showPosition(position);
+                            },
+                            (error) => {
+                                clearTimeout(locationTimeout);
+                                showError(error);
+                                tryLowAccuracyGPS();
+                            },
+                            {
+                                enableHighAccuracy: true,
+                                timeout: 20000,
+                                maximumAge: 30000
+                            }
+                        );
                     } else {
-                        document.getElementById('statusText').textContent = "Geolocation tidak didukung browser ini.";
+                        statusText.textContent = "Geolocation tidak didukung browser ini.";
                     }
                 }
+
+                function tryLowAccuracyGPS() {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => showPosition(position),
+                        (error) => showError(error),
+                        { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+                    );
+                }
+
+                let accuracyCircle;
 
                 function showPosition(position) {
                     currentLat = position.coords.latitude;
                     currentLng = position.coords.longitude;
+                    const accuracy = position.coords.accuracy;
 
                     // Update Map
                     if (userMarker) {
                         userMarker.setLatLng([currentLat, currentLng]);
-                        // Smooth Pan if far
+                        if (accuracyCircle) {
+                            accuracyCircle.setLatLng([currentLat, currentLng]);
+                            accuracyCircle.setRadius(accuracy);
+                        }
                     } else {
-                        const customIcon = L.divIcon({
-                            className: 'custom-div-icon',
-                            html: "<div style='background-color:blue; width: 12px; height: 12px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);'></div>",
-                            iconSize: [12, 12],
-                            iconAnchor: [6, 6]
-                        });
-                        userMarker = L.marker([currentLat, currentLng], { icon: customIcon }).addTo(map);
-                        map.setView([currentLat, currentLng], 18);
+                        userMarker = L.circleMarker([currentLat, currentLng], {
+                            radius: 6, fillColor: '#3b82f6', color: '#ffffff', weight: 2, opacity: 1, fillOpacity: 0.9
+                        }).addTo(map);
+
+                        accuracyCircle = L.circle([currentLat, currentLng], {
+                            radius: accuracy, color: '#3b82f6', fillColor: '#3b82f6', fillOpacity: 0.15, weight: 0
+                        }).addTo(map);
+
+                        map.flyTo([currentLat, currentLng], 17);
                     }
 
                     // Calculate Distance
                     const distance = map.distance([currentLat, currentLng], [SENTRA_LAT, SENTRA_LNG]);
-                    const locationNameEl = document.getElementById('locationName');
+                    const locationNameEl = document.getElementById('locationName'); // Check if element exists in view
                     const statusTextEl = document.getElementById('statusText');
-                    const statusIconEl = document.getElementById('statusIcon');
+                    const statusIconEl = document.getElementById('statusIcon'); // Check if exists
                     const badgeOk = document.getElementById('radiusStatusBadge');
                     const badgeErr = document.getElementById('radiusStatusBadgeError');
 
                     if (distance <= RADIUS_METER) {
                         isWithinRadius = true;
-                        locationNameEl.innerHTML = "Dalam Area TPQ<br><span class='text-[9px] font-normal opacity-70'>" + currentLat.toFixed(6) + ", " + currentLng.toFixed(6) + "</span>";
-                        statusTextEl.textContent = `Akurat (${Math.round(distance)}m)`;
-                        statusIconEl.textContent = 'check_circle';
-                        statusIconEl.classList.remove('text-red-400');
-                        statusIconEl.classList.add('text-green-400');
-                        badgeOk.style.display = 'flex';
-                        badgeErr.style.display = 'none';
+                        // Assuming locationNameEl might be missing in this view, checking or using safe access if tailored
+                        // Keeping previous logic but enhancing
+                        if (statusTextEl) statusTextEl.textContent = `Akurat (${Math.round(distance)}m)`;
+
+                        if (badgeOk) badgeOk.style.display = 'flex';
+                        if (badgeErr) badgeErr.style.display = 'none';
+
+                        if (circle) circle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
+
                     } else {
                         isWithinRadius = false;
-                        locationNameEl.innerHTML = "Luar Area TPQ<br><span class='text-[9px] font-normal opacity-70'>" + currentLat.toFixed(6) + ", " + currentLng.toFixed(6) + "</span>";
-                        statusTextEl.textContent = `Jarak: ${Math.round(distance)}m`;
-                        statusIconEl.textContent = 'warning';
-                        statusIconEl.classList.add('text-red-400');
-                        statusIconEl.classList.remove('text-green-400');
-                        badgeOk.style.display = 'none';
-                        badgeErr.style.display = 'flex';
+                        if (statusTextEl) statusTextEl.textContent = `Jarak: ${Math.round(distance)}m`;
+
+                        if (badgeOk) badgeOk.style.display = 'none';
+                        if (badgeErr) badgeErr.style.display = 'flex';
+
+                        if (circle) circle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                     }
                 }
 
                 function showError(error) {
-                    // ... (keep existing error handling)
                     let msg = "Terjadi kesalahan.";
                     switch (error.code) {
                         case error.PERMISSION_DENIED: msg = "Izin lokasi ditolak."; break;
                         case error.POSITION_UNAVAILABLE: msg = "Informasi lokasi tidak tersedia."; break;
                         case error.TIMEOUT: msg = "Waktu permintaan habis."; break;
                     }
-                    document.getElementById('statusText').textContent = msg;
+                    const statusText = document.getElementById('statusText');
+                    if (statusText) statusText.textContent = msg;
                 }
 
                 // --- SUBMIT LOGIC ---
