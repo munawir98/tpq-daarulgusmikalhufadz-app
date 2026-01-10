@@ -56,14 +56,14 @@
             <span class="material-icons-round text-green-500 text-5xl">fingerprint</span>
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-800 mb-1">Absen Cepat</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-1">Absen Sidik Jari</h2>
         <p class="text-gray-500 text-sm mb-8">Tempelkan jari untuk mendeteksi Santri</p>
 
         <!-- Main Action Button (Scan First) -->
         <button id="btnScanIdentify" onclick="identifyUser()"
             class="w-full py-5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl font-bold shadow-lg shadow-green-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
             <span class="material-icons-round text-3xl">sensors</span>
-            <span class="text-lg">Mulai Scan</span>
+            <span class="text-lg">Scan Sidik Jari</span>
         </button>
 
     </div>
@@ -71,7 +71,7 @@
     <script>
         function resetBtns() {
             const btn = document.getElementById('btnScanIdentify');
-            btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Mulai Scan</span>';
+            btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Scan Sidik Jari</span>';
             btn.disabled = false;
         }
 
