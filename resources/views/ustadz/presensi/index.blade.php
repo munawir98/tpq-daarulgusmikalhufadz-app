@@ -416,7 +416,7 @@
                             });
 
                             // Verifikasi Biometrik (Client Side Challenge)
-                            const challenge = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]); // Seharusnya dari server
+                            const challenge = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
 
                             const publicKey = {
                                 challenge: challenge,
@@ -425,13 +425,26 @@
                                 userVerification: "required",
                             };
 
-                            // Jika ingin spesifik hanya ID yang didaftarkan (Optional: lebih aman tapi bisa error jika ID encoded beda format)
-                            /*
+                            // Spesifikasikan ID yang boleh login (PENTING untuk menghindari NotAllowedError)
                             if (biometricId) {
-                                // Decode base64 to Uint8Array if format matches
-                                // publicKey.allowCredentials = [{ type: "public-key", id: ... }];
+                                try {
+                                    // Decode Base64 ke Uint8Array
+                                    const binaryString = window.atob(biometricId);
+                                    const len = binaryString.length;
+                                    const bytes = new Uint8Array(len);
+                                    for (let i = 0; i < len; i++) {
+                                        bytes[i] = binaryString.charCodeAt(i);
+                                    }
+
+                                    publicKey.allowCredentials = [{
+                                        type: "public-key",
+                                        id: bytes,
+                                        transports: ["internal", "hybrid"]
+                                    }];
+                                } catch (e) {
+                                    console.warn("Gagal decode credential ID", e);
+                                }
                             }
-                            */
 
                             await navigator.credentials.get({ publicKey });
                             Swal.close();
