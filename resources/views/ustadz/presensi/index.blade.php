@@ -136,29 +136,27 @@
             <!-- Status Hari Ini (Card Style like Dashboard) -->
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <!-- Masuk Card -->
-                <div
-                    class="glass-card p-3 rounded-2xl flex items-center space-x-3 {{ $jamMasuk ? 'bg-green-500/10 border-green-500/30' : '' }}">
-                    <div
-                        class="w-10 h-10 rounded-xl flex items-center justify-center {{ $jamMasuk ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-white/10 text-white/50' }}">
+                <!-- Masuk Card -->
+                <div class="bg-white p-3 rounded-2xl flex items-center space-x-3 shadow-lg shadow-blue-900/5">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-100 text-blue-600">
                         <span class="material-icons-round">login</span>
                     </div>
                     <div>
-                        <p class="text-[10px] text-white/60 font-medium">Jam Masuk</p>
-                        <p class="text-sm font-bold text-white tracking-wide">{{ $jamMasuk ?
+                        <p class="text-[10px] text-gray-500 font-medium">Jam Masuk</p>
+                        <p class="text-sm font-bold text-gray-900 tracking-wide">{{ $jamMasuk ?
                             \Carbon\Carbon::parse($jamMasuk->jam)->format('H:i') : '--:--' }}</p>
                     </div>
                 </div>
 
                 <!-- Pulang Card -->
-                <div
-                    class="glass-card p-3 rounded-2xl flex items-center space-x-3 {{ $jamPulang ? 'bg-orange-500/10 border-orange-500/30' : '' }}">
-                    <div
-                        class="w-10 h-10 rounded-xl flex items-center justify-center {{ $jamPulang ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'bg-white/10 text-white/50' }}">
+                <!-- Pulang Card -->
+                <div class="bg-white p-3 rounded-2xl flex items-center space-x-3 shadow-lg shadow-blue-900/5">
+                    <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-orange-100 text-orange-600">
                         <span class="material-icons-round">logout</span>
                     </div>
                     <div>
-                        <p class="text-[10px] text-white/60 font-medium">Jam Pulang</p>
-                        <p class="text-sm font-bold text-white tracking-wide">{{ $jamPulang ?
+                        <p class="text-[10px] text-gray-500 font-medium">Jam Pulang</p>
+                        <p class="text-sm font-bold text-gray-900 tracking-wide">{{ $jamPulang ?
                             \Carbon\Carbon::parse($jamPulang->jam)->format('H:i') : '--:--' }}</p>
                     </div>
                 </div>
