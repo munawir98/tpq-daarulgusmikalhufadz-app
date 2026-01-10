@@ -1356,65 +1356,64 @@
                             if (overlay) overlay.classList.add('hidden');
 
                             btn.onclick = ambilFoto;
+                            return;
                         }
-                        return;
-                    }
 
 
-                    // 3a. Tunggu (Masuk/Pulang) - Orange
-                    if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
-                        btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
+                        // 3a. Tunggu (Masuk/Pulang) - Orange
+                        if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
+                            btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
+                            if (icon) {
+                                icon.textContent = 'schedule'; // Changed from add_a_photo to schedule for waiting
+                                icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                            }
+                            if (text) {
+                                text.innerHTML = 'Tunggu<br/>Jadwal';
+                                text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
+                            }
+                            btn.onclick = () => {
+                                const notifOverlay = document.getElementById('btnNotification');
+                                const notifText = document.getElementById('btnNotificationText');
+                                if (notifOverlay && notifText) {
+                                    notifText.innerHTML = cek.message.replace('<br/>', '\n');
+                                    notifOverlay.classList.remove('hidden');
+                                    notifOverlay.classList.add('flex');
+                                    setTimeout(() => {
+                                        notifOverlay.classList.add('hidden');
+                                        notifOverlay.classList.remove('flex');
+                                    }, 2500);
+                                }
+                            };
+                            return;
+                        }
+
+                        // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, terlambat pulang, etc)
+                        btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
                         if (icon) {
-                            icon.textContent = 'schedule'; // Changed from add_a_photo to schedule for waiting
-                            icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                            icon.textContent = 'block'; // Changed icon for closed state
+                            icon.className = 'material-symbols-rounded text-gray-400 dark:text-gray-500 group-hover:text-gray-500 transition-colors text-3xl';
                         }
                         if (text) {
-                            text.innerHTML = 'Tunggu<br/>Jadwal';
-                            text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
+                            text.innerHTML = 'Absen<br/>Tutup';
+                            text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
                         }
                         btn.onclick = () => {
                             const notifOverlay = document.getElementById('btnNotification');
                             const notifText = document.getElementById('btnNotificationText');
                             if (notifOverlay && notifText) {
-                                notifText.innerHTML = cek.message.replace('<br/>', '\n');
+                                // Use dynamic message from logic if available, else default
+                                notifText.innerHTML = cek.message ? cek.message.replace('<br/>', '\n') : 'Absen Ditutup\nTunggu Jadwal';
+
+                                notifOverlay.style.backgroundColor = '#374151';
                                 notifOverlay.classList.remove('hidden');
                                 notifOverlay.classList.add('flex');
                                 setTimeout(() => {
                                     notifOverlay.classList.add('hidden');
                                     notifOverlay.classList.remove('flex');
+                                    notifOverlay.style.backgroundColor = '';
                                 }, 2500);
                             }
                         };
-                        return;
-                    }
-
-                    // 3b. Di Luar Jadwal - Black/Gray (terlambat masuk, libur, terlambat pulang, etc)
-                    btn.className = 'w-24 h-24 shrink-0 bg-gray-100 dark:bg-gray-800/80 rounded-2xl border-2 border-dashed border-gray-400 dark:border-gray-600 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
-                    if (icon) {
-                        icon.textContent = 'block'; // Changed icon for closed state
-                        icon.className = 'material-symbols-rounded text-gray-400 dark:text-gray-500 group-hover:text-gray-500 transition-colors text-3xl';
-                    }
-                    if (text) {
-                        text.innerHTML = 'Absen<br/>Tutup';
-                        text.className = 'text-[8px] font-bold text-gray-500 dark:text-gray-400 group-hover:text-gray-600 transition-colors text-center leading-tight';
-                    }
-                    btn.onclick = () => {
-                        const notifOverlay = document.getElementById('btnNotification');
-                        const notifText = document.getElementById('btnNotificationText');
-                        if (notifOverlay && notifText) {
-                            // Use dynamic message from logic if available, else default
-                            notifText.innerHTML = cek.message ? cek.message.replace('<br/>', '\n') : 'Absen Ditutup\nTunggu Jadwal';
-
-                            notifOverlay.style.backgroundColor = '#374151';
-                            notifOverlay.classList.remove('hidden');
-                            notifOverlay.classList.add('flex');
-                            setTimeout(() => {
-                                notifOverlay.classList.add('hidden');
-                                notifOverlay.classList.remove('flex');
-                                notifOverlay.style.backgroundColor = '';
-                            }, 2500);
-                        }
-                    };
                     }
 
                     function initUIState() {
