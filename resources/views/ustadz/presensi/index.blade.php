@@ -277,6 +277,14 @@
                         radius: RADIUS_METER
                     }).addTo(map);
 
+                    // Add Destination Marker (Sentra TPQ)
+                    L.marker([SENTRA_LAT, SENTRA_LNG], {
+                        icon: L.divIcon({
+                            className: 'custom-div-icon',
+                            html: "<div style='background-color:#10b981; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);'></div>"
+                        })
+                    }).addTo(map).bindPopup("Lokasi TPQ").openPopup();
+
                     getLocation();
                 }
 
@@ -329,7 +337,7 @@
 
                     if (distance <= RADIUS_METER) {
                         isWithinRadius = true;
-                        locationNameEl.textContent = "Dalam Area TPQ";
+                        locationNameEl.innerHTML = "Dalam Area TPQ<br><span class='text-[9px] font-normal opacity-70'>" + currentLat.toFixed(6) + ", " + currentLng.toFixed(6) + "</span>";
                         statusTextEl.textContent = `Akurat (${Math.round(distance)}m)`;
                         statusIconEl.textContent = 'check_circle';
                         statusIconEl.classList.remove('text-red-400');
@@ -338,7 +346,7 @@
                         badgeErr.style.display = 'none';
                     } else {
                         isWithinRadius = false;
-                        locationNameEl.textContent = "Luar Area TPQ";
+                        locationNameEl.innerHTML = "Luar Area TPQ<br><span class='text-[9px] font-normal opacity-70'>" + currentLat.toFixed(6) + ", " + currentLng.toFixed(6) + "</span>";
                         statusTextEl.textContent = `Jarak: ${Math.round(distance)}m`;
                         statusIconEl.textContent = 'warning';
                         statusIconEl.classList.add('text-red-400');

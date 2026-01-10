@@ -27,7 +27,12 @@ class BiometricWebController extends Controller
         try {
             DB::beginTransaction();
 
-            $user = User::find(auth()->id());
+            $userId = session('user.id');
+            if (!$userId) throw new \Exception('User not authenticated in session.');
+
+            $user = User::find($userId);
+            if (!$user) throw new \Exception('User not found in database.');
+
             $user->biometric_credential = $request->credential_id;
             $user->save();
 
