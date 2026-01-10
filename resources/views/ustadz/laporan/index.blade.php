@@ -118,7 +118,7 @@
         <div class="flex-1 overflow-y-auto px-6 pt-2 pb-24" id="reportList">
             <div class="space-y-4">
                 <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="{{ route('ustadz.presensi') }}" data-category="harian bulanan"
+                    href="{{ route('presensi.index') }}" data-category="harian bulanan"
                     data-title="Laporan Kehadiran Santri">
                     <div class="flex items-center gap-4">
                         <div
