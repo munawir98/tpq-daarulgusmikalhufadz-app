@@ -103,6 +103,12 @@
             btn.className = 'mt-3 w-full py-3 bg-gray-800 text-white rounded-xl font-semibold text-sm hover:bg-gray-700 transition-colors shadow-md';
         }
 
+        function resetBtns() {
+            const btn = document.getElementById('btnScanIdentify');
+            btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Mulai Scan</span>';
+            btn.disabled = false;
+        }
+
         async function identifyUser() {
             const btn = document.getElementById('btnScanIdentify');
             const originalContent = btn.innerHTML;
@@ -126,7 +132,7 @@
                 // Extract User Handle (Santri ID)
                 const userHandleBuffer = credential.response.userHandle;
                 if (!userHandleBuffer) {
-                    throw new Error("Identitas tidak ditemukan dalam kredensial ini.");
+                    throw new Error("Identitas tidak ditemukan dalam kredensial ini. Pastikan sidik jari sudah didaftarkan ulang.");
                 }
 
                 // Decode User Handle back to String ID
@@ -138,124 +144,77 @@
 
             } catch (error) {
                 console.error(error);
-                // Using the existing PresensiWebController endpoint via fetch
+                let msg = error.message || 'Terjadi kesalahan saat mendeteksi biometrik.';
+                if (error.name === 'NotAllowedError') msg = 'Scan dibatalkan atau waktu habis.';
 
-                try {
-                    const response = await fetch("{{ route('ustadz.biometric.submit') }}", {
-                        // Actually, the existing route might be for "Self" or "Bulk".
-                        // Let's assume we need a proper endpoint.
-                        // For THIS Task, we will mock the success to show the flow,
-                        // OR call the generic 'presensi/masuk' if it supports 'santri_id'.
-
-                        // REVISION: The existing 'presensi.masuk' likely expects the Logged In user.
-                        // We might need to adjust the controller or use a specific Santri endpoint.
-                        // Checking routes... Route::resource('santri') exists.
-                        // But typically presensi is a separate entity.
-
-                        // FALLBACK: Use a direct simulation for the UI flow demonstration or generic POST if available.
-                        // Given time constraints, I will pretend success and handle the Setoran Prompt logic
-                        // which is the user's specific request "tanyakan apakah mau input setoran".
-
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({
-                            santri_id: santriId,
-                            latitude: null, // Optional for manual override
-                            longitude: null,
-                            type: 'masuk' // Default to masuk
-                        })
-                    });
-
-                    // Assuming success for the flow (or handle actual response)
-                    // const data = await response.json();
-
-                    // SHOW SUCCESS & PROMPT
-                    Swal.fire({
-                        title: 'Absen Berhasil!',
-                        text: 'Data kehadiran telah disimpan.',
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Ya, Input Setoran',
-                        Swal.fire('Error', error.message || 'Terjadi kesalahan saat mendeteksi biometrik.', 'error');
-                    }
+                Swal.fire('Scan Gagal', msg, 'error');
+                resetBtns();
+            }
         }
 
         async function submitAttendance(santriId, credential) {
-                    // This function will handle the actual attendance submission
-                    // and the subsequent prompt for setoran hafalan.
-                    try {
-                        const response = await fetch("{{ route('ustadz.biometric.submit') }}", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                            body: JSON.stringify({
-                                santri_id: santriId,
-                                latitude: null, // Optional for manual override
-                                longitude: null,
-                                type: 'masuk', // Default to masuk
-                                credential_id: credential.id // Send credential ID for verification if needed
-                            })
-                        });
-
-                        const data = await response.json();
-                        resetBtns();
-
-                        if (data.success) {
-                            Swal.fire({
-                                title: 'Berhasil!',
-                                text: data.message + ' Input setoran hafalan sekarang?',
-                                icon: 'success',
-                                showCancelButton: true,
-                                confirmButtonText: 'Ya, Input',
-                                cancelButtonText: 'Tidak'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + santriId;
-                                } else {
-                                    // Reset form for next Santri if not inputting setoran
-                                    $('#santriSelect').val(null).trigger('change');
-                                }
-                            });
-                        } else {
-                            Swal.fire('Gagal', data.message, 'error');
-                        }
+            try {
+                const response = await fetch("{{ route('ustadz.biometric.submit') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        santri_id: santriId,
+                        latitude: null, // Optional for manual override
+                        longitude: null,
+                        type: 'masuk', // Default to masuk
+                        credential_id: credential.id // Send credential ID for verification if needed
                     })
-            .catch (err => {
-                        resetBtns();
-                        console.error(err);
-                        Swal.fire('Error', 'Terjadi kesalahan sistem.', 'error');
-                    });
-                }
+                });
 
-                function resetBtns() {
-                    const btn = document.getElementById('btnScanIdentify');
-                    btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Mulai Scan</span>';
-                    btn.disabled = false;
-                }
+                const data = await response.json();
+                resetBtns();
 
-                async function manualCheckIn() {
-                    const santriId = $('#santriSelect').val();
-                    if (!santriId) return;
-
+                if (data.success) {
                     Swal.fire({
-                        title: 'Absen Manual?',
-                        text: 'Pastikan santri benar-benar hadir.',
-                        icon: 'question',
+                        title: 'Berhasil!',
+                        text: data.message + ' Input setoran hafalan sekarang?',
+                        icon: 'success',
                         showCancelButton: true,
-                        confirmButtonText: 'Ya, Hadir'
+                        confirmButtonText: 'Ya, Input',
+                        cancelButtonText: 'Tidak'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            submitAttendance(santriId, { id: 'manual' }); // Pass a dummy credential for manual
+                            window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + santriId;
+                        } else {
+                            // Reset form for next Santri if not inputting setoran
+                            $('#santriSelect').val(null).trigger('change');
                         }
                     });
+                } else {
+                    Swal.fire('Gagal', data.message, 'error');
                 }
+            }
+            catch (err) {
+                resetBtns();
+                console.error(err);
+                Swal.fire('Error', 'Terjadi kesalahan sistem.', 'error');
+            }
+        }
+
+        async function manualCheckIn() {
+            const santriId = $('#santriSelect').val();
+            if (!santriId) return;
+
+            Swal.fire({
+                title: 'Absen Manual?',
+                text: 'Pastikan santri benar-benar hadir.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hadir'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    submitAttendance(santriId, { id: 'manual' });
+                }
+            });
+        }
     </script>
 
 </body>
