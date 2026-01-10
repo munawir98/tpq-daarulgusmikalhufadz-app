@@ -75,12 +75,41 @@ class BiometricWebController extends Controller
 
     public function register()
     {
-        // Get active Santri
+        // Initial view with empty list or preloaded small set if needed.
+        // For AJAX Select2, we can just pass empty or let the view handle it.
+        // But to keep manual fallback, we pass all (might be heavy later).
+        // Let's keep passing all for now, but enabling AJAX in view will override.
         $santris = \App\Models\Santri::where('status_aktif', 1)
             ->orderBy('nama_lengkap', 'asc')
+            ->limit(10) // Limit initial load for performance
             ->get();
 
         return view('ustadz.biometric.register', compact('santris'));
+    }
+
+    public function search(Request $request)
+    {
+        $term = $request->q;
+
+        $query = \App\Models\Santri::where('status_aktif', 1);
+
+        if ($term) {
+            $query->where('nama_lengkap', 'like', '%' . $term . '%');
+        }
+
+        $results = $query->orderBy('nama_lengkap', 'asc')
+            ->limit(20)
+            ->get()
+            ->map(function ($santri) {
+                return [
+                    'id' => $santri->id,
+                    'text' => $santri->nama_lengkap
+                ];
+            });
+
+        return response()->json([
+            'results' => $results
+        ]);
     }
 
     public function storeCredential(Request $request)
