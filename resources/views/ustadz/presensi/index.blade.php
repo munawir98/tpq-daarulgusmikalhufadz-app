@@ -127,17 +127,18 @@
 
 
 
-        <div class="glass-card rounded-[32px] p-6 mb-8 text-center flex flex-col items-center animate-fade-in-up">
+        <div
+            class="bg-white rounded-[32px] p-6 mb-8 text-center flex flex-col items-center animate-fade-in-up shadow-xl">
             <div class="mb-4">
-                <p class="text-3xl font-bold" id="current-time">--:--</p>
-                <p class="text-white/70 text-xs mt-1" id="current-date">--</p>
+                <p class="text-3xl font-bold text-gray-900" id="current-time">--:--</p>
+                <p class="text-gray-500 text-xs mt-1" id="current-date">--</p>
             </div>
 
             <!-- Status Hari Ini (Card Style like Dashboard) -->
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <!-- Masuk Card -->
                 <!-- Masuk Card -->
-                <div class="bg-white p-3 rounded-2xl flex items-center space-x-3 shadow-lg shadow-blue-900/5">
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-2xl flex items-center space-x-3 shadow-sm">
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-blue-100 text-blue-600">
                         <span class="material-icons-round">login</span>
                     </div>
@@ -150,7 +151,7 @@
 
                 <!-- Pulang Card -->
                 <!-- Pulang Card -->
-                <div class="bg-white p-3 rounded-2xl flex items-center space-x-3 shadow-lg shadow-blue-900/5">
+                <div class="bg-gray-50 border border-gray-100 p-3 rounded-2xl flex items-center space-x-3 shadow-sm">
                     <div class="w-10 h-10 rounded-xl flex items-center justify-center bg-orange-100 text-orange-600">
                         <span class="material-icons-round">logout</span>
                     </div>
@@ -161,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <div class="w-full h-40 bg-white/5 rounded-2xl mb-6 relative overflow-hidden border border-white/10 group">
+            <div class="w-full h-40 bg-gray-100 rounded-2xl mb-6 relative overflow-hidden border border-gray-200 group">
                 <div id="map" class="w-full h-full z-0"></div>
 
                 <!-- Map Controls (Right Side) -->
@@ -225,32 +226,32 @@
         </div>
 
         <!-- Rekapitulasi Form -->
-        <div class="glass-card rounded-2xl p-5 mb-8 animate-fade-in-up" style="animation-delay: 0.1s;">
+        <div class="bg-white rounded-2xl p-5 mb-8 animate-fade-in-up shadow-lg" style="animation-delay: 0.1s;">
             <div class="flex items-center space-x-2 mb-4">
                 <span class="material-symbols-outlined text-yellow-400">calendar_month</span>
-                <h3 class="font-bold text-sm">Rekapitulasi Presensi</h3>
+                <h3 class="font-bold text-sm text-gray-900">Rekapitulasi Presensi</h3>
             </div>
             <form action="{{ route('ustadz.presensi') }}" method="GET">
                 <div class="grid grid-cols-2 gap-3 mb-4">
                     <div class="space-y-1">
-                        <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Awal</label>
+                        <label class="text-[10px] text-gray-500 font-medium ml-1">Tanggal Awal</label>
                         <div class="relative">
                             <input type="date" name="start_date"
-                                class="w-full bg-white/10 border border-white/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 value="{{ $filterStart ?? date('Y-m-01') }}">
                             <span
-                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-white/50"
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400"
                                 style="font-size: 16px;">calendar_month</span>
                         </div>
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Akhir</label>
+                        <label class="text-[10px] text-gray-500 font-medium ml-1">Tanggal Akhir</label>
                         <div class="relative">
                             <input type="date" name="end_date"
-                                class="w-full bg-white/10 border border-white/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-9 pr-3 py-2 text-xs text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
                                 value="{{ $filterEnd ?? date('Y-m-d') }}">
                             <span
-                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-white/50"
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400"
                                 style="font-size: 16px;">calendar_month</span>
                         </div>
                     </div>
@@ -262,9 +263,9 @@
                         <span>Tampilkan</span>
                     </button>
                     <div
-                        class="bg-white/10 border border-white/20 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[70px]">
-                        <span class="text-[8px] text-white/60 uppercase tracking-wider">Total Hadir</span>
-                        <span class="text-xs font-bold text-white leading-none">
+                        class="bg-gray-100 border border-gray-200 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[70px]">
+                        <span class="text-[8px] text-gray-500 uppercase tracking-wider">Total Hadir</span>
+                        <span class="text-xs font-bold text-gray-900 leading-none">
                             {{ $totalHadir ?? 0 }}
                         </span>
                     </div>
@@ -281,17 +282,18 @@
             </div>
             <div class="space-y-3">
                 @forelse($riwayat as $item)
-                <div class="glass-card rounded-2xl p-4 flex items-center justify-between">
+                <div
+                    class="bg-white rounded-2xl p-4 flex items-center justify-between shadow-sm border border-gray-100">
                     <div class="flex items-center space-x-4">
                         <div
-                            class="w-10 h-10 {{ $item->tipe == 'masuk' ? 'bg-green-500/20 text-green-400' : 'bg-orange-500/20 text-orange-400' }} rounded-xl flex items-center justify-center">
+                            class="w-10 h-10 {{ $item->tipe == 'masuk' ? 'bg-green-500/20 text-green-600' : 'bg-orange-500/20 text-orange-600' }} rounded-xl flex items-center justify-center">
                             <span class="material-icons-round">{{ $item->tipe == 'masuk' ? 'login' : 'logout'
                                 }}</span>
                         </div>
                         <div>
-                            <p class="font-semibold text-sm text-white">{{ $item->tipe == 'masuk' ? 'Masuk Kelas' :
+                            <p class="font-semibold text-sm text-gray-900">{{ $item->tipe == 'masuk' ? 'Masuk Kelas' :
                                 'Pulang / Selesai' }}</p>
-                            <p class="text-[11px] text-white/50">
+                            <p class="text-[11px] text-gray-500">
                                 {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('l, d M') }},
                                 {{ \Carbon\Carbon::parse($item->jam)->format('H:i') }} WIB
                             </p>
@@ -299,7 +301,7 @@
                     </div>
                     <div class="text-right">
                         <span
-                            class="text-[10px] {{ $item->tipe == 'masuk' ? 'bg-green-500/20 text-green-400' : 'bg-white/10 text-white/70' }} px-2 py-1 rounded-lg">
+                            class="text-[10px] {{ $item->tipe == 'masuk' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-500' }} px-2 py-1 rounded-lg">
                             {{ $item->tipe == 'masuk' ? 'Verified Radius' : 'Selfie Check' }}
                         </span>
                     </div>
