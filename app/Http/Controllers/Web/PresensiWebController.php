@@ -303,12 +303,23 @@ class PresensiWebController extends Controller
             ->orderBy('jam', 'desc')
             ->get();
 
+        // Hitung Total Hadir (Distinct Dates)
+        // Clone query agar tidak terpengaruh order by
+        $totalHadir = \App\Models\Presensi::where('user_id', $userId);
+        if ($startDate && $endDate) {
+            $totalHadir->whereBetween('tanggal', [$startDate, $endDate]);
+        } else {
+             $totalHadir->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'));
+        }
+        $totalHadirCount = $totalHadir->distinct('tanggal')->count('tanggal');
+
         return view('ustadz.presensi.index', [
             'riwayat' => $riwayat,
             'jamMasuk' => $jamMasuk,
             'jamPulang' => $jamPulang,
-            'filterStart' => $startDate, // Pass back to view
-            'filterEnd' => $endDate
+            'filterStart' => $startDate,
+            'filterEnd' => $endDate,
+            'totalHadir' => $totalHadirCount
         ]);
     }
 

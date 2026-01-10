@@ -234,15 +234,25 @@
                 <div class="grid grid-cols-2 gap-3 mb-4">
                     <div class="space-y-1">
                         <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Awal</label>
-                        <input type="date" name="start_date"
-                            class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                            value="{{ $filterStart ?? date('Y-m-01') }}">
+                        <div class="relative">
+                            <input type="date" name="start_date"
+                                class="w-full bg-white/10 border border-white/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                value="{{ $filterStart ?? date('Y-m-01') }}">
+                            <span
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-white/50"
+                                style="font-size: 16px;">calendar_month</span>
+                        </div>
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Akhir</label>
-                        <input type="date" name="end_date"
-                            class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                            value="{{ $filterEnd ?? date('Y-m-d') }}">
+                        <div class="relative">
+                            <input type="date" name="end_date"
+                                class="w-full bg-white/10 border border-white/20 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
+                                value="{{ $filterEnd ?? date('Y-m-d') }}">
+                            <span
+                                class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-white/50"
+                                style="font-size: 16px;">calendar_month</span>
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -255,9 +265,7 @@
                         class="bg-white/10 border border-white/20 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[70px]">
                         <span class="text-[8px] text-white/60 uppercase tracking-wider">Total Hadir</span>
                         <span class="text-xs font-bold text-white leading-none">
-                            {{ \App\Models\Presensi::where('user_id', auth()->id())
-                            ->whereBetween('created_at', [date('Y-m-01'), date('Y-m-d') . ' 23:59:59'])
-                            ->count() }}
+                            {{ $totalHadir ?? 0 }}
                         </span>
                     </div>
                 </div>
