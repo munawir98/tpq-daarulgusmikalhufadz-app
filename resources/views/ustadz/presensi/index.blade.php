@@ -183,9 +183,9 @@
                 <!-- Small Status Indicator on Map -->
                 <div id="mapStatusBadge"
                     class="absolute top-2 left-2 z-[400] flex items-center space-x-1 transition-all transform opacity-0">
-                    <div id="mapStatusIcon" class="w-1.5 h-1.5 rounded-full bg-gray-400 animate-pulse shadow-sm"></div>
+                    <div id="mapStatusIcon" class="w-1.5 h-1.5 rounded-full bg-gray-400 animate-pulse"></div>
                     <span id="mapStatusText"
-                        class="text-[9px] font-bold text-gray-700 drop-shadow-sm shadow-black">Mencari...</span>
+                        class="text-[8px] font-bold text-gray-700 drop-shadow-md shadow-white">Mencari...</span>
                 </div>
 
 
@@ -477,15 +477,15 @@
                     badge.classList.remove('scale-95', 'opacity-0');
                     if (distance <= RADIUS_METER) {
                         isWithinRadius = true;
-                        badgeIcon.className = 'w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]';
+                        badgeIcon.className = 'w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_4px_rgba(34,197,94,0.6)]';
                         badgeText.textContent = `Dalam Radius (${Math.round(distance)}m)`;
-                        badgeText.className = 'text-[10px] font-bold text-green-600';
+                        badgeText.className = 'text-[8px] font-bold text-green-600 drop-shadow-sm bg-white/50 px-1 rounded';
                         if (circle) circle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
                     } else {
                         isWithinRadius = false;
-                        badgeIcon.className = 'w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]';
+                        badgeIcon.className = 'w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_4px_rgba(239,68,68,0.6)]';
                         badgeText.textContent = `Luar Radius (${Math.round(distance)}m)`;
-                        badgeText.className = 'text-[10px] font-bold text-red-600';
+                        badgeText.className = 'text-[8px] font-bold text-red-600 drop-shadow-sm bg-white/50 px-1 rounded';
                         if (circle) circle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
                     }
                 }
