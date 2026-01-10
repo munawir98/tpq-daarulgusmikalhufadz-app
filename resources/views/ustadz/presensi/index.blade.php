@@ -86,35 +86,7 @@
             </a>
         </header>
 
-        <div class="glass-card rounded-3xl p-4 mb-6 flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    @if(session('user.foto'))
-                    <img alt="Profile" class="w-12 h-12 rounded-2xl border-2 border-white/30 object-cover"
-                        src="{{ asset('storage/' . session('user.foto')) }}" />
-                    @else
-                    <div
-                        class="w-12 h-12 rounded-2xl border-2 border-white/30 bg-white/20 flex items-center justify-center text-xl font-bold">
-                        {{ substr(session('user.name'), 0, 1) }}
-                    </div>
-                    @endif
-                    <div
-                        class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-[#4a90e2] rounded-full">
-                    </div>
-                </div>
-                <div>
-                    <p class="text-xs text-white/70">Assalamu'alaikum,</p>
-                    <h2 class="text-md font-bold leading-tight">
-                        @if(session('user.jenis_kelamin') == 'P') Ustadzah @else Ust. @endif
-                        {{ explode(' ', session('user.name'))[0] }}
-                    </h2>
-                </div>
-            </div>
-            <div class="text-right">
-                <p class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full inline-block">ID: {{ session('user.username')
-                    ?? '---' }}</p>
-            </div>
-        </div>
+
 
         <div class="glass-card rounded-[32px] p-6 mb-8 text-center flex flex-col items-center">
             <div class="mb-4">
