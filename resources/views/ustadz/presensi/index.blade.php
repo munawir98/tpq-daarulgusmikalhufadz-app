@@ -122,7 +122,36 @@
                 <p class="text-white/70 text-xs mt-1" id="current-date">--</p>
             </div>
 
-            <!-- MAP CONTAINER -->
+            <!-- Status Hari Ini (Card Style like Dashboard) -->
+            <div class="grid grid-cols-2 gap-3 mb-6">
+                <!-- Masuk Card -->
+                <div
+                    class="glass-card p-3 rounded-2xl flex items-center space-x-3 {{ $jamMasuk ? 'bg-green-500/10 border-green-500/30' : '' }}">
+                    <div
+                        class="w-10 h-10 rounded-xl flex items-center justify-center {{ $jamMasuk ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-white/10 text-white/50' }}">
+                        <span class="material-icons-round">login</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/60 font-medium">Jam Masuk</p>
+                        <p class="text-sm font-bold text-white tracking-wide">{{ $jamMasuk ?
+                            \Carbon\Carbon::parse($jamMasuk->jam)->format('H:i') : '--:--' }}</p>
+                    </div>
+                </div>
+
+                <!-- Pulang Card -->
+                <div
+                    class="glass-card p-3 rounded-2xl flex items-center space-x-3 {{ $jamPulang ? 'bg-orange-500/10 border-orange-500/30' : '' }}">
+                    <div
+                        class="w-10 h-10 rounded-xl flex items-center justify-center {{ $jamPulang ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/30' : 'bg-white/10 text-white/50' }}">
+                        <span class="material-icons-round">logout</span>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-white/60 font-medium">Jam Pulang</p>
+                        <p class="text-sm font-bold text-white tracking-wide">{{ $jamPulang ?
+                            \Carbon\Carbon::parse($jamPulang->jam)->format('H:i') : '--:--' }}</p>
+                    </div>
+                </div>
+            </div>
             <div class="w-full h-40 bg-white/5 rounded-2xl mb-6 relative overflow-hidden border border-white/10 group">
                 <div id="map" class="w-full h-full z-0"></div>
 

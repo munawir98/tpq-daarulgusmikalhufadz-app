@@ -276,8 +276,17 @@ class PresensiWebController extends Controller
     public function ustadzIndex(Request $request)
     {
         $userId = session('user.id');
+        $today = now()->format('Y-m-d');
 
-        // Ambil data riwayat presensi 7 hari terakhir untuk ditampilkan di halaman presensi
+        // Data Hari Ini
+        $presensiToday = \App\Models\Presensi::where('user_id', $userId)
+            ->where('tanggal', $today)
+            ->get();
+
+        $jamMasuk = $presensiToday->where('tipe', 'masuk')->first();
+        $jamPulang = $presensiToday->where('tipe', 'pulang')->first();
+
+        // Riwayat 7 Hari Terakhir
         $riwayat = \App\Models\Presensi::where('user_id', $userId)
             ->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'))
             ->orderBy('tanggal', 'desc')
@@ -285,7 +294,9 @@ class PresensiWebController extends Controller
             ->get();
 
         return view('ustadz.presensi.index', [
-            'riwayat' => $riwayat
+            'riwayat' => $riwayat,
+            'jamMasuk' => $jamMasuk,
+            'jamPulang' => $jamPulang
         ]);
     }
 
