@@ -244,11 +244,21 @@
                             value="{{ date('Y-m-d') }}">
                     </div>
                 </div>
-                <button type="submit"
-                    class="w-full py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center space-x-2">
-                    <span class="material-icons-round text-sm">print</span>
-                    <span>Tampilkan Laporan</span>
-                </button>
+                <div class="flex items-center space-x-2">
+                    <button type="submit"
+                        class="flex-1 py-2.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center space-x-2">
+                        <span class="material-icons-round text-sm">print</span>
+                        <span>Tampilkan</span>
+                    </button>
+                    <div
+                        class="bg-white/10 border border-white/20 rounded-xl px-3 py-2.5 flex flex-col items-center justify-center min-w-[60px]">
+                        <span class="text-[8px] text-white/60 uppercase tracking-wider">Total</span>
+                        <span class="text-xs font-bold text-white leading-none">
+                            {{ \App\Models\Presensi::where('user_id', auth()->id())->whereMonth('created_at',
+                            date('m'))->count() }}
+                        </span>
+                    </div>
+                </div>
             </form>
         </div>
 
