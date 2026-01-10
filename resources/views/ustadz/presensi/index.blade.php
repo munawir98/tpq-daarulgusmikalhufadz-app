@@ -156,18 +156,18 @@
                 <div id="map" class="w-full h-full z-0"></div>
 
                 <!-- Map Controls (Zoom/Reset) -->
-                <div class="absolute bottom-2 right-2 flex flex-col space-y-1 z-[400]">
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-row space-x-3 z-[400]">
                     <button onclick="map.zoomIn()"
-                        class="w-7 h-7 bg-white/90 backdrop-blur text-gray-600 rounded-lg shadow-sm flex items-center justify-center hover:bg-white active:scale-95">
-                        <span class="material-icons-round text-sm">add</span>
-                    </button>
-                    <button onclick="map.zoomOut()"
-                        class="w-7 h-7 bg-white/90 backdrop-blur text-gray-600 rounded-lg shadow-sm flex items-center justify-center hover:bg-white active:scale-95">
-                        <span class="material-icons-round text-sm">remove</span>
+                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-600 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200">
+                        <span class="material-icons-round text-lg">add</span>
                     </button>
                     <button onclick="resetMap()"
-                        class="w-7 h-7 bg-blue-500/90 backdrop-blur text-white rounded-lg shadow-sm flex items-center justify-center hover:bg-blue-600 active:scale-95">
-                        <span class="material-icons-round text-sm">restart_alt</span>
+                        class="w-8 h-8 bg-blue-500/90 backdrop-blur text-white rounded-full shadow-lg flex items-center justify-center hover:bg-blue-600 active:scale-95 border border-blue-400">
+                        <span class="material-icons-round text-lg">my_location</span>
+                    </button>
+                    <button onclick="map.zoomOut()"
+                        class="w-8 h-8 bg-white/90 backdrop-blur text-gray-600 rounded-full shadow-lg flex items-center justify-center hover:bg-white active:scale-95 border border-gray-200">
+                        <span class="material-icons-round text-lg">remove</span>
                     </button>
                 </div>
 
@@ -281,7 +281,9 @@
                     L.marker([SENTRA_LAT, SENTRA_LNG], {
                         icon: L.divIcon({
                             className: 'custom-div-icon',
-                            html: "<div style='background-color:#10b981; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.5);'></div>"
+                            html: "<span class='material-icons-round text-red-600 text-3xl drop-shadow-md' style='margin-top:-24px; margin-left:-12px;'>location_on</span>",
+                            iconSize: [24, 24],
+                            iconAnchor: [12, 24]
                         })
                     }).addTo(map).bindPopup("Lokasi TPQ").openPopup();
 
