@@ -32,6 +32,41 @@
                     borderRadius: {
                         DEFAULT: "24px",
                     },
+                    keyframes: {
+                        'gradient-x': {
+                            '0%, 100%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                                'background-size': '200% 200%',
+                                'background-position': 'right center'
+                            },
+                        },
+                        'fade-in-up': {
+                            '0%': {
+                                opacity: '0',
+                                transform: 'translateY(20px)'
+                            },
+                            '100%': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        },
+                        'pulse-slow': {
+                            '0%, 100%': {
+                                opacity: '1'
+                            },
+                            '50%': {
+                                opacity: '0.8'
+                            },
+                        }
+                    },
+                    animation: {
+                        'gradient-x': 'gradient-x 15s ease infinite',
+                        'fade-in-up': 'fade-in-up 0.5s ease-out',
+                        'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
                 },
             },
         };
@@ -46,6 +81,7 @@
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
         .dark .glass-card {
             background: rgba(15, 23, 42, 0.6);
@@ -54,9 +90,16 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
         }
-        .map-mesh {
-            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
+        /* Custom Scrollbar for Riwayat */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
         }
     </style>
     <style>
@@ -67,7 +110,7 @@
 </head>
 
 <body
-    class="bg-gradient-to-b from-[#4a90e2] to-[#2c5282] dark:from-[#1e293b] dark:to-[#0f172a] min-h-screen text-white">
+    class="bg-gradient-to-br from-[#4a90e2] via-[#6366f1] to-[#2c5282] dark:from-[#1e293b] dark:to-[#0f172a] min-h-screen text-white animate-gradient-x bg-[length:400%_400%]">
     <div class="max-w-md mx-auto min-h-screen flex flex-col p-6 relative overflow-hidden">
         <header class="flex items-center justify-between mt-4 mb-6">
             <div class="flex items-center space-x-3">
@@ -85,7 +128,7 @@
 
 
 
-        <div class="glass-card rounded-[32px] p-6 mb-8 text-center flex flex-col items-center">
+        <div class="glass-card rounded-[32px] p-6 mb-8 text-center flex flex-col items-center animate-fade-in-up">
             <div class="mb-4">
                 <p class="text-3xl font-bold" id="current-time">--:--</p>
                 <p class="text-white/70 text-xs mt-1" id="current-date">--</p>
@@ -149,7 +192,7 @@
             <div class="grid grid-cols-2 gap-4 w-full mb-6">
                 <!-- Fingerprint / Geo Button (Masuk) -->
                 <button onclick="checkBiometricAndSubmit('masuk')"
-                    class="relative flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-xl text-blue-600 active:scale-95 transition-transform overflow-hidden group">
+                    class="relative flex flex-col items-center justify-center p-5 bg-white rounded-2xl shadow-xl text-blue-600 active:scale-95 transition-transform overflow-hidden group {{ !$jamMasuk ? 'animate-pulse-slow ring-4 ring-white/20' : '' }}">
                     <div class="absolute top-0 right-0 p-1 bg-green-500 text-white rounded-bl-lg">
                         <span class="material-icons-round text-sm">login</span>
                     </div>
