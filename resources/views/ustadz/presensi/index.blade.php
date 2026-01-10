@@ -358,7 +358,7 @@
                             cancelButtonText: 'Batal'
                         }).then((res) => {
                             if (res.isConfirmed) {
-                                window.location.href = "{{ route('biometric.index') }}";
+                                window.location.href = "{{ route('ustadz.biometric.index') }}";
                             }
                         });
                         return;

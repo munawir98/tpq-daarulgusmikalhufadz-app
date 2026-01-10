@@ -67,9 +67,9 @@
                     challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]), // Dummy Challenge
                     rp: { name: "TPQ Daarul Gusmik", id: window.location.hostname },
                     user: {
-                        id: Uint8Array.from("{{ auth()->user()->id }}", c => c.charCodeAt(0)),
-                        name: "{{ auth()->user()->email ?? auth()->user()->username }}",
-                        displayName: "{{ auth()->user()->name }}"
+                        id: Uint8Array.from("{{ session('user.id') }}", c => c.charCodeAt(0)),
+                        name: "{{ session('user.email') ?? session('user.username') }}",
+                        displayName: "{{ session('user.name') }}"
                     },
                     pubKeyCredParams: [{ alg: -7, type: "public-key" }],
                     authenticatorSelection: { userVerification: "preferred" }, // Memaksa verifikasi lokal (sidik jari/PIN)
