@@ -230,19 +230,19 @@
                 <span class="material-symbols-outlined text-yellow-400">calendar_month</span>
                 <h3 class="font-bold text-sm">Rekapitulasi Presensi</h3>
             </div>
-            <form action="{{ route('presensi.index') }}" method="GET">
+            <form action="{{ route('ustadz.presensi') }}" method="GET">
                 <div class="grid grid-cols-2 gap-3 mb-4">
                     <div class="space-y-1">
                         <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Awal</label>
                         <input type="date" name="start_date"
                             class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                            value="{{ date('Y-m-01') }}">
+                            value="{{ $filterStart ?? date('Y-m-01') }}">
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] text-white/60 font-medium ml-1">Tanggal Akhir</label>
                         <input type="date" name="end_date"
                             class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all"
-                            value="{{ date('Y-m-d') }}">
+                            value="{{ $filterEnd ?? date('Y-m-d') }}">
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">

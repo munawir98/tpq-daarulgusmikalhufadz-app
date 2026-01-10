@@ -286,17 +286,29 @@ class PresensiWebController extends Controller
         $jamMasuk = $presensiToday->where('tipe', 'masuk')->first();
         $jamPulang = $presensiToday->where('tipe', 'pulang')->first();
 
-        // Riwayat 7 Hari Terakhir
-        $riwayat = \App\Models\Presensi::where('user_id', $userId)
-            ->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'))
-            ->orderBy('tanggal', 'desc')
+        // Filter / Riwayat
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $query = \App\Models\Presensi::where('user_id', $userId);
+
+        if ($startDate && $endDate) {
+            $query->whereBetween('tanggal', [$startDate, $endDate]);
+        } else {
+             // Default 7 hari terakhir
+             $query->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'));
+        }
+
+        $riwayat = $query->orderBy('tanggal', 'desc')
             ->orderBy('jam', 'desc')
             ->get();
 
         return view('ustadz.presensi.index', [
             'riwayat' => $riwayat,
             'jamMasuk' => $jamMasuk,
-            'jamPulang' => $jamPulang
+            'jamPulang' => $jamPulang,
+            'filterStart' => $startDate, // Pass back to view
+            'filterEnd' => $endDate
         ]);
     }
 
