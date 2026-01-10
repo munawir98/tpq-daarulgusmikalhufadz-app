@@ -133,7 +133,7 @@
                         <span
                             class="text-[11px] font-medium text-text-main-light dark:text-gray-300 text-center">Nilai</span>
                     </a>
-                    <a href="{{ route('ustadz.laporan') }}"
+                    <a href="{{ route('ustadz.laporan.index') }}"
                         class="shrink-0 w-[70px] flex flex-col items-center gap-2 group">
                         <div
                             class="w-14 h-14 rounded-[18px] bg-purple-50 dark:bg-gray-800 flex items-center justify-center group-hover:bg-purple-500 transition-colors duration-300 shadow-sm">
