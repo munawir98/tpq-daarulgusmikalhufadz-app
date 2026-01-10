@@ -1156,7 +1156,16 @@
                             return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup<br/>(Max ${jadwal.masukEnd})` };
                         }
 
-                        // 2. Logic Pulang (STRICT MODE)
+
+                        // Helper to add minutes to "HH:mm"
+                        function addMinutes(timeStr, mins) {
+                            const [h, m] = timeStr.split(':').map(Number);
+                            const date = new Date();
+                            date.setHours(h, m + mins, 0, 0);
+                            return String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0');
+                        }
+
+                        // 2. Logic Pulang (STRICT MODE + 30 mins grace period for message)
                         if (sudahMasuk && !sudahPulang) {
                             // Belum Waktunya (Sebelum Jam Pulang)
                             if (currentTime < jadwal.pulangStart) {
@@ -1169,8 +1178,20 @@
                             }
 
                             // Terlambat (Lewat Jam Pulang)
-                            return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: `Absen Pulang Ditutup<br/>(Max ${jadwal.pulangEnd})` };
+                            // "Absen Pulang Ditutup" tampil sampai 30 menit setelah jadwal berakhir
+                            const limitTime = addMinutes(jadwal.pulangEnd, 30);
+
+                            // Handle crossing midnight (very rare for school hours but safe handling)
+                            // Simple string comparison works if times are in same day.
+                            // If limitTime is smaller than pulangEnd (e.g. 23:45 + 30m = 00:15), this logic needs date objects.
+                            // But for simplicity given the constraints:
+                            if (currentTime <= limitTime) {
+                                return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: `Absen Pulang Ditutup<br/>(Max ${jadwal.pulangEnd})` };
+                            }
+
+                            // Jika lewat 30 menit, jatuh ke bawah (return default "Tunggu Jadwal")
                         }
+
 
                         // 3. Logic Selesai
                         if (sudahMasuk && sudahPulang) {
@@ -1267,54 +1288,79 @@
 
                         // 2. Valid
                         if (cek.valid) {
-                            btn.className = 'w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                            if (cek.type === 'pulang') {
+                                // ORANGE Theme for Pulang
+                                btn.className = 'w-24 h-24 shrink-0 bg-orange-50 dark:bg-orange-900/20 rounded-2xl border-2 border-dashed border-orange-300 dark:border-orange-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors pulse-btn relative overflow-hidden';
+                            } else {
+                                // BLUE Theme for Masuk (Default)
+                                btn.className = 'w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn relative overflow-hidden';
+                            }
 
                             // Check if photo is captured but not sent
                             if (capturedPhotoData) {
+                                // REMOVE ICON & TEXT when showing Photo
                                 if (icon) {
-                                    icon.textContent = 'check_circle';
-                                    icon.className = 'material-symbols-rounded text-green-500 text-3xl z-10'; // z-10 to stay above img
+                                    icon.style.display = 'none'; // Hide Icon
                                 }
                                 if (text) {
-                                    text.innerHTML = 'Klik OK<br/>Untuk Absen';
-                                    text.className = 'text-[8px] font-bold text-white z-10 drop-shadow-md text-center leading-tight';
+                                    text.style.display = 'none'; // Hide Text
                                 }
-                                // Ensure preview is visible (handled in snapPhoto, but good to ensure)
+
+                                // Ensure preview is visible
                                 const preview = document.getElementById('fotoPreview');
                                 if (preview) {
                                     preview.src = capturedPhotoData;
                                     preview.classList.remove('hidden');
                                 }
 
-                                // Specific overlay for readability
+                                // Show Overlay for Buttons (OK / Ulang)
                                 const overlay = document.getElementById('fotoOverlay');
                                 if (overlay) {
-                                    overlay.classList.remove('hidden'); // Darken image
-                                    // Remove the check_circle from overlay since we use the icon now?
-                                    // Actually, let's keep the design simple:
+                                    overlay.classList.remove('hidden');
                                     overlay.classList.add('flex');
-                                    overlay.innerHTML = ''; // Clear icon in overlay, use button text
+                                    overlay.innerHTML = `
+                                        <div class="flex gap-2 w-full px-1 z-50">
+                                             <button onclick="event.stopPropagation(); retakePhoto();" class="flex-1 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white text-[9px] font-bold backdrop-blur-sm border border-white/30">Ulang</button>
+                                             <button onclick="event.stopPropagation(); confirmPhoto();" class="flex-1 py-1 rounded-lg bg-green-500 hover:bg-green-600 text-white text-[9px] font-bold shadow-lg">OK</button>
+                                        </div>
+                                    `;
                                 }
 
-                                btn.onclick = confirmPhoto;
+                                btn.onclick = showZoomModal; // Click photo to Zoom
                             } else {
                                 // Default State (No photo yet)
                                 if (icon) {
+                                    icon.style.display = 'block';
                                     icon.textContent = 'add_a_photo';
-                                    icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
+                                    if (cek.type === 'pulang') {
+                                        icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
+                                    } else {
+                                        icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
+                                    }
                                 }
                                 if (text) {
+                                    text.style.display = 'block';
                                     if (cek.type === 'masuk') {
                                         text.innerHTML = 'Ambil Foto<br/>Masuk';
-                                    } else {
+                                        text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
+                                    } else { // Pulang
                                         text.innerHTML = 'Ambil Foto<br/>Pulang';
+                                        text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                                     }
-                                    text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
+
                                 }
+
+                                // Reset Preview & Overlay
+                                const preview = document.getElementById('fotoPreview');
+                                if (preview) preview.classList.add('hidden');
+                                const overlay = document.getElementById('fotoOverlay');
+                                if (overlay) overlay.classList.add('hidden');
+
                                 btn.onclick = ambilFoto;
                             }
                             return;
                         }
+
 
                         // 3a. Tunggu (Masuk/Pulang) - Orange
                         if (cek.type === 'tunggu_pulang' || cek.type === 'tunggu_masuk') {
@@ -1464,70 +1510,33 @@
                             return;
                         }
 
-                        // Setup UI
-                        document.getElementById('cameraModal').classList.remove('hidden');
-                        document.getElementById('stepCapture').classList.remove('hidden');
-                        document.getElementById('stepConfirm').classList.add('hidden');
-
-                        document.getElementById('cameraVideo').classList.remove('hidden');
-                        document.getElementById('photoPreview').classList.add('hidden');
-
-                        // Metadata
-                        const modalNow = new Date();
-                        document.getElementById('modalTime').textContent = `${String(modalNow.getHours()).padStart(2, '0')}:${String(modalNow.getMinutes()).padStart(2, '0')} WIB`;
-                        const type = (cek.valid && cek.type) ? cek.type : 'masuk';
-                        document.getElementById('modalTitle').textContent = (type === 'pulang') ? 'Foto Presensi Pulang' : 'Foto Presensi Masuk';
-                        document.getElementById('photoLocation').textContent = `${userLat ? userLat.toFixed(5) : '-'}, ${userLng ? userLng.toFixed(5) : '-'}`;
-
-                        // Initialize Camera
-                        initCamera();
+                        // Trigger Native Input
+                        const input = document.getElementById('cameraInput');
+                        if (input) input.click();
                     }
 
                     function closeCameraModal() {
-                        stopCamera();
-                        document.getElementById('cameraModal').classList.add('hidden');
+                        // No modal to close in native flow, but keeping function to avoid errors if called elsewhere
                     }
 
                     let capturedPhotoData = null;
-                    function snapPhoto() {
-                        const video = document.getElementById('cameraVideo');
-                        const canvas = document.getElementById('cameraCanvas');
-                        const context = canvas.getContext('2d');
+                    // snapPhoto removed (not needed for native)
 
-                        // Set canvas size to video size
-                        if (video.videoWidth && video.videoHeight) {
-                            canvas.width = video.videoWidth;
-                            canvas.height = video.videoHeight;
 
-                            // Flip horizontal for mirroring effect if 'user' facing
-                            context.translate(canvas.width, 0);
-                            context.scale(-1, 1);
-
-                            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                            capturedPhotoData = canvas.toDataURL('image/jpeg', 0.8);
-
-                            // Update Dashboard Preview immediately
-                            const dashboardPreview = document.getElementById('fotoPreview');
-                            if (dashboardPreview) {
-                                dashboardPreview.src = capturedPhotoData;
-                                dashboardPreview.classList.remove('hidden');
-                            }
-
-                            // Close Modal immediately
-                            closeCameraModal();
-
-                            // Trigger UI update to change button to "Confirm/Submit" state
-                            updateButtonDisplay();
-                        }
-                    }
 
                     function retakePhoto() {
                         capturedPhotoData = null;
                         document.getElementById('fotoPreview').classList.add('hidden');
+                        document.getElementById('fotoOverlay').classList.add('hidden');
+
+                        // Clear input file so onchange triggers even if same file selected
+                        const input = document.getElementById('cameraInput');
+                        if (input) input.value = '';
+
                         updateButtonDisplay();
-                        ambilFoto(); // Re-open camera
+                        ambilFoto(); // Re-open camera native
                     }
+
 
                     async function confirmPhoto() {
                         if (!capturedPhotoData) {
@@ -1546,8 +1555,7 @@
 
                         if (icon) icon.innerHTML = '<span class="material-symbols-rounded animate-spin">sync</span>';
                         if (text) text.innerHTML = 'Proses...';
-                        if (btn) btn.onclick = null; // Disable click
-
+                        btn.onclick = showZoomModal; // Click photo to Zoom
                         try {
                             const response = await fetch(url, {
                                 method: 'POST',
@@ -2297,9 +2305,6 @@
                         if (!mainCard || !presensiView || !menuView) return;
                         const whiteContainer = document.getElementById('whiteContainer');
 
-                        const expand = forceState !== null ? forceState : !isCardExpanded;
-                        isCardExpanded = expand;
-
                         if (expand) {
                             // Expand: Show Menu, Hide Presensi with animation
                             presensiView.style.opacity = '0';
@@ -2334,6 +2339,85 @@
                         }
                     }
 
+                    // --- NATIVE CAMERA IMPLEMENTATION ---
+                    function handleCameraCapture(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            // Validate file type?
+                            const reader = new FileReader();
+                            reader.onload = function (e) {
+                                capturedPhotoData = e.target.result;
+
+                                // Show Preview immediately
+                                const dashboardPreview = document.getElementById('fotoPreview');
+                                if (dashboardPreview) {
+                                    dashboardPreview.src = capturedPhotoData;
+                                    dashboardPreview.classList.remove('hidden');
+                                }
+
+                                // Update UI to show Confirm/Retry buttons
+                                updateButtonDisplay();
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+
+
+
+
+                    // --- ZOOM PREVIEW IMPLEMENTATION ---
+                    function showZoomModal() {
+                        if (!capturedPhotoData) return;
+
+                        let zoomModal = document.getElementById('zoomModal');
+                        if (!zoomModal) {
+                            zoomModal = document.createElement('div');
+                            zoomModal.id = 'zoomModal';
+                            zoomModal.className = 'fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity duration-300 opacity-0';
+                            zoomModal.onclick = closeZoomModal;
+                            zoomModal.innerHTML = `
+                                <div class="relative max-w-full max-h-full transition-transform duration-300 scale-90" id="zoomContent">
+                                    <img id="zoomImage" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-xl shadow-2xl border-2 border-white/20">
+                                    <button onclick="closeZoomModal()" class="absolute -top-12 right-0 md:-right-12 text-white/70 hover:text-white p-2">
+                                        <span class="material-symbols-rounded text-3xl">close</span>
+                                    </button>
+                                    <div class="absolute -bottom-16 left-1/2 -translate-x-1/2 flex gap-4 w-full justify-center">
+                                         <button onclick="event.stopPropagation(); retakePhoto(); closeZoomModal();" class="px-6 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold backdrop-blur-sm border border-white/30 flex items-center gap-2">
+                                            <span class="material-symbols-rounded">refresh</span> Ulangi
+                                         </button>
+                                         <button onclick="event.stopPropagation(); confirmPhoto(); closeZoomModal();" class="px-6 py-2 rounded-xl bg-green-500 hover:bg-green-600 text-white font-semibold shadow-lg flex items-center gap-2">
+                                            <span class="material-symbols-rounded">check</span> Kirim
+                                         </button>
+                                    </div>
+                                </div>
+                            `;
+                            document.body.appendChild(zoomModal);
+                        }
+
+                        const img = document.getElementById('zoomImage');
+                        if (img) img.src = capturedPhotoData;
+
+                        zoomModal.classList.remove('hidden');
+                        // Animation frame for transition
+                        requestAnimationFrame(() => {
+                            zoomModal.classList.remove('opacity-0');
+                            const content = document.getElementById('zoomContent');
+                            if (content) content.classList.remove('scale-90');
+                        });
+                    }
+
+                    function closeZoomModal() {
+                        const zoomModal = document.getElementById('zoomModal');
+                        if (zoomModal) {
+                            zoomModal.classList.add('opacity-0');
+                            const content = document.getElementById('zoomContent');
+                            if (content) content.classList.add('scale-90');
+
+                            setTimeout(() => {
+                                zoomModal.remove(); // Remove to clean up
+                            }, 300);
+                        }
+                    }
 
                     // Setup Vertical Swipe on Main Card
                     if (mainCard) {
