@@ -80,10 +80,7 @@
                     <p class="text-white/70 text-[10px]">Ustadz &amp; Pengajar</p>
                 </div>
             </div>
-            <a href="{{ route('notifications.index') }}"
-                class="w-10 h-10 glass-card rounded-full flex items-center justify-center">
-                <span class="material-icons-round text-white">notifications</span>
-            </a>
+
         </header>
 
 
