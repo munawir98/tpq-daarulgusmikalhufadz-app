@@ -57,7 +57,11 @@
         </div>
 
         <h2 class="text-2xl font-bold text-gray-800 mb-1">Absen Sidik Jari</h2>
-        <p class="text-gray-500 text-sm mb-8">Tempelkan jari untuk mendeteksi Santri</p>
+        <p class="text-gray-500 text-sm mb-4">Tempelkan jari untuk mendeteksi Santri</p>
+
+        <div class="mb-6 px-4 py-2 bg-gray-50 rounded-lg border border-gray-100 inline-block">
+            <p class="text-xs text-gray-400 font-mono">Server Status: {{ $totalCredentials ?? 0 }} Jari Terdaftar</p>
+        </div>
 
         <!-- Main Action Button (Scan First) -->
         <button id="btnScanIdentify" onclick="identifyUser()"
