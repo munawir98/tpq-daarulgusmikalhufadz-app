@@ -302,7 +302,10 @@ class PresensiWebController extends Controller
 
     public function santriIndex()
     {
-        return view('santri.presensi');
+        $user = auth()->user();
+        $hasBiometric = $user && !empty($user->biometric_credential);
+
+        return view('santri.presensi', compact('hasBiometric'));
     }
 
     public function santriStore(Request $request)
