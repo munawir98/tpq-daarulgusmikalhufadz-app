@@ -14,6 +14,16 @@ class BiometricWebController extends Controller
         return view('ustadz.biometric.index');
     }
 
+    public function attendance()
+    {
+        // Get active Santri
+        $santris = \App\Models\Santri::where('status_aktif', 1) // Using boolean 1 for active
+            ->orderBy('nama_lengkap', 'asc')
+            ->get();
+
+        return view('ustadz.biometric.attendance', compact('santris'));
+    }
+
     public function store(Request $request)
     {
         // In a real WebAuthn implementation, we would verify the attestation object here.
