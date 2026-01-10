@@ -262,8 +262,7 @@
             <p>&copy; {{ date('Y') }} TPQ Daarul Gusmik Al-Hufadz • Versi 2.1.0</p>
         </footer>
 
-        <!-- Bottom Navigation -->
-        @include('layouts.partials.bottom-nav')
+
 
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
