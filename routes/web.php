@@ -16,6 +16,7 @@ use App\Http\Controllers\Web\ProfileWebController;
 use App\Http\Controllers\Web\NotificationWebController;
 use App\Http\Controllers\Web\ChatWebController;
 use App\Http\Controllers\Web\HafalanWebController;
+use App\Http\Controllers\Web\BiometricWebController;
 
 /*
 |--------------------------------------------------------------------------
