@@ -514,10 +514,9 @@
                                 class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
                                 <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
                                     <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
+                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">fingerprint</span>
                                     <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil
-                                        Foto<br />Masuk</span>
+                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Tap<br />Presensi</span>
                                 </div>
                                 <img id="fotoPreview" src="" alt="Foto Presensi"
                                     class="w-full h-full object-cover absolute inset-0 hidden" />
@@ -1332,7 +1331,7 @@
                                 // Default State (No photo yet)
                                 if (icon) {
                                     icon.style.display = 'block';
-                                    icon.textContent = 'add_a_photo';
+                                    icon.textContent = 'fingerprint';
                                     if (cek.type === 'pulang') {
                                         icon.className = 'material-symbols-rounded text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-3xl';
                                     } else {
@@ -1342,10 +1341,10 @@
                                 if (text) {
                                     text.style.display = 'block';
                                     if (cek.type === 'masuk') {
-                                        text.innerHTML = 'Ambil Foto<br/>Masuk';
+                                        text.innerHTML = 'Presensi<br/>Masuk';
                                         text.className = 'text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight';
                                     } else { // Pulang
-                                        text.innerHTML = 'Ambil Foto<br/>Pulang';
+                                        text.innerHTML = 'Presensi<br/>Pulang';
                                         text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                                     }
 
