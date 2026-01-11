@@ -110,6 +110,7 @@
                     },
                     cache: true,
                     error: function (jqXHR, textStatus, errorThrown) {
+                        if (textStatus === 'abort') return; // Ignore user interruptions
                         console.error("AJAX Error:", textStatus, errorThrown);
                         // Show visible error to user for debugging
                         alert('Error Cari Santri: ' + jqXHR.status + ' ' + errorThrown);
