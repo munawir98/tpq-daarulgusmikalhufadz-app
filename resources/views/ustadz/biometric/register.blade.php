@@ -104,12 +104,25 @@
                     },
                     processResults: function (data) {
                         return {
-                            results: data.results // Matches backend format { results: [{id, text}] }
+                            results: data.results
                         };
                     },
-                    cache: true
+                    cache: true,
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error("AJAX Error:", textStatus, errorThrown);
+                        // Optional: Show alert if really needed, but console is safer for now.
+                        // alert('Gagal mencari santri: ' + errorThrown);
+                    }
                 },
-                minimumInputLength: 1 // Require at least 1 character to search
+                minimumInputLength: 0, // Allow showing all on click if supported
+                language: {
+                    noResults: function () {
+                        return "Santri tidak ditemukan or error";
+                    },
+                    searching: function () {
+                        return "Mencari...";
+                    }
+                }
             });
 
             // Auto open for UX
