@@ -137,6 +137,7 @@ Route::middleware('web.auth')->group(function () {
     */
     Route::get('/help', fn () => view('pages.help'))->name('help');
     Route::get('/about', fn () => view('pages.about'))->name('about');
+    Route::get('/info', fn () => view('pages.info'))->name('info');
     Route::get('/debug-db', function () {
     $tables = collect(DB::select('SHOW TABLES'))->map(function ($val) {
         foreach ($val as $key => $tableName) {
