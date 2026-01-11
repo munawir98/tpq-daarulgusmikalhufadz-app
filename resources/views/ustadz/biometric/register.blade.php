@@ -87,8 +87,25 @@
 
     </div>
 
+    <!-- Debugging Area -->
+    <div class="mt-4 p-4 bg-gray-800 text-green-400 font-mono text-xs rounded-lg w-full max-w-md hidden"
+        id="debugConsole">
+        <p class="font-bold text-white mb-2">Debug Info:</p>
+        <div id="debugLog"></div>
+    </div>
+
     <script>
+        function logDebug(msg) {
+            const el = document.getElementById('debugConsole');
+            const log = document.getElementById('debugLog');
+            el.classList.remove('hidden');
+            log.innerHTML += `<div>> ${msg}</div>`;
+            console.log(msg);
+        }
+
         $(document).ready(function () {
+            logDebug("Page Loaded. jQuery Ready.");
+
             // Init Select2 with AJAX
             $('#santriSelect').select2({
                 placeholder: "Cari nama santri...",
@@ -104,16 +121,16 @@
                         };
                     },
                     processResults: function (data) {
+                        logDebug("Data received: " + data.results.length + " items");
                         return {
                             results: data.results
                         };
                     },
                     cache: true,
                     error: function (jqXHR, textStatus, errorThrown) {
-                        if (textStatus === 'abort') return; // Ignore user interruptions
-                        console.error("AJAX Error:", textStatus, errorThrown);
-                        // Show visible error to user for debugging
-                        alert('Error Cari Santri: ' + jqXHR.status + ' ' + errorThrown);
+                        if (textStatus === 'abort') return;
+                        logDebug("ERROR: " + textStatus + " | Status: " + jqXHR.status + " | " + errorThrown);
+                        alert('Error: ' + jqXHR.status + ' ' + errorThrown);
                     }
                 },
                 minimumInputLength: 0, // Allow showing all on click if supported
