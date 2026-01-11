@@ -181,16 +181,45 @@ Route::middleware('web.auth')->group(function () {
     Route::get('/help', fn () => view('pages.help'))->name('help');
     Route::get('/about', fn () => view('pages.about'))->name('about');
     Route::get('/info', fn () => view('pages.info'))->name('info');
-    Route::get('/debug-db', function () {
-    $tables = collect(DB::select('SHOW TABLES'))->map(function ($val) {
-        foreach ($val as $key => $tableName) {
-            return [
-                'name' => $tableName,
-                'count' => DB::table($tableName)->count()
-            ];
+Route::get('/debug-db', function () {
+    $debugInfo = [];
+    $pdo = null;
+
+    // 1. Check Config
+    $debugInfo['config_db_host'] = config('database.connections.mysql.host');
+    $debugInfo['config_db_port'] = config('database.connections.mysql.port');
+    $debugInfo['config_db_database'] = config('database.connections.mysql.database');
+    $debugInfo['config_db_username'] = config('database.connections.mysql.username'); // Should mask this in view
+
+    // 2. Try Connection
+    try {
+        $pdo = DB::connection()->getPdo();
+        $debugInfo['connection_status'] = "CONNECTED";
+        $debugInfo['database_name'] = DB::connection()->getDatabaseName();
+        $debugInfo['server_version'] = $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
+    } catch (\Exception $e) {
+        $debugInfo['connection_status'] = "FAILED";
+        $debugInfo['error_message'] = $e->getMessage();
+    }
+
+    // 3. Get Tables if Connected
+    $tables = [];
+    if ($pdo) {
+        try {
+            $tables = collect(DB::select('SHOW TABLES'))->map(function ($val) {
+                foreach ($val as $key => $tableName) {
+                    return [
+                        'name' => $tableName,
+                        'count' => DB::table($tableName)->count()
+                    ];
+                }
+            });
+        } catch (\Exception $e) {
+             $debugInfo['table_error'] = $e->getMessage();
         }
-    });
-    return view('debug_db', compact('tables'));
+    }
+
+    return view('debug_db', compact('tables', 'debugInfo'));
 });
 
     /*
