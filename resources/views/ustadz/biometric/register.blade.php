@@ -121,6 +121,11 @@
                         };
                     },
                     processResults: function (data) {
+                        if (data.debug_meta) {
+                            logDebug("Server Debug: DB Total=" + data.debug_meta.total_santri_db +
+                                " | Term='" + data.debug_meta.term_received + "'" +
+                                " | First='" + data.debug_meta.first_santri + "'");
+                        }
                         logDebug("Data received: " + data.results.length + " items");
                         return {
                             results: data.results

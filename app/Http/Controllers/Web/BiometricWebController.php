@@ -115,7 +115,13 @@ class BiometricWebController extends Controller
         \Illuminate\Support\Facades\Log::info("Biometric Search Results Found: " . $results->count());
 
         return response()->json([
-            'results' => $results
+            'results' => $results,
+            'debug_meta' => [
+                'term_received' => $term,
+                'total_santri_db' => \App\Models\Santri::count(),
+                'query_sql' => $query->toSql(),
+                'first_santri' => \App\Models\Santri::first()?->nama_lengkap ?? 'NONE'
+            ]
         ]);
     }
 
