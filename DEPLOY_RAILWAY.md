@@ -37,6 +37,9 @@ Ikuti langkah demi langkah ini, jangan ada yang terlewat ya kak.
    - `DB_PASSWORD`: `${{MySQL.MYSQLPASSWORD}}`
 
 4. Railway akan otomatis Re-deploy. Tunggu sampai selesai.
+5. **PENTING**: Setelah deploy berhasil (Status Active), buka tab **Console** (Terminal) di Railway, lalu ketik:
+   `php artisan migrate --force`
+   (Ini untuk membuat tabel database. Kita hapus dari start command biar deploy lebih cepat & tidak timeout).
 
 ## Tahap 5: Akses Website
 1. Di kotak project Laravel, klik tab **Settings**.
