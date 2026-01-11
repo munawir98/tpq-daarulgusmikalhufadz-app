@@ -89,11 +89,31 @@
 
     <script>
         $(document).ready(function () {
-            // Init Select2 and Open it immediately
-            const select = $('#santriSelect').select2({ placeholder: "Cari nama santri...", width: '100%' });
+            // Init Select2 with AJAX
+            $('#santriSelect').select2({
+                placeholder: "Cari nama santri...",
+                width: '100%',
+                ajax: {
+                    url: "{{ route('ustadz.biometric.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term // Search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.results // Matches backend format { results: [{id, text}] }
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 1 // Require at least 1 character to search
+            });
 
             // Auto open for UX
-            setTimeout(() => select.select2('open'), 500);
+            setTimeout(() => $('#santriSelect').select2('open'), 500);
 
             function checkForm() {
                 const santri = $('#santriSelect').val();
