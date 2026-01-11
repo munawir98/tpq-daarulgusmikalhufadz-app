@@ -95,7 +95,7 @@
                 width: '100%',
                 ajax: {
                     // Use relative URL to avoid Mixed Content (HTTP vs HTTPS) issues
-                    url: "/ustadz/biometric/search",
+                    url: "{{ route('ustadz.biometric.search') }}",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
