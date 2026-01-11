@@ -158,6 +158,17 @@ class AuthWebController extends Controller
                 'status'   => 'AKTIF',
             ]);
 
+            // [NEW] Auto-create Ustadz Profile
+            if ($request->role === 'USTADZ') {
+                \App\Models\Ustadz::create([
+                    'user_id' => $user->id,
+                    'nama' => $user->name,
+                    'nik' => $user->nip, // Use NIP as temporary NIK
+                    'status_aktif' => true,
+                    // Other fields nullable
+                ]);
+            }
+
             // Generate token
             $token = $user->createToken('web-session')->plainTextToken;
 
