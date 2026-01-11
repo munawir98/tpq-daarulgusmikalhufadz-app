@@ -33,24 +33,46 @@ Route::get('/health', fn () => response()->json(['status' => 'ok'], 200));
 Route::get('/', fn () => redirect()->route('login'));
 
 // [TEMPORARY FIX] Auto-generate Ustadz Profiles for existing users
+// [TEMPORARY FIX] Auto-generate Ustadz Profiles for existing users
 Route::get('/fix-ustadz-data', function () {
-    $users = \App\Models\User::where('role', 'USTADZ')->doesntHave('ustadz')->get();
-    $count = 0;
-    foreach ($users as $user) {
-        \App\Models\Ustadz::firstOrCreate(
-            ['user_id' => $user->id],
-            [
-                'nama' => $user->name,
-                'nik' => $user->nip ?? date('ym') . rand(1000, 9999),
-                'status_aktif' => true,
-                'jenis_kelamin' => 'L', // Default
-                'alamat' => '-',
-                'no_hp' => '-'
-            ]
-        );
-        $count++;
+    try {
+        // 1. Cek Tabel
+        if (!\Illuminate\Support\Facades\Schema::hasTable('ustadz')) {
+             return "ERROR FATAL: Tabel 'ustadz' TIDAK ADA di database. Solusi: php artisan migrate";
+        }
+
+        $users = \App\Models\User::where('role', 'USTADZ')->doesntHave('ustadz')->get();
+        $count = 0;
+        $errors = [];
+
+        foreach ($users as $user) {
+            try {
+                \App\Models\Ustadz::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'nama' => $user->name,
+                        'nik' => substr($user->nip ?? date('ym') . rand(1000, 9999), 0, 30), // Limit 30 chars
+                        'status_aktif' => true,
+                        'jenis_kelamin' => 'L',
+                        'alamat' => '-',
+                        'no_hp' => '-'
+                    ]
+                );
+                $count++;
+            } catch (\Exception $ex) {
+                $errors[] = "Gagal User ID {$user->id}: " . $ex->getMessage();
+            }
+        }
+
+        if (count($errors) > 0) {
+            return "<h3>Proses Selesai dengan Beberapa Error:</h3>" . implode("<br>", $errors);
+        }
+
+        return "<h3>SUKSES!</h3> $count profil Ustadz berhasil dibuat/diperbaiki.<br>Silakan coba LOGIN lagi dengan akun lama.";
+
+    } catch (\Exception $e) {
+        return "<h3>FATAL ERROR:</h3> " . $e->getMessage();
     }
-    return "Fix Selesai. $count profil Ustadz berhasil dibuat. Silakan login kembali.";
 });
 
 /*
