@@ -94,7 +94,8 @@
                 placeholder: "Cari nama santri...",
                 width: '100%',
                 ajax: {
-                    url: "{{ route('ustadz.biometric.search') }}",
+                    // Use relative URL to avoid Mixed Content (HTTP vs HTTPS) issues
+                    url: "/ustadz/biometric/search",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
@@ -110,8 +111,8 @@
                     cache: true,
                     error: function (jqXHR, textStatus, errorThrown) {
                         console.error("AJAX Error:", textStatus, errorThrown);
-                        // Optional: Show alert if really needed, but console is safer for now.
-                        // alert('Gagal mencari santri: ' + errorThrown);
+                        // Show visible error to user for debugging
+                        alert('Error Cari Santri: ' + jqXHR.status + ' ' + errorThrown);
                     }
                 },
                 minimumInputLength: 0, // Allow showing all on click if supported
