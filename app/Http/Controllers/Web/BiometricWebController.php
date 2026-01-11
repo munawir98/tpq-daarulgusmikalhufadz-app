@@ -92,6 +92,7 @@ class BiometricWebController extends Controller
     public function search(Request $request)
     {
         $term = $request->q;
+        \Illuminate\Support\Facades\Log::info("Biometric Search Query: " . json_encode($request->all()));
 
         // [DEBUG] Removed status_aktif check
         // $query = \App\Models\Santri::where('status_aktif', 1);
@@ -110,6 +111,8 @@ class BiometricWebController extends Controller
                     'text' => $santri->nama_lengkap
                 ];
             });
+
+        \Illuminate\Support\Facades\Log::info("Biometric Search Results Found: " . $results->count());
 
         return response()->json([
             'results' => $results
