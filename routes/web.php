@@ -32,6 +32,27 @@ Route::get('/health', fn () => response()->json(['status' => 'ok'], 200));
 */
 Route::get('/', fn () => redirect()->route('login'));
 
+// [TEMPORARY FIX] Auto-generate Ustadz Profiles for existing users
+Route::get('/fix-ustadz-data', function () {
+    $users = \App\Models\User::where('role', 'USTADZ')->doesntHave('ustadz')->get();
+    $count = 0;
+    foreach ($users as $user) {
+        \App\Models\Ustadz::firstOrCreate(
+            ['user_id' => $user->id],
+            [
+                'nama' => $user->name,
+                'nik' => $user->nip ?? date('ym') . rand(1000, 9999),
+                'status_aktif' => true,
+                'jenis_kelamin' => 'L', // Default
+                'alamat' => '-',
+                'no_hp' => '-'
+            ]
+        );
+        $count++;
+    }
+    return "Fix Selesai. $count profil Ustadz berhasil dibuat. Silakan login kembali.";
+});
+
 /*
 |--------------------------------------------------------------------------
 | GUEST ROUTES
