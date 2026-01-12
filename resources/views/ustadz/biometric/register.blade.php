@@ -186,7 +186,7 @@
                     rp: { name: "TPQ Daarul Gusmik", id: window.location.hostname },
                     user: {
                         id: Uint8Array.from(santriId, c => c.charCodeAt(0)),
-                        name: "santri-" + santriId,
+                        name: $("#santriSelect option:selected").text(),
                         displayName: $("#santriSelect option:selected").text()
                     },
                     pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
