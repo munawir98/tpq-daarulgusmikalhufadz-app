@@ -325,17 +325,17 @@
         </div>
 
         <!-- Floating Zoom Controls (Bottom Center) -->
-        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[70] flex gap-3 pointer-events-auto">
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[70] flex gap-6 pointer-events-auto">
             <button id="zoomOutBtn"
-                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 rounded-full transition-all active:scale-95 border border-white/10">
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95 border border-white/10">
                 <span class="material-icons-round text-lg">remove</span>
             </button>
             <button id="resetZoomBtn"
-                class="bg-teal-600 hover:bg-teal-500 text-white px-4 py-1.5 rounded-full text-xs font-medium transition-all active:scale-95 shadow-lg shadow-teal-500/20 border border-teal-500/50">
+                class="bg-teal-600 hover:bg-teal-500 text-white w-10 h-10 flex items-center justify-center rounded-full text-[10px] font-bold transition-all active:scale-95 shadow-lg shadow-teal-500/20 border border-teal-500/50 uppercase tracking-wider">
                 Fit
             </button>
             <button id="zoomInBtn"
-                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 rounded-full transition-all active:scale-95 border border-white/10">
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white w-10 h-10 flex items-center justify-center rounded-full transition-all active:scale-95 border border-white/10">
                 <span class="material-icons-round text-lg">add</span>
             </button>
         </div>
