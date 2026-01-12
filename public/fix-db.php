@@ -1,39 +1,57 @@
 <?php
 // fix-db.php
-// Versi 2: Menggunakan MySQLi (bukan PDO) untuk kompatibilitas Auth lebih baik
+// Versi 3: THE FINAL WEAPON (Shell Execute)
+// Mencoba menggunakan 'mysql' command line dari sistem operasi container.
 
 $host = getenv('DB_HOST');
 $port = getenv('DB_PORT');
 $user = getenv('DB_USERNAME');
 $pass = getenv('DB_PASSWORD');
-$db   = getenv('DB_DATABASE');
 
-echo "<h1>MySQL Fixer V2 (MySQLi)</h1>";
-echo "Host: $host | User: $user <br>";
+echo "<h1>MySQL Fixer V3 (Shell Exec)</h1>";
+echo "Host: $host | User: $user <br><br>";
 
 if (!$pass) die("Error: DB_PASSWORD kosong.");
 
-// Coba Connect pakai MySQLi
-$conn = new mysqli($host, $user, $pass, $db, $port);
+// Command Query
+$sql = "ALTER USER '$user'@'%' IDENTIFIED WITH mysql_native_password BY '$pass'; FLUSH PRIVILEGES;";
 
-if ($conn->connect_error) {
-    echo "<h3 style='color:red;'>Koneksi Gagal: " . $conn->connect_error . "</h3>";
-    echo "Tips: Jika errornya 'caching_sha2_password', berarti driver PHP di server ini benar-benar tidak support.";
-    exit;
-}
+// Bikin command CLI
+// mysql -h ... -P ... -u ... -p... -e "..."
+// Hati-hati special character di password, tapi kita coba basic dulu.
+$cmd = sprintf(
+    "mysql -h %s -P %s -u %s -p'%s' -e \"%s\" 2>&1",
+    escapeshellarg($host),
+    escapeshellarg($port),
+    escapeshellarg($user),
+    $pass, // Password susah di-escape dengan escapeshellarg kadang kalau ada quote, kita coba raw single quote wrapper
+    $sql
+);
 
-echo "<h3 style='color:green;'>Koneksi Berhasil!</h3>";
+// Tampilkan command (sensor password dikit)
+$sensorCmd = str_replace($pass, '******', $cmd);
+echo "Working... Executing Command: <br><code>$sensorCmd</code><hr>";
 
-// Jalankan Query Fix
-$sql = "ALTER USER '$user'@'%' IDENTIFIED WITH mysql_native_password BY '$pass'";
-echo "Menjalankan: $sql ... <br>";
+// Eksekusi
+$output = shell_exec($cmd);
 
-if ($conn->query($sql) === TRUE) {
-    echo "<h2 style='color:blue;'>SUKSES! Password Plugin Berhasil Diubah.</h2>";
-    $conn->query("FLUSH PRIVILEGES");
-    echo "Privileges Flushed. SELESAI. Silakan buka aplikasi.";
+echo "<pre>$output</pre>";
+
+if (strpos($output, 'Access denied') !== false) {
+    echo "<h3 style='color:red;'>GAGAL: Password salah atau akses ditolak.</h3>";
+} elseif (strpos($output, 'command not found') !== false) {
+    echo "<h3 style='color:red;'>GAGAL: Command 'mysql' tidak ada di server ini.</h3>";
 } else {
-    echo "Error menjalankan query: " . $conn->error;
+    // Coba tes PHP connect biasa
+    try {
+        $dsn = "mysql:host=$host;port=$port;charset=utf8mb4";
+        $pdo = new PDO($dsn, $user, $pass);
+        echo "<h2 style='color:blue;'>SUKSES BESAR! PHP Sekarang bisa connect!</h2>";
+    } catch (Exception $e) {
+        if (empty($output)) {
+             echo "<h3 style='color:green;'>Command Shell sepertinya sukses (tidak ada error output), tapi PHP masih belum connect. Coba refresh aplikasi utama.</h3>";
+        } else {
+             echo "<h3 style='color:orange;'>Command jalan, tapi PHP masih error: " . $e->getMessage() . "</h3>";
+        }
+    }
 }
-
-$conn->close();
