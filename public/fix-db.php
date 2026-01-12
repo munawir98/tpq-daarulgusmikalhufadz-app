@@ -1,53 +1,39 @@
 <?php
 // fix-db.php
-// Skrip Darurat untuk Mengubah Authentication Method MySQL di Railway
-// Buka file ini di browser: https://app-kakak.up.railway.app/fix-db.php
+// Versi 2: Menggunakan MySQLi (bukan PDO) untuk kompatibilitas Auth lebih baik
 
 $host = getenv('DB_HOST');
 $port = getenv('DB_PORT');
-$db   = getenv('DB_DATABASE'); // Tidak dipake buat connect awal
 $user = getenv('DB_USERNAME');
-
-// AMBIL PASSWORD LANGSUNG DARI ENV
-// Pastikan variable ini ada di Railway (biasanya DB_PASSWORD)
 $pass = getenv('DB_PASSWORD');
+$db   = getenv('DB_DATABASE');
 
-echo "<h1>MySQL Fixer</h1>";
-echo "Mencoba koneksi ke Host: $host | User: $user<br>";
+echo "<h1>MySQL Fixer V2 (MySQLi)</h1>";
+echo "Host: $host | User: $user <br>";
 
-if (!$pass) {
-    die("Error: DB_PASSWORD tidak terbaca dari Environment Variable.");
+if (!$pass) die("Error: DB_PASSWORD kosong.");
+
+// Coba Connect pakai MySQLi
+$conn = new mysqli($host, $user, $pass, $db, $port);
+
+if ($conn->connect_error) {
+    echo "<h3 style='color:red;'>Koneksi Gagal: " . $conn->connect_error . "</h3>";
+    echo "Tips: Jika errornya 'caching_sha2_password', berarti driver PHP di server ini benar-benar tidak support.";
+    exit;
 }
 
-try {
-    // Kita connect TANPA database dulu karena kadang connect ke DB langsung ditolak kalau auth beda
-    // Tapi karena kita mau ubah user, kita login biasa dulu.
-    // Kalau login biasa gagal karena auth plugin, maka skrip ini pun gagal.
-    // TAPI: PDO PHP modern biasanya support caching_sha2_password. Masalahnya di Laravel/Driver lama.
-    // Jadi harapan kita: PHP Native ini BISA connect, lalu jalankan query buat fix user.
+echo "<h3 style='color:green;'>Koneksi Berhasil!</h3>";
 
-    $dsn = "mysql:host=$host;port=$port;charset=utf8mb4";
-    $options = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
+// Jalankan Query Fix
+$sql = "ALTER USER '$user'@'%' IDENTIFIED WITH mysql_native_password BY '$pass'";
+echo "Menjalankan: $sql ... <br>";
 
-    $pdo = new PDO($dsn, $user, $pass, $options);
-    echo "Koneksi Native PHP: BERHASIL! <br>";
-
-    // QUERY SAKTI
-    $query = "ALTER USER '$user'@'%' IDENTIFIED WITH mysql_native_password BY '$pass';";
-    echo "Menjalankan Query: $query <br>";
-
-    $pdo->exec($query);
-    echo "<h3>SUKSES! User '$user' sekarang menggunakan mysql_native_password.</h3>";
-
-    $pdo->exec("FLUSH PRIVILEGES;");
-    echo "Privileges Flushed. Silakan coba buka aplikasi Laravel lagi.";
-
-} catch (\PDOException $e) {
-    echo "<h3>GAGAL KONEKSI / EKSEKUSI</h3>";
-    echo "Pesan Error: " . $e->getMessage() . "<br>";
-    echo "Code: " . $e->getCode();
+if ($conn->query($sql) === TRUE) {
+    echo "<h2 style='color:blue;'>SUKSES! Password Plugin Berhasil Diubah.</h2>";
+    $conn->query("FLUSH PRIVILEGES");
+    echo "Privileges Flushed. SELESAI. Silakan buka aplikasi.";
+} else {
+    echo "Error menjalankan query: " . $conn->error;
 }
+
+$conn->close();
