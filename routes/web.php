@@ -137,6 +137,7 @@ Route::get('/fix-santri-data', function () {
                     ['user_id' => $user->id],
                     [
                         'nis' => $user->nis ?? 'NIS-' . date('Y') . '-' . str_pad($user->id, 4, '0', STR_PAD_LEFT),
+                        'password' => $user->password ?? \Illuminate\Support\Facades\Hash::make('santri123'), // Use user's password or default
                         'nama_lengkap' => $user->name,
                         'nama_panggilan' => explode(' ', $user->name)[0], // First name
                         'jenis_kelamin' => 'L',
