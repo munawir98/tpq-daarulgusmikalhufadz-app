@@ -272,10 +272,10 @@
                 <span class="text-[10px] font-bold text-primary">Menu</span>
             </a>
             <div class="relative w-16 flex justify-center">
-                <a href="{{ route('ustadz.hafalan.create') }}"
+                <a href="{{ route('ustadz.biometric.attendance') }}"
                     class="absolute -top-12 w-16 h-16 bg-primary rounded-full shadow-[0_8px_20px_rgba(74,144,184,0.4)] flex items-center justify-center transform transition-transform active:scale-95 border-[6px] border-background-light dark:border-background-dark group">
                     <span
-                        class="material-symbols-rounded text-white text-[32px] group-hover:rotate-90 transition-transform duration-500">qr_code_scanner</span>
+                        class="material-symbols-rounded text-white text-[32px] group-hover:rotate-90 transition-transform duration-500">fingerprint</span>
                 </a>
             </div>
             <a href="#" class="flex-1 flex flex-col items-center gap-1 group">
