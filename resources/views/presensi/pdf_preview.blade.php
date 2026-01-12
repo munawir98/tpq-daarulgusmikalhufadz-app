@@ -132,11 +132,22 @@
         </div>
     </header>
 
+    <!-- Loading Overlay -->
+    <div id="pageLoader"
+        class="fixed inset-0 z-[100] bg-slate-100 dark:bg-background-dark flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="relative flex items-center justify-center">
+            <div class="absolute animate-ping inline-flex h-12 w-12 rounded-full bg-teal-400 opacity-75"></div>
+            <div class="relative inline-flex rounded-full h-8 w-8 bg-teal-500"></div>
+        </div>
+        <p class="mt-4 text-sm font-semibold text-slate-600 dark:text-slate-400 tracking-widest animate-pulse">MEMUAT...
+        </p>
+    </div>
+
     <!-- Content Preview -->
     <main class="flex-1 overflow-auto p-4 md:p-8 pb-40 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
         <!-- A4 Paper Container -->
-        <div
-            class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-10 relative rounded-sm animate-appear">
+        <div id="paperContainer"
+            class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-10 relative rounded-sm opacity-0 transform scale-95">
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
@@ -347,6 +358,24 @@
         let startX = 0, startY = 0;
         let lastTouchDistance = 0;
         let zoomTimeout;
+
+        // --- Page Load Animation ---
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('pageLoader');
+                const paperContainer = document.getElementById('paperContainer');
+
+                // Hide loader
+                loader.classList.add('opacity-0');
+
+                // Show paper with animation
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    paperContainer.classList.remove('opacity-0', 'scale-95');
+                    paperContainer.classList.add('animate-appear');
+                }, 500);
+            }, 1500); // 1.5s simulated delay + load time = "agak lama"
+        });
 
         // --- Visual Cues on Paper ---
         paper.classList.add('cursor-zoom-in', 'group', 'relative');
