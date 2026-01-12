@@ -44,7 +44,7 @@
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-400 to-emerald-500"></div>
 
         <!-- Back Button -->
-        <a href="{{ route('ustadz.menu') }}" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600">
+        <a href="{{ route('ustadz.dashboard') }}" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600">
             <span class="material-icons-round">arrow_back</span>
         </a>
 
