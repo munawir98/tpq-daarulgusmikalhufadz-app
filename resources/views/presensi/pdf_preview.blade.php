@@ -106,7 +106,7 @@
             100% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
-                filter: brightness(1) blur(0);
+                filter: brightness(0.85) blur(0);
             }
         }
         .animate-appear {
@@ -398,10 +398,11 @@
             const clone = paper.cloneNode(true);
 
             // Styling clone for modal
-            clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10', 'mx-auto');
+            clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10', 'mx-auto', 'animate-appear');
             clone.classList.add('shadow-2xl');
             // Remove w-full from global styles to prevent stretching in flex center
             clone.style.width = '210mm'; // Standard A4 width reference or keep existing class style
+            clone.style.filter = 'brightness(1)'; // Force bright in modal
 
             zoomContent.appendChild(clone);
 
@@ -413,9 +414,6 @@
             pannedX = 0;
             pannedY = 0;
             updateTransform(false); // Update without showing the hint immediately on open
-
-            // Set initial darkness
-            zoomContent.style.filter = 'brightness(0.6)';
 
             modal.classList.remove('hidden');
             // Little delay for transition flow
@@ -444,14 +442,6 @@
             // Soft limits
             if (currentScale < 0.3) currentScale = 0.3;
             if (currentScale > 5) currentScale = 5;
-
-            // Apply Dimming if zoomed out (overview mode)
-            // User request: "gelap sampai user zoom"
-            if (currentScale <= 0.6) {
-                zoomContent.style.filter = 'brightness(0.6)';
-            } else {
-                zoomContent.style.filter = 'brightness(1)';
-            }
 
             zoomContent.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
             zoomLevelDisplay.textContent = `${Math.round(currentScale * 100)}%`;
