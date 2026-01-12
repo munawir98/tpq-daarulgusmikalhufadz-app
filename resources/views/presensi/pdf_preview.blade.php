@@ -267,14 +267,101 @@
         </div>
     </div>
 
-    <!-- Script Share -->
+    <!-- Zoom Modal -->
+    <div id="zoomModal"
+        class="fixed inset-0 z-[60] bg-slate-900/90 backdrop-blur-sm hidden overflow-y-auto cursor-zoom-out transition-all duration-300 opacity-0">
+        <div class="min-h-screen p-4 md:p-8 flex items-center justify-center">
+            <!-- Close Button -->
+            <button id="closeZoomBtn"
+                class="fixed top-6 right-6 text-white/70 hover:text-white bg-black/20 hover:bg-black/40 p-2.5 rounded-full transition-all backdrop-blur-md z-[70]">
+                <span class="material-icons-round text-2xl">close</span>
+            </button>
+
+            <!-- Zoomed Content Container -->
+            <div id="zoomContent" class="transform transition-transform duration-300 scale-95">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Share & Zoom -->
     <script>
+        // Zoom Logic
+        const paper = document.querySelector('.a4-paper');
+        const modal = document.getElementById('zoomModal');
+        const zoomContent = document.getElementById('zoomContent');
+        const closeBtn = document.getElementById('closeZoomBtn');
+
+        // Add visual cue to paper
+        paper.classList.add('cursor-zoom-in', 'group', 'relative');
+
+        // Add hover hint overlay
+        const hint = document.createElement('div');
+        hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-300 flex items-center justify-center pointer-events-none rounded-sm';
+        hint.innerHTML = '<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 bg-slate-900/80 text-white px-4 py-2 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl"><span class="material-icons-round text-sm">zoom_in</span> Lihat Tampilan Penuh</div>';
+        paper.appendChild(hint);
+
+        // Open Modal
+        paper.addEventListener('click', () => {
+            // Clone content
+            zoomContent.innerHTML = '';
+            const clone = paper.cloneNode(true);
+
+            // Remove the hint from clone
+            const cloneHint = clone.querySelector('div.absolute');
+            if (cloneHint) cloneHint.remove();
+
+            // Styling clone for modal
+            clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10');
+            clone.classList.add('shadow-2xl', 'scale-100', 'md:scale-110', 'origin-top'); // Slight zoom
+
+            // Allow selecting text in modal but prevent event bubbling to modal background closing
+            clone.addEventListener('click', (e) => e.stopPropagation());
+
+            zoomContent.appendChild(clone);
+
+            // Show Modal
+            modal.classList.remove('hidden');
+            // Little delay for transition
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                zoomContent.classList.remove('scale-95');
+                zoomContent.classList.add('scale-100');
+            }, 10);
+
+            document.body.style.overflow = 'hidden'; // Prevent bg scrolling
+        });
+
+        // Close Logic
+        function closeZoom() {
+            modal.classList.add('opacity-0');
+            zoomContent.classList.remove('scale-100');
+            zoomContent.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                zoomContent.innerHTML = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        modal.addEventListener('click', closeZoom);
+        closeBtn.addEventListener('click', closeZoom);
+
+        // Escape key close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeZoom();
+            }
+        });
+
+        // Share Logic
         document.getElementById('btnShare').addEventListener('click', async () => {
             if (navigator.share) {
                 try {
                     await navigator.share({
                         title: 'Laporan Kehadiran Santri',
-                        text: 'Laporan kehadiran santri periode Oktober 2023',
+                        text: 'Laporan kehadiran santri periode {{ now()->translatedFormat("F Y") }}',
                         url: window.location.href,
                     });
                 } catch (err) {
