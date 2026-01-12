@@ -1,60 +1,42 @@
 <?php
-// fix-db.php V4 (Diagnostic Mode)
+// fix-db.php V5 (Restore Default)
+// Mengembalikan user ke caching_sha2_password agar kompatibel dengan PHP 8.2+
 
 $host = getenv('DB_HOST');
 $port = getenv('DB_PORT');
 $user = getenv('DB_USERNAME');
 $pass = getenv('DB_PASSWORD');
 
-echo "<h1>MySQL Fixer V4 (Diagnostic)</h1>";
+echo "<h1>MySQL Fixer V5 (Restore Default)</h1>";
 
-// 1. Cek Driver PHP
-echo "<h3>1. PHP Driver Check</h3>";
-if (extension_loaded('pdo_mysql')) {
-    echo "PDO MySQL Loaded. Client Info: " .  pdo_drivers()['mysql'] ?? 'Unknown';
-    echo "<pre>";
-    $info = (new ReflectionExtension('pdo_mysql'))->info();
-    print_r($info);
-    echo "</pre>";
+// Kita akan memaksa user kembali ke DEFAULT MySQL 8 karena kita sudah downgrade PHP
+// PHP 8.2 + caching_sha2_password HARUSNYA works.
+
+$targetAlgo = 'caching_sha2_password';
+$sql = "ALTER USER '$user'@'%' IDENTIFIED WITH $targetAlgo BY '$pass'; FLUSH PRIVILEGES;";
+
+// Pakai Shell Exec yang terbukti jalan (karena kita punya mysql client sekarang)
+$cmdFix = sprintf("mysql -h %s -P %s -u %s -p'%s' -e \"%s\" 2>&1", $host, $port, $user, $pass, $sql);
+
+echo "Running Reset Command: <br><code>$sql</code><br><hr>";
+$output = shell_exec($cmdFix);
+
+echo "<pre>$output</pre>";
+
+if (empty($output)) {
+    echo "<h2 style='color:green'>SUCCESS! User Reset to 'caching_sha2_password'.</h2>";
+    echo "<h3>Now please Refresh your Main App / Login Page.</h3>";
 } else {
-    echo "<b style='color:red'>PDO MySQL Extension NOT Loaded!</b><br>";
+    echo "<h2 style='color:red'>Command Finished with Output (Check for errors above).</h2>";
 }
 
-if (extension_loaded('mysqlnd')) {
-    echo "<b style='color:green'>MySQL Native Driver (mysqlnd) is LOADED!</b>";
-} else {
-    echo "<b style='color:red'>MySQL Native Driver (mysqlnd) is NOT LOADED! (This is bad)</b>";
-}
-
-echo "<hr>";
-
-// 2. Cek Support Plugin di Server via Shell
-echo "<h3>2. Server Plugin Check</h3>";
-// Kita pakai mysql CLI yang sudah ada (semoga)
-$cmdPlugins = sprintf("mysql -h %s -P %s -u %s -p'%s' -e \"SHOW PLUGINS;\" 2>&1", $host, $port, $user, $pass);
-$outputPlugins = shell_exec($cmdPlugins);
-
-echo "<pre>$outputPlugins</pre>";
-
-// 3. Analisis & Action
-if (strpos($outputPlugins, 'mysql_native_password') !== false && strpos($outputPlugins, 'ACTIVE') !== false) {
-    echo "<b>mysql_native_password detected!</b> Trying to use it...<br>";
-    $targetAlgo = 'mysql_native_password';
-} elseif (strpos($outputPlugins, 'sha256_password') !== false && strpos($outputPlugins, 'ACTIVE') !== false) {
-    echo "<b>sha256_password detected!</b> Native not found. Trying to use sha256_password...<br>";
-    $targetAlgo = 'sha256_password';
-} else {
-    echo "<b style='color:red'>No compatible legacy plugins found active. Server seems to enforce caching_sha2_password only.</b><br>";
-    $targetAlgo = null;
-}
-
-if ($targetAlgo) {
-    $sql = "ALTER USER '$user'@'%' IDENTIFIED WITH $targetAlgo BY '$pass'; FLUSH PRIVILEGES;";
-    $cmdFix = sprintf("mysql -h %s -P %s -u %s -p'%s' -e \"%s\" 2>&1", $host, $port, $user, $pass, $sql);
-
-    echo "Running Fix Command: <code>$sql</code><br>";
-    $fixOutput = shell_exec($cmdFix);
-    echo "<pre>$fixOutput</pre>";
-
-    if (empty($fixOutput)) echo "<h2 style='color:blue'>Fix Command Executed Successfully (No Errors)</h2>";
+// Test PHP Connection
+echo "<hr><h3>Final PHP Connection Test:</h3>";
+try {
+    $dsn = "mysql:host=$host;port=$port;charset=utf8mb4";
+    $pdo = new PDO($dsn, $user, $pass);
+    echo "<b style='color:blue'>PHP CONNECTION: OK! (Connected via PDO)</b>";
+} catch (Exception $e) {
+    echo "<b style='color:red'>PHP CONNECTION: FAILED.</b><br>";
+    echo $e->getMessage();
 }
