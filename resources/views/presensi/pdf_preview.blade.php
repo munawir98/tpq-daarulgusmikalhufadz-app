@@ -96,6 +96,20 @@
                 padding: 0;
                 box-shadow: none;
             }
+        @keyframes appear {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+                filter: brightness(0.5) blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: brightness(1) blur(0);
+            }
+        }
+        .animate-appear {
+            animation: appear 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
     </style>
 </head>
@@ -120,7 +134,8 @@
     <!-- Content Preview -->
     <main class="flex-1 overflow-auto p-4 md:p-8 pb-40 bg-slate-200 dark:bg-slate-900 scrollbar-hide">
         <!-- A4 Paper Container -->
-        <div class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-10 relative rounded-sm">
+        <div
+            class="a4-paper bg-white text-slate-900 paper-shadow flex flex-col mb-10 relative rounded-sm animate-appear">
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
