@@ -105,7 +105,7 @@
     <!-- Header -->
     <header class="bg-primary dark:bg-teal-950 relative shrink-0 z-50 shadow-md">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
-        <div class="relative z-10 pt-12 pb-6 px-6 flex items-center gap-4">
+        <div class="relative z-10 pt-6 pb-4 px-6 flex items-center gap-4">
             <button class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors"
                 onclick="window.print()">
                 <span class="material-icons-round">print</span>
