@@ -116,6 +116,53 @@ Route::get('/fix-ustadz-data', function () {
     }
 });
 
+// [TEMPORARY FIX] Auto-generate Santri Profiles for existing users
+Route::get('/fix-santri-data', function () {
+    try {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('santri')) {
+             return "ERROR FATAL: Tabel 'santri' TIDAK ADA di database.";
+        }
+
+        // Find SANTRI users without a santri profile
+        $users = \App\Models\User::where('role', 'SANTRI')
+            ->whereDoesntHave('santri')
+            ->get();
+
+        $count = 0;
+        $errors = [];
+
+        foreach ($users as $user) {
+            try {
+                \App\Models\Santri::firstOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'nis' => $user->nis ?? 'NIS-' . date('Y') . '-' . str_pad($user->id, 4, '0', STR_PAD_LEFT),
+                        'nama_lengkap' => $user->name,
+                        'nama_panggilan' => explode(' ', $user->name)[0], // First name
+                        'jenis_kelamin' => 'L',
+                        'status_aktif' => true,
+                    ]
+                );
+                $count++;
+            } catch (\Exception $ex) {
+                $errors[] = "Gagal User ID {$user->id} ({$user->name}): " . $ex->getMessage();
+            }
+        }
+
+        $totalSantri = \App\Models\Santri::count();
+
+        if (count($errors) > 0) {
+            return "<h3>Proses Selesai dengan Error:</h3>" . implode("<br>", $errors) .
+                   "<br><br>Total Santri di DB: $totalSantri";
+        }
+
+        return "<h3>SUKSES!</h3> $count profil Santri berhasil dibuat.<br>Total Santri di DB sekarang: $totalSantri";
+
+    } catch (\Exception $e) {
+        return "<h3>FATAL ERROR:</h3> " . $e->getMessage();
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | GUEST ROUTES
