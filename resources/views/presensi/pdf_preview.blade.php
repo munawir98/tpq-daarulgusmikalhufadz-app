@@ -269,16 +269,41 @@
 
     <!-- Zoom Modal -->
     <div id="zoomModal"
-        class="fixed inset-0 z-[60] bg-slate-900/90 backdrop-blur-sm hidden overflow-y-auto cursor-zoom-out transition-all duration-300 opacity-0">
-        <div class="min-h-screen p-4 md:p-8 flex items-center justify-center">
-            <!-- Close Button -->
+        class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-md hidden overflow-hidden touch-none opacity-0 transition-opacity duration-300">
+
+        <!-- Floating Header Controls -->
+        <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-[70] pointer-events-none">
+            <div
+                class="bg-black/40 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-xs font-medium pointer-events-auto">
+                <span id="zoomLevel">100%</span>
+            </div>
             <button id="closeZoomBtn"
-                class="fixed top-6 right-6 text-white/70 hover:text-white bg-black/20 hover:bg-black/40 p-2.5 rounded-full transition-all backdrop-blur-md z-[70]">
+                class="text-white/70 hover:text-white bg-black/20 hover:bg-black/40 p-2 rounded-full transition-all backdrop-blur-md pointer-events-auto">
                 <span class="material-icons-round text-2xl">close</span>
             </button>
+        </div>
 
-            <!-- Zoomed Content Container -->
-            <div id="zoomContent" class="transform transition-transform duration-300 scale-95">
+        <!-- Floating Zoom Controls (Bottom Center) -->
+        <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[70] flex gap-4 pointer-events-auto">
+            <button id="zoomOutBtn"
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95">
+                <span class="material-icons-round">remove</span>
+            </button>
+            <button id="resetZoomBtn"
+                class="bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 rounded-full font-medium transition-all active:scale-95 shadow-lg shadow-teal-500/20">
+                Fit
+            </button>
+            <button id="zoomInBtn"
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95">
+                <span class="material-icons-round">add</span>
+            </button>
+        </div>
+
+        <!-- content container for centering -->
+        <div class="w-full h-full flex items-center justify-center overflow-hidden">
+            <!-- Zoomed Content -->
+            <div id="zoomContent"
+                class="origin-center transition-transform duration-75 ease-out select-none will-change-transform">
                 <!-- Content injected via JS -->
             </div>
         </div>
@@ -286,76 +311,194 @@
 
     <!-- Script Share & Zoom -->
     <script>
-        // Zoom Logic
+        // --- Core Elements ---
         const paper = document.querySelector('.a4-paper');
         const modal = document.getElementById('zoomModal');
         const zoomContent = document.getElementById('zoomContent');
         const closeBtn = document.getElementById('closeZoomBtn');
+        const zoomLevelDisplay = document.getElementById('zoomLevel');
 
-        // Add visual cue to paper
+        let currentScale = 1;
+        let pannedX = 0;
+        let pannedY = 0;
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let lastTouchDistance = 0;
+
+        // --- Visual Cues on Paper ---
         paper.classList.add('cursor-zoom-in', 'group', 'relative');
-
-        // Add hover hint overlay
         const hint = document.createElement('div');
         hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-300 flex items-center justify-center pointer-events-none rounded-sm';
         hint.innerHTML = '<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 bg-slate-900/80 text-white px-4 py-2 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl"><span class="material-icons-round text-sm">zoom_in</span> Lihat Tampilan Penuh</div>';
         paper.appendChild(hint);
 
-        // Open Modal
+        // --- Open Modal ---
         paper.addEventListener('click', () => {
-            // Clone content
             zoomContent.innerHTML = '';
             const clone = paper.cloneNode(true);
 
-            // Remove the hint from clone
+            // Cleanup clone
             const cloneHint = clone.querySelector('div.absolute');
             if (cloneHint) cloneHint.remove();
-
-            // Styling clone for modal
-            clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10');
-            clone.classList.add('shadow-2xl', 'scale-100', 'md:scale-110', 'origin-top'); // Slight zoom
-
-            // Allow selecting text in modal but prevent event bubbling to modal background closing
-            clone.addEventListener('click', (e) => e.stopPropagation());
+            clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10', 'mx-auto');
+            clone.classList.add('shadow-2xl');
+            // Remove w-full from global styles to prevent stretching in flex center
+            clone.style.width = '210mm'; // Standard A4 width reference or keep existing class style
 
             zoomContent.appendChild(clone);
 
-            // Show Modal
-            modal.classList.remove('hidden');
-            // Little delay for transition
-            setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                zoomContent.classList.remove('scale-95');
-                zoomContent.classList.add('scale-100');
-            }, 10);
+            // Reset State
+            currentScale = window.innerWidth < 768 ? 0.6 : 1; // Default zoom adjusted for mobile
+            pannedX = 0;
+            pannedY = 0;
+            updateTransform();
 
-            document.body.style.overflow = 'hidden'; // Prevent bg scrolling
+            modal.classList.remove('hidden');
+            // Force reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+
+            document.body.style.overflow = 'hidden';
         });
 
-        // Close Logic
+        // --- Close Modal ---
         function closeZoom() {
             modal.classList.add('opacity-0');
-            zoomContent.classList.remove('scale-100');
-            zoomContent.classList.add('scale-95');
-
             setTimeout(() => {
                 modal.classList.add('hidden');
                 zoomContent.innerHTML = '';
                 document.body.style.overflow = '';
             }, 300);
         }
-
-        modal.addEventListener('click', closeZoom);
         closeBtn.addEventListener('click', closeZoom);
 
-        // Escape key close
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-                closeZoom();
-            }
+        // --- Zoom Helper Functions ---
+        function updateTransform() {
+            // Soft limits
+            if (currentScale < 0.5) currentScale = 0.5;
+            if (currentScale > 4) currentScale = 4;
+
+            zoomContent.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
+            zoomLevelDisplay.textContent = `${Math.round(currentScale * 100)}%`;
+        }
+
+        function zoomBy(factor) {
+            zoomContent.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
+            currentScale *= factor;
+            updateTransform();
+            // Remove transition after it's done to stay responsive for drag
+            setTimeout(() => { zoomContent.style.transition = 'none'; }, 200);
+        }
+
+        // --- Button Controls ---
+        document.getElementById('zoomInBtn').addEventListener('click', () => zoomBy(1.2));
+        document.getElementById('zoomOutBtn').addEventListener('click', () => zoomBy(0.8));
+        document.getElementById('resetZoomBtn').addEventListener('click', () => {
+            currentScale = window.innerWidth < 768 ? 0.6 : 0.9;
+            pannedX = 0;
+            pannedY = 0;
+            zoomBy(1); // just trigger update with transition
         });
 
-        // Share Logic
+        // --- Touch & Mouse Gestures (Pinch & Pan) ---
+        const container = modal; // Detect events on the whole modal background
+
+        // 1. Mouse Drag (Pan)
+        container.addEventListener('mousedown', (e) => {
+            if (e.target.closest('button')) return; // Ignore buttons
+            isDragging = true;
+            startX = e.clientX - pannedX;
+            startY = e.clientY - pannedY;
+            container.style.cursor = 'grabbing';
+            zoomContent.style.transition = 'none'; // Instant pan
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            pannedX = e.clientX - startX;
+            pannedY = e.clientY - startY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            container.style.cursor = 'default';
+        });
+
+        // 2. Touch Events (Pinch & Pan)
+        container.addEventListener('touchstart', (e) => {
+            if (e.target.closest('button')) return;
+
+            if (e.touches.length === 1) {
+                // Formatting for Pan
+                isDragging = true;
+                startX = e.touches[0].clientX - pannedX;
+                startY = e.touches[0].clientY - pannedY;
+                zoomContent.style.transition = 'none';
+            } else if (e.touches.length === 2) {
+                // Formatting for Pinch
+                isDragging = false; // Disable pan Logic during pinch init
+                lastTouchDistance = getDistance(e.touches);
+                zoomContent.style.transition = 'none';
+            }
+        }, { passive: false });
+
+        container.addEventListener('touchmove', (e) => {
+            if (e.target.closest('button')) return;
+            e.preventDefault(); // Prevent browser native zoom/scroll
+
+            if (e.touches.length === 1 && isDragging) {
+                // Pan
+                pannedX = e.touches[0].clientX - startX;
+                pannedY = e.touches[0].clientY - startY;
+                updateTransform();
+            } else if (e.touches.length === 2) {
+                // Pinch
+                const distance = getDistance(e.touches);
+                const delta = distance / lastTouchDistance;
+
+                // Adjust scale relatively
+                // We want smooth zoom, so we apply delta directly
+                // To make it feel 'followed', we might need center point logic but basic scale is okay for now
+                currentScale *= delta;
+
+                lastTouchDistance = distance;
+                updateTransform();
+            }
+        }, { passive: false });
+
+        container.addEventListener('touchend', (e) => {
+            isDragging = false;
+            // Snap back if out of bounds logic could go here
+        });
+
+        function getDistance(touches) {
+            const dx = touches[0].clientX - touches[1].clientX;
+            const dy = touches[0].clientY - touches[1].clientY;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // --- Wheel Zoom (Desktop) ---
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault();
+
+            // Determine zoom direction
+            if (e.ctrlKey || e.metaKey) {
+                // Browser style zoom
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                currentScale *= delta;
+                updateTransform();
+            } else {
+                // Pan/Scroll
+                pannedY -= e.deltaY;
+                pannedX -= e.deltaX;
+                updateTransform();
+            }
+        }, { passive: false });
+
+
+        // --- Share Logic ---
         document.getElementById('btnShare').addEventListener('click', async () => {
             if (navigator.share) {
                 try {
@@ -364,9 +507,7 @@
                         text: 'Laporan kehadiran santri periode {{ now()->translatedFormat("F Y") }}',
                         url: window.location.href,
                     });
-                } catch (err) {
-                    console.error('Share failed:', err);
-                }
+                } catch (err) { }
             } else {
                 alert('Fitur share tidak didukung di browser ini.');
             }
