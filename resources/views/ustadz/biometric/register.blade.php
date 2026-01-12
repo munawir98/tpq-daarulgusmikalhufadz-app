@@ -87,19 +87,12 @@
 
     </div>
 
-    <!-- Debugging Area -->
-    <div class="mt-4 p-4 bg-gray-800 text-green-400 font-mono text-xs rounded-lg w-full max-w-md hidden"
-        id="debugConsole">
-        <p class="font-bold text-white mb-2">Debug Info:</p>
-        <div id="debugLog"></div>
-    </div>
+    <!-- Debugging Area Removed -->
+
 
     <script>
         function logDebug(msg) {
-            const el = document.getElementById('debugConsole');
-            const log = document.getElementById('debugLog');
-            el.classList.remove('hidden');
-            log.innerHTML += `<div>> ${msg}</div>`;
+            // Debug console removed
             console.log(msg);
         }
 
