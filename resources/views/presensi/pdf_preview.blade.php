@@ -367,6 +367,7 @@
         let startX = 0, startY = 0;
         let lastTouchDistance = 0;
         let zoomTimeout;
+        let hasMoved = false;
 
         // --- Page Load Animation ---
         window.addEventListener('load', () => {
@@ -436,7 +437,7 @@
         closeBtn.addEventListener('click', closeZoom);
 
         // --- Zoom Helper Functions ---
-        function updateTransform(showIndicator = true) {
+        function updateTransform(showIndicator = null) {
             // Soft limits
             if (currentScale < 0.3) currentScale = 0.3;
             if (currentScale > 5) currentScale = 5;
@@ -444,7 +445,8 @@
             zoomContent.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
             zoomLevelDisplay.textContent = `${Math.round(currentScale * 100)}%`;
 
-            if (showIndicator) {
+            // Default showIndicator is true, unless explicitly false (pan) or null (default logic)
+            if (showIndicator !== false) {
                 zoomIndicator.classList.remove('opacity-0');
                 clearTimeout(zoomTimeout);
                 zoomTimeout = setTimeout(() => {
@@ -474,10 +476,29 @@
         // --- Touch & Mouse Gestures (Pinch & Pan) ---
         const container = modal; // Detect events on the whole modal background
 
+        // Handl Tap to Zoom (Click)
+        container.addEventListener('click', (e) => {
+            if (e.target.closest('button')) return; // Ignore buttons
+            if (hasMoved) return; // Ignore if user dragged
+
+            // Toggle Zoom Logic
+            zoomContent.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+            if (currentScale < 1.0) {
+                currentScale = 1.5; // Zoom In
+            } else {
+                currentScale = 0.5; // Zoom Out (Back to initial)
+                pannedX = 0; // Reset Position on zoom out
+                pannedY = 0;
+            }
+            updateTransform(true);
+            setTimeout(() => { zoomContent.style.transition = 'none'; }, 300);
+        });
+
         // 1. Mouse Drag (Pan)
         container.addEventListener('mousedown', (e) => {
             if (e.target.closest('button')) return; // Ignore buttons
             isDragging = true;
+            hasMoved = false; // Reset move flag
             startX = e.clientX - pannedX;
             startY = e.clientY - pannedY;
             container.style.cursor = 'grabbing';
@@ -487,6 +508,7 @@
         window.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
+            hasMoved = true; // Mark as moved
             pannedX = e.clientX - startX;
             pannedY = e.clientY - startY;
             updateTransform(false); // Don't show zoom indicator on pan
@@ -504,27 +526,41 @@
             if (e.touches.length === 1) {
                 // Formatting for Pan
                 isDragging = true;
+                hasMoved = false; // Reset move flag
                 startX = e.touches[0].clientX - pannedX;
                 startY = e.touches[0].clientY - pannedY;
                 zoomContent.style.transition = 'none';
             } else if (e.touches.length === 2) {
                 // Formatting for Pinch
                 isDragging = false; // Disable pan Logic during pinch init
+                hasMoved = true; // Pinch counts as move
                 lastTouchDistance = getDistance(e.touches);
                 zoomContent.style.transition = 'none';
             }
         }, { passive: false });
 
         container.addEventListener('touchmove', (e) => {
+            // If multi-touch or significantly moved, set hasMoved
+            // Add threshold to filter out accidental micro-moves on tap
+            if (isDragging) {
+                const currentX = e.touches[0].clientX;
+                const currentY = e.touches[0].clientY;
+                if (Math.abs(currentX - (startX + pannedX)) > 5 || Math.abs(currentY - (startY + pannedY)) > 5) {
+                    hasMoved = true;
+                }
+            }
+
             if (e.target.closest('button')) return;
-            e.preventDefault(); // Prevent browser native zoom/scroll
+            // e.preventDefault(); // Prevent browser native zoom/scroll -> moved to specific conditions to allow click? NO, keep it to prevent scroll.
 
             if (e.touches.length === 1 && isDragging) {
+                e.preventDefault();
                 // Pan
                 pannedX = e.touches[0].clientX - startX;
                 pannedY = e.touches[0].clientY - startY;
                 updateTransform(false); // No indicator on pan
             } else if (e.touches.length === 2) {
+                e.preventDefault();
                 // Pinch
                 const distance = getDistance(e.touches);
                 const delta = distance / lastTouchDistance;
