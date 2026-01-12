@@ -281,8 +281,8 @@
     <div id="zoomHint"
         class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none transition-opacity duration-300">
         <div
-            class="bg-slate-900/60 text-white px-4 py-2 rounded-full text-xs font-medium backdrop-blur-md shadow-xl flex items-center gap-1.5 animate-pulse border border-white/10">
-            <span class="material-icons-round text-sm">zoom_in</span> Lihat Tampilan Penuh
+            class="bg-slate-900/60 text-white px-3 py-1.5 rounded-full text-[10px] font-medium backdrop-blur-md shadow-md flex items-center gap-1 animate-pulse border border-white/10">
+            <span class="material-icons-round text-xs">zoom_in</span> Lihat Tampilan Penuh
         </div>
     </div>
 
