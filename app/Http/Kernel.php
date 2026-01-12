@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         // CUSTOM PROJECT
         'role'          => \App\Http\Middleware\RoleMiddleware::class,
         'token.expired' => \App\Http\Middleware\CheckTokenExpired::class,
+        'web.auth'      => \App\Http\Middleware\WebAuthMiddleware::class,
     ];
 }

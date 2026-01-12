@@ -161,7 +161,7 @@
         <div class="relative z-10 pt-12 pb-14 px-6">
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-4">
-                    <a href="{{ auth()->user()->hasRole('SANTRI') ? route('santri.dashboard') : route('ustadz.dashboard') }}"
+                    <a href="{{ session('user.role') == 'SANTRI' ? route('santri.dashboard') : route('ustadz.dashboard') }}"
                         class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors inline-flex items-center justify-center">
                         <span class="material-icons-round">arrow_back</span>
                     </a>
