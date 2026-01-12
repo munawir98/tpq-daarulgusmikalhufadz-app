@@ -414,6 +414,9 @@
             pannedY = 0;
             updateTransform(false); // Update without showing the hint immediately on open
 
+            // Set initial darkness
+            zoomContent.style.filter = 'brightness(0.6)';
+
             modal.classList.remove('hidden');
             // Little delay for transition flow
             requestAnimationFrame(() => {
@@ -442,6 +445,14 @@
             if (currentScale < 0.3) currentScale = 0.3;
             if (currentScale > 5) currentScale = 5;
 
+            // Apply Dimming if zoomed out (overview mode)
+            // User request: "gelap sampai user zoom"
+            if (currentScale <= 0.6) {
+                zoomContent.style.filter = 'brightness(0.6)';
+            } else {
+                zoomContent.style.filter = 'brightness(1)';
+            }
+
             zoomContent.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
             zoomLevelDisplay.textContent = `${Math.round(currentScale * 100)}%`;
 
@@ -456,11 +467,12 @@
         }
 
         function zoomBy(factor) {
-            zoomContent.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
+            // Ensure smooth transition for brightness too
+            zoomContent.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), filter 0.3s ease';
             currentScale *= factor;
             updateTransform(true);
             // Remove transition after it's done to stay responsive for drag
-            setTimeout(() => { zoomContent.style.transition = 'none'; }, 200);
+            setTimeout(() => { zoomContent.style.transition = 'none'; }, 300);
         }
 
         // --- Button Controls ---
