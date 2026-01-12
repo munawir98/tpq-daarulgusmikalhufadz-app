@@ -1378,30 +1378,21 @@
 
                     // Camera & Modal
                     // Camera & Modal
-                    // Camera Logic
-                    console.log('App Version: v2.2 (Hafalan Fix)');
-                    let stream = null;
-
-                    async function initCamera() {
-                        try {
-                            stream = await navigator.mediaDevices.getUserMedia({
-                                video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 640 } },
-                                audio: false
+                    // Camera Preview Modal (Zoom)
+                    function showZoomModal() {
+                        if (capturedPhotoData && typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                imageUrl: capturedPhotoData,
+                                imageAlt: 'Preview Foto',
+                                showConfirmButton: false,
+                                showCloseButton: true,
+                                background: 'transparent',
+                                backdrop: 'rgba(0,0,0,0.9)',
+                                customClass: {
+                                    popup: 'bg-transparent shadow-none',
+                                    image: 'rounded-2xl max-h-[85vh] w-auto object-contain shadow-2xl border-2 border-white/20'
+                                }
                             });
-                            const video = document.getElementById('cameraVideo');
-                            video.srcObject = stream;
-                            video.play();
-                        } catch (err) {
-                            console.error("Camera Error: ", err);
-                            alert("Gagal membuka kamera: " + err.message);
-                            closeCameraModal();
-                        }
-                    }
-
-                    function stopCamera() {
-                        if (stream) {
-                            stream.getTracks().forEach(track => track.stop());
-                            stream = null;
                         }
                     }
 
