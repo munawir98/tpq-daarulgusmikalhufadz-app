@@ -169,6 +169,19 @@ class AuthWebController extends Controller
                 ]);
             }
 
+            // [NEW] Auto-create Santri Profile
+            if ($request->role === 'SANTRI') {
+                \App\Models\Santri::create([
+                    'user_id' => $user->id,
+                    'nis' => $user->nis,
+                    'password' => $user->password, // Copy hashed password
+                    'nama_lengkap' => $user->name,
+                    'nama_panggilan' => explode(' ', $user->name)[0],
+                    'jenis_kelamin' => 'L', // Default, can be edited later
+                    'status_aktif' => true,
+                ]);
+            }
+
             // Generate token
             $token = $user->createToken('web-session')->plainTextToken;
 
