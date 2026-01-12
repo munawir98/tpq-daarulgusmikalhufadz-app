@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <script>
     if (localStorage.getItem('theme') === 'dark') {
         document.documentElement.classList.add('dark');
@@ -997,10 +997,10 @@
                     // Dynamic Greeting
                     const hour = now.getHours();
                     let greeting = 'Assalamu\'alaikum,';
-                    if (hour >= 3 && hour < 11) greeting = 'Selamat Pagi ðŸŒ…';
-                    else if (hour >= 11 && hour < 15) greeting = 'Selamat Siang â˜€ï¸';
-                    else if (hour >= 15 && hour < 18) greeting = 'Selamat Sore ðŸŒ‡';
-                    else greeting = 'Selamat Malam ðŸŒ™';
+                    if (hour >= 3 && hour < 11) greeting = 'Selamat Pagi 🌅';
+                    else if (hour >= 11 && hour < 15) greeting = 'Selamat Siang ☀️';
+                    else if (hour >= 15 && hour < 18) greeting = 'Selamat Sore 🌇';
+                    else greeting = 'Selamat Malam 🌙';
                     const greetingEl = document.getElementById('greetingText');
                     if (greetingEl) greetingEl.textContent = greeting;
 
@@ -1078,8 +1078,8 @@
                         const iconEl1 = document.getElementById('weatherIcon1');
                         const iconEl2 = document.getElementById('weatherIcon2');
 
-                        if (textEl1) textEl1.textContent = `${weatherText}, ${temp}Â°C`;
-                        if (textEl2) textEl2.textContent = `${weatherText}, ${temp}Â°C`;
+                        if (textEl1) textEl1.textContent = `${weatherText}, ${temp}°C`;
+                        if (textEl2) textEl2.textContent = `${weatherText}, ${temp}°C`;
 
                         if (iconEl1) {
                             iconEl1.textContent = icon;
@@ -1107,10 +1107,10 @@
                         6: { masukStart: '06:00', masukEnd: '07:00', pulangStart: '08:00', pulangEnd: '08:30', selesaiEnd: '09:00', nama: 'Sabtu' }
                     };
 
-                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ? true : false);
-                    let sudahPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ? true : false);
-                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ?\Carbon\Carbon:: parse($presensiHariIni -> jam_masuk) -> format('H:i'). ' WIB' : '');
-                    let waktuPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ?\Carbon\Carbon:: parse($presensiHariIni -> jam_pulang) -> format('H:i'). ' WIB' : '');
+                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ? true : false);
+                    let sudahPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ? true : false);
+                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ?\Carbon\Carbon::parse($presensiHariIni->jam_masuk)->format('H:i'). ' WIB' : '');
+                    let waktuPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ?\Carbon\Carbon::parse($presensiHariIni->jam_pulang)->format('H:i'). ' WIB' : '');
 
                     // GPS & Map Logic
                     // Masjid Albir Brigade Arsy, Jl. P Dan K, Kedung Halang, Bogor
@@ -1755,7 +1755,7 @@
                                     if (statusText) {
                                         // Show distance AND accuracy warning if needed
                                         let text = `Luar Radius (${Math.round(dist)}m)`;
-                                        if (accuracy > 100) text += ` Â±${Math.round(accuracy)}m`;
+                                        if (accuracy > 100) text += ` ±${Math.round(accuracy)}m`;
 
                                         statusText.textContent = text;
                                         statusText.className = 'text-[9px] font-bold text-red-500';
@@ -2008,7 +2008,7 @@
                                     65: 'Hujan Lebat', 80: 'Hujan Ringan', 81: 'Hujan Sedang',
                                     82: 'Hujan Lebat', 95: 'Badai Petir'
                                 };
-                                const text = `${weatherNames[code] || 'Berawan'}, ${temp}Â°C`;
+                                const text = `${weatherNames[code] || 'Berawan'}, ${temp}°C`;
 
                                 document.querySelectorAll('#weatherText1, #weatherText2').forEach(el => {
                                     el.textContent = text;
