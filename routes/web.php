@@ -145,6 +145,42 @@ Route::get('/reset-biometric-all', function () {
     }
 });
 
+// [TEMPORARY FIX] Delete ALL santri data to start fresh
+Route::get('/reset-santri-all', function () {
+    try {
+        // Count before delete
+        $santriCount = \App\Models\Santri::count();
+        $userCount = \App\Models\User::where('role', 'SANTRI')->count();
+        $biometricCount = \App\Models\BiometricCredential::count();
+
+        // Delete related data first
+        \App\Models\BiometricCredential::truncate();
+
+        // Delete presensi for santri users
+        $santriUserIds = \App\Models\User::where('role', 'SANTRI')->pluck('id');
+        \App\Models\Presensi::whereIn('user_id', $santriUserIds)->delete();
+
+        // Delete hafalan
+        \App\Models\Hafalan::truncate();
+
+        // Delete santri profiles
+        \App\Models\Santri::truncate();
+
+        // Delete santri users
+        \App\Models\User::where('role', 'SANTRI')->delete();
+
+        return "<h2>🗑️ Reset Santri Selesai</h2>
+                <p>Data santri dihapus: <strong>{$santriCount}</strong></p>
+                <p>User santri dihapus: <strong>{$userCount}</strong></p>
+                <p>Sidik jari dihapus: <strong>{$biometricCount}</strong></p>
+                <br><br><strong>Database santri sekarang kosong.</strong>
+                <br><br><a href='/'>← Kembali ke Login</a>";
+
+    } catch (\Exception $e) {
+        return "<h3>Error:</h3>" . $e->getMessage();
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | ROOT
