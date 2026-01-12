@@ -269,16 +269,16 @@
 
     <!-- Zoom Modal -->
     <div id="zoomModal"
-        class="fixed inset-0 z-[60] bg-slate-900/95 backdrop-blur-md hidden overflow-hidden touch-none opacity-0 transition-opacity duration-300">
+        class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm hidden overflow-hidden touch-none opacity-0 transition-opacity duration-500 ease-in-out">
 
         <!-- Floating Header Controls -->
         <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-[70] pointer-events-none">
             <div
-                class="bg-black/40 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-xs font-medium pointer-events-auto">
+                class="bg-white/10 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-xs font-medium pointer-events-auto border border-white/10">
                 <span id="zoomLevel">100%</span>
             </div>
             <button id="closeZoomBtn"
-                class="text-white/70 hover:text-white bg-black/20 hover:bg-black/40 p-2 rounded-full transition-all backdrop-blur-md pointer-events-auto">
+                class="text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all backdrop-blur-md pointer-events-auto border border-white/5">
                 <span class="material-icons-round text-2xl">close</span>
             </button>
         </div>
@@ -286,15 +286,15 @@
         <!-- Floating Zoom Controls (Bottom Center) -->
         <div class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[70] flex gap-4 pointer-events-auto">
             <button id="zoomOutBtn"
-                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95">
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95 border border-white/10">
                 <span class="material-icons-round">remove</span>
             </button>
             <button id="resetZoomBtn"
-                class="bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 rounded-full font-medium transition-all active:scale-95 shadow-lg shadow-teal-500/20">
+                class="bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 rounded-full font-medium transition-all active:scale-95 shadow-lg shadow-teal-500/20 border border-teal-500/50">
                 Fit
             </button>
             <button id="zoomInBtn"
-                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95">
+                class="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-full transition-all active:scale-95 border border-white/10">
                 <span class="material-icons-round">add</span>
             </button>
         </div>
@@ -303,7 +303,7 @@
         <div class="w-full h-full flex items-center justify-center overflow-hidden">
             <!-- Zoomed Content -->
             <div id="zoomContent"
-                class="origin-center transition-transform duration-75 ease-out select-none will-change-transform">
+                class="origin-center transition-transform duration-200 ease-out select-none will-change-transform">
                 <!-- Content injected via JS -->
             </div>
         </div>
@@ -328,18 +328,22 @@
         // --- Visual Cues on Paper ---
         paper.classList.add('cursor-zoom-in', 'group', 'relative');
         const hint = document.createElement('div');
-        hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-300 flex items-center justify-center pointer-events-none rounded-sm';
-        hint.innerHTML = '<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0 bg-slate-900/80 text-white px-4 py-2 rounded-full text-xs font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl"><span class="material-icons-round text-sm">zoom_in</span> Lihat Tampilan Penuh</div>';
+        hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-500 flex items-center justify-center pointer-events-none rounded-sm';
+        // Changed: always visible hint (removed opacity-0 group-hover:opacity-100)
+        hint.innerHTML = '<div class="transition-transform duration-300 transform group-hover:scale-110 bg-slate-900/60 group-hover:bg-slate-900/80 text-white px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl border border-white/10"><span class="material-icons-round text-base">zoom_in</span> Lihat Tampilan Penuh</div>';
         paper.appendChild(hint);
 
         // --- Open Modal ---
         paper.addEventListener('click', () => {
+            // Clone content
             zoomContent.innerHTML = '';
             const clone = paper.cloneNode(true);
 
-            // Cleanup clone
+            // Remove the hint from clone
             const cloneHint = clone.querySelector('div.absolute');
             if (cloneHint) cloneHint.remove();
+
+            // Styling clone for modal
             clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10', 'mx-auto');
             clone.classList.add('shadow-2xl');
             // Remove w-full from global styles to prevent stretching in flex center
@@ -354,11 +358,12 @@
             updateTransform();
 
             modal.classList.remove('hidden');
-            // Force reflow
-            void modal.offsetWidth;
-            modal.classList.remove('opacity-0');
+            // Little delay for transition flow
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+            });
 
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Prevent bg scrolling
         });
 
         // --- Close Modal ---
@@ -368,7 +373,7 @@
                 modal.classList.add('hidden');
                 zoomContent.innerHTML = '';
                 document.body.style.overflow = '';
-            }, 300);
+            }, 500); // Match transition duration
         }
         closeBtn.addEventListener('click', closeZoom);
 
