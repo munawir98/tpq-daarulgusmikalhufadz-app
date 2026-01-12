@@ -319,7 +319,7 @@
         <div id="zoomIndicator"
             class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[80] pointer-events-none opacity-0 transition-opacity duration-300">
             <div
-                class="bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-2xl text-xl font-bold border border-white/10 shadow-2xl">
+                class="bg-black/60 backdrop-blur-md text-white px-4 py-2 rounded-full text-sm font-bold border border-white/10 shadow-xl">
                 <span id="zoomLevel">50%</span>
             </div>
         </div>
