@@ -272,15 +272,20 @@
         class="fixed inset-0 z-[60] bg-black/95 backdrop-blur-sm hidden overflow-hidden touch-none opacity-0 transition-opacity duration-500 ease-in-out">
 
         <!-- Floating Header Controls -->
-        <div class="fixed top-0 left-0 w-full p-4 flex justify-between items-center z-[70] pointer-events-none">
-            <div
-                class="bg-white/10 backdrop-blur-md text-white/90 px-4 py-2 rounded-full text-xs font-medium pointer-events-auto border border-white/10">
-                <span id="zoomLevel">100%</span>
-            </div>
+        <div class="fixed top-0 left-0 w-full p-4 flex justify-end items-center z-[70] pointer-events-none">
             <button id="closeZoomBtn"
                 class="text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition-all backdrop-blur-md pointer-events-auto border border-white/5">
                 <span class="material-icons-round text-2xl">close</span>
             </button>
+        </div>
+
+        <!-- Transient Zoom Level Indicator (Center Screen) -->
+        <div id="zoomIndicator"
+            class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[80] pointer-events-none opacity-0 transition-opacity duration-300">
+            <div
+                class="bg-black/60 backdrop-blur-md text-white px-6 py-3 rounded-2xl text-xl font-bold border border-white/10 shadow-2xl">
+                <span id="zoomLevel">50%</span>
+            </div>
         </div>
 
         <!-- Floating Zoom Controls (Bottom Center) -->
@@ -317,6 +322,7 @@
         const zoomContent = document.getElementById('zoomContent');
         const closeBtn = document.getElementById('closeZoomBtn');
         const zoomLevelDisplay = document.getElementById('zoomLevel');
+        const zoomIndicator = document.getElementById('zoomIndicator');
 
         let currentScale = 1;
         let pannedX = 0;
@@ -324,13 +330,14 @@
         let isDragging = false;
         let startX = 0, startY = 0;
         let lastTouchDistance = 0;
+        let zoomTimeout;
 
         // --- Visual Cues on Paper ---
         paper.classList.add('cursor-zoom-in', 'group', 'relative');
         const hint = document.createElement('div');
         hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-500 flex items-center justify-center pointer-events-none rounded-sm';
         // Changed: always visible hint (removed opacity-0 group-hover:opacity-100)
-        hint.innerHTML = '<div class="transition-transform duration-300 transform group-hover:scale-110 bg-slate-900/60 group-hover:bg-slate-900/80 text-white px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl border border-white/10"><span class="material-icons-round text-base">zoom_in</span> Lihat Tampilan Penuh</div>';
+        hint.innerHTML = '<div class="transition-transform duration-300 transform group-hover:scale-110 bg-slate-900/60 group-hover:bg-slate-900/80 text-white px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl border border-white/10 animate-pulse"><span class="material-icons-round text-base">zoom_in</span> Lihat Tampilan Penuh</div>';
         paper.appendChild(hint);
 
         // --- Open Modal ---
@@ -355,7 +362,7 @@
             currentScale = 0.5; // Initial zoom 50% as requested
             pannedX = 0;
             pannedY = 0;
-            updateTransform();
+            updateTransform(false); // Update without showing the hint immediately on open
 
             modal.classList.remove('hidden');
             // Little delay for transition flow
@@ -378,19 +385,27 @@
         closeBtn.addEventListener('click', closeZoom);
 
         // --- Zoom Helper Functions ---
-        function updateTransform() {
+        function updateTransform(showIndicator = true) {
             // Soft limits
-            if (currentScale < 0.5) currentScale = 0.5;
-            if (currentScale > 4) currentScale = 4;
+            if (currentScale < 0.3) currentScale = 0.3;
+            if (currentScale > 5) currentScale = 5;
 
             zoomContent.style.transform = `translate(${pannedX}px, ${pannedY}px) scale(${currentScale})`;
             zoomLevelDisplay.textContent = `${Math.round(currentScale * 100)}%`;
+
+            if (showIndicator) {
+                zoomIndicator.classList.remove('opacity-0');
+                clearTimeout(zoomTimeout);
+                zoomTimeout = setTimeout(() => {
+                    zoomIndicator.classList.add('opacity-0');
+                }, 1500);
+            }
         }
 
         function zoomBy(factor) {
             zoomContent.style.transition = 'transform 0.2s cubic-bezier(0.25, 1, 0.5, 1)';
             currentScale *= factor;
-            updateTransform();
+            updateTransform(true);
             // Remove transition after it's done to stay responsive for drag
             setTimeout(() => { zoomContent.style.transition = 'none'; }, 200);
         }
@@ -423,7 +438,7 @@
             e.preventDefault();
             pannedX = e.clientX - startX;
             pannedY = e.clientY - startY;
-            updateTransform();
+            updateTransform(false); // Don't show zoom indicator on pan
         });
 
         window.addEventListener('mouseup', () => {
@@ -457,7 +472,7 @@
                 // Pan
                 pannedX = e.touches[0].clientX - startX;
                 pannedY = e.touches[0].clientY - startY;
-                updateTransform();
+                updateTransform(false); // No indicator on pan
             } else if (e.touches.length === 2) {
                 // Pinch
                 const distance = getDistance(e.touches);
@@ -469,7 +484,7 @@
                 currentScale *= delta;
 
                 lastTouchDistance = distance;
-                updateTransform();
+                updateTransform(true); // Show indicator on pinch zoom
             }
         }, { passive: false });
 
@@ -493,12 +508,12 @@
                 // Browser style zoom
                 const delta = e.deltaY > 0 ? 0.9 : 1.1;
                 currentScale *= delta;
-                updateTransform();
+                updateTransform(true);
             } else {
                 // Pan/Scroll
                 pannedY -= e.deltaY;
                 pannedX -= e.deltaX;
-                updateTransform();
+                updateTransform(false);
             }
         }, { passive: false });
 
