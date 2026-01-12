@@ -352,7 +352,7 @@
             zoomContent.appendChild(clone);
 
             // Reset State
-            currentScale = window.innerWidth < 768 ? 0.6 : 1; // Default zoom adjusted for mobile
+            currentScale = 0.5; // Initial zoom 50% as requested
             pannedX = 0;
             pannedY = 0;
             updateTransform();
