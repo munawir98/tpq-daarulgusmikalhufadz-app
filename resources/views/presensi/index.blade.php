@@ -162,7 +162,7 @@
             <div class="flex items-center justify-between mb-4">
                 <div class="flex items-center gap-4">
 
-                    <div class="text-white">
+                    <div class="text-white pl-2">
                         <h1 class="text-xl font-bold leading-tight">Kehadiran Santri</h1>
                         <p class="text-xs opacity-75 mt-0.5">Rekapitulasi Presensi</p>
                     </div>
