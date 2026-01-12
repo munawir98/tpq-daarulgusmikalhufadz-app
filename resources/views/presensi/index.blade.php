@@ -13,6 +13,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Laporan Kehadiran Santri</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
@@ -193,7 +194,7 @@
             <!-- Collapsible Header Content -->
             <div id="expandableHeader"
                 class="transition-all duration-500 ease-in-out overflow-hidden max-h-[1000px] opacity-100">
-                <div id="periodSelector" class="mb-6">
+                <div id="periodSelector" class="mb-6 relative z-30">
                     <div
                         class="bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center justify-between">
                         <div class="flex items-center gap-3">
@@ -207,10 +208,24 @@
                                     $selectedDate->locale('id')->isoFormat('MMMM Y') }}</p>
                             </div>
                         </div>
-                        <button onclick="openDatePicker()"
-                            class="text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full hover:bg-teal-100 transition-colors">
-                            Pilih
-                        </button>
+                        <div class="relative">
+                            <button onclick="toggleFilterMenu()"
+                                class="flex items-center gap-1 text-teal-600 font-semibold text-xs py-2 px-4 bg-teal-50 dark:bg-teal-900/40 rounded-full hover:bg-teal-100 transition-colors">
+                                Pilih <span class="material-icons-round text-sm">expand_more</span>
+                            </button>
+                            <!-- Filter Dropdown -->
+                            <div id="filterMenu"
+                                class="hidden absolute right-0 top-full mt-2 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden origin-top-right transition-all">
+                                <button onclick="selectFilter('month')"
+                                    class="w-full text-left px-4 py-3 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 hover:text-teal-600 transition-colors flex items-center gap-2">
+                                    <span class="material-icons-round text-sm">calendar_view_month</span> Per Bulan
+                                </button>
+                                <button onclick="selectFilter('date')"
+                                    class="w-full text-left px-4 py-3 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-slate-700 hover:text-teal-600 transition-colors flex items-center gap-2">
+                                    <span class="material-icons-round text-sm">today</span> Per Tanggal
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id="statsGrid" class="grid grid-cols-2 gap-3 mb-6">
@@ -398,8 +413,14 @@
         </div>
     </div>
     <!-- Dynamic Period Script -->
-    <form id="periodForm" action="{{ route('ustadz.presensi') }}" method="GET" class="hidden">
-        <input type="month" name="month" id="monthInput" onchange="this.form.submit()">
+    <form id="periodForm" action="" method="GET" class="hidden">
+        <!-- Generic Date Params for Controller -->
+        <input type="hidden" name="start_date" id="inputStartDate">
+        <input type="hidden" name="end_date" id="inputEndDate">
+
+        <!-- Native Pickers (Hidden) -->
+        <input type="month" id="monthPicker">
+        <input type="date" id="datePicker">
     </form>
 
     <div
@@ -420,8 +441,49 @@
 
     <script>
         // Period Picker Logic
-        function openDatePicker() {
-            document.getElementById('monthInput').showPicker();
+        function toggleFilterMenu() {
+            const menu = document.getElementById('filterMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('filterMenu');
+            const btn = document.querySelector('button[onclick="toggleFilterMenu()"]');
+            if (menu && !menu.contains(e.target) && !btn.contains(e.target)) {
+                menu.classList.add('hidden');
+            }
+        });
+
+        function selectFilter(type) {
+            document.getElementById('filterMenu').classList.add('hidden');
+
+            if (type === 'month') {
+                const picker = document.getElementById('monthPicker');
+                // Setup listener first
+                picker.onchange = (e) => {
+                    if (e.target.value) {
+                        const [y, m] = e.target.value.split('-');
+                        const lastDay = new Date(y, m, 0).getDate();
+
+                        document.getElementById('inputStartDate').value = `${y}-${m}-01`;
+                        document.getElementById('inputEndDate').value = `${y}-${m}-${lastDay}`;
+                        document.getElementById('periodForm').submit();
+                    }
+                };
+                picker.showPicker();
+            } else if (type === 'date') {
+                const picker = document.getElementById('datePicker');
+                // Setup listener
+                picker.onchange = (e) => {
+                    if (e.target.value) {
+                        document.getElementById('inputStartDate').value = e.target.value;
+                        document.getElementById('inputEndDate').value = e.target.value;
+                        document.getElementById('periodForm').submit();
+                    }
+                };
+                picker.showPicker();
+            }
         }
 
         // Share Logic
