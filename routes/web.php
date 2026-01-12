@@ -130,20 +130,35 @@ Route::get('/fix-santri-data', function () {
 
         $count = 0;
         $errors = [];
+        $skipped = [];
 
         foreach ($users as $user) {
             try {
-                \App\Models\Santri::firstOrCreate(
-                    ['user_id' => $user->id],
-                    [
-                        'nis' => $user->nis ?? 'NIS-' . date('Y') . '-' . str_pad($user->id, 4, '0', STR_PAD_LEFT),
-                        'password' => $user->password ?? \Illuminate\Support\Facades\Hash::make('santri123'), // Use user's password or default
-                        'nama_lengkap' => $user->name,
-                        'nama_panggilan' => explode(' ', $user->name)[0], // First name
-                        'jenis_kelamin' => 'L',
-                        'status_aktif' => true,
-                    ]
-                );
+                // Check if santri already exists for this user
+                $existingSantri = \App\Models\Santri::where('user_id', $user->id)->first();
+                if ($existingSantri) {
+                    $skipped[] = "User ID {$user->id} ({$user->name}): Sudah ada profil santri";
+                    continue;
+                }
+
+                // Generate unique NIS - check if exists and add suffix if needed
+                $baseNis = 'NIS-' . date('Y') . '-' . str_pad($user->id, 4, '0', STR_PAD_LEFT);
+                $nis = $baseNis;
+                $suffix = 1;
+
+                while (\App\Models\Santri::where('nis', $nis)->exists()) {
+                    $nis = $baseNis . '-' . $suffix;
+                    $suffix++;
+                }
+
+                \App\Models\Santri::create([
+                    'user_id' => $user->id,
+                    'nis' => $nis,
+                    'nama_lengkap' => $user->name,
+                    'nama_panggilan' => explode(' ', $user->name)[0], // First name
+                    'jenis_kelamin' => 'L',
+                    'status_aktif' => true,
+                ]);
                 $count++;
             } catch (\Exception $ex) {
                 $errors[] = "Gagal User ID {$user->id} ({$user->name}): " . $ex->getMessage();
@@ -152,12 +167,20 @@ Route::get('/fix-santri-data', function () {
 
         $totalSantri = \App\Models\Santri::count();
 
-        if (count($errors) > 0) {
-            return "<h3>Proses Selesai dengan Error:</h3>" . implode("<br>", $errors) .
-                   "<br><br>Total Santri di DB: $totalSantri";
+        $output = "<h3>Proses Selesai</h3>";
+        $output .= "<p>✅ Berhasil dibuat: $count profil santri</p>";
+
+        if (count($skipped) > 0) {
+            $output .= "<p>⏭️ Di-skip: " . count($skipped) . "</p>";
         }
 
-        return "<h3>SUKSES!</h3> $count profil Santri berhasil dibuat.<br>Total Santri di DB sekarang: $totalSantri";
+        if (count($errors) > 0) {
+            $output .= "<h4>❌ Errors:</h4>" . implode("<br>", $errors);
+        }
+
+        $output .= "<br><br><strong>Total Santri di DB: $totalSantri</strong>";
+
+        return $output;
 
     } catch (\Exception $e) {
         return "<h3>FATAL ERROR:</h3> " . $e->getMessage();
