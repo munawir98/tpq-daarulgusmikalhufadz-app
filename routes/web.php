@@ -66,6 +66,35 @@ Route::get('/debug-db', function () {
 
 Route::get('/health', fn () => response()->json(['status' => 'ok'], 200));
 
+// [TEMPORARY DEBUG] Check biometric credentials
+Route::get('/debug-biometric', function () {
+    try {
+        $credentials = \App\Models\BiometricCredential::with('santri')->get();
+
+        $output = "<h2>Data Sidik Jari Terdaftar</h2>";
+        $output .= "<p>Total: " . $credentials->count() . " sidik jari</p>";
+        $output .= "<table border='1' cellpadding='8' style='border-collapse: collapse;'>";
+        $output .= "<tr><th>ID</th><th>Santri ID</th><th>Nama Santri</th><th>Credential Name</th><th>Created At</th></tr>";
+
+        foreach ($credentials as $cred) {
+            $santriName = $cred->santri ? $cred->santri->nama_lengkap : 'N/A';
+            $output .= "<tr>";
+            $output .= "<td>{$cred->id}</td>";
+            $output .= "<td>{$cred->santri_id}</td>";
+            $output .= "<td>{$santriName}</td>";
+            $output .= "<td>{$cred->name}</td>";
+            $output .= "<td>{$cred->created_at}</td>";
+            $output .= "</tr>";
+        }
+
+        $output .= "</table>";
+        return $output;
+
+    } catch (\Exception $e) {
+        return "<h3>Error:</h3>" . $e->getMessage();
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | ROOT
