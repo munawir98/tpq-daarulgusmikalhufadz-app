@@ -27,6 +27,7 @@ class SantriSeeder extends Seeder
                 'no_hp_orang_tua' => '081111111111',
                 'tanggal_masuk' => now()->subYear(),
                 'status_aktif' => true,
+                'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
                 'kelas_id' => $kelasA?->id,
             ]
         );
@@ -45,6 +46,7 @@ class SantriSeeder extends Seeder
                 'no_hp_orang_tua' => '082222222222',
                 'tanggal_masuk' => now()->subYears(2),
                 'status_aktif' => true,
+                'password' => \Illuminate\Support\Facades\Hash::make('12345678'),
                 'kelas_id' => $kelasB?->id,
             ]
         );
