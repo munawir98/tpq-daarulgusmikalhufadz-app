@@ -252,17 +252,17 @@
 
     <!-- Bottom Actions -->
     <div
-        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-6 pt-4 pb-8 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
-        <div class="flex gap-4 max-w-md mx-auto">
+        class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-3 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        <div class="flex gap-3 max-w-sm mx-auto">
             <button onclick="window.print()"
-                class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white py-4 px-4 rounded-2xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
-                <span class="material-icons-round text-xl">print</span>
-                <span class="text-sm">Cetak</span>
+                class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white p-3.5 rounded-xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
+                <span class="material-icons-round text-xl leading-none">print</span>
+                <span class="text-sm whitespace-nowrap">Cetak</span>
             </button>
             <button id="btnShare"
-                class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 py-4 px-4 rounded-2xl font-semibold transition-all active:scale-[0.98]">
-                <span class="material-icons-round text-xl">share</span>
-                <span class="text-sm">Bagikan</span>
+                class="flex-1 flex items-center justify-center gap-2 bg-white dark:bg-slate-800 border-2 border-teal-600 text-teal-600 dark:text-teal-400 p-3.5 rounded-xl font-semibold transition-all active:scale-[0.98]">
+                <span class="material-icons-round text-xl leading-none">share</span>
+                <span class="text-sm whitespace-nowrap">Bagikan</span>
             </button>
         </div>
     </div>
