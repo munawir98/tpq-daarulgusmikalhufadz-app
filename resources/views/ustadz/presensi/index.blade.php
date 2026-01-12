@@ -248,11 +248,11 @@
                             <div class="absolute top-0 right-0 p-1 bg-green-500 text-white rounded-bl-lg">
                                 <span class="material-icons-round text-sm">login</span>
                             </div>
-                            <span class="material-symbols-outlined text-4xl mb-2 text-blue-600">fingerprint</span>
+                            <span class="material-symbols-outlined text-4xl mb-2 text-blue-600">login</span>
                             <span class="text-[10px] font-bold uppercase tracking-wide">Presensi Masuk</span>
                             <div class="mt-2 flex items-center text-[8px] text-blue-500 font-medium">
-                                <span class="material-icons-round text-[10px] mr-0.5">verified_user</span>
-                                Sidik Jari Check
+                                <span class="material-icons-round text-[10px] mr-0.5">photo_camera</span>
+                                Selfie + Lokasi
                             </div>
                         </button>
                         <button onclick="checkBiometricAndSubmit('pulang')"
@@ -575,82 +575,7 @@
                 return;
             }
 
-            // 2. Cek Registrasi Biometrik
-            if (!hasBiometric) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Sidik Jari Belum Didaftarkan',
-                    text: 'Untuk keamanan, harap daftarkan sidik jari Anda terlebih dahulu di menu Profil/Pengaturan.',
-                    showCancelButton: true,
-                    confirmButtonText: 'Daftar Sekarang',
-                    cancelButtonText: 'Batal'
-                }).then((res) => {
-                    if (res.isConfirmed) {
-                        window.location.href = "{{ route('ustadz.biometric.index') }}";
-                    }
-                });
-                return;
-            }
-
-            // 3. Verifikasi Biometrik (Client Side Challenge for MVP)
-            if (window.PublicKeyCredential) {
-                try {
-                    Swal.fire({
-                        title: 'Verifikasi Sidik Jari',
-                        text: 'Tempelkan jari pada sensor...',
-                        didOpen: () => { Swal.showLoading() },
-                        allowOutsideClick: false
-                    });
-
-                    // Verifikasi Biometrik (Client Side Challenge)
-                    const challenge = new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]);
-
-                    const publicKey = {
-                        challenge: challenge,
-                        rpId: window.location.hostname,
-                        timeout: 60000,
-                        userVerification: "required",
-                    };
-
-                    // Spesifikasikan ID yang boleh login (PENTING untuk menghindari NotAllowedError)
-                    if (biometricId) {
-                        try {
-                            // Decode Base64 ke Uint8Array
-                            const binaryString = window.atob(biometricId);
-                            const len = binaryString.length;
-                            const bytes = new Uint8Array(len);
-                            for (let i = 0; i < len; i++) {
-                                bytes[i] = binaryString.charCodeAt(i);
-                            }
-
-                            publicKey.allowCredentials = [{
-                                type: "public-key",
-                                id: bytes,
-                                transports: ["internal", "hybrid"]
-                            }];
-                        } catch (e) {
-                            console.warn("Gagal decode credential ID", e);
-                        }
-                    }
-
-                    await navigator.credentials.get({ publicKey });
-                    Swal.close();
-
-                } catch (err) {
-                    console.error(err);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal Verifikasi',
-                        text: 'Sidik jari tidak cocok atau dibatalkan (' + err.name + ').'
-                    });
-                    return;
-                }
-            } else {
-                Swal.fire('Error', 'Perangkat tidak mendukung biometrik.', 'error');
-                return;
-            }
-
-            // 4. Lanjut Ambil Foto & Submit (Sama seperti sebelumnya)
+            // Langsung ke proses foto tanpa verifikasi sidik jari
             submitPresensi(tipe);
         }
 
