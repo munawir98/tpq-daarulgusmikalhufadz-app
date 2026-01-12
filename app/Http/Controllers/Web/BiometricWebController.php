@@ -21,7 +21,10 @@ class BiometricWebController extends Controller
             ->orderBy('nama_lengkap', 'asc')
             ->get();
 
-        return view('ustadz.biometric.attendance', compact('santris'));
+        // Get total registered credentials
+        $totalCredentials = \App\Models\BiometricCredential::count();
+
+        return view('ustadz.biometric.attendance', compact('santris', 'totalCredentials'));
     }
 
     public function submitAttendance(Request $request)
@@ -139,6 +142,15 @@ class BiometricWebController extends Controller
 
             if (!$userId) {
                 return response()->json(['success' => false, 'message' => 'Santri tidak memiliki akun user.'], 400);
+            }
+
+            // Check if santri already has a registered fingerprint
+            $existingCredential = \App\Models\BiometricCredential::where('user_id', $userId)->first();
+            if ($existingCredential) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Santri ' . $santri->nama_lengkap . ' sudah memiliki sidik jari terdaftar (' . $existingCredential->name . '). Satu santri hanya boleh mendaftar sekali.'
+                ], 400);
             }
 
             $name = $request->name ?? 'Jari ' . now()->format('d/m H:i');
