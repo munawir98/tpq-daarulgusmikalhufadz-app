@@ -128,6 +128,23 @@ Route::get('/fix-biometric-duplicates', function () {
     }
 });
 
+// [TEMPORARY FIX] Delete ALL biometric credentials to start fresh
+Route::get('/reset-biometric-all', function () {
+    try {
+        $count = \App\Models\BiometricCredential::count();
+        \App\Models\BiometricCredential::truncate();
+
+        return "<h2>🗑️ Reset Selesai</h2>
+                <p>Semua sidik jari dihapus: <strong>{$count}</strong></p>
+                <p>Sidik jari tersisa: <strong>0</strong></p>
+                <br><a href='/debug-biometric'>← Kembali ke Daftar Sidik Jari</a>
+                <br><br><a href='" . route('ustadz.biometric.register') . "'>➕ Daftarkan Sidik Jari Baru</a>";
+
+    } catch (\Exception $e) {
+        return "<h3>Error:</h3>" . $e->getMessage();
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | ROOT
