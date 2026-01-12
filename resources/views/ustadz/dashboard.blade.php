@@ -476,10 +476,14 @@
                 <div id="mainCard"
                     class="mx-4 bg-gray-50 dark:bg-gray-800/50 rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
 
+
                     <!-- Swipe Indicator -->
                     <div class="absolute top-2 left-1/2 -translate-x-1/2 z-30 hidden">
                         <div id="swipeIndicator" class="w-10 h-1 bg-gray-300 dark:bg-gray-600 rounded-full"></div>
                     </div>
+
+                    <!-- Hidden Native Camera Input -->
+                    <input type="file" id="cameraInput" accept="image/*" capture="user" class="hidden" />
 
                     <!-- VIEW 1: Presensi Selfie (Default) -->
                     <div id="presensiView" class="transition-all duration-300">
@@ -1103,10 +1107,10 @@
                         6: { masukStart: '06:00', masukEnd: '07:00', pulangStart: '08:00', pulangEnd: '08:30', selesaiEnd: '09:00', nama: 'Sabtu' }
                     };
 
-                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ? true : false);
-                    let sudahPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ? true : false);
-                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ?\Carbon\Carbon::parse($presensiHariIni->jam_masuk)->format('H:i'). ' WIB' : '');
-                    let waktuPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ?\Carbon\Carbon::parse($presensiHariIni->jam_pulang)->format('H:i'). ' WIB' : '');
+                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ? true : false);
+                    let sudahPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ? true : false);
+                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ?\Carbon\Carbon:: parse($presensiHariIni -> jam_masuk) -> format('H:i'). ' WIB' : '');
+                    let waktuPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ?\Carbon\Carbon:: parse($presensiHariIni -> jam_pulang) -> format('H:i'). ' WIB' : '');
 
                     // GPS & Map Logic
                     // Masjid Albir Brigade Arsy, Jl. P Dan K, Kedung Halang, Bogor
@@ -2074,6 +2078,7 @@
             `;
                     document.head.appendChild(style);
 
+
                     document.addEventListener('DOMContentLoaded', () => {
                         try {
                             initMap();
@@ -2084,6 +2089,33 @@
                             initClock(); // NEW
                             initWeather(); // NEW
                             setInterval(updateButtonDisplay, 30000); // 30s
+
+                            // Camera Input Handler for Native Camera
+                            const cameraInput = document.getElementById('cameraInput');
+                            if (cameraInput) {
+                                cameraInput.addEventListener('change', function (e) {
+                                    if (e.target.files && e.target.files[0]) {
+                                        const file = e.target.files[0];
+                                        const reader = new FileReader();
+
+                                        reader.onload = function (event) {
+                                            capturedPhotoData = event.target.result;
+
+                                            // Update preview on dashboard
+                                            const preview = document.getElementById('fotoPreview');
+                                            if (preview) {
+                                                preview.src = capturedPhotoData;
+                                                preview.classList.remove('hidden');
+                                            }
+
+                                            // Hide icon and text, show overlay with buttons
+                                            updateButtonDisplay();
+                                        };
+
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                            }
                         } catch (e) {
                             console.error('Unified Dashboard Error:', e);
                             // Optional: showNotification('Gagal memuat beberapa fitur dashboard. Silahkan refresh.');
