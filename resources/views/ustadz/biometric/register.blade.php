@@ -145,22 +145,23 @@
             // Auto open for UX
             setTimeout(() => $('#santriSelect').select2('open'), 500);
 
-            function checkForm() {
-                const santri = $('#santriSelect').val();
-                const btn = document.getElementById('btnRegister');
-
-                if (santri) {
-                    btn.disabled = false;
-                    btn.className = 'mt-8 w-full py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer';
-                } else {
-                    btn.disabled = true;
-                    btn.className = 'mt-8 w-full py-4 bg-gray-200 text-gray-400 rounded-xl font-bold shadow-none flex items-center justify-center gap-2';
-                }
-            }
-
             // Bind to both change AND select2:select for reliability
             $('#santriSelect').on('change select2:select', checkForm);
         });
+
+        // checkForm defined globally so it can be called from registerProcess()
+        function checkForm() {
+            const santri = $('#santriSelect').val();
+            const btn = document.getElementById('btnRegister');
+
+            if (santri) {
+                btn.disabled = false;
+                btn.className = 'mt-8 w-full py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold shadow-lg transition-transform active:scale-95 flex items-center justify-center gap-2 cursor-pointer';
+            } else {
+                btn.disabled = true;
+                btn.className = 'mt-8 w-full py-4 bg-gray-200 text-gray-400 rounded-xl font-bold shadow-none flex items-center justify-center gap-2';
+            }
+        }
 
         async function registerProcess() {
             const santriId = $('#santriSelect').val();
