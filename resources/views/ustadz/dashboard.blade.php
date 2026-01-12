@@ -1107,10 +1107,10 @@
                         6: { masukStart: '06:00', masukEnd: '07:00', pulangStart: '08:00', pulangEnd: '08:30', selesaiEnd: '09:00', nama: 'Sabtu' }
                     };
 
-                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ? true : false);
-                    let sudahPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ? true : false);
-                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni->jam_masuk ?\Carbon\Carbon::parse($presensiHariIni->jam_masuk)->format('H:i'). ' WIB' : '');
-                    let waktuPulang = @json($presensiHariIni && $presensiHariIni->jam_pulang ?\Carbon\Carbon::parse($presensiHariIni->jam_pulang)->format('H:i'). ' WIB' : '');
+                    let sudahMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ? true : false);
+                    let sudahPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ? true : false);
+                    let waktuMasuk = @json($presensiHariIni && $presensiHariIni -> jam_masuk ?\Carbon\Carbon:: parse($presensiHariIni -> jam_masuk) -> format('H:i'). ' WIB' : '');
+                    let waktuPulang = @json($presensiHariIni && $presensiHariIni -> jam_pulang ?\Carbon\Carbon:: parse($presensiHariIni -> jam_pulang) -> format('H:i'). ' WIB' : '');
 
                     // GPS & Map Logic
                     // Masjid Albir Brigade Arsy, Jl. P Dan K, Kedung Halang, Bogor
@@ -1303,12 +1303,8 @@
                             // Check if photo is captured but not sent
                             if (capturedPhotoData) {
                                 // REMOVE ICON & TEXT when showing Photo
-                                if (icon) {
-                                    icon.style.display = 'none'; // Hide Icon
-                                }
-                                if (text) {
-                                    text.style.display = 'none'; // Hide Text
-                                }
+                                if (icon) icon.style.display = 'none';
+                                if (text) text.style.display = 'none';
 
                                 // Ensure preview is visible
                                 const preview = document.getElementById('fotoPreview');
@@ -1324,15 +1320,18 @@
                                     overlay.classList.add('flex');
                                     overlay.innerHTML = `
                                         <div class="flex gap-2 w-full px-1 z-50">
-                                             <button onclick="event.stopPropagation(); retakePhoto();" class="flex-1 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white text-[9px] font-bold backdrop-blur-sm border border-white/30">Ulang</button>
-                                             <button onclick="event.stopPropagation(); confirmPhoto();" class="flex-1 py-1 rounded-lg bg-green-500 hover:bg-green-600 text-white text-[9px] font-bold shadow-lg">OK</button>
+                                             <button type="button" onclick="event.stopPropagation(); retakePhoto();" class="flex-1 py-1 rounded-lg bg-white/20 hover:bg-white/30 text-white text-[9px] font-bold backdrop-blur-sm border border-white/30">Ulang</button>
+                                             <button type="button" onclick="event.stopPropagation(); confirmPhoto();" class="flex-1 py-1 rounded-lg bg-green-500 hover:bg-green-600 text-white text-[9px] font-bold shadow-lg">OK</button>
                                         </div>
                                     `;
                                 }
 
                                 btn.onclick = showZoomModal; // Click photo to Zoom
-                            } else {
-                                // Default State (No photo yet)
+                                return; // EXIT HERE so we don't reset below
+                            }
+
+                            // --- NORMAL STATE (No Photo) ---
+                            if (icon) {
                                 icon.style.display = 'block';
                                 icon.textContent = 'add_a_photo';
                                 if (cek.type === 'pulang') {
@@ -1341,6 +1340,7 @@
                                     icon.className = 'material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl';
                                 }
                             }
+
                             if (text) {
                                 text.style.display = 'block';
                                 if (cek.type === 'masuk') {
@@ -1350,16 +1350,15 @@
                                     text.innerHTML = 'Ambil Foto<br/>Pulang';
                                     text.className = 'text-[8px] font-bold text-orange-400 dark:text-orange-500 group-hover:text-orange-500 transition-colors text-center leading-tight';
                                 }
-
                             }
 
-                            // Reset Preview & Overlay
+                            // Reset Preview & Overlay (Only if NO photo)
                             const preview = document.getElementById('fotoPreview');
                             if (preview) preview.classList.add('hidden');
                             const overlay = document.getElementById('fotoOverlay');
                             if (overlay) overlay.classList.add('hidden');
 
-                            btn.onclick = ambilFoto;
+                            btn.onclick = ambilFoto; // Set click handler to take photo
                             return;
                         }
 
