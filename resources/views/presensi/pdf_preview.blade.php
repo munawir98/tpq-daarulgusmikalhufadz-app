@@ -277,6 +277,15 @@
         </div>
     </main>
 
+    <!-- Floating Hint -->
+    <div id="zoomHint"
+        class="fixed bottom-24 left-1/2 -translate-x-1/2 z-40 pointer-events-none transition-opacity duration-300">
+        <div
+            class="bg-slate-900/80 text-white px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm shadow-xl flex items-center gap-2 animate-pulse border border-white/10">
+            <span class="material-icons-round text-base">zoom_in</span> Lihat Tampilan Penuh
+        </div>
+    </div>
+
     <!-- Bottom Actions -->
     <div
         class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-3 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
@@ -379,21 +388,13 @@
 
         // --- Visual Cues on Paper ---
         paper.classList.add('cursor-zoom-in', 'group', 'relative');
-        const hint = document.createElement('div');
-        hint.className = 'absolute inset-0 bg-teal-900/0 group-hover:bg-teal-900/5 transition-colors duration-500 flex items-center justify-center pointer-events-none rounded-sm';
-        // Changed: always visible hint (removed opacity-0 group-hover:opacity-100)
-        hint.innerHTML = '<div class="transition-transform duration-300 transform group-hover:scale-110 bg-slate-900/60 group-hover:bg-slate-900/80 text-white px-5 py-2.5 rounded-full text-sm font-medium backdrop-blur-sm flex items-center gap-2 shadow-xl border border-white/10 animate-pulse"><span class="material-icons-round text-base">zoom_in</span> Lihat Tampilan Penuh</div>';
-        paper.appendChild(hint);
+        const zoomHint = document.getElementById('zoomHint');
 
         // --- Open Modal ---
         paper.addEventListener('click', () => {
             // Clone content
             zoomContent.innerHTML = '';
             const clone = paper.cloneNode(true);
-
-            // Remove the hint from clone
-            const cloneHint = clone.querySelector('div.absolute');
-            if (cloneHint) cloneHint.remove();
 
             // Styling clone for modal
             clone.classList.remove('cursor-zoom-in', 'group', 'relative', 'paper-shadow', 'mb-10', 'mx-auto');
@@ -402,6 +403,9 @@
             clone.style.width = '210mm'; // Standard A4 width reference or keep existing class style
 
             zoomContent.appendChild(clone);
+
+            // Hide main hint
+            zoomHint.classList.add('opacity-0');
 
             // Reset State
             currentScale = 0.5; // Initial zoom 50% as requested
@@ -425,6 +429,8 @@
                 modal.classList.add('hidden');
                 zoomContent.innerHTML = '';
                 document.body.style.overflow = '';
+                // Show hint again
+                zoomHint.classList.remove('opacity-0');
             }, 500); // Match transition duration
         }
         closeBtn.addEventListener('click', closeZoom);
