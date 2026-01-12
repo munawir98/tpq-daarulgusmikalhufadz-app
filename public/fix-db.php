@@ -1,57 +1,60 @@
 <?php
-// fix-db.php
-// Versi 3: THE FINAL WEAPON (Shell Execute)
-// Mencoba menggunakan 'mysql' command line dari sistem operasi container.
+// fix-db.php V4 (Diagnostic Mode)
 
 $host = getenv('DB_HOST');
 $port = getenv('DB_PORT');
 $user = getenv('DB_USERNAME');
 $pass = getenv('DB_PASSWORD');
 
-echo "<h1>MySQL Fixer V3 (Shell Exec)</h1>";
-echo "Host: $host | User: $user <br><br>";
+echo "<h1>MySQL Fixer V4 (Diagnostic)</h1>";
 
-if (!$pass) die("Error: DB_PASSWORD kosong.");
-
-// Command Query
-$sql = "ALTER USER '$user'@'%' IDENTIFIED WITH mysql_native_password BY '$pass'; FLUSH PRIVILEGES;";
-
-// Bikin command CLI
-// mysql -h ... -P ... -u ... -p... -e "..."
-// Hati-hati special character di password, tapi kita coba basic dulu.
-$cmd = sprintf(
-    "mysql -h %s -P %s -u %s -p'%s' -e \"%s\" 2>&1",
-    escapeshellarg($host),
-    escapeshellarg($port),
-    escapeshellarg($user),
-    $pass, // Password susah di-escape dengan escapeshellarg kadang kalau ada quote, kita coba raw single quote wrapper
-    $sql
-);
-
-// Tampilkan command (sensor password dikit)
-$sensorCmd = str_replace($pass, '******', $cmd);
-echo "Working... Executing Command: <br><code>$sensorCmd</code><hr>";
-
-// Eksekusi
-$output = shell_exec($cmd);
-
-echo "<pre>$output</pre>";
-
-if (strpos($output, 'Access denied') !== false) {
-    echo "<h3 style='color:red;'>GAGAL: Password salah atau akses ditolak.</h3>";
-} elseif (strpos($output, 'command not found') !== false) {
-    echo "<h3 style='color:red;'>GAGAL: Command 'mysql' tidak ada di server ini.</h3>";
+// 1. Cek Driver PHP
+echo "<h3>1. PHP Driver Check</h3>";
+if (extension_loaded('pdo_mysql')) {
+    echo "PDO MySQL Loaded. Client Info: " .  pdo_drivers()['mysql'] ?? 'Unknown';
+    echo "<pre>";
+    $info = (new ReflectionExtension('pdo_mysql'))->info();
+    print_r($info);
+    echo "</pre>";
 } else {
-    // Coba tes PHP connect biasa
-    try {
-        $dsn = "mysql:host=$host;port=$port;charset=utf8mb4";
-        $pdo = new PDO($dsn, $user, $pass);
-        echo "<h2 style='color:blue;'>SUKSES BESAR! PHP Sekarang bisa connect!</h2>";
-    } catch (Exception $e) {
-        if (empty($output)) {
-             echo "<h3 style='color:green;'>Command Shell sepertinya sukses (tidak ada error output), tapi PHP masih belum connect. Coba refresh aplikasi utama.</h3>";
-        } else {
-             echo "<h3 style='color:orange;'>Command jalan, tapi PHP masih error: " . $e->getMessage() . "</h3>";
-        }
-    }
+    echo "<b style='color:red'>PDO MySQL Extension NOT Loaded!</b><br>";
+}
+
+if (extension_loaded('mysqlnd')) {
+    echo "<b style='color:green'>MySQL Native Driver (mysqlnd) is LOADED!</b>";
+} else {
+    echo "<b style='color:red'>MySQL Native Driver (mysqlnd) is NOT LOADED! (This is bad)</b>";
+}
+
+echo "<hr>";
+
+// 2. Cek Support Plugin di Server via Shell
+echo "<h3>2. Server Plugin Check</h3>";
+// Kita pakai mysql CLI yang sudah ada (semoga)
+$cmdPlugins = sprintf("mysql -h %s -P %s -u %s -p'%s' -e \"SHOW PLUGINS;\" 2>&1", $host, $port, $user, $pass);
+$outputPlugins = shell_exec($cmdPlugins);
+
+echo "<pre>$outputPlugins</pre>";
+
+// 3. Analisis & Action
+if (strpos($outputPlugins, 'mysql_native_password') !== false && strpos($outputPlugins, 'ACTIVE') !== false) {
+    echo "<b>mysql_native_password detected!</b> Trying to use it...<br>";
+    $targetAlgo = 'mysql_native_password';
+} elseif (strpos($outputPlugins, 'sha256_password') !== false && strpos($outputPlugins, 'ACTIVE') !== false) {
+    echo "<b>sha256_password detected!</b> Native not found. Trying to use sha256_password...<br>";
+    $targetAlgo = 'sha256_password';
+} else {
+    echo "<b style='color:red'>No compatible legacy plugins found active. Server seems to enforce caching_sha2_password only.</b><br>";
+    $targetAlgo = null;
+}
+
+if ($targetAlgo) {
+    $sql = "ALTER USER '$user'@'%' IDENTIFIED WITH $targetAlgo BY '$pass'; FLUSH PRIVILEGES;";
+    $cmdFix = sprintf("mysql -h %s -P %s -u %s -p'%s' -e \"%s\" 2>&1", $host, $port, $user, $pass, $sql);
+
+    echo "Running Fix Command: <code>$sql</code><br>";
+    $fixOutput = shell_exec($cmdFix);
+    echo "<pre>$fixOutput</pre>";
+
+    if (empty($fixOutput)) echo "<h2 style='color:blue'>Fix Command Executed Successfully (No Errors)</h2>";
 }
