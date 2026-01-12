@@ -88,7 +88,40 @@ Route::get('/debug-biometric', function () {
         }
 
         $output .= "</table>";
+        $output .= "<br><a href='/fix-biometric-duplicates'>🧹 Hapus Duplikat (Sisakan 1 per Santri)</a>";
         return $output;
+
+    } catch (\Exception $e) {
+        return "<h3>Error:</h3>" . $e->getMessage();
+    }
+});
+
+// [TEMPORARY FIX] Remove duplicate biometric credentials - keep only first per user
+Route::get('/fix-biometric-duplicates', function () {
+    try {
+        $deleted = 0;
+        $kept = [];
+
+        // Get all credentials grouped by user_id
+        $credentials = \App\Models\BiometricCredential::orderBy('id', 'asc')->get();
+
+        foreach ($credentials as $cred) {
+            if (in_array($cred->user_id, $kept)) {
+                // This user already has a credential, delete this duplicate
+                $cred->delete();
+                $deleted++;
+            } else {
+                // Keep the first one for this user
+                $kept[] = $cred->user_id;
+            }
+        }
+
+        $remaining = \App\Models\BiometricCredential::count();
+
+        return "<h2>✅ Pembersihan Selesai</h2>
+                <p>Duplikat dihapus: <strong>{$deleted}</strong></p>
+                <p>Sidik jari tersisa: <strong>{$remaining}</strong></p>
+                <br><a href='/debug-biometric'>← Kembali ke Daftar Sidik Jari</a>";
 
     } catch (\Exception $e) {
         return "<h3>Error:</h3>" . $e->getMessage();
