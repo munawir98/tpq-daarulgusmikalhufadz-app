@@ -96,6 +96,7 @@
                 padding: 0;
                 box-shadow: none;
             }
+        }
         @keyframes appear {
             0% {
                 opacity: 0;
