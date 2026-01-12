@@ -204,15 +204,17 @@
                             <div>
                                 <p class="text-[10px] text-slate-500 font-medium uppercase tracking-wider leading-none">
                                     Periode</p>
-                                <p class="text-sm font-semibold dark:text-white">
-                                    @if(request('start_date') && request('end_date') && request('start_date') ==
-                                    request('end_date'))
+                                @if(request('start_date') && request('end_date') && request('start_date') ==
+                                request('end_date'))
+                                <p class="text-xs font-semibold dark:text-white">
                                     {{ \Carbon\Carbon::parse(request('start_date'))->locale('id')->isoFormat('dddd, D
                                     MMMM Y') }}
-                                    @else
-                                    {{ $selectedDate->locale('id')->isoFormat('MMMM Y') }}
-                                    @endif
                                 </p>
+                                @else
+                                <p class="text-sm font-semibold dark:text-white">
+                                    {{ $selectedDate->locale('id')->isoFormat('MMMM Y') }}
+                                </p>
+                                @endif
                             </div>
                         </div>
                         <div class="relative">
