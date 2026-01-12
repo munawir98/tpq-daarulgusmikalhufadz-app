@@ -69,18 +69,18 @@ Route::get('/health', fn () => response()->json(['status' => 'ok'], 200));
 // [TEMPORARY DEBUG] Check biometric credentials
 Route::get('/debug-biometric', function () {
     try {
-        $credentials = \App\Models\BiometricCredential::with('santri')->get();
+        $credentials = \App\Models\BiometricCredential::with('user.santri')->get();
 
         $output = "<h2>Data Sidik Jari Terdaftar</h2>";
         $output .= "<p>Total: " . $credentials->count() . " sidik jari</p>";
         $output .= "<table border='1' cellpadding='8' style='border-collapse: collapse;'>";
-        $output .= "<tr><th>ID</th><th>Santri ID</th><th>Nama Santri</th><th>Credential Name</th><th>Created At</th></tr>";
+        $output .= "<tr><th>ID</th><th>User ID</th><th>Nama Santri</th><th>Credential Name</th><th>Created At</th></tr>";
 
         foreach ($credentials as $cred) {
-            $santriName = $cred->santri ? $cred->santri->nama_lengkap : 'N/A';
+            $santriName = $cred->user && $cred->user->santri ? $cred->user->santri->nama_lengkap : ($cred->user ? $cred->user->name : 'N/A');
             $output .= "<tr>";
             $output .= "<td>{$cred->id}</td>";
-            $output .= "<td>{$cred->santri_id}</td>";
+            $output .= "<td>{$cred->user_id}</td>";
             $output .= "<td>{$santriName}</td>";
             $output .= "<td>{$cred->name}</td>";
             $output .= "<td>{$cred->created_at}</td>";
