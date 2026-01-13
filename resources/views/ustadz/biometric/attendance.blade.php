@@ -112,19 +112,19 @@
             <!-- Rounded Corner Masks (To make the hole look rounded) -->
             <!-- Top Left -->
             <div
-                class="absolute top-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_100%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
+                class="absolute top-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_100%,transparent_5px,rgba(0,0,0,0.8)_6px)]">
             </div>
             <!-- Top Right -->
             <div
-                class="absolute top-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_100%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
+                class="absolute top-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_100%,transparent_5px,rgba(0,0,0,0.8)_6px)]">
             </div>
             <!-- Bottom Left -->
             <div
-                class="absolute bottom-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_0%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
+                class="absolute bottom-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_0%,transparent_5px,rgba(0,0,0,0.8)_6px)]">
             </div>
             <!-- Bottom Right -->
             <div
-                class="absolute bottom-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_0%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
+                class="absolute bottom-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_0%,transparent_5px,rgba(0,0,0,0.8)_6px)]">
             </div>
 
             <!-- Corner Indicators (WA Style) -->
@@ -185,7 +185,7 @@
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
             <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
-                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.7)</p>
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.8)</p>
             </div>
         </div>
 
