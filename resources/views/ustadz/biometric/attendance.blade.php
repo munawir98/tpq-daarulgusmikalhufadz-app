@@ -56,7 +56,7 @@
     </style>
 </head>
 
-<body class="bg-black min-h-screen overflow-hidden m-0 p-0">
+<body class="bg-gray-900 min-h-screen overflow-hidden m-0 p-0">
 
     <!-- Scanner Container (Full Screen) -->
     <div id="reader" class="w-full h-full absolute inset-0 bg-transparent z-0"></div>
