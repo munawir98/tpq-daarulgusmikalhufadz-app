@@ -38,7 +38,8 @@
         #reader video {
             object-fit: cover !important;
             width: 100% !important;
-            height: 100% !important;
+            height: 100dvh !important;
+            /* Force Dynamic Viewport Height */
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
@@ -50,7 +51,8 @@
         /* Force library wrapper to match screen size */
         #reader div {
             width: 100% !important;
-            height: 100% !important;
+            height: 100dvh !important;
+            /* Force Dynamic Viewport Height */
             overflow: hidden !important;
         }
 
@@ -163,7 +165,7 @@
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
             <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
-                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera...</p>
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.1)</p>
             </div>
         </div>
 
@@ -173,6 +175,26 @@
 
     <!-- HTML5-QRcode Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <!-- AGGRESSIVE VIDEO ENFORCER SCRIPT -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check every 500ms and FORCE the video to be proper size
+            setInterval(() => {
+                const videoElement = document.querySelector('#reader video');
+                if (videoElement) {
+                    // Force CSS styles directly on the element to override library inline styles
+                    videoElement.style.width = '100%';
+                    videoElement.style.height = '100dvh'; // Use dynamic viewport height
+                    videoElement.style.objectFit = 'cover';
+                    videoElement.style.position = 'absolute';
+                    videoElement.style.top = '0';
+                    videoElement.style.left = '0';
+                    videoElement.style.zIndex = '0';
+                }
+            }, 500);
+        });
+    </script>
 
     <script>
         let html5QrCode;
