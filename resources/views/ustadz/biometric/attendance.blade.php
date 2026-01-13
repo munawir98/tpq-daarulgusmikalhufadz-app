@@ -60,15 +60,15 @@
 <body class="bg-black min-h-screen overflow-hidden m-0 p-0">
 
     <!-- Scanner Container (Full Screen) -->
-    <div id="reader" class="w-full h-full absolute inset-0 bg-transparent"></div>
+    <div id="reader" class="w-full h-full absolute inset-0 bg-transparent z-0"></div>
 
     <!-- UI Overlay -->
-    <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
+    <div class="absolute inset-0 z-50 pointer-events-none flex flex-col items-center justify-center">
 
 
 
         <!-- Scanner Title/Instruction -->
-        <div class="absolute top-8 left-0 right-0 text-center pointer-events-none z-40">
+        <div class="absolute top-8 left-0 right-0 text-center pointer-events-none z-50">
             <h2 class="text-white font-bold text-lg drop-shadow-md">Scan Absen Santri</h2>
             <p class="text-white/80 text-xs drop-shadow-md">Arahkan kamera ke QR Code</p>
         </div>
@@ -79,19 +79,19 @@
         <!-- 4-Div Physical Overlay -->
         <!-- Top -->
         <div
-            class="absolute top-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/60 pointer-events-none z-20">
+            class="absolute top-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Bottom -->
         <div
-            class="absolute bottom-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/60 pointer-events-none z-20">
+            class="absolute bottom-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Left -->
         <div
-            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/60 pointer-events-none z-20">
+            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Right -->
         <div
-            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/60 pointer-events-none z-20">
+            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
 
         <!-- Scan Frame (The "Visuals") -->
