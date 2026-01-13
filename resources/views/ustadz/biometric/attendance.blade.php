@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absen Sidik Jari</title>
+    <title>Scan Absen Santri</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -52,27 +52,29 @@
 
         <!-- Icon -->
         <div
-            class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-6 animate-pulse">
-            <span class="material-icons-round text-green-500 text-5xl">fingerprint</span>
+            class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-6 animate-pulse">
+            <span class="material-icons-round text-blue-500 text-5xl">qr_code_scanner</span>
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-800 mb-1">Absen Sidik Jari</h2>
-        <p class="text-gray-500 text-sm mb-4">Tempelkan jari untuk mendeteksi Santri</p>
+        <h2 class="text-2xl font-bold text-gray-800 mb-1">Scan Absen Santri</h2>
+        <p class="text-gray-500 text-sm mb-4">Scan QR Code atau Sidik Jari</p>
 
         <div class="mb-6 px-4 py-2 bg-gray-50 rounded-lg border border-gray-100 inline-block">
             <p class="text-xs text-gray-400 font-mono">Server Status: {{ $totalCredentials ?? 0 }} Jari Terdaftar</p>
         </div>
 
-        <!-- Main Action Button (Scan First) -->
-        <span class="material-icons-round text-3xl">sensors</span>
-        <span class="text-lg">Scan Sidik Jari</span>
-        </button>
-
-        <!-- Scan QR Button -->
+        <!-- Scan QR Button (Primary) -->
         <button id="btnScanQr" onclick="startQrScan()"
-            class="mt-4 w-full py-5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
+            class="w-full py-5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
             <span class="material-icons-round text-3xl">qr_code_scanner</span>
             <span class="text-lg">Scan QR Code</span>
+        </button>
+
+        <!-- Main Action Button (Fingerprint - Secondary) -->
+        <button id="btnScanIdentify" onclick="identifyUser()"
+            class="mt-4 w-full py-4 bg-white border-2 border-green-100 text-green-600 hover:bg-green-50 rounded-2xl font-bold transition-all transform active:scale-95 flex items-center justify-center gap-3">
+            <span class="material-icons-round text-2xl">fingerprint</span>
+            <span class="text-base">Scan Sidik Jari (Alternatif)</span>
         </button>
 
         <!-- Register Link Button -->
@@ -96,9 +98,11 @@
             const btn = document.getElementById('btnScanIdentify');
             const btnQr = document.getElementById('btnScanQr');
 
-            btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Scan Sidik Jari</span>';
+            // Restore Fingerprint Button (Secondary)
+            btn.innerHTML = '<span class="material-icons-round text-2xl">fingerprint</span> <span class="text-base">Scan Sidik Jari (Alternatif)</span>';
             btn.disabled = false;
 
+            // Restore QR Button (Primary)
             if (btnQr) {
                 btnQr.innerHTML = '<span class="material-icons-round text-3xl">qr_code_scanner</span> <span class="text-lg">Scan QR Code</span>';
                 btnQr.disabled = false;
