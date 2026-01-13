@@ -40,6 +40,19 @@
             width: 100%;
             height: 100%;
             border-radius: 0;
+            display: block;
+            /* Ensure it's not hidden */
+        }
+
+        /* Hide Canvas visually (it often overlays the video with black) */
+        #reader canvas {
+            opacity: 0 !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            pointer-events: none !important;
         }
     </style>
 </head>
