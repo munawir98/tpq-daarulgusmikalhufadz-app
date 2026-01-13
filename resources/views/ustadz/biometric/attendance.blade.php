@@ -70,19 +70,7 @@
             <span class="text-lg">Scan QR Code</span>
         </button>
 
-        <!-- Main Action Button (Fingerprint - Secondary) -->
-        <button id="btnScanIdentify" onclick="identifyUser()"
-            class="mt-4 w-full py-4 bg-white border-2 border-green-100 text-green-600 hover:bg-green-50 rounded-2xl font-bold transition-all transform active:scale-95 flex items-center justify-center gap-3">
-            <span class="material-icons-round text-2xl">fingerprint</span>
-            <span class="text-base">Scan Sidik Jari (Alternatif)</span>
-        </button>
 
-        <!-- Register Link Button -->
-        <a href="{{ route('ustadz.biometric.register') }}"
-            class="mt-4 w-full py-3 bg-white border-2 border-green-100 text-green-600 rounded-xl font-bold hover:bg-green-50 transition-colors flex items-center justify-center gap-2">
-            <span class="material-icons-round">person_add</span>
-            Daftarkan Jari Santri
-        </a>
 
     </div>
 
@@ -95,12 +83,7 @@
         let isQrMode = false;
 
         function resetBtns() {
-            const btn = document.getElementById('btnScanIdentify');
             const btnQr = document.getElementById('btnScanQr');
-
-            // Restore Fingerprint Button (Secondary)
-            btn.innerHTML = '<span class="material-icons-round text-2xl">fingerprint</span> <span class="text-base">Scan Sidik Jari (Alternatif)</span>';
-            btn.disabled = false;
 
             // Restore QR Button (Primary)
             if (btnQr) {
