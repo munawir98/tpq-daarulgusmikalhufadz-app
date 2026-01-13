@@ -133,40 +133,44 @@
         </div>
 
         <!-- Scanner Viewport Container -->
-        <div class="flex-1 relative flex items-center justify-center py-10">
-            <!-- Overlay with cutout effect -->
-            <!-- Note: Using physical overlay div strategy to ensure compatibility if mask fails,
-                 but user provided specific design. Let's try user's simpler opaque background first,
-                 but carefully ensuring center is distinct.
-                 User's code: <div class="absolute inset-0 bg-black/50 pointer-events-none"></div>
-                 This covers EVERYTHING. We need a hole.
-                 I will stick to the 4-div method or a SVG mask if strictly following design.
-                 BUT, user's code had:
-                 <div class="relative w-64 h-64 ... bg-transparent rounded-xl"> <div class="absolute inset-0 bg-transparent ... shadow-[0_0_0_9999px_rgba(16,34,19,0.7)]"></div> </div>
-                 Ah! The shadow trick IS in their code: `shadow-[0_0_0_9999px_rgba(16,34,19,0.7)]`
-                 This creates the dark overlay with a hole! I will use that.
-            -->
+        <div class="flex-1 relative flex items-center justify-center py-10 pointer-events-none">
 
-            <!-- Scanner Square Container (Holds the Overlay Shadow) -->
-            <div class="relative w-64 h-64 sm:w-80 sm:h-80 bg-transparent rounded-xl z-20">
-                <!-- THE OVERLAY HOLE TRICK -->
-                <div
-                    class="absolute inset-0 bg-transparent rounded-xl shadow-[0_0_0_9999px_rgba(16,34,19,0.9)] pointer-events-none">
-                </div>
+            <!-- 4-Div Physical Overlay (Robust Transparency) -->
+            <!-- Top -->
+            <div class="absolute top-0 left-0 right-0 h-[calc(50%-8rem)] sm:h-[calc(50%-10rem)] bg-[#102213]/90 z-20">
+            </div>
+            <!-- Bottom -->
+            <div
+                class="absolute bottom-0 left-0 right-0 h-[calc(50%-8rem)] sm:h-[calc(50%-10rem)] bg-[#102213]/90 z-20">
+            </div>
+            <!-- Left -->
+            <div
+                class="absolute top-[calc(50%-8rem)] sm:top-[calc(50%-10rem)] bottom-[calc(50%-8rem)] sm:bottom-[calc(50%-10rem)] left-0 w-[calc(50%-8rem)] sm:w-[calc(50%-10rem)] bg-[#102213]/90 z-20">
+            </div>
+            <!-- Right -->
+            <div
+                class="absolute top-[calc(50%-8rem)] sm:top-[calc(50%-10rem)] bottom-[calc(50%-8rem)] sm:bottom-[calc(50%-10rem)] right-0 w-[calc(50%-8rem)] sm:w-[calc(50%-10rem)] bg-[#102213]/90 z-20">
+            </div>
+
+            <!-- Scanner Square Container (Visuals Only - NO SHADOW OR BG) -->
+            <div class="relative w-64 h-64 sm:w-80 sm:h-80 bg-transparent rounded-xl z-30">
 
                 <!-- Corner Brackets (WhatsApp Style) -->
                 <!-- Top Left -->
-                <div class="absolute -top-1 -left-1 size-10 border-t-4 border-l-4 border-primary rounded-tl-lg z-30">
+                <div
+                    class="absolute -top-1 -left-1 size-10 border-t-4 border-l-4 border-primary rounded-tl-lg shadow-sm">
                 </div>
                 <!-- Top Right -->
-                <div class="absolute -top-1 -right-1 size-10 border-t-4 border-r-4 border-primary rounded-tr-lg z-30">
+                <div
+                    class="absolute -top-1 -right-1 size-10 border-t-4 border-r-4 border-primary rounded-tr-lg shadow-sm">
                 </div>
                 <!-- Bottom Left -->
-                <div class="absolute -bottom-1 -left-1 size-10 border-b-4 border-l-4 border-primary rounded-bl-lg z-30">
+                <div
+                    class="absolute -bottom-1 -left-1 size-10 border-b-4 border-l-4 border-primary rounded-bl-lg shadow-sm">
                 </div>
                 <!-- Bottom Right -->
                 <div
-                    class="absolute -bottom-1 -right-1 size-10 border-b-4 border-r-4 border-primary rounded-br-lg z-30">
+                    class="absolute -bottom-1 -right-1 size-10 border-b-4 border-r-4 border-primary rounded-br-lg shadow-sm">
                 </div>
                 <!-- Laser Line Animation -->
                 <div
@@ -174,26 +178,35 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Bottom Right -->
+    <div class="absolute -bottom-1 -right-1 size-10 border-b-4 border-r-4 border-primary rounded-br-lg z-30">
+    </div>
+    <!-- Laser Line Animation -->
+    <div class="laser-line absolute left-0 right-0 h-0.5 bg-primary shadow-[0_0_15px_rgba(19,236,55,0.8)] z-20">
+    </div>
+    </div>
+    </div>
 
-        <!-- Bottom Controls & Stats -->
-        <div class="px-6 pb-12 flex flex-col items-center gap-6 z-30">
-            <!-- Status Stats -->
-            <div class="w-full max-w-sm">
-                <div
-                    class="flex flex-col gap-2 rounded-xl p-4 bg-background-dark/80 backdrop-blur-md border border-white/10">
-                    <div class="flex items-center justify-between mb-1">
-                        <span class="text-white/50 text-xs font-bold uppercase tracking-widest">Scanner Status</span>
-                        <div class="size-2 bg-primary rounded-full animate-pulse shadow-[0_0_8px_rgba(19,236,55,1)]">
-                        </div>
+    <!-- Bottom Controls & Stats -->
+    <div class="px-6 pb-12 flex flex-col items-center gap-6 z-30">
+        <!-- Status Stats -->
+        <div class="w-full max-w-sm">
+            <div
+                class="flex flex-col gap-2 rounded-xl p-4 bg-background-dark/80 backdrop-blur-md border border-white/10">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-white/50 text-xs font-bold uppercase tracking-widest">Scanner Status</span>
+                    <div class="size-2 bg-primary rounded-full animate-pulse shadow-[0_0_8px_rgba(19,236,55,1)]">
                     </div>
-                    <!-- Status Text ID Mapped -->
-                    <p class="text-primary font-mono text-xl font-bold leading-tight text-center py-2" id="statusText">
-                        Mendeteksi Kamera...</p>
                 </div>
+                <!-- Status Text ID Mapped -->
+                <p class="text-primary font-mono text-xl font-bold leading-tight text-center py-2" id="statusText">
+                    Mendeteksi Kamera...</p>
             </div>
+        </div>
 
-            <!-- CameraControl (Decorative for now, could act as manual trigger or flash) -->
-            <!-- <div class="flex items-center justify-center gap-8 w-full">
+        <!-- CameraControl (Decorative for now, could act as manual trigger or flash) -->
+        <!-- <div class="flex items-center justify-center gap-8 w-full">
                 <button
                     class="flex shrink-0 items-center justify-center rounded-full size-12 bg-white/10 backdrop-blur-md text-white border border-white/5 hover:bg-white/20 transition-all">
                     <span class="material-symbols-outlined">image</span>
@@ -209,11 +222,11 @@
                 </button>
             </div> -->
 
-            <!-- Institution Footer -->
-            <div class="mt-2">
-                <p class="text-white/40 text-xs font-medium tracking-tight">Daarul Gusmik Al-Hufadz © 2024</p>
-            </div>
+        <!-- Institution Footer -->
+        <div class="mt-2">
+            <p class="text-white/40 text-xs font-medium tracking-tight">Daarul Gusmik Al-Hufadz © 2024</p>
         </div>
+    </div>
     </div>
 
     <!-- HTML5-QRcode Library -->
