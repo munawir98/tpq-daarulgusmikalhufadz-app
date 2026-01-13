@@ -82,7 +82,7 @@
         </div>
         <!-- Bottom -->
         <div
-            class="absolute bottom-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
+            class="absolute bottom-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-transparent pointer-events-none z-40">
         </div>
         <!-- Left -->
         <div
