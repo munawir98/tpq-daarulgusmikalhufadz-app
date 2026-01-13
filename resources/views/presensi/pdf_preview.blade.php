@@ -383,8 +383,8 @@
                     loader.style.display = 'none';
                     paperContainer.classList.remove('opacity-0', 'scale-95');
                     paperContainer.classList.add('animate-appear');
-                }, 500);
-            }, 1500); // 1.5s simulated delay + load time = "agak lama"
+                }, 200);
+            }, 300); // Reduced delay for better UX
         });
 
         // --- Visual Cues on Paper ---

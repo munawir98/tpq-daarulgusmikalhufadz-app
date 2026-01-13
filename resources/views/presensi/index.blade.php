@@ -676,12 +676,12 @@
                 this.style.pointerEvents = 'none';
                 this.classList.add('opacity-75');
 
-                // Revert after 3 seconds (simulated download start)
+                // Revert after 1 second (fallback)
                 setTimeout(() => {
                     this.innerHTML = originalContent;
                     this.style.pointerEvents = 'auto';
                     this.classList.remove('opacity-75');
-                }, 3000);
+                }, 1000);
             });
         }
     </script>
