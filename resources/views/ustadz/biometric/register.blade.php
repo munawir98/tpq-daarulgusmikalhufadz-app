@@ -64,7 +64,8 @@
                 <select id="santriSelect" class="w-full">
                     <option value="" selected disabled>Cari nama santri...</option>
                     @foreach($santris as $santri)
-                    <option value="{{ $santri->id }}">{{ $santri->nama_lengkap }}</option>
+                    <option value="{{ $santri->id }}" data-nis="{{ $santri->nis }}">{{ $santri->nama_lengkap }} ({{
+                        $santri->nis }})</option>
                     @endforeach
                 </select>
             </div>
@@ -114,14 +115,8 @@
                         };
                     },
                     processResults: function (data) {
-                        if (data.debug_meta) {
-                            logDebug("Server Debug: DB Total=" + data.debug_meta.total_santri_db +
-                                " | Term='" + data.debug_meta.term_received + "'" +
-                                " | First='" + data.debug_meta.first_santri + "'");
-                        }
-                        logDebug("Data received: " + data.results.length + " items");
                         return {
-                            results: data.results
+                            results: data.results // Expects id, text, nis
                         };
                     },
                     cache: true,
@@ -131,10 +126,10 @@
                         alert('Error: ' + jqXHR.status + ' ' + errorThrown);
                     }
                 },
-                minimumInputLength: 0, // Allow showing all on click if supported
+                minimumInputLength: 0,
                 language: {
                     noResults: function () {
-                        return "Santri tidak ditemukan or error";
+                        return "Santri tidak ditemukan";
                     },
                     searching: function () {
                         return "Mencari...";
@@ -167,7 +162,22 @@
             const santriId = $('#santriSelect').val();
             const name = $('#credentialName').val();
 
-            if (!santriId) return; // Name can be empty
+            if (!santriId) return;
+
+            // Get NIS from Select2 data
+            const data = $('#santriSelect').select2('data')[0];
+            // If from AJAX, data.nis is set. If from initial Blade loop, we need to grab existing element's data attribute.
+            let nis = data.nis;
+            if (!nis && data.element) {
+                nis = $(data.element).data('nis');
+            }
+
+            if (!nis) {
+                Swal.fire('Error', 'Data NIS Santri tidak ditemukan. Silakan refresh atau pilih ulang.', 'error');
+                return;
+            }
+
+            console.log("Registering for NIS:", nis, "Database ID:", santriId);
 
             const btn = document.getElementById('btnRegister');
             const originalContent = btn.innerHTML;
@@ -185,7 +195,8 @@
                     challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
                     rp: { name: "TPQ Daarul Gusmik", id: window.location.hostname },
                     user: {
-                        id: Uint8Array.from(santriId, c => c.charCodeAt(0)),
+                        // CRITICAL: Use NIS as Request User Handle (ID)
+                        id: Uint8Array.from(nis.toString(), c => c.charCodeAt(0)),
                         name: $("#santriSelect option:selected").text(),
                         displayName: $("#santriSelect option:selected").text()
                     },
@@ -206,7 +217,7 @@
                 // 3. Serialize Credential ID
                 const credentialId = btoa(String.fromCharCode(...new Uint8Array(credential.rawId)));
 
-                // 4. Send to Server
+                // 4. Send to Server (Send santriId (DB ID) for linking, credentialId for storage)
                 const response = await fetch("{{ route('ustadz.biometric.register.store') }}", {
                     method: 'POST',
                     headers: {
@@ -226,7 +237,7 @@
                     Swal.fire({
                         icon: 'success',
                         title: 'Berhasil!',
-                        text: 'Sidik jari berhasil didaftarkan untuk ' + name,
+                        text: 'Sidik jari berhasil didaftarkan untuk ' + nis,
                     });
                     // Reset name
                     $('#credentialName').val('');
@@ -240,7 +251,7 @@
                 Swal.fire('Gagal', error.message || 'Terjadi kesalahan.', 'error');
             } finally {
                 btn.innerHTML = originalContent;
-                checkForm(); // Re-evaluate button state correctly
+                checkForm();
             }
         }
     </script>

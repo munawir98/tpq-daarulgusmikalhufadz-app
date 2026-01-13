@@ -30,22 +30,25 @@ class BiometricWebController extends Controller
     public function submitAttendance(Request $request)
     {
         $request->validate([
-            'santri_id' => 'required|exists:santri,id',
-            'latitude' => 'nullable', // Optional for biometric/ustadz mode
+            'santri_id' => 'required', // Can be ID or NIS
+            'latitude' => 'nullable',
             'longitude' => 'nullable',
         ]);
 
+        // Try to find by ID first (legacy) then NIS
         $santri = \App\Models\Santri::find($request->santri_id);
+
+        if (!$santri) {
+            // Try to find by NIS
+            $santri = \App\Models\Santri::where('nis', $request->santri_id)->first();
+        }
+
         if (!$santri) return response()->json(['success' => false, 'message' => 'Santri tidak ditemukan'], 404);
 
-        // Use Santri's linked user ID if available, or just record by Santri ID if Presensi supports it.
-        // Looking at Presensi model, it links to User.
-        // We assume Santri has a User account.
         $userId = $santri->user_id;
 
         if (!$userId) {
              // Fallback or Error if system requires User ID
-             // For now, let's assume we need a user ID.
              return response()->json(['success' => false, 'message' => 'Santri belum memiliki akun User terhubung.'], 400);
         }
 
@@ -58,7 +61,7 @@ class BiometricWebController extends Controller
             ->exists();
 
         if ($exists) {
-             return response()->json(['success' => true, 'message' => 'Santri sudah absen hari ini.']);
+             return response()->json(['success' => true, 'message' => "Santri {$santri->nama_lengkap} sudah absen hari ini."]);
         }
 
         \App\Models\Presensi::create([
@@ -73,17 +76,16 @@ class BiometricWebController extends Controller
             'longitude' => $request->longitude
         ]);
 
-        return response()->json(['success' => true, 'message' => "Absen {$santri->nama_lengkap} berhasil dicatat."]);
+        return response()->json([
+            'success' => true,
+            'message' => "Absen {$santri->nama_lengkap} berhasil dicatat.",
+            'santri_user_id' => $userId // Return User ID for redirect
+        ]);
     }
 
     public function register()
     {
-        // Initial view with empty list or preloaded small set if needed.
-        // For AJAX Select2, we can just pass empty or let the view handle it.
-        // But to keep manual fallback, we pass all (might be heavy later).
-        // Let's keep passing all for now, but enabling AJAX in view will override.
-// [DEBUG] Removed status_aktif check to verify data existence
-        // $santris = \App\Models\Santri::where('status_aktif', 1)
+        // Initial view
         $santris = \App\Models\Santri::query()
             ->orderBy('nama_lengkap', 'asc')
             ->limit(10)
@@ -95,14 +97,12 @@ class BiometricWebController extends Controller
     public function search(Request $request)
     {
         $term = $request->q;
-        \Illuminate\Support\Facades\Log::info("Biometric Search Query: " . json_encode($request->all()));
 
-        // [DEBUG] Removed status_aktif check
-        // $query = \App\Models\Santri::where('status_aktif', 1);
         $query = \App\Models\Santri::query();
 
         if ($term) {
-            $query->where('nama_lengkap', 'like', '%' . $term . '%');
+            $query->where('nama_lengkap', 'like', '%' . $term . '%')
+                  ->orWhere('nis', 'like', '%' . $term . '%');
         }
 
         $results = $query->orderBy('nama_lengkap', 'asc')
@@ -110,21 +110,14 @@ class BiometricWebController extends Controller
             ->get()
             ->map(function ($santri) {
                 return [
-                    'id' => $santri->id,
-                    'text' => $santri->nama_lengkap
+                    'id' => $santri->id, // Keep ID for form value if needed, or we can switch value to NIS
+                    'text' => $santri->nama_lengkap . ' (' . $santri->nis . ')',
+                    'nis' => $santri->nis // Pass NIS explicitly
                 ];
             });
 
-        \Illuminate\Support\Facades\Log::info("Biometric Search Results Found: " . $results->count());
-
         return response()->json([
-            'results' => $results,
-            'debug_meta' => [
-                'term_received' => $term,
-                'total_santri_db' => \App\Models\Santri::count(),
-                'query_sql' => $query->toSql(),
-                'first_santri' => \App\Models\Santri::first()?->nama_lengkap ?? 'NONE'
-            ]
+            'results' => $results
         ]);
     }
 

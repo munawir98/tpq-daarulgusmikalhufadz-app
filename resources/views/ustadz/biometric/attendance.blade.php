@@ -163,7 +163,7 @@
                         cancelButtonText: 'Tidak'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + santriId;
+                            window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + data.santri_user_id;
                         }
                     });
                 } else {
