@@ -147,15 +147,16 @@
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
-                <div class="w-24 h-24 shrink-0">
+                <div class="w-28 h-28 shrink-0">
                     <img src="{{ asset('images/logo-tpq.png') }}" alt="Logo TPQ" class="w-full h-full object-contain">
                 </div>
                 <div class="text-center flex-1">
-                    <h2 class="text-2xl font-bold uppercase tracking-wider font-serif">TPQ AL-ISTIQOMAH</h2>
+                    <h2 class="text-2xl font-bold uppercase tracking-wider font-serif">TPQ DAARUL GUSMIK AL-HUFADZ</h2>
                     <p class="text-sm font-semibold tracking-widest text-slate-600 uppercase mt-1">Lembaga Pendidikan
                         Al-Qur'an</p>
-                    <p class="text-xs text-slate-600 mt-2">Jl. Pendidikan No. 123, Kota Madani, Indonesia 40123</p>
-                    <p class="text-xs text-slate-600">Telp: (021) 555-0123 | Email: info@tpq-istiqomah.sch.id</p>
+                    <p class="text-xs text-slate-600 mt-2">Jalan PDK Rt.01/05 Kelurahan Kedung Halang – Kecamatan Bogor
+                        Utara</p>
+                    <p class="text-xs text-slate-600">Telp: 085710387661 · Email: santrineumi@gmail.com</p>
                 </div>
             </div>
 
