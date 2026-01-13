@@ -36,12 +36,11 @@
 
         /* Minimal override to ensure video fills container */
         #reader video {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-            border-radius: 0;
-            display: block;
-            /* Ensure it's not hidden */
+            object-fit: cover !important;
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+            display: block !important;
         }
 
         /* Hide Canvas visually (it often overlays the video with black) */
@@ -79,19 +78,19 @@
         <!-- 4-Div Physical Overlay -->
         <!-- Top -->
         <div
-            class="absolute top-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/80 pointer-events-none z-40">
+            class="absolute top-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Bottom -->
         <div
-            class="absolute bottom-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/80 pointer-events-none z-40">
+            class="absolute bottom-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Left -->
         <div
-            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
+            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Right -->
         <div
-            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
+            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
 
         <!-- Scan Frame (The "Visuals") -->
