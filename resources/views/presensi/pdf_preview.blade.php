@@ -139,8 +139,8 @@
             <div class="absolute animate-ping inline-flex h-6 w-6 rounded-full bg-teal-400 opacity-75"></div>
             <div class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></div>
         </div>
-        <p class="mt-3 text-[10px] font-semibold text-slate-500 dark:text-slate-400 tracking-widest animate-pulse">
-            MEMUAT...</p>
+        <p class="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400 tracking-widest animate-pulse">
+            MEMUAT</p>
     </div>
 
     <!-- Content Preview -->
