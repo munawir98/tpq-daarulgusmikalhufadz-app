@@ -151,8 +151,8 @@
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
-                <div class="w-24 h-24 bg-teal-600 rounded-xl flex items-center justify-center text-white shrink-0">
-                    <span class="material-icons-round text-5xl">mosque</span>
+                <div class="w-24 h-24 shrink-0">
+                    <img src="{{ asset('images/logo-tpq.png') }}" alt="Logo TPQ" class="w-full h-full object-contain">
                 </div>
                 <div class="text-center flex-1">
                     <h2 class="text-2xl font-bold uppercase tracking-wider font-serif">TPQ AL-ISTIQOMAH</h2>
