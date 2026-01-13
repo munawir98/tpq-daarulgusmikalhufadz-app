@@ -54,6 +54,63 @@
 
 
 
+
+        <!-- Scan Frame (The "Hole") -->
+        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content">
+
+            <!-- Corner Indicators (WA Style) -->
+            <!-- Top Left -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm">
+            </div>
+            <!-- Top Right -->
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-lg drop-shadow-sm">
+            </div>
+            <!-- Bottom Left -->
+            <div
+                class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-lg drop-shadow-sm">
+            </div>
+            <!-- Bottom Right -->
+            <div
+                class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-lg drop-shadow-sm">
+            </div>
+
+            <!-- Animated Red Laser -->
+            <div
+                class="absolute top-0 left-4 right-4 h-0.5 bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)] animate-scan-laser">
+            </div>
+        </div>
+
+        <!-- CLI Style -->
+        <style>
+            @keyframes scan-laser {
+                0% {
+                    top: 10px;
+                    opacity: 0;
+                }
+
+                10% {
+                    opacity: 1;
+                }
+
+                50% {
+                    opacity: 0.8;
+                }
+
+                90% {
+                    opacity: 1;
+                }
+
+                100% {
+                    top: calc(100% - 10px);
+                    opacity: 0;
+                }
+            }
+
+            .animate-scan-laser {
+                animation: scan-laser 2s ease-in-out infinite;
+            }
+        </style>
+
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
             <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
