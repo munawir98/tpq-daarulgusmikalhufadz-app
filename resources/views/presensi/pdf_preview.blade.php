@@ -147,7 +147,7 @@
 
             <!-- Kop Surat -->
             <div class="flex items-center gap-6 border-b-4 border-double border-slate-800 pb-6 mb-8">
-                <div class="w-36 h-36 shrink-0">
+                <div class="w-48 h-48 shrink-0">
                     <img src="{{ asset('images/logo-tpq.png') }}" alt="Logo TPQ" class="w-full h-full object-contain">
                 </div>
                 <div class="text-center flex-1">
