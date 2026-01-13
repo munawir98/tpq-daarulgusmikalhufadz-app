@@ -119,6 +119,47 @@
             Anda.
         </div>
     </details>
+    {{-- FAQ Item 5 --}}
+    <details
+        class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+        <summary class="flex items-center justify-between p-4 cursor-pointer">
+            <div class="flex items-center gap-3">
+                <div
+                    class="shrink-0 size-10 rounded-xl bg-red-50 dark:bg-red-900/30 flex items-center justify-center text-red-500">
+                    <span class="material-symbols-outlined">fingerprint</span>
+                </div>
+                <span class="font-semibold text-[#111813] dark:text-white">Hapus sidik jari lama di HP?</span>
+            </div>
+            <span
+                class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
+        </summary>
+        <div class="px-4 pb-4 text-sm text-gray-600 dark:text-gray-400 leading-relaxed space-y-3">
+            <p>Jika muncul pilihan sandi/sidik jari lama yang sudah tidak terpakai, Anda bisa menghapusnya dari
+                pengaturan HP:</p>
+
+            <div class="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
+                <strong class="block text-gray-800 dark:text-gray-200 mb-1">🤖 Android (Google Chrome)</strong>
+                <ol class="list-decimal list-inside text-xs space-y-1">
+                    <li>Buka <strong>Pengaturan (Settings)</strong> HP</li>
+                    <li>Pilih menu <strong>Google</strong> > <strong>Isi Otomatis (Autofill)</strong></li>
+                    <li>Pilih <strong>Isi Otomatis dengan Google</strong></li>
+                    <li>Pilih <strong>Pengelola Kata Sandi (Google Password Manager)</strong></li>
+                    <li>Cari "TPQ" atau alamat website ini</li>
+                    <li>Pilih akun lama dan hapus.</li>
+                </ol>
+            </div>
+
+            <div class="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
+                <strong class="block text-gray-800 dark:text-gray-200 mb-1">🍎 iOS (iPhone/iPad)</strong>
+                <ol class="list-decimal list-inside text-xs space-y-1">
+                    <li>Buka <strong>Pengaturan (Settings)</strong></li>
+                    <li>Pilih menu <strong>Kata Sandi (Passwords)</strong></li>
+                    <li>Cari "TPQ" atau alamat website ini</li>
+                    <li>Geser ke kiri pada akun lama, lalu klik <strong>Hapus</strong>.</li>
+                </ol>
+            </div>
+        </div>
+    </details>
 </div>
 
 {{-- Contact Support --}}
