@@ -35,11 +35,16 @@
         }
 
         /* Force Video to Cover Screen */
-        #reader video {
+        /* Force Video to Cover Screen */
+        #reader video,
+        #reader canvas {
             object-fit: cover !important;
             width: 100% !important;
             height: 100% !important;
-            border-radius: 0 !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 0 !important;
         }
     </style>
 </head>
