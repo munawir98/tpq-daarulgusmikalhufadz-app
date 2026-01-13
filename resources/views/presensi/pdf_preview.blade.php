@@ -140,7 +140,7 @@
             <div class="relative inline-flex rounded-full h-3 w-3 bg-teal-500"></div>
         </div>
         <p class="mt-3 text-sm font-bold text-slate-500 dark:text-slate-400 tracking-widest animate-pulse">
-            MEMUAT</p>
+            memuat</p>
     </div>
 
     <!-- Content Preview -->
