@@ -109,20 +109,40 @@
         <!-- Scan Frame (The "Visuals") -->
         <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content z-30">
 
-            <!-- Corner Indicators (WA Style) -->
+            <!-- Rounded Corner Masks (To make the hole look rounded) -->
             <!-- Top Left -->
-            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm">
+            <div
+                class="absolute top-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_100%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
             </div>
             <!-- Top Right -->
-            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-lg drop-shadow-sm">
+            <div
+                class="absolute top-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_100%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
             </div>
             <!-- Bottom Left -->
             <div
-                class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-lg drop-shadow-sm">
+                class="absolute bottom-0 left-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_100%_0%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
             </div>
             <!-- Bottom Right -->
             <div
-                class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-lg drop-shadow-sm">
+                class="absolute bottom-0 right-0 w-6 h-6 z-40 bg-[radial-gradient(circle_at_0%_0%,transparent_10px,rgba(0,0,0,0.8)_11px)]">
+            </div>
+
+            <!-- Corner Indicators (WA Style) -->
+            <!-- Top Left -->
+            <div
+                class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm z-50">
+            </div>
+            <!-- Top Right -->
+            <div
+                class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-lg drop-shadow-sm z-50">
+            </div>
+            <!-- Bottom Left -->
+            <div
+                class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-lg drop-shadow-sm z-50">
+            </div>
+            <!-- Bottom Right -->
+            <div
+                class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-lg drop-shadow-sm z-50">
             </div>
 
             <!-- Animated Red Laser -->
@@ -165,7 +185,7 @@
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
             <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
-                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.6)</p>
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.7)</p>
             </div>
         </div>
 
