@@ -34,32 +34,17 @@
             right: 12px;
         }
 
-        /* Force Video to Cover Screen */
+        /* Minimal override to ensure video fills container */
         #reader video {
-            object-fit: cover !important;
-            width: 100% !important;
-            height: 100% !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            z-index: 1 !important;
-        }
-
-        /* Hide Canvas visually but keep it in DOM (opacity 0) to prevent lib errors */
-        #reader canvas {
-            opacity: 0 !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 100% !important;
-            pointer-events: none !important;
-            z-index: 2 !important;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
         }
     </style>
 </head>
 
-<body class="bg-gray-900 min-h-screen overflow-hidden m-0 p-0">
+<body class="bg-black min-h-screen overflow-hidden m-0 p-0">
 
     <!-- Scanner Container (Full Screen) -->
     <div id="reader" class="w-full h-full absolute inset-0 bg-transparent"></div>
