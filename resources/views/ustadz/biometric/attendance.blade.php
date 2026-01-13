@@ -47,6 +47,13 @@
             display: block !important;
         }
 
+        /* Force library wrapper to match screen size */
+        #reader div {
+            width: 100% !important;
+            height: 100% !important;
+            overflow: hidden !important;
+        }
+
         /* Hide Canvas visually (it often overlays the video with black) */
         #reader canvas {
             opacity: 0 !important;
