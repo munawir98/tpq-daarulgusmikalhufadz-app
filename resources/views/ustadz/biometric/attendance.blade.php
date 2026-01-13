@@ -36,164 +36,172 @@
     </style>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-black min-h-screen overflow-hidden m-0 p-0">
 
-    <div
-        class="max-w-md w-full bg-white rounded-3xl shadow-xl p-6 text-center relative overflow-hidden flex flex-col items-center">
-        <!-- Header Gradient -->
-        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+    <!-- Scanner Container (Full Screen) -->
+    <div id="reader" class="w-full h-full absolute inset-0 bg-black"></div>
 
-        <!-- Back Button -->
-        <a href="{{ route('ustadz.dashboard') }}" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600">
+    <!-- UI Overlay -->
+    <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
+
+        <!-- Back Button (Floating) -->
+        <a href="{{ route('ustadz.dashboard') }}"
+            class="pointer-events-auto absolute top-6 left-6 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/60 transition-all z-50">
             <span class="material-icons-round">arrow_back</span>
         </a>
 
-
-
-        <!-- Icon -->
-        <div
-            class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-6 animate-pulse">
-            <span class="material-icons-round text-blue-500 text-5xl">qr_code_scanner</span>
+        <!-- Scanner Title/Instruction -->
+        <div class="absolute top-8 left-0 right-0 text-center pointer-events-none z-40">
+            <h2 class="text-white font-bold text-lg drop-shadow-md">Scan Absen Santri</h2>
+            <p class="text-white/80 text-xs drop-shadow-md">Arahkan kamera ke QR Code</p>
         </div>
 
-        <h2 class="text-2xl font-bold text-gray-800 mb-1">Scan Absen Santri</h2>
-        <p class="text-gray-500 text-sm mb-4">Scan QR Code atau Sidik Jari</p>
+        <!-- Scan Frame (The "Hole") -->
+        <!-- We use a border trick or box-shadow trick to darken outside.
+             Here: SVG Overlay or heavy border is robust. Let's use CSS box-shadow for simplicity and performance. -->
+        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] border-2 border-transparent box-content">
 
-        <div class="mb-6 px-4 py-2 bg-gray-50 rounded-lg border border-gray-100 inline-block">
-            <p class="text-xs text-gray-400 font-mono">Server Status: {{ $totalCredentials ?? 0 }} Jari Terdaftar</p>
+            <!-- Darken Area Outside (Box Shadow Trick) -->
+            <div class="absolute -inset-[100vh] border-[100vh] border-black/60 pointer-events-none"></div>
+
+            <!-- Corner Indicators (WA Style) -->
+            <!-- Top Left -->
+            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm">
+            </div>
+            <!-- Top Right -->
+            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-lg drop-shadow-sm">
+            </div>
+            <!-- Bottom Left -->
+            <div
+                class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-lg drop-shadow-sm">
+            </div>
+            <!-- Bottom Right -->
+            <div
+                class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-lg drop-shadow-sm">
+            </div>
+
+            <!-- Animated Red Laser -->
+            <div
+                class="absolute top-0 left-4 right-4 h-0.5 bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)] animate-scan-laser">
+            </div>
         </div>
 
-        <!-- Scan QR Button (Primary) -->
-        <button id="btnScanQr" onclick="startQrScan()"
-            class="w-full py-5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
-            <span class="material-icons-round text-3xl">qr_code_scanner</span>
-            <span class="text-lg">Scan QR Code</span>
-        </button>
-
-
+        <!-- Bottom Status -->
+        <div class="absolute bottom-12 text-center w-full px-6 z-40">
+            <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera...</p>
+            </div>
+        </div>
 
     </div>
+
+    <!-- CSS for Laser Animation -->
+    <style>
+        @keyframes scan-laser {
+            0% {
+                top: 10px;
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                top: calc(100% - 10px);
+                opacity: 0;
+            }
+        }
+
+        .animate-scan-laser {
+            animation: scan-laser 2s ease-in-out infinite;
+        }
+    </style>
 
     <!-- HTML5-QRcode Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
     <script>
-        // Global variables for QR
         let html5QrCode;
-        let isQrMode = false;
 
-        function resetBtns() {
-            const btnQr = document.getElementById('btnScanQr');
+        document.addEventListener('DOMContentLoaded', () => {
+            startScanner();
+        });
 
-            // Restore QR Button (Primary)
-            if (btnQr) {
-                btnQr.innerHTML = '<span class="material-icons-round text-3xl">qr_code_scanner</span> <span class="text-lg">Scan QR Code</span>';
-                btnQr.disabled = false;
-            }
-        }
+        function startScanner() {
+            const statusEl = document.getElementById('statusText');
 
-        // Toggle between Fingerprint and QR Mode (Optional UI switch if needed,
-        // or just have two buttons. Here we add a second button).
+            html5QrCode = new Html5Qrcode("reader");
 
-        async function startQrScan() {
-            // UI Setup
-            Swal.fire({
-                title: 'Scan QR Code Santri',
-                html: '<div id="reader" style="width: 100%;"></div>',
-                showCancelButton: true,
-                showConfirmButton: false,
-                cancelButtonText: 'Tutup',
-                didOpen: () => {
-                    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-                    html5QrCode = new Html5Qrcode("reader");
+            // Config: Full FPS for smoothness, auto-select environment camera
+            const config = {
+                fps: 15,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0,
+                showTorchButtonIfSupported: true
+            };
 
-                    html5QrCode.start(
-                        { facingMode: "environment" },
-                        config,
-                        (decodedText, decodedResult) => {
-                            // Success callback
-                            console.log(`Code matched = ${decodedText}`, decodedResult);
-                            html5QrCode.stop().then(() => {
-                                Swal.close();
-                                handleQrSuccess(decodedText);
-                            }).catch(err => console.log("Stop failed. ", err));
-                        },
-                        (errorMessage) => {
-                            // parse error, ignore it.
-                        })
-                        .catch(err => {
-                            Swal.fire('Error Camera', 'Gagal mengakses kamera.', 'error');
-                        });
-                },
-                willClose: () => {
-                    if (html5QrCode && html5QrCode.isScanning) {
-                        html5QrCode.stop().catch(err => console.log("Stop failed. ", err));
-                    }
-                }
+            html5QrCode.start(
+                { facingMode: "environment" },
+                config,
+                onScanSuccess,
+                onScanFailure
+            ).then(() => {
+                statusEl.innerText = "Kamera Aktif";
+                statusEl.classList.add("text-green-400");
+            }).catch(err => {
+                console.error(err);
+                statusEl.innerText = "Gagal Akses Kamera: " + err;
+                statusEl.classList.add("text-red-400");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error Kamera',
+                    text: 'Pastikan izin kamera diberikan.',
+                    confirmButtonText: 'Kembali',
+                }).then(() => {
+                    window.location.href = "{{ route('ustadz.dashboard') }}";
+                });
             });
         }
 
-        function handleQrSuccess(nis) {
-            console.log("QR NIS:", nis);
-            // Directly submit attendance with NIS
-            // Passing text 'QR' as credential ID dummy
-            submitAttendance(nis, { id: 'QR-SCAN' });
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Code matched = ${decodedText}`, decodedResult);
+
+            // Play Beep Sound (Optional)
+            // const audio = new Audio('/sounds/beep.mp3'); audio.play().catch(e=>{});
+
+            // Pause Scanner
+            if (html5QrCode) html5QrCode.pause();
+
+            const statusEl = document.getElementById('statusText');
+            statusEl.innerText = "Memproses: " + decodedText;
+
+            submitAttendance(decodedText);
         }
 
-        async function identifyUser() {
-            // DEBUG: Alert to confirm button click
-            // alert("Tombol diklik. Memulai scan...");
-            console.log("Starting identification...");
-
-            const btn = document.getElementById('btnScanIdentify');
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<span class="animate-spin material-icons-round text-2xl">sync</span> Mencari...';
-            btn.disabled = true;
-
-            try {
-                if (!window.PublicKeyCredential) {
-                    throw new Error("Perangkat tidak mendukung biometrik.");
-                }
-
-                // Call get() WITHOUT allowCredentials to trigger "Discoverable Credential" flow / Account Chooser
-                const credential = await navigator.credentials.get({
-                    publicKey: {
-                        challenge: new Uint8Array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]),
-                        rpId: window.location.hostname,
-                        userVerification: "required",
-                    }
-                });
-
-                // Extract User Handle (Santri ID)
-                const userHandleBuffer = credential.response.userHandle;
-                if (!userHandleBuffer) {
-                    throw new Error("Identitas tidak ditemukan dalam kredensial ini. Pastikan sidik jari sudah didaftarkan ulang.");
-                }
-
-                // Decode User Handle back to String ID
-                const santriId = new TextDecoder().decode(userHandleBuffer);
-                console.log("Identified Santri ID:", santriId);
-
-                // Authenticate & Submit
-                submitAttendance(santriId, credential);
-
-            } catch (error) {
-                console.error(error);
-                let msg = error.message || 'Terjadi kesalahan saat mendeteksi biometrik.';
-                if (error.name === 'NotAllowedError') msg = 'Scan dibatalkan atau waktu habis.';
-
-                Swal.fire('Scan Gagal', msg, 'error');
-                resetBtns();
-            }
+        function onScanFailure(error) {
+            // handle scan failure, usually better to ignore and keep scanning.
+            // console.warn(`Code scan error = ${error}`);
         }
 
-        async function submitAttendance(santriId, credential) {
+
+        async function submitAttendance(santriId) {
             try {
-                // Show loading on whichever button was pressed or global loading
+                // Show floating/sweetalert loading
                 Swal.fire({
                     title: 'Memproses...',
-                    text: 'Mencatat kehadiran santri ID/NIS: ' + santriId,
+                    text: 'NIS: ' + santriId,
                     allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
                     didOpen: () => {
                         Swal.showLoading();
                     }
@@ -207,41 +215,52 @@
                     },
                     body: JSON.stringify({
                         santri_id: santriId,
-                        latitude: null, // Optional for manual override
+                        latitude: null, // Optional
                         longitude: null,
-                        type: 'masuk', // Default to masuk
-                        credential_id: credential.id // Send credential ID for verification if needed
+                        type: 'masuk',
+                        credential_id: 'QR-SCAN'
                     })
                 });
 
                 const data = await response.json();
-                resetBtns();
 
                 if (data.success) {
                     Swal.fire({
                         title: 'Berhasil!',
-                        text: data.message + ' Input setoran hafalan sekarang?',
+                        text: data.message,
                         icon: 'success',
                         showCancelButton: true,
-                        confirmButtonText: 'Ya, Input',
-                        cancelButtonText: 'Tidak'
+                        confirmButtonText: 'Input Hafalan',
+                        cancelButtonText: 'Scan Lagi',
+                        reverseButtons: true
                     }).then((result) => {
                         if (result.isConfirmed) {
                             window.location.href = "{{ route('ustadz.hafalan.input') }}?santri_id=" + data.santri_user_id;
+                        } else {
+                            // Resume Scanner
+                            if (html5QrCode) html5QrCode.resume();
+                            document.getElementById('statusText').innerText = "Siap Scan...";
                         }
                     });
                 } else {
-                    Swal.fire('Gagal', data.message, 'error');
+                    Swal.fire({
+                        title: 'Gagal',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'Coba Lagi'
+                    }).then(() => {
+                        if (html5QrCode) html5QrCode.resume();
+                    });
                 }
             }
             catch (err) {
-                resetBtns();
                 console.error(err);
-                Swal.fire('Error', 'Terjadi kesalahan sistem.', 'error');
+                Swal.fire('Error Sistem', 'Terjadi kesalahan jaringan.', 'error').then(() => {
+                    if (html5QrCode) html5QrCode.resume();
+                });
             }
         }
     </script>
-
 </body>
 
 </html>
