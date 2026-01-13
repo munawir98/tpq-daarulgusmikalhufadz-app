@@ -431,7 +431,7 @@
     <div
         class="fixed bottom-0 left-0 w-full bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 px-6 pt-3 pb-3 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
         <div class="flex gap-3 max-w-sm mx-auto">
-            <a href="{{ route('ustadz.presensi.pdf') }}"
+            <a href="{{ route('ustadz.presensi.pdf', request()->query()) }}" id="exportPdfBtn"
                 class="flex-1 flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white p-3.5 rounded-xl font-semibold shadow-lg shadow-teal-500/20 transition-all active:scale-[0.98]">
                 <span class="material-icons-round text-xl leading-none">picture_as_pdf</span>
                 <span class="text-sm whitespace-nowrap">Cetak PDF</span>
@@ -655,6 +655,35 @@
 
         // Trigger 'all' filter initially to set styles
         filterStatus('all');
+
+        // PDF Loading State Logic
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        if (exportPdfBtn) {
+            exportPdfBtn.addEventListener('click', function (e) {
+                // Store original content
+                const originalContent = this.innerHTML;
+
+                // Change to loading state
+                this.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-sm whitespace-nowrap">Memuat PDF...</span>
+                `;
+
+                // Disable button
+                this.style.pointerEvents = 'none';
+                this.classList.add('opacity-75');
+
+                // Revert after 3 seconds (simulated download start)
+                setTimeout(() => {
+                    this.innerHTML = originalContent;
+                    this.style.pointerEvents = 'auto';
+                    this.classList.remove('opacity-75');
+                }, 3000);
+            });
+        }
     </script>
 
 </body>
