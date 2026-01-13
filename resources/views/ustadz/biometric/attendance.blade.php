@@ -83,17 +83,19 @@
 
         /* Essential for Camera Visibility */
         #reader video {
-            object-fit: cover !important;
-            width: 100% !important;
-            height: 100% !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            z-index: 0 !important;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
         }
 
         #reader canvas {
-            display: none !important;
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -101,7 +103,7 @@
 <body
     class="font-display bg-background-light dark:bg-background-dark min-h-screen overflow-hidden text-white selection:bg-primary/30">
     <!-- Camera Background (Replacing Image with #reader) -->
-    <div id="reader" class="fixed inset-0 z-0 bg-black"></div>
+    <div id="reader" class="fixed inset-0 z-0 bg-transparent"></div>
 
     <!-- UI Layer -->
     <div class="relative z-10 flex flex-col min-h-screen">
