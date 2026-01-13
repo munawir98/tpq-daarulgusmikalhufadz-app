@@ -45,17 +45,24 @@
             z-index: 1 !important;
         }
 
-        /* Hide Canvas (Library sometimes draws on it but we want raw video) */
+        /* Hide Canvas visually but keep it in DOM (opacity 0) to prevent lib errors */
         #reader canvas {
-            display: none !important;
+            opacity: 0 !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            pointer-events: none !important;
+            z-index: 2 !important;
         }
     </style>
 </head>
 
-<body class="bg-black min-h-screen overflow-hidden m-0 p-0">
+<body class="bg-gray-900 min-h-screen overflow-hidden m-0 p-0">
 
     <!-- Scanner Container (Full Screen) -->
-    <div id="reader" class="w-full h-full absolute inset-0 bg-black"></div>
+    <div id="reader" class="w-full h-full absolute inset-0 bg-transparent"></div>
 
     <!-- UI Overlay -->
     <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
