@@ -94,8 +94,8 @@
             class="absolute top-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Bottom -->
-        <div
-            class="absolute bottom-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
+        <div class="absolute bottom-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40"
+            style="background-color: rgba(0, 0, 0, 0.8) !important;">
         </div>
         <!-- Left -->
         <div
@@ -165,7 +165,7 @@
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
             <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
-                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.1)</p>
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.2)</p>
             </div>
         </div>
 
