@@ -78,7 +78,7 @@
         <!-- 4-Div Physical Overlay -->
         <!-- Top -->
         <div
-            class="absolute top-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-transparent pointer-events-none z-40">
+            class="absolute top-0 left-0 right-0 h-[calc(50%-140px)] sm:h-[calc(50%-160px)] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Bottom -->
         <div
@@ -86,11 +86,11 @@
         </div>
         <!-- Left -->
         <div
-            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-transparent pointer-events-none z-40">
+            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
         <!-- Right -->
         <div
-            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-transparent pointer-events-none z-40">
+            class="absolute top-[calc(50%-140px)] sm:top-[calc(50%-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/80 pointer-events-none z-40">
         </div>
 
         <!-- Scan Frame (The "Visuals") -->
