@@ -58,6 +58,9 @@
         <!-- Scan Frame (The "Hole") -->
         <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content">
 
+            <!-- Darken Area Outside (Box Shadow Trick) -->
+            <div class="absolute -inset-[100vh] border-[100vh] border-black/60 pointer-events-none"></div>
+
             <!-- Corner Indicators (WA Style) -->
             <!-- Top Left -->
             <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm">
