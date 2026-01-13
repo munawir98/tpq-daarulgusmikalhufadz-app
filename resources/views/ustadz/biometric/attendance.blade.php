@@ -151,9 +151,8 @@
 
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
-            <div class="inline-block px-6 py-3">
-                <p class="text-white text-xs font-mono drop-shadow-lg font-bold" id="statusText">Mendeteksi Kamera...
-                </p>
+            <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
+                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera...</p>
             </div>
         </div>
 
