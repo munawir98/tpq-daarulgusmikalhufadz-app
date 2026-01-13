@@ -140,7 +140,7 @@
             // Config: Full FPS for smoothness, auto-select environment camera
             const config = {
                 fps: 15,
-                qrbox: { width: 250, height: 250 },
+                // qrbox: { width: 250, height: 250 }, // Removed to prevent double overlay
                 aspectRatio: 1.0,
                 showTorchButtonIfSupported: true
             };
