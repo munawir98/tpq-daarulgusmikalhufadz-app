@@ -150,9 +150,18 @@
                             Kelas {{ $santri->kelas->nama_kelas ?? 'Belum ada' }}
                         </div>
                     </div>
-                    <button class="text-slate-300 group-hover:text-teal-500 transition-colors">
-                        <span class="material-icons-round">chevron_right</span>
-                    </button>
+                    <div class="flex gap-2">
+                        <!-- Print QR Button -->
+                        <button
+                            onclick="event.stopPropagation(); window.open('{{ route('admin.santri.print', $santri->id) }}', '_blank')"
+                            class="p-2 bg-blue-50 text-blue-600 rounded-xl hover:bg-blue-100 transition-colors"
+                            title="Cetak Kartu">
+                            <span class="material-icons-round text-lg">qr_code</span>
+                        </button>
+                        <button class="text-slate-300 group-hover:text-teal-500 transition-colors">
+                            <span class="material-icons-round">chevron_right</span>
+                        </button>
+                    </div>
                 </div>
                 @empty
                 <div class="text-center p-8 text-gray-500">

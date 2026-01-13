@@ -471,6 +471,7 @@ Route::middleware(['web.auth', 'role.web:ADMIN'])
             Route::get('/{id}/edit', [SantriWebController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SantriWebController::class, 'update'])->name('update');
             Route::delete('/{id}', [SantriWebController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/print', [SantriWebController::class, 'printCard'])->name('print');
         });
 
         // Ustadz Management

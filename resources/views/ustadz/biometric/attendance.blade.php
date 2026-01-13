@@ -64,10 +64,15 @@
         </div>
 
         <!-- Main Action Button (Scan First) -->
-        <button id="btnScanIdentify" onclick="identifyUser()"
-            class="w-full py-5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl font-bold shadow-lg shadow-green-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
-            <span class="material-icons-round text-3xl">sensors</span>
-            <span class="text-lg">Scan Sidik Jari</span>
+        <span class="material-icons-round text-3xl">sensors</span>
+        <span class="text-lg">Scan Sidik Jari</span>
+        </button>
+
+        <!-- Scan QR Button -->
+        <button id="btnScanQr" onclick="startQrScan()"
+            class="mt-4 w-full py-5 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white rounded-2xl font-bold shadow-lg shadow-blue-500/30 transition-all transform active:scale-95 flex items-center justify-center gap-3">
+            <span class="material-icons-round text-3xl">qr_code_scanner</span>
+            <span class="text-lg">Scan QR Code</span>
         </button>
 
         <!-- Register Link Button -->
@@ -79,11 +84,73 @@
 
     </div>
 
+    <!-- HTML5-QRcode Library -->
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
     <script>
+        // Global variables for QR
+        let html5QrCode;
+        let isQrMode = false;
+
         function resetBtns() {
             const btn = document.getElementById('btnScanIdentify');
+            const btnQr = document.getElementById('btnScanQr');
+
             btn.innerHTML = '<span class="material-icons-round text-3xl">sensors</span> <span class="text-lg">Scan Sidik Jari</span>';
             btn.disabled = false;
+
+            if (btnQr) {
+                btnQr.innerHTML = '<span class="material-icons-round text-3xl">qr_code_scanner</span> <span class="text-lg">Scan QR Code</span>';
+                btnQr.disabled = false;
+            }
+        }
+
+        // Toggle between Fingerprint and QR Mode (Optional UI switch if needed,
+        // or just have two buttons. Here we add a second button).
+
+        async function startQrScan() {
+            // UI Setup
+            Swal.fire({
+                title: 'Scan QR Code Santri',
+                html: '<div id="reader" style="width: 100%;"></div>',
+                showCancelButton: true,
+                showConfirmButton: false,
+                cancelButtonText: 'Tutup',
+                didOpen: () => {
+                    const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+                    html5QrCode = new Html5Qrcode("reader");
+
+                    html5QrCode.start(
+                        { facingMode: "environment" },
+                        config,
+                        (decodedText, decodedResult) => {
+                            // Success callback
+                            console.log(`Code matched = ${decodedText}`, decodedResult);
+                            html5QrCode.stop().then(() => {
+                                Swal.close();
+                                handleQrSuccess(decodedText);
+                            }).catch(err => console.log("Stop failed. ", err));
+                        },
+                        (errorMessage) => {
+                            // parse error, ignore it.
+                        })
+                        .catch(err => {
+                            Swal.fire('Error Camera', 'Gagal mengakses kamera.', 'error');
+                        });
+                },
+                willClose: () => {
+                    if (html5QrCode && html5QrCode.isScanning) {
+                        html5QrCode.stop().catch(err => console.log("Stop failed. ", err));
+                    }
+                }
+            });
+        }
+
+        function handleQrSuccess(nis) {
+            console.log("QR NIS:", nis);
+            // Directly submit attendance with NIS
+            // Passing text 'QR' as credential ID dummy
+            submitAttendance(nis, { id: 'QR-SCAN' });
         }
 
         async function identifyUser() {
@@ -135,6 +202,16 @@
 
         async function submitAttendance(santriId, credential) {
             try {
+                // Show loading on whichever button was pressed or global loading
+                Swal.fire({
+                    title: 'Memproses...',
+                    text: 'Mencatat kehadiran santri ID/NIS: ' + santriId,
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
                 const response = await fetch("{{ route('ustadz.biometric.submit') }}", {
                     method: 'POST',
                     headers: {

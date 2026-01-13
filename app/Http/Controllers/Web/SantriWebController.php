@@ -73,4 +73,17 @@ class SantriWebController extends Controller
         // TODO: Implement delete logic
         return redirect()->route('admin.santri.index')->with('success', 'Santri berhasil dihapus');
     }
+
+    /**
+     * Print Santri Card with QR Code
+     */
+    public function printCard($id)
+    {
+        $santri = \App\Models\Santri::with('kelas')->findOrFail($id);
+
+        // Ensure NIS exists, fallback to ID if needed (though NIS is preferred)
+        $code = $santri->nis;
+
+        return view('admin.santri.card', ['santri' => $santri, 'code' => $code]);
+    }
 }
