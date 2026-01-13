@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan Absen Santri</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -17,7 +17,7 @@
 
     <style>
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .select2-container .select2-selection--single {
@@ -184,8 +184,11 @@
 
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
-            <div class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-block border border-white/10">
-                <p class="text-white text-xs font-mono" id="statusText">Mendeteksi Kamera... (v2.9)</p>
+            <div
+                class="bg-black/40 backdrop-blur-md px-6 py-3 rounded-full inline-flex items-center gap-2 border border-white/10">
+                <span id="statusDot"
+                    class="w-2 h-2 bg-red-500 rounded-full animate-pulse transition-colors duration-300"></span>
+                <p class="text-white text-xs font-medium tracking-wide" id="statusText">Mendeteksi Kamera... (v3.0)</p>
             </div>
         </div>
 
@@ -243,11 +246,13 @@
                 onScanFailure
             ).then(() => {
                 statusEl.innerText = "Kamera Aktif";
-                statusEl.classList.add("text-green-400");
+                // Keep the dot red blinking, or maybe change to green? User asked for red blinking.
+                // Let's keep it red blinking as per "text kamera aktif ada titik merah kedap kedip"
+                // No change needed to dot class if we want it red.
             }).catch(err => {
                 console.error(err);
                 statusEl.innerText = "Gagal Akses Kamera: " + err;
-                statusEl.classList.add("text-red-400");
+                document.getElementById('statusDot').classList.replace('bg-red-500', 'bg-gray-500'); // Turn grey on error
                 Swal.fire({
                     icon: 'error',
                     title: 'Error Kamera',
