@@ -33,6 +33,14 @@
             top: 12px;
             right: 12px;
         }
+
+        /* Force Video to Cover Screen */
+        #reader video {
+            object-fit: cover !important;
+            width: 100% !important;
+            height: 100% !important;
+            border-radius: 0 !important;
+        }
     </style>
 </head>
 
