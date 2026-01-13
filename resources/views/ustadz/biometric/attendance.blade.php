@@ -56,10 +56,8 @@
 
 
         <!-- Scan Frame (The "Hole") -->
-        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content">
-
-            <!-- Darken Area Outside (Box Shadow Trick) -->
-            <div class="absolute -inset-[100vh] border-[100vh] border-black/60 pointer-events-none"></div>
+        <div
+            class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content shadow-[0_0_0_9999px_rgba(0,0,0,0.6)] rounded-lg">
 
             <!-- Corner Indicators (WA Style) -->
             <!-- Top Left -->
@@ -144,7 +142,7 @@
             const config = {
                 fps: 15,
                 // qrbox: { width: 250, height: 250 }, // Removed to prevent double overlay
-                aspectRatio: 1.0,
+                // aspectRatio: 1.0, // Removed to allow full screen
                 showTorchButtonIfSupported: true
             };
 
