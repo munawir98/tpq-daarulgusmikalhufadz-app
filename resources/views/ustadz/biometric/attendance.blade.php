@@ -44,11 +44,7 @@
     <!-- UI Overlay -->
     <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
 
-        <!-- Back Button (Floating) -->
-        <a href="{{ route('ustadz.dashboard') }}"
-            class="pointer-events-auto absolute top-6 left-6 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white hover:bg-black/60 transition-all z-50">
-            <span class="material-icons-round">arrow_back</span>
-        </a>
+
 
         <!-- Scanner Title/Instruction -->
         <div class="absolute top-8 left-0 right-0 text-center pointer-events-none z-40">
@@ -56,35 +52,7 @@
             <p class="text-white/80 text-xs drop-shadow-md">Arahkan kamera ke QR Code</p>
         </div>
 
-        <!-- Scan Frame (The "Hole") -->
-        <!-- We use a border trick or box-shadow trick to darken outside.
-             Here: SVG Overlay or heavy border is robust. Let's use CSS box-shadow for simplicity and performance. -->
-        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] border-2 border-transparent box-content">
 
-            <!-- Darken Area Outside (Box Shadow Trick) -->
-            <div class="absolute -inset-[100vh] border-[100vh] border-black/60 pointer-events-none"></div>
-
-            <!-- Corner Indicators (WA Style) -->
-            <!-- Top Left -->
-            <div class="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-white rounded-tl-lg drop-shadow-sm">
-            </div>
-            <!-- Top Right -->
-            <div class="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-white rounded-tr-lg drop-shadow-sm">
-            </div>
-            <!-- Bottom Left -->
-            <div
-                class="absolute bottom-0 left-0 w-8 h-8 border-b-4 border-l-4 border-white rounded-bl-lg drop-shadow-sm">
-            </div>
-            <!-- Bottom Right -->
-            <div
-                class="absolute bottom-0 right-0 w-8 h-8 border-b-4 border-r-4 border-white rounded-br-lg drop-shadow-sm">
-            </div>
-
-            <!-- Animated Red Laser -->
-            <div
-                class="absolute top-0 left-4 right-4 h-0.5 bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.8)] animate-scan-laser">
-            </div>
-        </div>
 
         <!-- Bottom Status -->
         <div class="absolute bottom-12 text-center w-full px-6 z-40">
@@ -95,36 +63,7 @@
 
     </div>
 
-    <!-- CSS for Laser Animation -->
-    <style>
-        @keyframes scan-laser {
-            0% {
-                top: 10px;
-                opacity: 0;
-            }
 
-            10% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.8;
-            }
-
-            90% {
-                opacity: 1;
-            }
-
-            100% {
-                top: calc(100% - 10px);
-                opacity: 0;
-            }
-        }
-
-        .animate-scan-laser {
-            animation: scan-laser 2s ease-in-out infinite;
-        }
-    </style>
 
     <!-- HTML5-QRcode Library -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
