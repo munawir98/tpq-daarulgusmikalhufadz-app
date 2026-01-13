@@ -71,21 +71,26 @@
 
 
 
-        <!-- SVG Overlay with Hole -->
-        <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <mask id="hole-mask">
-                    <rect width="100%" height="100%" fill="white" />
-                    <!-- The hole: Centered -->
-                    <rect x="50%" y="50%" width="280" height="280" rx="30" ry="30" transform="translate(-140, -140)"
-                        fill="black" />
-                </mask>
-            </defs>
-            <rect width="100%" height="100%" fill="rgba(0,0,0,0.6)" mask="url(#hole-mask)" />
-        </svg>
+        <!-- 4-Div Physical Overlay -->
+        <!-- Top -->
+        <div
+            class="absolute top-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/60 pointer-events-none z-20">
+        </div>
+        <!-- Bottom -->
+        <div
+            class="absolute bottom-0 left-0 right-0 h-[calc(50vh-140px)] sm:h-[calc(50vh-160px)] bg-black/60 pointer-events-none z-20">
+        </div>
+        <!-- Left -->
+        <div
+            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] left-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/60 pointer-events-none z-20">
+        </div>
+        <!-- Right -->
+        <div
+            class="absolute top-[calc(50vh-140px)] sm:top-[calc(50vh-160px)] right-0 w-[calc(50vw-140px)] sm:w-[calc(50vw-160px)] h-[280px] sm:h-[320px] bg-black/60 pointer-events-none z-20">
+        </div>
 
         <!-- Scan Frame (The "Visuals") -->
-        <div class="relative w-[280px] h-[280px] box-content z-30">
+        <div class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content z-30">
 
             <!-- Corner Indicators (WA Style) -->
             <!-- Top Left -->
