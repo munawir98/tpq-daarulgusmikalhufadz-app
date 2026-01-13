@@ -139,13 +139,16 @@
 
             <div class="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
                 <strong class="block text-gray-800 dark:text-gray-200 mb-1">🤖 Android (Google Chrome)</strong>
+                <p class="text-[10px] text-gray-500 mb-2">Jika tidak ketemu di Pengaturan HP, coba cek di Pengaturan
+                    Chrome:</p>
                 <ol class="list-decimal list-inside text-xs space-y-1">
-                    <li>Buka <strong>Pengaturan (Settings)</strong> HP</li>
-                    <li>Pilih menu <strong>Google</strong> > <strong>Isi Otomatis (Autofill)</strong></li>
-                    <li>Pilih <strong>Isi Otomatis dengan Google</strong></li>
-                    <li>Pilih <strong>Pengelola Kata Sandi (Google Password Manager)</strong></li>
-                    <li>Cari "TPQ" atau alamat website ini</li>
-                    <li>Pilih akun lama dan hapus.</li>
+                    <li>Buka aplikasi <strong>Chrome</strong> di HP.</li>
+                    <li>Klik titik tiga di pojok kanan atas > <strong>Setelan (Settings)</strong>.</li>
+                    <li>Pilih <strong>Pengelola Kata Sandi</strong>.</li>
+                    <li>Jika masih tidak ada, coba ketik di address bar: <br>
+                        <code class="bg-gray-200 px-1 rounded">chrome://settings/passkeys</code>
+                    </li>
+                    <li>Hapus kunci sandi (passkey) yang tidak diinginkan.</li>
                 </ol>
             </div>
 
