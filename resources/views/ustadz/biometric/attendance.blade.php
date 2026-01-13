@@ -35,16 +35,19 @@
         }
 
         /* Force Video to Cover Screen */
-        /* Force Video to Cover Screen */
-        #reader video,
-        #reader canvas {
+        #reader video {
             object-fit: cover !important;
             width: 100% !important;
             height: 100% !important;
             position: absolute !important;
             top: 0 !important;
             left: 0 !important;
-            z-index: 0 !important;
+            z-index: 1 !important;
+        }
+
+        /* Hide Canvas (Library sometimes draws on it but we want raw video) */
+        #reader canvas {
+            display: none !important;
         }
     </style>
 </head>
@@ -68,9 +71,21 @@
 
 
 
-        <!-- Scan Frame (The "Hole") -->
-        <div
-            class="relative w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] box-content shadow-[0_0_0_9999px_rgba(0,0,0,0.6)] rounded-3xl bg-transparent">
+        <!-- SVG Overlay with Hole -->
+        <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <mask id="hole-mask">
+                    <rect width="100%" height="100%" fill="white" />
+                    <!-- The hole: Centered -->
+                    <rect x="50%" y="50%" width="280" height="280" rx="30" ry="30" transform="translate(-140, -140)"
+                        fill="black" />
+                </mask>
+            </defs>
+            <rect width="100%" height="100%" fill="rgba(0,0,0,0.6)" mask="url(#hole-mask)" />
+        </svg>
+
+        <!-- Scan Frame (The "Visuals") -->
+        <div class="relative w-[280px] h-[280px] box-content z-30">
 
             <!-- Corner Indicators (WA Style) -->
             <!-- Top Left -->
