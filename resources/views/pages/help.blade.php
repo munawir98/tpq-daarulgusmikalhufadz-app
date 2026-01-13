@@ -161,6 +161,16 @@
                     <li>Geser ke kiri pada akun lama, lalu klik <strong>Hapus</strong>.</li>
                 </ol>
             </div>
+            <div class="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl border border-gray-100 dark:border-gray-700">
+                <strong class="block text-gray-800 dark:text-gray-200 mb-1">💻 Windows (Laptop/PC)</strong>
+                <ol class="list-decimal list-inside text-xs space-y-1">
+                    <li>Buka <strong>Settings</strong> di Windows.</li>
+                    <li>Pilih menu <strong>Accounts</strong> > <strong>Sign-in options</strong>.</li>
+                    <li>Klik <strong>Security Key</strong> (atau Kunci Keamanan) > <strong>Manage</strong>.</li>
+                    <li>Pilih <strong>Manage</strong> (Masukkan PIN/Sidik jari jika diminta).</li>
+                    <li>Pilih kredensial "TPQ" dan klik <strong>Delete/Remove</strong>.</li>
+                </ol>
+            </div>
         </div>
     </details>
 </div>
