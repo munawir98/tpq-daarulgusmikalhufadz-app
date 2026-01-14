@@ -101,7 +101,7 @@
                 <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded-full">3
                     Tersedia</span>
             </div>
-            <div class="grid grid-cols-3 gap-2 px-4">
+            <div id="template-grid" class="grid grid-cols-3 gap-2 px-4">
                 <button
                     class="flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-2 text-[11px] font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
                     <span class="material-symbols-outlined text-base">event_busy</span>
@@ -186,7 +186,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             'pertemuan': "Assalamu'alaikum Warahmatullahi Wabarakatuh,\nBpk. Ridwan, kami mengundang Bapak untuk hadir dalam pertemuan wali santri di TPQ Daarul Gusmik pada hari Ahad, pukul 09.00 WIB.\nMohon kehadirannya. Terima kasih."
         };
 
-        const templateButtons = document.querySelectorAll('.grid button');
+        const templateButtons = document.querySelectorAll('#template-grid button');
         templateButtons.forEach((btn, index) => {
             btn.addEventListener('click', () => {
                 // Update active state
