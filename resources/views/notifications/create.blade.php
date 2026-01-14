@@ -103,7 +103,7 @@
             </div>
             <div id="template-list" class="flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
                 <button style="width: 125px; flex: 0 0 125px;"
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-0 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-0 text-xs font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base">event_busy</span>
                     Absensi
                 </button>
@@ -192,7 +192,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                 // Update active state
                 templateButtons.forEach(b => {
                     // Reset to inactive state
-                    b.classList.remove('bg-primary', 'ring-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+                    b.classList.remove('bg-primary', 'ring-primary', 'text-white');
                     b.classList.add('bg-white', 'ring-slate-200', 'text-slate-600');
 
                     // Reset icon
@@ -203,7 +203,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
 
                 // Set active state
                 btn.classList.remove('bg-white', 'ring-slate-200', 'text-slate-600');
-                btn.classList.add('bg-primary', 'ring-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+                btn.classList.add('bg-primary', 'ring-primary', 'text-white');
 
                 // Set active icon
                 const activeIcon = btn.querySelector('span');
