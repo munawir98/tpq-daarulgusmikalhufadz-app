@@ -32,6 +32,9 @@ class NotificationWebController extends Controller
     public function index(Request $request)
     {
             $user = auth()->user();
+            if (!$user) {
+                return redirect()->route('login.form');
+            }
             $query = $user->notifications();
 
             // Search
