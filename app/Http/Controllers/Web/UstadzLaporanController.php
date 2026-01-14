@@ -70,7 +70,7 @@ class UstadzLaporanController extends Controller
         $presensiCount = Presensi::where('user_id', $user->id)
                                 ->whereMonth('created_at', $month)
                                 ->whereYear('created_at', $year)
-                                ->where('status', 'HADIR')
+                                ->where('status_presensi', 'HADIR')
                                 ->count();
 
         $tarifHadir = 15000;
