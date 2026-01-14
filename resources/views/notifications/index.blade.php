@@ -234,8 +234,11 @@
             <p class="text-[#4e7397] dark:text-slate-400 mt-2">Data notifikasi yang Anda cari tidak ditemukan di server.
             </p>
         </div>
-        <!-- Bottom Navigation -->
-        @include('layouts.partials.bottom-nav')
+        <!-- FAB for New Notification -->
+        <button
+            class="fixed bottom-8 right-8 flex size-12 items-center justify-center rounded-full bg-primary text-white shadow-xl hover:scale-105 active:scale-95 transition-all">
+            <span class="material-symbols-outlined">add_comment</span>
+        </button>
         <!-- Safe Area Spacer -->
         <div class="h-20 w-full"></div>
     </div>
