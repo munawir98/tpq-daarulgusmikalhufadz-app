@@ -125,6 +125,12 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.env') === 'production' || app()->environment('production')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
+
+        // Share unread notifications count with header
+        \Illuminate\Support\Facades\View::composer('layouts.partials.header', function ($view) {
+            $unreadCount = auth()->check() ? auth()->user()->unreadNotifications()->count() : 0;
+            $view->with('unreadNotifications', $unreadCount);
+        });
     }
 
 }

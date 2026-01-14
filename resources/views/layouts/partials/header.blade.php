@@ -16,7 +16,9 @@
                     style="font-size: 24px;">notifications</span>
                 @if(isset($unreadNotifications) && $unreadNotifications > 0)
                 <span
-                    class="absolute top-2 right-2.5 size-2 bg-red-500 rounded-full border border-white dark:border-gray-800"></span>
+                    class="absolute -top-1 -right-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-bold text-white border-2 border-white dark:border-gray-800 shadow-sm">
+                    {{ $unreadNotifications > 99 ? '99+' : $unreadNotifications }}
+                </span>
                 @endif
             </a>
             {{-- Profile Avatar --}}
