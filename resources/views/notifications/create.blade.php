@@ -101,19 +101,19 @@
                 <span class="text-[10px] font-medium text-primary bg-primary/5 px-2 py-0.5 rounded-full">3
                     Tersedia</span>
             </div>
-            <div class="flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
+            <div class="grid grid-cols-3 gap-2 px-4">
                 <button
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-4 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
+                    class="flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-2 text-[11px] font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
                     <span class="material-symbols-outlined text-base">event_busy</span>
                     Absensi
                 </button>
                 <button
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap">
+                    class="flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-2 text-[11px] font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">medical_services</span>
                     Izin Sakit
                 </button>
                 <button
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap">
+                    class="flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-2 text-[11px] font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">groups</span>
                     Pertemuan
                 </button>
@@ -186,15 +186,15 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             'pertemuan': "Assalamu'alaikum Warahmatullahi Wabarakatuh,\nBpk. Ridwan, kami mengundang Bapak untuk hadir dalam pertemuan wali santri di TPQ Daarul Gusmik pada hari Ahad, pukul 09.00 WIB.\nMohon kehadirannya. Terima kasih."
         };
 
-        const templateButtons = document.querySelectorAll('.overflow-x-auto button');
+        const templateButtons = document.querySelectorAll('.grid button');
         templateButtons.forEach((btn, index) => {
             btn.addEventListener('click', () => {
                 // Update active state
                 templateButtons.forEach(b => {
-                    b.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap';
+                    b.className = 'flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-2 text-[11px] font-semibold whitespace-nowrap';
                     b.querySelector('span').className = 'material-symbols-outlined text-base text-slate-400';
                 });
-                btn.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-4 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
+                btn.className = 'flex h-9 w-full items-center justify-center gap-x-1 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-2 text-[11px] font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
                 btn.querySelector('span').className = 'material-symbols-outlined text-base';
 
                 // Set content
