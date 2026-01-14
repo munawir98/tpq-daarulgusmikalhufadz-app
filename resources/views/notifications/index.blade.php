@@ -53,10 +53,10 @@
         <!-- Header -->
         <header
             class="sticky top-0 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-slate-100 dark:border-slate-800">
-            <button onclick="history.back()"
+            <a href="{{ route('ustadz.dashboard') }}"
                 class="text-primary flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                 <span class="material-symbols-outlined text-[20px]">arrow_back_ios</span>
-            </button>
+            </a>
             <h1
                 class="text-[#0e141b] dark:text-white text-base font-semibold leading-tight tracking-tight flex-1 text-center pr-10">
                 Riwayat Notifikasi</h1>
@@ -85,25 +85,25 @@
         <!-- Filter Chips -->
         <div class="flex gap-2 px-4 pb-4 overflow-x-auto no-scrollbar">
             <a href="{{ route('ustadz.notifications.index', ['search' => request('search')]) }}"
-                class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ !$currentFilter ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
+                class="filter-link flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ !$currentFilter ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
                 <p class="text-xs font-medium leading-normal">Semua</p>
             </a>
             <a href="{{ route('ustadz.notifications.index', ['filter' => 'sent', 'search' => request('search')]) }}"
-                class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'sent' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
+                class="filter-link flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'sent' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
                 <p class="text-xs font-medium leading-normal">Terkirim</p>
             </a>
             <a href="{{ route('ustadz.notifications.index', ['filter' => 'read', 'search' => request('search')]) }}"
-                class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'read' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
+                class="filter-link flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'read' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
                 <p class="text-xs font-medium leading-normal">Dibaca</p>
             </a>
             <a href="{{ route('ustadz.notifications.index', ['filter' => 'failed', 'search' => request('search')]) }}"
-                class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'failed' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
+                class="filter-link flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full px-4 {{ $currentFilter == 'failed' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-[#e7edf3] dark:bg-slate-800 text-[#0e141b] dark:text-slate-300' }}">
                 <p class="text-xs font-medium leading-normal">Gagal</p>
             </a>
         </div>
 
         <!-- History List -->
-        <main class="flex-1 flex flex-col gap-1 px-2">
+        <main id="notification-list" class="flex-1 flex flex-col gap-1 px-2">
             @forelse($notifications as $notification)
             @php
             $data = $notification['data'] ?? [];
@@ -207,6 +207,48 @@
 
 
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterLinks = document.querySelectorAll('.filter-link');
+            const listContainer = document.getElementById('notification-list');
+
+            filterLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Update Active State Visuals
+                    filterLinks.forEach(l => {
+                        l.classList.remove('bg-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+                        l.classList.add('bg-[#e7edf3]', 'dark:bg-slate-800', 'text-[#0e141b]', 'dark:text-slate-300');
+                    });
+                    this.classList.remove('bg-[#e7edf3]', 'dark:bg-slate-800', 'text-[#0e141b]', 'dark:text-slate-300');
+                    this.classList.add('bg-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+
+                    // Show Loading State
+                    listContainer.innerHTML = `
+                        <div class="flex flex-col items-center justify-center py-10">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                            <p class="mt-2 text-xs text-slate-400">Memuat...</p>
+                        </div>
+                    `;
+
+                    // Fetch Content
+                    fetch(this.href)
+                        .then(response => response.text())
+                        .then(html => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, 'text/html');
+                            const newContent = doc.getElementById('notification-list').innerHTML;
+                            listContainer.innerHTML = newContent;
+                        })
+                        .catch(err => {
+                            console.error('Error loading notifications:', err);
+                            listContainer.innerHTML = '<p class="text-center text-red-500 py-4 text-xs">Gagal memuat data.</p>';
+                        });
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
