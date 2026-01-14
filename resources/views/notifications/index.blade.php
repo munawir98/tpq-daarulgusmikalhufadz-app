@@ -174,14 +174,15 @@
             @empty
             <!-- Empty State -->
             <!-- Empty State -->
-            <div class="flex-1 flex flex-col items-center justify-center p-6 text-center min-h-[30vh]">
-                <div class="w-32 h-32 mb-4 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center">
+            <div class="flex-1 flex flex-col items-center justify-center p-4 text-center">
+                <div class="w-16 h-16 mb-2 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center">
                     <span
-                        class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-6xl">notifications_off</span>
+                        class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-3xl">notifications_off</span>
                 </div>
-                <h3 class="text-base font-bold text-[#0e141b] dark:text-white">Tidak ada riwayat</h3>
-                <p class="text-[#4e7397] dark:text-slate-400 mt-1 text-sm">Belum ada notifikasi{{ request('search') ? '
-                    yang cocok dengan pencarian' : '' }}.
+                <h3 class="text-xs font-bold text-[#0e141b] dark:text-white">Tidak ada riwayat</h3>
+                <p class="text-[#4e7397] dark:text-slate-400 mt-1 text-[10px]">Belum ada notifikasi{{ request('search')
+                    ? '
+                    yang cocok' : '' }}.
                 </p>
             </div>
             @endforelse
