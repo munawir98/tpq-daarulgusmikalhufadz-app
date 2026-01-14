@@ -131,7 +131,7 @@
 Bpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.
 Mohon konfirmasinya. Terima kasih.</textarea>
                 <div class="bg-slate-50 px-4 py-3 border-t border-slate-100 flex justify-end items-center">
-                    <button
+                    <button id="reset-message"
                         class="text-primary text-[10px] font-bold flex items-center gap-1 px-2 py-1 hover:bg-primary/5 rounded">
                         <span class="material-symbols-outlined text-sm">restart_alt</span>
                         Reset
@@ -170,12 +170,14 @@ Mohon konfirmasinya. Terima kasih.</textarea>
 
     <script>
         const messageInput = document.querySelector('textarea');
-        const resetButton = document.querySelector('.text-primary.text-xs');
+        const resetButton = document.getElementById('reset-message');
 
         // Reset message
-        resetButton.addEventListener('click', () => {
-            messageInput.value = '';
-        });
+        if (resetButton) {
+            resetButton.addEventListener('click', () => {
+                messageInput.value = '';
+            });
+        }
 
         // Templates
         const templates = {
@@ -189,7 +191,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             btn.addEventListener('click', () => {
                 // Update active state
                 templateButtons.forEach(b => {
-                    b.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-medium whitespace-nowrap';
+                    b.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap';
                     b.querySelector('span').className = 'material-symbols-outlined text-base text-slate-400';
                 });
                 btn.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-4 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
