@@ -62,7 +62,7 @@
                 Detail Notifikasi</h2>
         </div>
     </header>
-    <main class="flex-1 overflow-y-auto pb-24">
+    <main class="flex-1 overflow-y-auto pb-0">
         <!-- Student & Parent Information -->
         <section class="mt-4 px-4">
             <div
