@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Rincian Bisyaroh Saya</title>
+    <title>Rincian Keuangan</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap"
         rel="stylesheet" />
@@ -62,7 +62,7 @@
     <header
         class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div class="flex items-center px-4 h-14 relative justify-center">
-            <h2 class="text-lg font-bold leading-tight tracking-tight text-center">Rincian Bisyaroh Saya</h2>
+            <h2 class="text-lg font-bold leading-tight tracking-tight text-center">Rincian Keuangan</h2>
             <button class="text-primary absolute right-4">
                 <span class="material-symbols-outlined text-[22px]">info</span>
             </button>
@@ -122,40 +122,51 @@
                     </div>
                     <p class="font-bold">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
                 </div>
-                <div
-                    class="flex flex-col p-4 border-b border-slate-100 dark:border-slate-800 bg-blue-50/30 dark:bg-blue-900/10">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="size-10 bg-green-50 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600">
-                                <span class="material-symbols-outlined">event_available</span>
-                            </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <p class="font-bold text-sm">Tunjangan Kehadiran</p>
-                                    <span
-                                        class="px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/50 text-[10px] font-bold text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800 uppercase">Presensi</span>
-                                </div>
-                                <p class="text-xs text-slate-500 mt-0.5">{{ $presensiCount }} Hari Hadir × Rp {{
-                                    number_format($tarifHadir, 0, ',', '.') }}</p>
-                            </div>
-                        </div>
-                        <p class="font-bold">Rp {{ number_format($tunjanganHadir, 0, ',', '.') }}</p>
+
+                <!-- Calendar Section -->
+                <div class="p-4 bg-slate-50/50 dark:bg-slate-800/20">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="text-xs font-bold uppercase text-slate-500">Data Kehadiran</h4>
+                        <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
+                            $presensiCount }} Hari Hadir</span>
                     </div>
-                </div>
-                <div class="flex items-center justify-between p-4">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="size-10 bg-amber-50 dark:bg-amber-900/30 rounded-full flex items-center justify-center text-amber-600">
-                            <span class="material-symbols-outlined">workspace_premium</span>
-                        </div>
-                        <div>
-                            <p class="font-bold text-sm">Bonus Hafalan</p>
-                            <p class="text-xs text-slate-500">Estimasi bonus prestasi</p>
-                        </div>
+
+                    @php
+                    $daysInMonth = \Carbon\Carbon::createFromDate($year, $month)->daysInMonth;
+                    $attendanceMap = [];
+                    foreach($presensiDetails as $detail) {
+                    // Extract day from date
+                    $d = \Carbon\Carbon::parse($detail->tanggal)->day;
+                    $attendanceMap[$d] = true;
+                    }
+                    @endphp
+
+                    <div class="grid grid-cols-7 gap-2 text-center">
+                        <span class="text-[10px] font-bold text-slate-400">Sn</span>
+                        <span class="text-[10px] font-bold text-slate-400">Sl</span>
+                        <span class="text-[10px] font-bold text-slate-400">Rb</span>
+                        <span class="text-[10px] font-bold text-slate-400">Km</span>
+                        <span class="text-[10px] font-bold text-slate-400">Jm</span>
+                        <span class="text-[10px] font-bold text-slate-400">Sb</span>
+                        <span class="text-[10px] font-bold text-slate-400">Mg</span>
+
+                        {{-- Empty slots for start of month --}}
+                        @php
+                        $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso; // 1 (Mon) - 7
+                        (Sun)
+                        @endphp
+                        @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span>
+                            @endfor
+
+                            {{-- Days --}}
+                            @for($day = 1; $day <= $daysInMonth; $day++) @php $isPresent=isset($attendanceMap[$day]);
+                                @endphp <div
+                                class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium {{ $isPresent ? 'bg-green-500 text-white shadow-sm' : 'text-slate-500 bg-white border border-slate-100' }}">
+                                {{ $day }}
                     </div>
-                    <p class="font-bold">Rp {{ number_format($bonusHafalan, 0, ',', '.') }}</p>
+                    @endfor
                 </div>
+            </div>
             </div>
         </section>
         <section class="mt-6 px-4">

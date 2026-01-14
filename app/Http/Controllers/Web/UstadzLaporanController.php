@@ -68,8 +68,8 @@ class UstadzLaporanController extends Controller
 
         // Count Presensi for Tunjangan logic
         $presensiCount = Presensi::where('user_id', $user->id)
-                                ->whereMonth('created_at', $month)
-                                ->whereYear('created_at', $year)
+                                ->whereMonth('tanggal', $month)
+                                ->whereYear('tanggal', $year)
                                 ->where('status_presensi', 'HADIR')
                                 ->count();
 
@@ -86,6 +86,12 @@ class UstadzLaporanController extends Controller
         if (!$gaji) {
             $totalBisyaroh = $bisyarohPokok + $tunjanganHadir + $bonusHafalan;
         }
+
+        // Get Presensi Details for Calendar
+        $presensiDetails = Presensi::where('user_id', $user->id)
+                                ->whereMonth('tanggal', $month)
+                                ->whereYear('tanggal', $year)
+                                ->get(['tanggal', 'jam', 'status_presensi']);
 
         // 2. Infaq Santri di Kelas
         // Get Kelas IDs for this Ustadz
@@ -129,7 +135,10 @@ class UstadzLaporanController extends Controller
             'bonusHafalan',
             'infaqList',
             'totalInfaq',
-            'santriCount'
+            'santriCount',
+            'presensiDetails',
+            'month',
+            'year'
         ));
     }
 }
