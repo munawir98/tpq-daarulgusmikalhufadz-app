@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Laporan Kehadiran &amp; Aksi Ustadz</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -23,7 +23,7 @@
                         "background-dark": "#0F172A",
                     },
                     fontFamily: {
-                        display: ["Plus Jakarta Sans", "sans-serif"],
+                        display: ["Poppins", "sans-serif"],
                     },
                     borderRadius: {
                         DEFAULT: "12px",
@@ -33,7 +33,7 @@
         };
     </script>
     <style type="text/tailwindcss">
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Poppins', sans-serif; }
         .ios-blur { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
         .chart-grid-line { stroke: #e2e8f0; stroke-width: 1; stroke-dasharray: 4; }
         .dark .chart-grid-line { stroke: #334155; }
