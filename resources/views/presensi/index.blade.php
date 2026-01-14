@@ -48,17 +48,15 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-48">
-    <header
-        class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 ios-blur border-b border-slate-200 dark:border-slate-800">
+    <header class="sticky top-0 z-50 bg-primary/95 dark:bg-slate-900/95 ios-blur shadow-lg shadow-blue-900/10">
         <div class="px-4 py-4 flex items-center gap-4">
-            <button
-                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                <span class="material-symbols-outlined text-primary">arrow_back_ios</span>
+            <button onclick="history.back()"
+                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors text-white">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
             </button>
             <div>
-                <h1 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">Laporan &amp; Atensi</h1>
-                <p class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">TPQ Daarul
-                    Gusmik Al-Hufadz</p>
+                <h1 class="text-lg font-bold text-white leading-tight">Laporan &amp; Atensi</h1>
+                <p class="text-[10px] font-bold text-blue-100 uppercase tracking-wider">TPQ Daarul Gusmik Al-Hufadz</p>
             </div>
         </div>
     </header>
