@@ -216,6 +216,14 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                 // Set content
                 const keys = ['absensi', 'sakit', 'pertemuan'];
                 messageInput.value = templates[keys[index]];
+
+                // Scroll to center
+                const container = document.getElementById('template-list');
+                const scrollLeft = btn.offsetLeft - (container.clientWidth / 2) + (btn.clientWidth / 2);
+                container.scrollTo({
+                    left: scrollLeft,
+                    behavior: 'smooth'
+                });
             });
         });
 
