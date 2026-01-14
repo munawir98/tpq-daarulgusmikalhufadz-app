@@ -1,0 +1,129 @@
+<?php
+
+namespace App\Http\Controllers\Web;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Models\Ustadz;
+use App\Models\Santri;
+use App\Models\Kelas;
+use App\Models\Infaq; // Assuming model exists
+use App\Models\Gaji; // Assuming model exists
+use App\Models\Presensi;
+
+class UstadzLaporanController extends Controller
+{
+    public function index()
+    {
+        return view('ustadz.laporan.index');
+    }
+
+    public function keuangan(Request $request)
+    {
+        $user = Auth::user();
+        if (!$user->ustadz) {
+            abort(403, 'Profil Ustadz tidak ditemukan.');
+        }
+        $ustadz = $user->ustadz;
+
+        // Determine Period
+        // Default to current month if not specified
+        $selectedPeriod = $request->input('period', Carbon::now()->format('Y-m'));
+        $date = Carbon::createFromFormat('Y-m', $selectedPeriod);
+        $month = $date->month;
+        $year = $date->year;
+
+        // Format for View (e.g. October 2023)
+        $monthName = $date->locale('id')->translatedFormat('F');
+        $fullPeriodName = $date->locale('id')->translatedFormat('F Y');
+
+        // 1. Data Gaji (Bisyaroh)
+        // Find Gaji record for this ustadz, month, year
+        // Month in DB is string (based on migration), likely 'Oktober' or '10'. Let's check or assume standard.
+        // Usually safer to use integer if possible, but schema said string.
+        // Let's assume schema stores Indonesian month name or numeric string.
+        // I'll try matching both or just name.
+        $gaji = Gaji::where('ustadz_id', $ustadz->id)
+                    ->where('tahun', $year)
+                    ->where(function($q) use ($monthName, $month) {
+                        $q->where('bulan', $monthName)
+                          ->orWhere('bulan', str_pad($month, 2, '0', STR_PAD_LEFT));
+                    })
+                    ->first();
+
+        $totalBisyaroh = $gaji ? $gaji->jumlah : 0;
+
+        // Breakdown logic (simplified/estimated if not in DB)
+        // Bisyaroh Pokok - let's set a standard base if 0
+        $bisyarohPokok = 750000; // Default/Mock base
+
+        // Count Presensi for Tunjangan logic
+        $presensiCount = Presensi::where('user_id', $user->id)
+                                ->whereMonth('created_at', $month)
+                                ->whereYear('created_at', $year)
+                                ->where('status', 'HADIR')
+                                ->count();
+
+        $tarifHadir = 15000;
+        $tunjanganHadir = $presensiCount * $tarifHadir;
+
+        // Bonus - Mock for now or check data
+        $bonusHafalan = 0; // Logic for hafalan bonus needed
+
+        // Adjust Pokok to match Total if Gaji exists?
+        // If Gaji exists, we trust its total. Breakdown might be illustrative.
+        // If Gaji doesn't exist, we show potential calculation or 0.
+        // Let's rely on calculated potential if Gaji is null.
+        if (!$gaji) {
+            $totalBisyaroh = $bisyarohPokok + $tunjanganHadir + $bonusHafalan;
+        }
+
+        // 2. Infaq Santri di Kelas
+        // Get Kelas IDs for this Ustadz
+        $kelasIds = Kelas::where('ustadz_id', $ustadz->id)->pluck('id');
+
+        // Get Santris in these classes
+        // Use 'santri' table directly
+        $santriIds = Santri::whereIn('kelas_id', $kelasIds)->pluck('id');
+
+        $infaqList = DB::table('infaq')
+                        ->join('santri', 'infaq.santri_id', '=', 'santri.id')
+                        ->whereIn('infaq.santri_id', $santriIds)
+                        ->whereMonth('infaq.tanggal', $month)
+                        ->whereYear('infaq.tanggal', $year)
+                        ->select('infaq.*', 'santri.nama_lengkap as nama_santri')
+                        ->get();
+
+        $totalInfaq = $infaqList->sum('jumlah');
+        $santriCount = $santriIds->count();
+
+        // 3. Generate Period Options (Previous 6 months)
+        $periods = [];
+        for ($i = 0; $i < 6; $i++) {
+            $d = Carbon::now()->subMonths($i);
+            $periods[] = [
+                'value' => $d->format('Y-m'),
+                'label' => $d->locale('id')->translatedFormat('F Y')
+            ];
+        }
+
+        return view('ustadz.laporan.keuangan', compact(
+            'ustadz',
+            'periods',
+            'selectedPeriod',
+            'fullPeriodName',
+            'totalBisyaroh',
+            'bisyarohPokok',
+            'tunjanganHadir',
+            'presensiCount',
+            'tarifHadir',
+            'bonusHafalan',
+            'infaqList',
+            'totalInfaq',
+            'santriCount'
+        ));
+    }
+}

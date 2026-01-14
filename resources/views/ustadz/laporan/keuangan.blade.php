@@ -73,12 +73,16 @@
             <div class="w-full">
                 <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Periode
                     Laporan</label>
-                <select
-                    class="form-select-custom w-full h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all">
-                    <option value="oct-23">Oktober 2023</option>
-                    <option value="sep-23">September 2023</option>
-                    <option value="aug-23">Agustus 2023</option>
-                </select>
+                <form id="periodForm" method="GET">
+                    <select name="period" onchange="document.getElementById('periodForm').submit()"
+                        class="form-select-custom w-full h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                        @foreach($periods as $p)
+                        <option value="{{ $p['value'] }}" {{ $selectedPeriod==$p['value'] ? 'selected' : '' }}>
+                            {{ $p['label'] }}
+                        </option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
         </section>
         <section class="p-4 grid grid-cols-2 gap-4">
@@ -89,14 +93,15 @@
                     <p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-tight">Infaq
                         Kelas</p>
                 </div>
-                <p class="text-xl font-extrabold leading-tight">Rp 2.500.000</p>
+                <p class="text-xl font-extrabold leading-tight">Rp {{ number_format($totalInfaq, 0, ',', '.') }}</p>
             </div>
             <div class="flex flex-col gap-2 rounded-xl p-5 bg-primary shadow-lg shadow-primary/20">
                 <div class="flex items-center gap-2 text-white/80">
                     <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
                     <p class="text-xs font-bold uppercase tracking-tight">Total Bisyaroh</p>
                 </div>
-                <p class="text-white text-xl font-extrabold leading-tight">Rp 1.250.000</p>
+                <p class="text-white text-xl font-extrabold leading-tight">Rp {{ number_format($totalBisyaroh, 0, ',',
+                    '.') }}</p>
             </div>
         </section>
         <section class="mt-2">
@@ -115,7 +120,7 @@
                             <p class="text-xs text-slate-500">Gaji bulanan tetap</p>
                         </div>
                     </div>
-                    <p class="font-bold">Rp 750.000</p>
+                    <p class="font-bold">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
                 </div>
                 <div
                     class="flex flex-col p-4 border-b border-slate-100 dark:border-slate-800 bg-blue-50/30 dark:bg-blue-900/10">
@@ -131,10 +136,11 @@
                                     <span
                                         class="px-1.5 py-0.5 rounded bg-green-100 dark:bg-green-900/50 text-[10px] font-bold text-green-700 dark:text-green-400 border border-green-200 dark:border-green-800 uppercase">Presensi</span>
                                 </div>
-                                <p class="text-xs text-slate-500 mt-0.5">20 Hari Hadir × Rp 15.000</p>
+                                <p class="text-xs text-slate-500 mt-0.5">{{ $presensiCount }} Hari Hadir × Rp {{
+                                    number_format($tarifHadir, 0, ',', '.') }}</p>
                             </div>
                         </div>
-                        <p class="font-bold">Rp 300.000</p>
+                        <p class="font-bold">Rp {{ number_format($tunjanganHadir, 0, ',', '.') }}</p>
                     </div>
                 </div>
                 <div class="flex items-center justify-between p-4">
@@ -145,10 +151,10 @@
                         </div>
                         <div>
                             <p class="font-bold text-sm">Bonus Hafalan</p>
-                            <p class="text-xs text-slate-500">2 Santri Khatam Juz 30</p>
+                            <p class="text-xs text-slate-500">Estimasi bonus prestasi</p>
                         </div>
                     </div>
-                    <p class="font-bold">Rp 200.000</p>
+                    <p class="font-bold">Rp {{ number_format($bonusHafalan, 0, ',', '.') }}</p>
                 </div>
             </div>
         </section>
@@ -156,7 +162,8 @@
             <div class="flex items-center justify-between mb-3 px-1">
                 <h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Infaq Santri
                     di Kelas Saya</h3>
-                <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">12 Santri</span>
+                <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">{{ $santriCount
+                    }} Santri</span>
             </div>
             <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
                 <div class="overflow-hidden">
@@ -168,39 +175,30 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
+                            @forelse($infaqList as $infaq)
                             <tr>
                                 <td class="p-4">
                                     <div class="flex flex-col">
-                                        <span class="font-semibold text-sm">Abdullah Hakim</span>
-                                        <span class="text-[10px] text-slate-400 italic">05 Okt 2023</span>
+                                        <span class="font-semibold text-sm">{{ $infaq->nama_santri }}</span>
+                                        <span class="text-[10px] text-slate-400 italic">{{
+                                            \Carbon\Carbon::parse($infaq->tanggal)->format('d M Y') }}</span>
                                     </div>
                                 </td>
-                                <td class="p-4 text-right font-medium text-sm">Rp 250.000</td>
+                                <td class="p-4 text-right font-medium text-sm">Rp {{ number_format($infaq->jumlah, 0,
+                                    ',', '.') }}</td>
                             </tr>
+                            @empty
                             <tr>
-                                <td class="p-4">
-                                    <div class="flex flex-col">
-                                        <span class="font-semibold text-sm">Fatimah Az-Zahra</span>
-                                        <span class="text-[10px] text-slate-400 italic">07 Okt 2023</span>
-                                    </div>
-                                </td>
-                                <td class="p-4 text-right font-medium text-sm">Rp 200.000</td>
+                                <td colspan="2" class="p-4 text-center text-sm text-gray-500">Belum ada data infaq di
+                                    periode ini.</td>
                             </tr>
-                            <tr>
-                                <td class="p-4">
-                                    <div class="flex flex-col">
-                                        <span class="font-semibold text-sm">Muhammad Ali</span>
-                                        <span class="text-[10px] text-slate-400 italic">10 Okt 2023</span>
-                                    </div>
-                                </td>
-                                <td class="p-4 text-right font-medium text-sm">Rp 250.000</td>
-                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
                 <button
                     class="w-full py-4 text-sm font-bold text-primary border-t border-slate-50 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    Lihat Semua Rincian Infaq
+                    Lihat Semua Rincian Infaq ({{ $santriCount }})
                 </button>
             </div>
         </section>

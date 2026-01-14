@@ -549,7 +549,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         // Laporan Hafalan
         // Hub Laporan
         Route::get('/laporan', fn() => view('ustadz.laporan.index'))->name('laporan.index');
-        Route::get('/laporan/keuangan', fn() => view('ustadz.laporan.keuangan'))->name('laporan.keuangan');
+        Route::get('/laporan/keuangan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'keuangan'])->name('laporan.keuangan');
 
         // Nilai
         Route::prefix('nilai')->name('nilai.')->group(function () {
