@@ -386,11 +386,11 @@
     <div
         class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent pt-12">
         <div class="space-y-3">
-            <button
+            <a href="{{ route('notifications.create') }}"
                 class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-primary/30 transition-all active:scale-95">
                 <span class="material-symbols-outlined text-xl">send_to_mobile</span>
                 Kirim Notifikasi ke Orang Tua
-            </button>
+            </a>
             <div class="grid grid-cols-2 gap-3">
                 <a href="{{ route('ustadz.presensi.pdf', request()->query()) }}" id="exportPdfBtn"
                     class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
