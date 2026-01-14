@@ -79,9 +79,6 @@
                             data-alt="Portrait of a young male student"
                             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
                         </div>
-                        <div
-                            class="absolute -bottom-1 -right-1 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">
-                            SANTRI</div>
                     </div>
                     <div class="flex-1">
                         <div class="flex items-center justify-between mb-1">
@@ -192,11 +189,11 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             btn.addEventListener('click', () => {
                 // Update active state
                 templateButtons.forEach(b => {
-                    b.className = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-5 text-sm font-medium whitespace-nowrap';
-                    b.querySelector('span').className = 'material-symbols-outlined text-lg text-slate-400';
+                    b.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-medium whitespace-nowrap';
+                    b.querySelector('span').className = 'material-symbols-outlined text-base text-slate-400';
                 });
-                btn.className = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 text-sm font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
-                btn.querySelector('span').className = 'material-symbols-outlined text-lg';
+                btn.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-4 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
+                btn.querySelector('span').className = 'material-symbols-outlined text-base';
 
                 // Set content
                 const keys = ['absensi', 'sakit', 'pertemuan'];
