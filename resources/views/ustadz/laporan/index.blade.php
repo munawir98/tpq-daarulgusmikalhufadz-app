@@ -167,7 +167,8 @@
                     </div>
                 </a>
                 <a class="report-item group block bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-all duration-200"
-                    href="#" data-category="bulanan semester" data-title="Laporan Keuangan">
+                    href="{{ route('ustadz.laporan.keuangan') }}" data-category="bulanan semester"
+                    data-title="Laporan Keuangan">
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center group-hover:scale-105 transition-transform">
