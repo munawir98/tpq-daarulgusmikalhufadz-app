@@ -102,18 +102,18 @@
                     Tersedia</span>
             </div>
             <div id="template-list" class="flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
-                <button
-                    class="flex h-9 shrink-0 w-32 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
+                <button style="width: 125px; flex: 0 0 125px;"
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-0 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap">
                     <span class="material-symbols-outlined text-base">event_busy</span>
                     Absensi
                 </button>
-                <button
-                    class="flex h-9 shrink-0 w-32 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 text-xs font-semibold whitespace-nowrap">
+                <button style="width: 125px; flex: 0 0 125px;"
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-0 text-xs font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">medical_services</span>
                     Izin Sakit
                 </button>
-                <button
-                    class="flex h-9 shrink-0 w-32 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 text-xs font-semibold whitespace-nowrap">
+                <button style="width: 125px; flex: 0 0 125px;"
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-0 text-xs font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">groups</span>
                     Pertemuan
                 </button>
