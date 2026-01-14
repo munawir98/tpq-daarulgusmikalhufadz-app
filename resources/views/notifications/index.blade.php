@@ -243,8 +243,7 @@
             <span class="material-symbols-outlined">add_comment</span>
         </button>
 
-        <!-- Safe Area Spacer -->
-        <div class="h-24 w-full"></div>
+
 
     </div>
 </body>
