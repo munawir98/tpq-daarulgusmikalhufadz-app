@@ -402,8 +402,15 @@
                     <a href="{{ route('notifications.index') }}"
                         class="relative flex items-center justify-center transition-all hover:opacity-80">
                         <span class="material-symbols-rounded text-white text-[24px]">notifications</span>
+                        @php
+                        $unreadCount = \App\Models\User::find(session('user.id'))->unreadNotifications()->count();
+                        @endphp
+                        @if($unreadCount > 0)
                         <span
-                            class="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-red-500 rounded-full flex items-center justify-center text-[9px] font-bold text-white px-1">3</span>
+                            class="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-red-500 rounded-full flex items-center justify-center text-[9px] font-bold text-white px-1">
+                            {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                        </span>
+                        @endif
                     </a>
                 </div>
 

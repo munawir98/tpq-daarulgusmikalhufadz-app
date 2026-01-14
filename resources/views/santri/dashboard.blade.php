@@ -51,8 +51,13 @@
                         class="relative flex items-center justify-center size-10 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                         <span class="material-symbols-outlined text-gray-600 dark:text-gray-300"
                             style="font-size: 22px;">notifications</span>
+                        @php
+                        $unreadCount = \App\Models\User::find(session('user.id'))->unreadNotifications()->count();
+                        @endphp
+                        @if($unreadCount > 0)
                         <span
                             class="absolute top-2 right-2.5 size-2 bg-red-500 rounded-full border border-white dark:border-gray-800"></span>
+                        @endif
                     </a>
                     <a href="{{ route('profile.index') }}"
                         class="size-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border border-gray-100 dark:border-gray-600">
