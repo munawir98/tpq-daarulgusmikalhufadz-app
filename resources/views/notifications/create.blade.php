@@ -132,8 +132,7 @@
                     placeholder="Tulis pesan Anda di sini...">Assalamu'alaikum Warahmatullahi Wabarakatuh,
 Bpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.
 Mohon konfirmasinya. Terima kasih.</textarea>
-                <div class="bg-slate-50 px-4 py-3 border-t border-slate-100 flex justify-between items-center">
-                    <span class="text-[10px] text-slate-400 uppercase font-medium tracking-wide">Karakter: 215</span>
+                <div class="bg-slate-50 px-4 py-3 border-t border-slate-100 flex justify-end items-center">
                     <button
                         class="text-primary text-xs font-bold flex items-center gap-1 px-2 py-1 hover:bg-primary/5 rounded">
                         <span class="material-symbols-outlined text-base">restart_alt</span>
@@ -173,20 +172,11 @@ Mohon konfirmasinya. Terima kasih.</textarea>
 
     <script>
         const messageInput = document.querySelector('textarea');
-        const countDisplay = document.querySelector('.text-\\[10px\\]');
         const resetButton = document.querySelector('.text-primary.text-xs');
-
-        // Update character count
-        function updateCount() {
-            countDisplay.textContent = `Karakter: ${messageInput.value.length}`;
-        }
-        messageInput.addEventListener('input', updateCount);
-        updateCount();
 
         // Reset message
         resetButton.addEventListener('click', () => {
             messageInput.value = '';
-            updateCount();
         });
 
         // Templates
@@ -210,7 +200,6 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                 // Set content
                 const keys = ['absensi', 'sakit', 'pertemuan'];
                 messageInput.value = templates[keys[index]];
-                updateCount();
             });
         });
 
