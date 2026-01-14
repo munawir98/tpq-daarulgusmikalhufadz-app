@@ -31,22 +31,29 @@ class NotificationWebController extends Controller
      */
     public function index(Request $request)
     {
-        try {
-            $queryParams = [
-                'search' => $request->query('search'),
-                'filter' => $request->query('filter'),
-            ];
+            $user = auth()->user();
+            $query = $user->notifications();
 
-            $response = Http::withToken($this->getToken())
-                ->get($this->apiUrl('/notifications'), $queryParams);
+            // Search
+            if ($request->has('search') && $request->search != '') {
+                $query->where('data', 'like', '%' . $request->search . '%');
+            }
 
-            $notifications = $response->successful()
-                ? collect($response->json('data', []))
-                : collect();
+            // Filter
+            if ($request->has('filter') && $request->filter != '') {
+                $filter = $request->filter;
+                if ($filter == 'unread') {
+                    $query->whereNull('read_at');
+                } elseif ($filter == 'read') {
+                    $query->whereNotNull('read_at');
+                } elseif ($filter == 'failed') {
+                     $query->where('data', 'like', '%"status":"failed"%');
+                } elseif ($filter == 'sent') {
+                     $query->where('data', 'like', '%"status":"sent"%');
+                }
+            }
 
-        } catch (\Exception $e) {
-            $notifications = collect();
-        }
+            $notifications = $query->latest()->paginate(20);
 
         return view('notifications.index', [
             'notifications' => $notifications,
