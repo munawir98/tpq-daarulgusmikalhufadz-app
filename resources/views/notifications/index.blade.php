@@ -174,7 +174,8 @@
             @empty
             <!-- Empty State -->
             <!-- Empty State -->
-            <div class="flex-1 flex flex-col items-center justify-center p-4 text-center">
+            <!-- Empty State -->
+            <div class="flex-1 flex flex-col items-center justify-start pt-16 p-4 text-center">
                 <div class="w-16 h-16 mb-2 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center">
                     <span
                         class="material-symbols-outlined text-slate-300 dark:text-slate-600 text-3xl">notifications_off</span>
