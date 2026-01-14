@@ -102,7 +102,7 @@
         </div>
 
         <!-- History List -->
-        <main class="flex flex-col gap-1 px-2">
+        <main class="flex-1 flex flex-col gap-1 px-2">
             <!-- Item 1: Read (Success) -->
             <div onclick="window.location.href='{{ route('ustadz.notifications.show', 1) }}'"
                 class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/30">

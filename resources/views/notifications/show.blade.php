@@ -62,7 +62,7 @@
                 Detail Notifikasi</h2>
         </div>
     </header>
-    <main class="flex-1 overflow-y-auto pb-0">
+    <main class="flex-1 pb-0">
         <!-- Student & Parent Information -->
         <section class="mt-4 px-4">
             <div
@@ -153,8 +153,7 @@
         </section>
     </main>
     <!-- Fixed Bottom Action Area -->
-    <footer
-        class="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#111921] border-t border-gray-200 dark:border-gray-800 p-4 pb-8">
+    <footer class="bg-white dark:bg-[#111921] border-t border-gray-200 dark:border-gray-800 p-4 pb-8">
         <div class="max-w-md mx-auto flex gap-3">
             <button
                 class="flex-1 flex items-center justify-center gap-2 bg-primary text-white py-3.5 rounded-xl font-bold text-sm shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">
