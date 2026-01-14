@@ -108,12 +108,12 @@
                     Absensi
                 </button>
                 <button
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-medium whitespace-nowrap">
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">medical_services</span>
                     Izin Sakit
                 </button>
                 <button
-                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-medium whitespace-nowrap">
+                    class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-4 text-xs font-semibold whitespace-nowrap">
                     <span class="material-symbols-outlined text-base text-slate-400">groups</span>
                     Pertemuan
                 </button>
