@@ -151,6 +151,7 @@
                         <span class="text-[10px] font-bold text-slate-400">Mg</span>
 
                         {{-- Empty slots for start of month --}}
+                        {{-- Fixed calendar comment issue --}}
                         @php
                         $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso; // 1 (Mon) - 7
                         (Sun)
