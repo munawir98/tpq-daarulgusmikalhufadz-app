@@ -23,7 +23,13 @@ class UstadzLaporanController extends Controller
 
     public function keuangan(Request $request)
     {
-        $user = Auth::user();
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
         if (!$user->ustadz) {
             abort(403, 'Profil Ustadz tidak ditemukan.');
         }
