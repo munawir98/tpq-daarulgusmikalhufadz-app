@@ -577,6 +577,13 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
             Route::post('/', [\App\Http\Controllers\Web\BroadcastController::class, 'store'])->name('store');
             Route::get('/', [\App\Http\Controllers\Web\BroadcastController::class, 'index'])->name('index');
         });
+
+        // Notifications
+        Route::prefix('notifications')->name('notifications.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\Web\NotificationWebController::class, 'index'])->name('index');
+            Route::get('/create', [\App\Http\Controllers\Web\NotificationWebController::class, 'create'])->name('create');
+            Route::get('/{id}', [\App\Http\Controllers\Web\NotificationWebController::class, 'show'])->name('show');
+        });
     });
 
 /*

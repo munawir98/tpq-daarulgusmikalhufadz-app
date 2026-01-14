@@ -49,6 +49,14 @@ class NotificationWebController extends Controller
     }
 
     /**
+     * Display the specified notification.
+     */
+    public function show($id)
+    {
+        return view('notifications.show');
+    }
+
+    /**
      * Mark all notifications as read
      */
     public function markAllRead()

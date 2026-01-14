@@ -104,8 +104,8 @@
         <!-- History List -->
         <main class="flex flex-col gap-1 px-2">
             <!-- Item 1: Read (Success) -->
-            <div
-                class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors">
+            <div onclick="window.location.href='{{ route('notifications.show', 1) }}'"
+                class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/30">
                 <div class="relative">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[48px] w-[48px] border-2 border-slate-100 dark:border-slate-800 shadow-sm"
                         data-alt="Portrait of student Ahmad Fauzi"
@@ -136,7 +136,8 @@
             <div class="mx-4 h-[1px] bg-slate-100 dark:bg-slate-800"></div>
 
             <!-- Item 2: Sent (WhatsApp) -->
-            <div class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl">
+            <div onclick="window.location.href='{{ route('notifications.show', 1) }}'"
+                class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/30">
                 <div class="relative">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[48px] w-[48px] border-2 border-slate-100 dark:border-slate-800"
                         data-alt="Portrait of student Siti Aminah"
@@ -167,7 +168,8 @@
             <div class="mx-4 h-[1px] bg-slate-100 dark:bg-slate-800"></div>
 
             <!-- Item 3: Failed (App Notification) -->
-            <div class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl">
+            <div onclick="window.location.href='{{ route('notifications.show', 1) }}'"
+                class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/30">
                 <div class="relative">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[48px] w-[48px] border-2 border-slate-100 dark:border-slate-800"
                         data-alt="Portrait of student Yusuf Hamdan"
@@ -196,7 +198,8 @@
             </div>
 
             <!-- Item 4: Read (App Notification) -->
-            <div class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl">
+            <div onclick="window.location.href='{{ route('notifications.show', 1) }}'"
+                class="flex gap-3 bg-white dark:bg-background-dark px-4 py-3 rounded-xl active:bg-slate-50 dark:active:bg-slate-800/50 transition-colors cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/30">
                 <div class="relative">
                     <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-[48px] w-[48px] border-2 border-slate-100 dark:border-slate-800"
                         data-alt="Portrait of student Rania Zahra"
