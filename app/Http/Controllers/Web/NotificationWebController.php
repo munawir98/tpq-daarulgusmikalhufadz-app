@@ -19,6 +19,14 @@ class NotificationWebController extends Controller
     }
 
     /**
+     * Show the form for creating a new notification.
+     */
+    public function create()
+    {
+        return view('notifications.create');
+    }
+
+    /**
      * Display notifications list
      */
     public function index()

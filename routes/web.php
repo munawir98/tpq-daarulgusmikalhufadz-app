@@ -382,6 +382,7 @@ Route::middleware('web.auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::prefix('notifications')->name('notifications.')->group(function () {
+        Route::get('/create', [NotificationWebController::class, 'create'])->name('create');
         Route::get('/', [NotificationWebController::class, 'index'])->name('index');
         Route::post('/mark-all-read', [NotificationWebController::class, 'markAllRead'])->name('markAllRead');
         Route::post('/{id}/read', [NotificationWebController::class, 'markAsRead'])->name('read');
