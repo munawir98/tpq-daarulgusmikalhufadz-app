@@ -150,20 +150,20 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         </section>
     </main>
     <footer class="fixed bottom-0 left-0 right-0 p-4 bg-white/90 ios-blur border-t border-slate-100 z-50">
-        <div class="max-w-md mx-auto flex flex-col gap-3">
+        <div class="max-w-md mx-auto grid grid-cols-2 gap-3">
             <button
-                class="w-full h-12 bg-whatsapp hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-3 text-white font-bold text-base shadow-lg shadow-whatsapp/20">
+                class="w-full h-12 bg-whatsapp hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs shadow-lg shadow-whatsapp/20">
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                     <path
                         d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.404.831 2.923 1.272 4.475 1.274h.005c5.446 0 9.879-4.432 9.882-9.879.002-2.64-1.026-5.122-2.895-6.991-1.87-1.869-4.353-2.895-6.992-2.896-5.447 0-9.88 4.432-9.883 9.88-.001 1.742.454 3.441 1.319 4.938l-1.018 3.717 3.804-.997zm11.332-6.852c-.311-.156-1.843-.909-2.13-.997-.287-.11-.497-.156-.708.156-.21.312-.816 1.023-.997 1.23-.18.21-.363.235-.674.079-.311-.156-1.316-.485-2.503-1.543-.924-.825-1.548-1.844-1.73-2.155-.182-.312-.019-.481.137-.635.141-.14.312-.364.468-.546.155-.182.208-.312.312-.52.103-.208.052-.39-.026-.546-.078-.156-.708-1.705-.97-2.336-.254-.614-.515-.53-.708-.54l-.604-.012c-.21 0-.552.079-.841.391s-1.103 1.077-1.103 2.628c0 1.551 1.129 3.045 1.286 3.253.158.208 2.222 3.393 5.383 4.759.752.324 1.338.518 1.796.664.755.24 1.442.207 1.984.126.604-.091 1.843-.753 2.102-1.48s.258-1.35.182-1.48-.285-.208-.595-.364z">
                     </path>
                 </svg>
-                Kirim via WhatsApp
+                WhatsApp
             </button>
             <button
-                class="w-full h-12 bg-primary hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-base shadow-lg shadow-primary/20">
-                <span class="material-symbols-outlined text-xl">notifications_active</span>
-                Notifikasi App
+                class="w-full h-12 bg-primary hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-base">notifications_active</span>
+                App
             </button>
         </div>
     </footer>
@@ -227,7 +227,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
 
                 setTimeout(() => {
                     btn.innerHTML = originalContent;
-                    btn.className = "w-full h-14 bg-primary hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-lg shadow-lg shadow-primary/20";
+                    btn.className = "w-full h-12 bg-primary hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-xs shadow-lg shadow-primary/20";
                 }, 2000);
             }, 1500);
         });
