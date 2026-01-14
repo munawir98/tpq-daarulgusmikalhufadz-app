@@ -6,15 +6,10 @@
 <header
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
     <div class="flex items-center justify-between px-5 py-4">
-        <div class="flex items-center gap-3">
-            <a href="{{ url()->previous() }}"
-                class="p-2 -ml-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                <span class="material-symbols-outlined">arrow_back</span>
-            </a>
-            <h2 class="text-xl font-bold">Presensi</h2>
-        </div>
+        <div class="w-16"></div> <!-- Spacer with width matching the history button approx width -->
+        <h2 class="text-xl font-bold flex-1 text-center">Presensi</h2>
         <a href="{{ route('santri.presensi.history') }}"
-            class="flex items-center gap-1 text-primary text-sm font-semibold hover:underline">
+            class="flex items-center justify-end gap-1 text-primary text-sm font-semibold hover:underline w-16">
             <span class="material-symbols-outlined" style="font-size: 18px;">history</span>
             Riwayat
         </a>

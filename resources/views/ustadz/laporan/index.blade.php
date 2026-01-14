@@ -70,13 +70,8 @@
     <div class="bg-gradient-to-br from-[#3b82f6] to-[#2563eb] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-14 px-6">
-            <div class="flex items-center gap-4 mb-2">
-                <button
-                    class="bg-white/20 hover:bg-white/30 p-2 rounded-full backdrop-blur-sm text-white transition-colors"
-                    onclick="history.back()">
-                    <span class="material-icons-round">arrow_back</span>
-                </button>
-                <div class="text-white">
+            <div class="flex items-center justify-center mb-2">
+                <div class="text-center text-white">
                     <h1 class="text-xl font-bold leading-tight">Laporan</h1>
                     <p class="text-xs opacity-75 mt-0.5">Pusat Data &amp; Statistik TPQ</p>
                 </div>

@@ -52,13 +52,8 @@
         class="relative flex min-h-screen w-full flex-col overflow-x-hidden max-w-[430px] mx-auto bg-white dark:bg-background-dark shadow-xl">
         <!-- Header -->
         <header
-            class="sticky top-0 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-slate-100 dark:border-slate-800">
-            <a href="{{ route('ustadz.dashboard') }}"
-                class="text-primary flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                <span class="material-symbols-outlined text-[20px]">arrow_back_ios</span>
-            </a>
-            <h1
-                class="text-[#0e141b] dark:text-white text-base font-semibold leading-tight tracking-tight flex-1 text-center pr-10">
+            class="sticky top-0 z-50 flex items-center justify-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-slate-100 dark:border-slate-800">
+            <h1 class="text-[#0e141b] dark:text-white text-base font-semibold leading-tight tracking-tight text-center">
                 Riwayat Notifikasi</h1>
         </header>
 

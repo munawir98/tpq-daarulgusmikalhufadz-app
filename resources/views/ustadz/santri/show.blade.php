@@ -2,12 +2,8 @@
 
 @section('content')
 <div class="space-y-6 pb-20">
-    <!-- Header with Back Button -->
-    <div class="flex items-center gap-3">
-        <a href="{{ route('ustadz.santri.index') }}"
-            class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm text-gray-600 dark:text-gray-300">
-            <span class="material-symbols-rounded">arrow_back</span>
-        </a>
+    <!-- Header -->
+    <div class="flex items-center justify-center pt-2">
         <h1 class="text-xl font-bold">Detail Santri</h1>
     </div>
 

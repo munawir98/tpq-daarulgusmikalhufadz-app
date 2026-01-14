@@ -3,11 +3,7 @@
 @section('content')
 <div class="space-y-6 pb-20">
     <!-- Header with Back Button -->
-    <div class="flex items-center gap-3">
-        <a href="javascript:history.back()"
-            class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm text-gray-600 dark:text-gray-300">
-            <span class="material-symbols-rounded">arrow_back</span>
-        </a>
+    <div class="flex items-center justify-center gap-3">
         <h1 class="text-xl font-bold">Detail Setoran</h1>
     </div>
 

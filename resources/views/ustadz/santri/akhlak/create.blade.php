@@ -4,12 +4,8 @@
 @section('content')
 <div class="space-y-6 pb-20">
     <!-- Header -->
-    <div class="flex items-center gap-3">
-        <a href="{{ route('ustadz.santri.show', $santri->id) }}"
-            class="w-10 h-10 rounded-full bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm text-gray-600 dark:text-gray-300">
-            <span class="material-symbols-rounded">arrow_back</span>
-        </a>
-        <div>
+    <div class="flex items-center justify-center gap-3">
+        <div class="text-center">
             <h1 class="text-xl font-bold">Catatan Akhlak</h1>
             <p class="text-xs text-gray-500">{{ $santri->nama_lengkap }} ({{ $santri->nis }})</p>
         </div>

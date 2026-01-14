@@ -103,12 +103,8 @@
 
             <!-- Header -->
             <div class="px-4 pt-12 pb-4 text-white">
-                <div class="flex items-center">
-                    <a href="/ustadz/dashboard"
-                        class="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                        <span class="material-symbols-rounded text-white text-[20px]">arrow_back</span>
-                    </a>
-                    <h1 class="flex-1 text-xl font-bold tracking-tight text-center pr-10">Setoran Hafalan</h1>
+                <div class="flex items-center justify-center">
+                    <h1 class="text-xl font-bold tracking-tight text-center">Setoran Hafalan</h1>
                 </div>
             </div>
 

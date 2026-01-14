@@ -48,26 +48,27 @@
         {{-- Header --}}
         <header
             class="sticky top-0 z-10 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 px-4 py-3">
-            <div class="flex items-center gap-3">
-                <a href="{{ route('chat.index') }}"
-                    class="p-2 -ml-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </a>
-                <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    @if($isGroup)
-                    <span class="material-symbols-outlined text-primary">group</span>
-                    @else
-                    <span class="text-lg font-bold text-primary">{{ substr($recipient->name, 0, 1) }}</span>
-                    @endif
+            <div class="flex items-center justify-center relative">
+                <div class="flex-1 flex flex-col items-center justify-center">
+                    <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center mb-1">
+                        @if($isGroup)
+                        <span class="material-symbols-outlined text-primary">group</span>
+                        @else
+                        <span class="text-lg font-bold text-primary">{{ substr($recipient->name, 0, 1) }}</span>
+                        @endif
+                    </div>
+                    <div class="text-center">
+                        <h2 class="font-bold text-[#111813] dark:text-white leading-tight">{{ $recipient->name }}</h2>
+                        <p class="text-xs text-gray-500">{{ $isGroup ? count($recipient->members) . ' anggota' :
+                            'Online' }}
+                        </p>
+                    </div>
                 </div>
-                <div class="flex-1">
-                    <h2 class="font-bold text-[#111813] dark:text-white">{{ $recipient->name }}</h2>
-                    <p class="text-xs text-gray-500">{{ $isGroup ? count($recipient->members) . ' anggota' : 'Online' }}
-                    </p>
+                <div class="absolute right-0">
+                    <button class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
+                        <span class="material-symbols-outlined text-gray-500">more_vert</span>
+                    </button>
                 </div>
-                <button class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <span class="material-symbols-outlined text-gray-500">more_vert</span>
-                </button>
             </div>
         </header>
 

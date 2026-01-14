@@ -53,13 +53,8 @@
 
         <!-- Header -->
         <div
-            class="sticky top-0 z-20 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 pb-2 justify-between border-b border-gray-100 dark:border-gray-800">
-            <a href="/ustadz/dashboard"
-                class="text-[#111813] dark:text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                <span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios_new</span>
-            </a>
-            <h2
-                class="text-[#111813] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
+            class="sticky top-0 z-20 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 pb-2 justify-center border-b border-gray-100 dark:border-gray-800">
+            <h2 class="text-[#111813] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] text-center">
                 Input Setoran</h2>
         </div>
 

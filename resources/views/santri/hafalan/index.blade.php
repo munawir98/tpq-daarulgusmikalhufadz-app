@@ -58,10 +58,6 @@
     <div
         class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 pb-2 border-b border-gray-100 dark:border-gray-800">
         <div class="flex items-center justify-between max-w-md mx-auto">
-            <a href="{{ route('santri.dashboard') }}"
-                class="flex size-10 shrink-0 items-center justify-center text-[#111813] dark:text-white hover:opacity-70 transition-opacity">
-                <span class="material-symbols-outlined" style="font-size: 24px;">arrow_back_ios_new</span>
-            </a>
             <h2
                 class="text-[#111813] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">
                 Riwayat Hafalan

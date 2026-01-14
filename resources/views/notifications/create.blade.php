@@ -62,12 +62,8 @@
 
 <body class="bg-white text-slate-900 min-h-screen flex flex-col">
     <header class="sticky top-0 z-50 bg-white/90 ios-blur border-b border-slate-100">
-        <div class="flex items-center p-4 h-16 max-w-md mx-auto w-full">
-            <button onclick="history.back()"
-                class="flex items-center justify-center p-2 -ml-2 rounded-full hover:bg-slate-100 transition-colors">
-                <span class="material-symbols-outlined text-2xl text-primary">arrow_back_ios_new</span>
-            </button>
-            <h1 class="flex-1 text-center text-base font-bold tracking-tight mr-8 text-primary">Kirim Notifikasi</h1>
+        <div class="flex items-center justify-center p-4 h-16 max-w-md mx-auto w-full">
+            <h1 class="text-center text-base font-bold tracking-tight text-primary">Kirim Notifikasi</h1>
         </div>
     </header>
     <main class="flex-1 max-w-md mx-auto w-full pb-32">

@@ -57,14 +57,8 @@
         <!-- Header -->
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-between px-5 py-4 relative">
-                <a href="/profile"
-                    class="p-2 -ml-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors text-gray-800 dark:text-white group">
-                    <span
-                        class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
-                </a>
+            <div class="flex items-center justify-center px-5 py-4 relative">
                 <h2 class="text-xl font-bold">Ubah Kata Sandi</h2>
-                <div class="w-10"></div>
             </div>
         </header>
 

@@ -67,16 +67,11 @@
 
             <!-- Header -->
             <div class="bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] pt-12 pb-8 px-6">
-                <div class="flex items-center justify-between mb-4">
-                    <a href="{{ route('ustadz.dashboard') }}"
-                        class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition">
-                        <span class="material-symbols-rounded">arrow_back</span>
-                    </a>
-                    <div class="text-center flex-1">
+                <div class="flex items-center justify-center mb-4">
+                    <div class="text-center">
                         <h1 class="text-white text-xl font-bold">Laporan Hafalan</h1>
                         <p class="text-white/70 text-xs">Progress hafalan semua santri</p>
                     </div>
-                    <div class="w-10"></div>
                 </div>
             </div>
 

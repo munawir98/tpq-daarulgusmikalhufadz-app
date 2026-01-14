@@ -1,7 +1,7 @@
-<nav class="flex justify-between items-center px-6 py-4
+<nav class="relative flex justify-end items-center px-6 py-4
             bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
 
-    <h1 class="text-xl font-bold dark:text-gray-200">
+    <h1 class="text-xl font-bold dark:text-gray-200 absolute left-1/2 -translate-x-1/2">
         {{ $title }}
     </h1>
 

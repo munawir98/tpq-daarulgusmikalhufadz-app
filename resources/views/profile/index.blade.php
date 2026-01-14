@@ -62,18 +62,6 @@
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
             <div class="flex items-center justify-center px-5 py-4 relative">
-                @php
-                $role = strtoupper(session('user.role', 'SANTRI'));
-                $dashboardUrl = match($role) {
-                'ADMIN' => '/admin/dashboard',
-                'USTADZ' => '/ustadz/dashboard',
-                default => '/santri/dashboard',
-                };
-                @endphp
-                <a href="{{ $dashboardUrl }}"
-                    class="absolute left-5 p-2 -ml-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </a>
                 <h2 class="text-xl font-bold">Pengaturan</h2>
             </div>
         </header>

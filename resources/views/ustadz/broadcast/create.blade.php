@@ -82,15 +82,8 @@
 
         <!-- Top App Bar -->
         <div
-            class="sticky top-0 z-20 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 justify-between border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center gap-3">
-                <a href="{{ route('ustadz.dashboard') }}"
-                    class="flex items-center justify-center size-10 rounded-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                    <span class="material-symbols-outlined text-gray-600 dark:text-gray-300"
-                        style="font-size: 20px;">arrow_back</span>
-                </a>
-                <h2 class="text-xl font-bold text-text-main-light dark:text-text-main-dark">Broadcast</h2>
-            </div>
+            class="sticky top-0 z-20 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 justify-center border-b border-gray-100 dark:border-gray-800">
+            <h2 class="text-xl font-bold text-text-main-light dark:text-text-main-dark">Broadcast</h2>
         </div>
 
         <!-- Scrollable Content -->

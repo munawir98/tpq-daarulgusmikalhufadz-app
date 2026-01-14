@@ -56,12 +56,8 @@
         class="bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] dark:from-blue-900 dark:to-blue-950 relative shrink-0">
         <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
         <div class="relative z-10 pt-12 pb-10 px-6">
-            <div class="flex items-center gap-4 mb-6">
-                <!-- Back Button -->
-                <a href="{{ route('dashboard') }}"
-                    class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md flex items-center justify-center text-white transition active:scale-95">
-                    <span class="material-icons-round">arrow_back</span>
-                </a>
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <!-- Back Button Removed -->
                 <h1 class="text-xl font-bold text-white tracking-wide">Pusat Informasi</h1>
             </div>
 

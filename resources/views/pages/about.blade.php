@@ -5,11 +5,7 @@
 @section('header')
 <header
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-    <div class="flex items-center gap-3 px-5 py-4">
-        <a href="{{ url()->previous() }}"
-            class="p-2 -ml-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </a>
+    <div class="flex items-center justify-center gap-3 px-5 py-4">
         <h2 class="text-xl font-bold">Tentang Aplikasi</h2>
     </div>
 </header>

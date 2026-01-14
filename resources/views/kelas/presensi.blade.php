@@ -40,15 +40,13 @@
         <!-- Header -->
         <div
             class="sticky top-0 z-50 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm p-4 border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-between">
-                <a href="{{ url()->previous() }}"
-                    class="flex size-12 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors">
-                    <span class="material-symbols-outlined">arrow_back_ios_new</span>
-                </a>
+            <div class="flex items-center justify-center relative">
                 <h2 class="text-lg font-bold flex-1 text-center">Rekap Presensi</h2>
-                <button class="flex size-12 items-center justify-center text-primary">
-                    <span class="material-symbols-outlined">download</span>
-                </button>
+                <div class="absolute right-0">
+                    <button class="flex size-12 items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">download</span>
+                    </button>
+                </div>
             </div>
         </div>
 

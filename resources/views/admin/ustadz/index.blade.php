@@ -5,8 +5,8 @@
 @section('header')
 <header
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-    <div class="flex items-center justify-between px-5 py-4">
-        <h2 class="text-xl font-bold">Kelola Ustadz</h2>
+    <div class="flex items-center justify-end px-5 py-4 relative">
+        <h2 class="text-xl font-bold absolute left-1/2 -translate-x-1/2">Kelola Ustadz</h2>
         <a href="{{ route('admin.ustadz.create') }}"
             class="flex items-center gap-1 px-3 py-2 bg-primary text-[#102216] text-sm font-bold rounded-xl hover:shadow-lg hover:shadow-primary/25 transition">
             <span class="material-symbols-outlined" style="font-size: 18px;">add</span>

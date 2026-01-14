@@ -42,10 +42,7 @@
         <!-- Header Gradient -->
         <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
 
-        <!-- Back Button -->
-        <a href="{{ route('ustadz.dashboard') }}" class="absolute top-4 left-4 text-gray-400 hover:text-gray-600">
-            <span class="material-icons-round">arrow_back</span>
-        </a>
+        <!-- Back Button Removed -->
 
         <!-- Icon -->
         <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 mt-6">

@@ -64,11 +64,9 @@
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
             <div class="flex items-center justify-between px-5 py-4 relative">
-                <a href="/profile"
-                    class="flex items-center justify-center p-2 -ml-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 transition-colors">
-                    <span class="material-symbols-outlined">arrow_back</span>
-                </a>
-                <h2 class="text-lg font-bold leading-tight tracking-tight text-[#111813] dark:text-white">Notifikasi
+                <div class="w-10"></div> <!-- Spacer for centering -->
+                <h2 class="text-lg font-bold leading-tight tracking-tight text-[#111813] dark:text-white text-center">
+                    Notifikasi
                 </h2>
                 <button id="markAllReadBtn"
                     class="text-xs font-bold text-primary hover:text-green-600 transition-colors px-2 py-1">

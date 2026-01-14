@@ -164,12 +164,8 @@
             <!-- Header Content -->
             <div
                 class="px-6 pt-8 pb-6 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
-                <div class="flex items-center space-x-3">
-                    <a href="{{ route('ustadz.dashboard') }}"
-                        class="w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-lg active:scale-95 transition-transform">
-                        <span class="material-icons-round text-white text-xl">arrow_back</span>
-                    </a>
-                    <div>
+                <div class="flex items-center justify-center space-x-3">
+                    <div class="text-center">
                         <h1 class="text-lg font-bold leading-tight">Presensi Kehadiran</h1>
                         <p class="text-white/70 text-[10px]">Ustadz &amp; Pengajar</p>
                     </div>

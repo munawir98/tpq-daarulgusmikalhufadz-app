@@ -119,12 +119,8 @@
 
         <!-- Fixed Header Content -->
         <div class="relative z-20 px-4 pt-6 pb-4 text-white shrink-0">
-            <div class="flex items-center">
-                <a href="{{ route('ustadz.hafalan.index') }}"
-                    class="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
-                    <span class="material-symbols-rounded text-white text-[20px]">arrow_back</span>
-                </a>
-                <h1 class="flex-1 text-xl font-bold tracking-tight text-center pr-10">Input Setoran</h1>
+            <div class="flex items-center justify-center">
+                <h1 class="text-xl font-bold tracking-tight text-center">Input Setoran</h1>
             </div>
             <!-- Progress Bar -->
             <div class="mt-4 bg-white/20 rounded-full h-2 overflow-hidden">
