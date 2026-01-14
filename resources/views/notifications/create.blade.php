@@ -171,6 +171,80 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         </div>
     </footer>
 
+    <script>
+        const messageInput = document.querySelector('textarea');
+        const countDisplay = document.querySelector('.text-\\[10px\\]');
+        const resetButton = document.querySelector('.text-primary.text-xs');
+
+        // Update character count
+        function updateCount() {
+            countDisplay.textContent = `Karakter: ${messageInput.value.length}`;
+        }
+        messageInput.addEventListener('input', updateCount);
+        updateCount();
+
+        // Reset message
+        resetButton.addEventListener('click', () => {
+            messageInput.value = '';
+            updateCount();
+        });
+
+        // Templates
+        const templates = {
+            'absensi': "Assalamu'alaikum Warahmatullahi Wabarakatuh,\nBpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.\nMohon konfirmasinya. Terima kasih.",
+            'sakit': "Assalamu'alaikum Warahmatullahi Wabarakatuh,\nBpk. Ridwan, kami mendoakan semoga Ahmad Syarif lekas sembuh dan bisa beraktivitas kembali di TPQ Daarul Gusmik.\nTerima kasih.",
+            'pertemuan': "Assalamu'alaikum Warahmatullahi Wabarakatuh,\nBpk. Ridwan, kami mengundang Bapak untuk hadir dalam pertemuan wali santri di TPQ Daarul Gusmik pada hari Ahad, pukul 09.00 WIB.\nMohon kehadirannya. Terima kasih."
+        };
+
+        const templateButtons = document.querySelectorAll('.overflow-x-auto button');
+        templateButtons.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                templateButtons.forEach(b => {
+                    b.className = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white border border-slate-200 text-slate-600 px-5 text-sm font-medium whitespace-nowrap';
+                    b.querySelector('span').className = 'material-symbols-outlined text-lg text-slate-400';
+                });
+                btn.className = 'flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-5 text-sm font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
+                btn.querySelector('span').className = 'material-symbols-outlined text-lg';
+
+                // Set content
+                const keys = ['absensi', 'sakit', 'pertemuan'];
+                messageInput.value = templates[keys[index]];
+                updateCount();
+            });
+        });
+
+        // WhatsApp Send
+        document.querySelector('.bg-whatsapp').addEventListener('click', () => {
+            const message = encodeURIComponent(messageInput.value);
+            // Using a placeholder number or retrieving from data attribute if available
+            // Ideally this comes from the backend variable $santri->wali_phone
+            const phoneNumber = "6285710387661";
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        });
+
+        // App Notification Send
+        document.querySelector('.bg-primary.shadow-primary\\/20').addEventListener('click', () => {
+            // Simulate sending or submit form if backend is ready
+            const btn = document.querySelector('.bg-primary.shadow-primary\\/20');
+            const originalContent = btn.innerHTML;
+
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> Mengirim...`;
+            btn.classList.add('opacity-75', 'pointer-events-none');
+
+            // Simulation
+            setTimeout(() => {
+                btn.innerHTML = `<span class="material-symbols-outlined">check</span> Terkirim`;
+                btn.classList.remove('bg-primary', 'shadow-primary/20');
+                btn.classList.add('bg-green-500', 'shadow-green-500/20');
+
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.className = "w-full h-14 bg-primary hover:brightness-105 active:scale-[0.98] transition-all rounded-xl flex items-center justify-center gap-2 text-white font-bold text-lg shadow-lg shadow-primary/20";
+                }, 2000);
+            }, 1500);
+        });
+    </script>
 </body>
 
 </html>
