@@ -191,11 +191,27 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             btn.addEventListener('click', () => {
                 // Update active state
                 templateButtons.forEach(b => {
-                    b.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white ring-1 ring-inset ring-slate-200 text-slate-600 px-6 text-xs font-semibold whitespace-nowrap';
-                    b.querySelector('span').className = 'material-symbols-outlined text-base text-slate-400';
+                    // Reset to inactive state
+                    b.classList.remove('bg-primary', 'ring-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+                    b.classList.add('bg-white', 'ring-slate-200', 'text-slate-600');
+
+                    // Reset icon
+                    const icon = b.querySelector('span');
+                    icon.classList.remove('text-white'); // Just in case
+                    icon.classList.add('text-slate-400');
                 });
-                btn.className = 'flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary ring-1 ring-inset ring-primary text-white px-6 text-xs font-semibold shadow-md shadow-primary/20 whitespace-nowrap';
-                btn.querySelector('span').className = 'material-symbols-outlined text-base';
+
+                // Set active state
+                btn.classList.remove('bg-white', 'ring-slate-200', 'text-slate-600');
+                btn.classList.add('bg-primary', 'ring-primary', 'text-white', 'shadow-md', 'shadow-primary/20');
+
+                // Set active icon
+                const activeIcon = btn.querySelector('span');
+                activeIcon.classList.remove('text-slate-400');
+                // No need to add text-white as it inherits from button text-white,
+                // but checking previous code 'text-base' was consistent.
+                // Previous JS set `text-base` for active, `text-base text-slate-400` for inactive.
+                // So removing `text-slate-400` is enough.
 
                 // Set content
                 const keys = ['absensi', 'sakit', 'pertemuan'];
