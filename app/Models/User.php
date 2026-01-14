@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 // ============================
 // TRAIT CUSTOM

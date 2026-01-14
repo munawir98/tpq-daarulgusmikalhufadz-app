@@ -31,7 +31,8 @@ class NotificationWebController extends Controller
      */
     public function index(Request $request)
     {
-            $user = auth()->user();
+            $userId = session('user.id');
+            $user = \App\Models\User::find($userId);
             if (!$user) {
                 return redirect()->route('login.form');
             }
