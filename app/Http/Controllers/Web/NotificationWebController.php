@@ -29,11 +29,16 @@ class NotificationWebController extends Controller
     /**
      * Display notifications list
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
+            $queryParams = [
+                'search' => $request->query('search'),
+                'filter' => $request->query('filter'),
+            ];
+
             $response = Http::withToken($this->getToken())
-                ->get($this->apiUrl('/notifications'));
+                ->get($this->apiUrl('/notifications'), $queryParams);
 
             $notifications = $response->successful()
                 ? collect($response->json('data', []))
@@ -45,6 +50,8 @@ class NotificationWebController extends Controller
 
         return view('notifications.index', [
             'notifications' => $notifications,
+            'currentSearch' => $request->query('search'),
+            'currentFilter' => $request->query('filter'),
         ]);
     }
 
