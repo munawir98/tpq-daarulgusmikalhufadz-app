@@ -44,11 +44,7 @@
             font-family: 'Poppins', sans-serif;
         }
     </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
+
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#0e141b] dark:text-slate-100">
