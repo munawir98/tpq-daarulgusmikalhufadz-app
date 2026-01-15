@@ -155,8 +155,7 @@
                 </div>
                 @empty
                 <div class="p-6 text-center text-gray-500">
-                    <span class="material-symbols-outlined text-3xl text-gray-300 mb-1">sports_martial_arts</span>
-                    <p class="text-xs">Belum ada kegiatan ekskul.</p>
+                    <span class="material-symbols-outlined text-3xl text-gray-300">sports_martial_arts</span>
                 </div>
                 @endforelse
             </div>
