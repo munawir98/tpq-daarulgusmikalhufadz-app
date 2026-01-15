@@ -46,7 +46,7 @@
         class="relative flex min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-xl">
         <!-- TopAppBar -->
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-            <div class="flex items-center p-4 pb-2 justify-center">
+            <div class="flex items-center pt-6 pb-2 px-4 justify-center">
                 <h2
                     class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] text-center">
                     Jurnal & Kegiatan</h2>
