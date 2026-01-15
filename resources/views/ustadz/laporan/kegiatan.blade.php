@@ -71,7 +71,7 @@
             <!-- Jurnal Harian Section -->
             <div id="sectionJurnal">
                 <!-- SectionHeader -->
-                <div class="flex items-center justify-between px-4 pb-2 pt-6">
+                <div class="flex items-center justify-between px-4 pb-2 pt-2">
                     <h3 class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em]">
                         Riwayat Jurnal</h3>
                     <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">{{
@@ -120,7 +120,7 @@
             <!-- Kegiatan Ekskul Section (Hidden by default) -->
             <div id="sectionEkskul" class="hidden">
                 <h3
-                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-6">
+                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-2">
                     Kegiatan Ekskul Terbaru</h3>
 
                 @forelse($ekskuls ?? [] as $ekskul)
