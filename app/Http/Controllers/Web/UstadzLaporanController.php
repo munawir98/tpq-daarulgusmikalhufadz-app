@@ -156,15 +156,23 @@ class UstadzLaporanController extends Controller
 
         $ustadz = $user->ustadz;
 
-        // Fetch Jurnal Harian for this ustadz
-        $jurnals = \App\Models\JurnalHarian::where('ustadz_id', $ustadz->id)
-            ->orderBy('tanggal', 'desc')
-            ->get();
+        // Fetch Jurnal Harian for this ustadz (handle if table doesn't exist yet)
+        try {
+            $jurnals = \App\Models\JurnalHarian::where('ustadz_id', $ustadz->id)
+                ->orderBy('tanggal', 'desc')
+                ->get();
+        } catch (\Exception $e) {
+            $jurnals = collect(); // Empty collection if table doesn't exist
+        }
 
-        // Fetch Kegiatan Ekskul for this ustadz
-        $ekskuls = \App\Models\KegiatanEkskul::where('ustadz_id', $ustadz->id)
-            ->orderBy('tanggal', 'desc')
-            ->get();
+        // Fetch Kegiatan Ekskul for this ustadz (handle if table doesn't exist yet)
+        try {
+            $ekskuls = \App\Models\KegiatanEkskul::where('ustadz_id', $ustadz->id)
+                ->orderBy('tanggal', 'desc')
+                ->get();
+        } catch (\Exception $e) {
+            $ekskuls = collect(); // Empty collection if table doesn't exist
+        }
 
         return view('ustadz.laporan.kegiatan', compact('jurnals', 'ekskuls'));
     }
