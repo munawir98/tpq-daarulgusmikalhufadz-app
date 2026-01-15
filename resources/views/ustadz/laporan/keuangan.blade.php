@@ -132,7 +132,7 @@
                     </div>
 
                     @php
-                    $daysInMonth = \Carbon\Carbon::createFromDate($year, $month)->daysInMonth;
+                    $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
                     $attendanceMap = [];
                     foreach($presensiDetails as $detail) {
                     // Extract day from date

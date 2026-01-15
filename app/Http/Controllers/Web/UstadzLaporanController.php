@@ -38,7 +38,7 @@ class UstadzLaporanController extends Controller
         // Determine Period
         // Default to current month if not specified
         $selectedPeriod = $request->input('period', Carbon::now()->format('Y-m'));
-        $date = Carbon::createFromFormat('Y-m', $selectedPeriod);
+        $date = Carbon::createFromFormat('Y-m', $selectedPeriod)->startOfMonth();
         $month = $date->month;
         $year = $date->year;
 
