@@ -86,15 +86,21 @@
             </div>
         </section>
         <section class="p-4 grid grid-cols-2 gap-4">
-            <div
-                class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
-                <div class="flex items-center gap-2 text-primary">
+            <button onclick="toggleInfaqModal()"
+                class="flex flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 text-left hover:border-primary/50 transition-colors group relative overflow-hidden">
+                <div
+                    class="absolute -right-6 -top-6 size-20 bg-primary/5 rounded-full group-hover:scale-110 transition-transform">
+                </div>
+                <div class="flex items-center gap-2 text-primary relative z-10">
                     <span class="material-symbols-outlined text-xl">payments</span>
                     <p class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-tight">Infaq
                         Kelas</p>
+                    <span
+                        class="material-symbols-outlined text-sm ml-auto text-slate-400 group-hover:text-primary transition-colors">open_in_new</span>
                 </div>
-                <p class="text-xl font-extrabold leading-tight">Rp {{ number_format($totalInfaq, 0, ',', '.') }}</p>
-            </div>
+                <p class="text-xl font-extrabold leading-tight relative z-10">Rp {{ number_format($totalInfaq, 0, ',',
+                    '.') }}</p>
+            </button>
             <div class="flex flex-col gap-2 rounded-xl p-5 bg-primary shadow-lg shadow-primary/20">
                 <div class="flex items-center gap-2 text-white/80">
                     <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
@@ -169,52 +175,7 @@
             </div>
             </div>
         </section>
-        <section class="mt-6 px-4">
-            <div class="flex items-center justify-between mb-3 px-1">
-                <h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Kotak Infaq
-                    Saya</h3>
-                <div class="flex items-center gap-2">
-                    <span
-                        class="text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{{
-                        $santriCount }} Santri</span>
-                    <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">Total: Rp {{
-                        number_format($totalInfaq, 0, ',', '.') }}</span>
-                </div>
-            </div>
-            <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
-                <div class="overflow-hidden">
-                    <table class="w-full text-left">
-                        <thead class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
-                            <tr>
-                                <th class="p-4 text-[10px] font-bold text-slate-400 uppercase">Nama Santri</th>
-                                <th class="p-4 text-[10px] font-bold text-slate-400 uppercase text-right">Jumlah</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
-                            @forelse($infaqList as $infaq)
-                            <tr>
-                                <td class="p-4">
-                                    <div class="flex flex-col">
-                                        <span class="font-semibold text-sm">{{ $infaq->nama_santri }}</span>
-                                        <span class="text-[10px] text-slate-400 italic">{{
-                                            \Carbon\Carbon::parse($infaq->tanggal)->format('d M Y') }}</span>
-                                    </div>
-                                </td>
-                                <td class="p-4 text-right font-medium text-sm">Rp {{ number_format($infaq->jumlah, 0,
-                                    ',', '.') }}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td colspan="2" class="p-4 text-center text-sm text-gray-500">Belum ada data infaq di
-                                    periode ini.</td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            </div>
-        </section>
+
     </main>
     <div
         class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
@@ -225,6 +186,99 @@
         </button>
     </div>
 
+    <!-- Infaq Modal -->
+    <div id="infaqModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0"
+            id="infaqModalBackdrop"></div>
+
+        <!-- Panel -->
+        <div class="fixed inset-x-0 bottom-0 z-10 w-full overflow-hidden bg-white dark:bg-slate-900 rounded-t-3xl shadow-2xl transform transition-all translate-y-full"
+            id="infaqModalPanel">
+            <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
+                <div>
+                    <h3 class="text-lg font-bold">Rincian Infaq Kelas</h3>
+                    <p class="text-xs text-slate-500">Total: Rp {{ number_format($totalInfaq, 0, ',', '.') }} • {{
+                        $santriCount }} Santri</p>
+                </div>
+                <button onclick="toggleInfaqModal()"
+                    class="p-2 bg-slate-50 dark:bg-slate-800 rounded-full text-slate-500 hover:text-slate-700">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <div class="max-h-[60vh] overflow-y-auto p-0">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 dark:bg-slate-800/50 sticky top-0 z-10">
+                        <tr>
+                            <th
+                                class="p-4 text-[10px] font-bold text-slate-400 uppercase border-b border-slate-100 dark:border-slate-800">
+                                Nama Santri</th>
+                            <th
+                                class="p-4 text-[10px] font-bold text-slate-400 uppercase text-right border-b border-slate-100 dark:border-slate-800">
+                                Jumlah</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50 dark:divide-slate-800">
+                        @forelse($infaqList as $infaq)
+                        <tr>
+                            <td class="p-4">
+                                <div class="flex flex-col">
+                                    <span class="font-semibold text-sm">{{ $infaq->nama_santri }}</span>
+                                    <span class="text-[10px] text-slate-400 italic">{{
+                                        \Carbon\Carbon::parse($infaq->tanggal)->format('d M Y') }}</span>
+                                </div>
+                            </td>
+                            <td class="p-4 text-right font-medium text-sm">Rp {{ number_format($infaq->jumlah, 0, ',',
+                                '.') }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="2" class="p-4 text-center text-sm text-gray-500 py-10">Belum ada data infaq di
+                                periode ini.</td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 border-t border-slate-100 dark:border-slate-800 safe-area-bottom">
+                <button onclick="toggleInfaqModal()"
+                    class="w-full py-3 bg-primary text-white font-bold rounded-xl active:scale-[0.98] transition-transform">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleInfaqModal() {
+            const modal = document.getElementById('infaqModal');
+            const backdrop = document.getElementById('infaqModalBackdrop');
+            const panel = document.getElementById('infaqModalPanel');
+
+            if (modal.classList.contains('hidden')) {
+                // Open
+                modal.classList.remove('hidden');
+                // Force reflow
+                void modal.offsetWidth;
+
+                // Animate in
+                backdrop.classList.remove('opacity-0');
+                panel.classList.remove('translate-y-full');
+            } else {
+                // Close animation
+                backdrop.classList.add('opacity-0');
+                panel.classList.add('translate-y-full');
+
+                // Wait for transition
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
 </body>
+
 
 </html>
