@@ -125,7 +125,7 @@
 
                 <!-- Calendar Section -->
                 <div class="p-4 bg-slate-50/50 dark:bg-slate-800/20">
-                    <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center justify-between mb-6">
                         <h4 class="text-xs font-bold uppercase text-slate-500">Data Kehadiran</h4>
                         <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
                             $presensiCount }} Hari Hadir</span>
