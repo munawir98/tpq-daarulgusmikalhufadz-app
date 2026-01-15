@@ -164,7 +164,7 @@
 
         <!-- Floating Action Button -->
         <button
-            class="fixed bottom-6 right-4 flex items-center justify-center bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
+            class="fixed bottom-6 right-6 flex items-center justify-center bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
             <span class="material-symbols-outlined text-xl">add</span>
         </button>
 
