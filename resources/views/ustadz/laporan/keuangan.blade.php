@@ -153,31 +153,33 @@
                     }
                     @endphp
 
-                    <div class="grid grid-cols-7 gap-2 text-center">
-                        <span class="text-[10px] font-bold text-slate-400">Sn</span>
-                        <span class="text-[10px] font-bold text-slate-400">Sl</span>
-                        <span class="text-[10px] font-bold text-slate-400">Rb</span>
-                        <span class="text-[10px] font-bold text-slate-400">Km</span>
-                        <span class="text-[10px] font-bold text-slate-400">Jm</span>
-                        <span class="text-[10px] font-bold text-slate-400">Sb</span>
-                        <span class="text-[10px] font-bold text-slate-400">Mg</span>
+                    <div class="max-h-48 overflow-y-auto rounded-lg">
+                        <div class="grid grid-cols-7 gap-2 text-center">
+                            <span class="text-[10px] font-bold text-slate-400">Sn</span>
+                            <span class="text-[10px] font-bold text-slate-400">Sl</span>
+                            <span class="text-[10px] font-bold text-slate-400">Rb</span>
+                            <span class="text-[10px] font-bold text-slate-400">Km</span>
+                            <span class="text-[10px] font-bold text-slate-400">Jm</span>
+                            <span class="text-[10px] font-bold text-slate-400">Sb</span>
+                            <span class="text-[10px] font-bold text-slate-400">Mg</span>
 
-                        {{-- Empty slots for start of month --}}
-                        @php
-                        $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
-                        @endphp
-                        @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
+                            {{-- Empty slots for start of month --}}
+                            @php
+                            $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
+                            @endphp
+                            @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
 
-                            {{-- Days --}}
-                            @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
-                                $events=$hasData ? $attendanceMap[$day] : []; $dataAttr=$hasData ?
-                                htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
-                                onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
-                                data-events="{{ $dataAttr }}"
-                                class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-500 bg-white border border-slate-100 hover:bg-slate-50' }}">
-                                {{ $day }}
-                                </button>
-                                @endfor
+                                {{-- Days --}}
+                                @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
+                                    $events=$hasData ? $attendanceMap[$day] : []; $dataAttr=$hasData ?
+                                    htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
+                                    onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
+                                    data-events="{{ $dataAttr }}"
+                                    class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-500 bg-white border border-slate-100 hover:bg-slate-50' }}">
+                                    {{ $day }}
+                                    </button>
+                                    @endfor
+                        </div>
                     </div>
                 </div>
             </div>
