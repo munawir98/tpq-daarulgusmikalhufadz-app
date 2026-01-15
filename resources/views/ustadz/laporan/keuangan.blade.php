@@ -184,14 +184,7 @@
         </section>
 
     </main>
-    <div
-        class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
-        <button
-            class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/20 active:scale-[0.98] transition-all">
-            <span class="material-symbols-outlined">picture_as_pdf</span>
-            Unduh Slip Gaji (PDF)
-        </button>
-    </div>
+
 
     <!-- Infaq Modal -->
     <div id="infaqModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog"
