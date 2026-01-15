@@ -171,8 +171,8 @@
         </section>
         <section class="mt-6 px-4">
             <div class="flex items-center justify-between mb-3 px-1">
-                <h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Infaq Santri
-                    di Kelas Saya</h3>
+                <h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Kotak Infaq
+                    Saya</h3>
                 <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">{{ $santriCount
                     }} Santri</span>
             </div>
