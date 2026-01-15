@@ -67,11 +67,18 @@ class UstadzLaporanController extends Controller
         $bisyarohPokok = 750000; // Default/Mock base
 
         // Count Presensi for Tunjangan logic
-        $presensiCount = Presensi::where('user_id', $user->id)
+        // Hanya hitung hari yang memiliki MASUK dan PULANG (status lengkap/selesai)
+        $presensiQuery = Presensi::where('user_id', $user->id)
                                 ->whereMonth('tanggal', $month)
                                 ->whereYear('tanggal', $year)
-                                ->where('status_presensi', 'HADIR')
-                                ->count();
+                                ->where('status_presensi', 'HADIR');
+
+        $tanggalMasuk = (clone $presensiQuery)->where('tipe', 'masuk')->pluck('tanggal')->map(fn($t) => $t instanceof \Carbon\Carbon ? $t->format('Y-m-d') : $t)->toArray();
+        $tanggalPulang = (clone $presensiQuery)->where('tipe', 'pulang')->pluck('tanggal')->map(fn($t) => $t instanceof \Carbon\Carbon ? $t->format('Y-m-d') : $t)->toArray();
+
+        // Hitung tanggal yang ada di KEDUA array (memiliki masuk DAN pulang)
+        $tanggalLengkap = array_intersect($tanggalMasuk, $tanggalPulang);
+        $presensiCount = count(array_unique($tanggalLengkap));
 
         $tarifHadir = 15000;
         $tunjanganHadir = $presensiCount * $tarifHadir;

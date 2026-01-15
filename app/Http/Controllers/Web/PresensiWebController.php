@@ -303,15 +303,21 @@ class PresensiWebController extends Controller
             ->orderBy('jam', 'desc')
             ->get();
 
-        // Hitung Total Hadir (Distinct Dates)
-        // Clone query agar tidak terpengaruh order by
-        $totalHadir = \App\Models\Presensi::where('user_id', $userId);
+        // Hitung Total Hadir - Hanya hitung hari yang memiliki MASUK dan PULANG (status lengkap/selesai)
+        $queryBase = \App\Models\Presensi::where('user_id', $userId);
         if ($startDate && $endDate) {
-            $totalHadir->whereBetween('tanggal', [$startDate, $endDate]);
+            $queryBase->whereBetween('tanggal', [$startDate, $endDate]);
         } else {
-             $totalHadir->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'));
+            $queryBase->where('tanggal', '>=', now()->subDays(7)->format('Y-m-d'));
         }
-        $totalHadirCount = $totalHadir->distinct('tanggal')->count('tanggal');
+
+        // Ambil tanggal-tanggal yang memiliki KEDUA tipe (masuk dan pulang)
+        $tanggalMasuk = (clone $queryBase)->where('tipe', 'masuk')->pluck('tanggal')->map(fn($t) => $t instanceof \Carbon\Carbon ? $t->format('Y-m-d') : $t)->toArray();
+        $tanggalPulang = (clone $queryBase)->where('tipe', 'pulang')->pluck('tanggal')->map(fn($t) => $t instanceof \Carbon\Carbon ? $t->format('Y-m-d') : $t)->toArray();
+
+        // Hitung tanggal yang ada di KEDUA array (intersection = memiliki masuk DAN pulang)
+        $tanggalLengkap = array_intersect($tanggalMasuk, $tanggalPulang);
+        $totalHadirCount = count(array_unique($tanggalLengkap));
 
         return view('ustadz.presensi.index', [
             'riwayat' => $riwayat,
