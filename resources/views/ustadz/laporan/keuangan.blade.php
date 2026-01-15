@@ -170,9 +170,8 @@
 
                             {{-- Days --}}
                             @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
-                                $events=$hasData ? $attendanceMap[$day] : []; // Prepare data for click (simple JSON
-                                string or formatted) $dataAttr=$hasData ? htmlspecialchars(json_encode($events),
-                                ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
+                                $events=$hasData ? $attendanceMap[$day] : []; $dataAttr=$hasData ?
+                                htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
                                 onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
                                 data-events="{{ $dataAttr }}"
                                 class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-500 bg-white border border-slate-100 hover:bg-slate-50' }}">
