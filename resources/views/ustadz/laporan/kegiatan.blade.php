@@ -48,7 +48,7 @@
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
             <div class="flex items-center p-4 pb-2 justify-center">
                 <h2
-                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] text-center">
+                    class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] text-center">
                     Jurnal & Kegiatan</h2>
             </div>
         </header>
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <main class="flex-1 pb-24">
+        <main class="flex-1 pb-20">
             <!-- Jurnal Harian Section -->
             <div id="sectionJurnal">
                 <!-- SectionHeader -->
@@ -164,7 +164,7 @@
 
         <!-- Floating Action Button -->
         <button
-            class="fixed bottom-8 right-6 flex items-center justify-center gap-2 bg-primary text-white px-5 py-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
+            class="fixed bottom-4 right-4 flex items-center justify-center gap-2 bg-primary text-white px-5 py-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
             <span class="material-symbols-outlined text-lg">add</span>
             <span class="text-sm font-semibold">Tambah Aktivitas</span>
         </button>
