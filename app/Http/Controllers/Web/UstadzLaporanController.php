@@ -36,15 +36,9 @@ class UstadzLaporanController extends Controller
         $ustadz = $user->ustadz;
 
         // Determine Period
-        // Default to current date if not specified
-        $selectedPeriod = $request->input('period', Carbon::now()->format('Y-m-d'));
-
-        try {
-            $date = Carbon::parse($selectedPeriod);
-        } catch (\Exception $e) {
-            $date = Carbon::now();
-        }
-
+        // Default to current month if not specified
+        $selectedPeriod = $request->input('period', Carbon::now()->format('Y-m'));
+        $date = Carbon::createFromFormat('Y-m', $selectedPeriod);
         $month = $date->month;
         $year = $date->year;
 
@@ -118,8 +112,19 @@ class UstadzLaporanController extends Controller
         $totalInfaq = $infaqList->sum('jumlah');
         $santriCount = $santriIds->count();
 
+        // 3. Generate Period Options (Previous 6 months)
+        $periods = [];
+        for ($i = 0; $i < 6; $i++) {
+            $d = Carbon::now()->subMonths($i);
+            $periods[] = [
+                'value' => $d->format('Y-m'),
+                'label' => $d->locale('id')->translatedFormat('F Y')
+            ];
+        }
+
         return view('ustadz.laporan.keuangan', compact(
             'ustadz',
+            'periods',
             'selectedPeriod',
             'fullPeriodName',
             'totalBisyaroh',
