@@ -141,9 +141,15 @@
                     $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
                     $attendanceMap = [];
                     foreach($presensiDetails as $detail) {
-                    // Extract day from date
                     $d = \Carbon\Carbon::parse($detail->tanggal)->day;
-                    $attendanceMap[$d] = true;
+                    // Store detail. If multiple, maybe append? For now, just taking the first 'HADIR' or latest.
+                    // Ideally we want Masuk and Pulang.
+                    // Let's store an array of events for that day
+                    if (!isset($attendanceMap[$d])) $attendanceMap[$d] = [];
+                    $attendanceMap[$d][] = [
+                    'jam' => $detail->jam,
+                    'status' => $detail->status_presensi
+                    ];
                     }
                     @endphp
 
@@ -157,22 +163,24 @@
                         <span class="text-[10px] font-bold text-slate-400">Mg</span>
 
                         {{-- Empty slots for start of month --}}
-                        {{-- Fixed calendar comment issue --}}
                         @php
                         $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
                         @endphp
-                        @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span>
-                            @endfor
+                        @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
 
                             {{-- Days --}}
-                            @for($day = 1; $day <= $daysInMonth; $day++) @php $isPresent=isset($attendanceMap[$day]);
-                                @endphp <div
-                                class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium {{ $isPresent ? 'bg-green-500 text-white shadow-sm' : 'text-slate-500 bg-white border border-slate-100' }}">
+                            @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
+                                $events=$hasData ? $attendanceMap[$day] : []; // Prepare data for click (simple JSON
+                                string or formatted) $dataAttr=$hasData ? htmlspecialchars(json_encode($events),
+                                ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
+                                onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
+                                data-events="{{ $dataAttr }}"
+                                class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-500 bg-white border border-slate-100 hover:bg-slate-50' }}">
                                 {{ $day }}
+                                </button>
+                                @endfor
                     </div>
-                    @endfor
                 </div>
-            </div>
             </div>
         </section>
 
@@ -273,8 +281,22 @@
 
                 // Wait for transition
                 setTimeout(() => {
-                    modal.classList.add('hidden');
                 }, 300);
+            }
+        }
+
+        function showAttendanceDetail(dateStr, eventsJson) {
+            if (!eventsJson) return;
+
+            try {
+                const events = JSON.parse(eventsJson);
+                let message = "Detail Kehadiran " + dateStr + ":\n";
+                events.forEach(e => {
+                    message += "- " + e.status + " pada jam " + e.jam + "\n";
+                });
+                alert(message);
+            } catch (e) {
+                console.error("Error parsing events", e);
             }
         }
     </script>
