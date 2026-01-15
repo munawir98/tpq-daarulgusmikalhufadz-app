@@ -52,7 +52,7 @@
                     <span class="material-symbols-outlined">arrow_back_ios</span>
                 </a>
                 <h2
-                    class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
+                    class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
                     Jurnal & Kegiatan</h2>
             </div>
         </header>
@@ -62,11 +62,11 @@
             <div class="flex border-b border-[#d0dbe7] dark:border-slate-700 px-4 justify-between">
                 <button id="tabJurnal"
                     class="tab-btn flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 flex-1">
-                    <p class="text-sm font-bold leading-normal tracking-[0.015em]">Jurnal Harian</p>
+                    <p class="text-xs font-bold leading-normal tracking-[0.015em]">Jurnal Harian</p>
                 </button>
                 <button id="tabEkskul"
                     class="tab-btn flex flex-col items-center justify-center border-b-[3px] border-b-transparent text-[#4e7397] dark:text-slate-400 pb-[13px] pt-4 flex-1">
-                    <p class="text-sm font-bold leading-normal tracking-[0.015em]">Kegiatan Ekskul</p>
+                    <p class="text-xs font-bold leading-normal tracking-[0.015em]">Kegiatan Ekskul</p>
                 </button>
             </div>
         </div>
@@ -168,9 +168,9 @@
 
         <!-- Floating Action Button -->
         <button
-            class="fixed bottom-8 right-6 flex items-center justify-center gap-2 bg-primary text-white px-6 py-4 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
-            <span class="material-symbols-outlined">add</span>
-            <span class="font-bold">Tambah Aktivitas</span>
+            class="fixed bottom-8 right-6 flex items-center justify-center gap-2 bg-primary text-white px-5 py-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
+            <span class="material-symbols-outlined text-lg">add</span>
+            <span class="text-sm font-semibold">Tambah Aktivitas</span>
         </button>
 
     </div>
