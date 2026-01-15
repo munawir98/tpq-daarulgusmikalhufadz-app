@@ -48,7 +48,7 @@
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
             <div class="flex items-center p-4 pb-2 justify-center">
                 <h2
-                    class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] text-center">
+                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] text-center">
                     Jurnal & Kegiatan</h2>
             </div>
         </header>
@@ -72,7 +72,7 @@
             <div id="sectionJurnal">
                 <!-- SectionHeader -->
                 <div class="flex items-center justify-between px-4 pb-2 pt-6">
-                    <h3 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
+                    <h3 class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em]">
                         Riwayat Jurnal</h3>
                     <span class="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded-full">{{
                         now()->locale('id')->translatedFormat('F Y') }}</span>
@@ -95,15 +95,15 @@
                                     {{ \Carbon\Carbon::parse($jurnal->tanggal)->format('d M Y') }}</p>
                             </div>
                             <p
-                                class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
+                                class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em]">
                                 {{ $jurnal->judul ?? 'Jurnal Harian' }}</p>
                             <div class="mt-2 space-y-1">
                                 <div class="flex items-center gap-2">
                                     <span class="material-symbols-outlined text-sm text-primary">school</span>
-                                    <p class="text-[#4e7397] dark:text-slate-400 text-base font-medium">
+                                    <p class="text-[#4e7397] dark:text-slate-400 text-xs font-medium">
                                         {{ $jurnal->kelas->nama ?? 'Kelas Umum' }}</p>
                                 </div>
-                                <p class="text-[#4e7397] dark:text-slate-400 text-sm leading-relaxed">
+                                <p class="text-[#4e7397] dark:text-slate-400 text-xs leading-relaxed">
                                     {{ $jurnal->deskripsi ?? 'Tidak ada deskripsi.' }}</p>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
             <!-- Kegiatan Ekskul Section (Hidden by default) -->
             <div id="sectionEkskul" class="hidden">
                 <h3
-                    class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-6">
+                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-6">
                     Kegiatan Ekskul Terbaru</h3>
 
                 @forelse($ekskuls ?? [] as $ekskul)
@@ -137,11 +137,11 @@
                             <div class="flex justify-between items-start">
                                 <div>
                                     <p
-                                        class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">
+                                        class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em]">
                                         {{ $ekskul->nama ?? 'Kegiatan Ekskul' }}</p>
                                     <div class="flex items-center gap-2 mt-1">
                                         <span class="material-symbols-outlined text-sm text-primary">person</span>
-                                        <p class="text-[#4e7397] dark:text-slate-400 text-sm">Pelatih:
+                                        <p class="text-[#4e7397] dark:text-slate-400 text-xs">Pelatih:
                                             {{ $ekskul->pelatih ?? '-' }}</p>
                                     </div>
                                 </div>
