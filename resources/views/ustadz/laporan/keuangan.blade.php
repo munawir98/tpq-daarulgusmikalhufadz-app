@@ -173,8 +173,13 @@
             <div class="flex items-center justify-between mb-3 px-1">
                 <h3 class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-widest">Kotak Infaq
                     Saya</h3>
-                <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">{{ $santriCount
-                    }} Santri</span>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="text-[10px] font-bold text-slate-500 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">{{
+                        $santriCount }} Santri</span>
+                    <span class="text-[10px] font-bold text-primary px-2 py-0.5 bg-primary/10 rounded-full">Total: Rp {{
+                        number_format($totalInfaq, 0, ',', '.') }}</span>
+                </div>
             </div>
             <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
                 <div class="overflow-hidden">
@@ -207,10 +212,7 @@
                         </tbody>
                     </table>
                 </div>
-                <button
-                    class="w-full py-4 text-sm font-bold text-primary border-t border-slate-50 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                    Lihat Semua Rincian Infaq ({{ $santriCount }})
-                </button>
+            </div>
             </div>
         </section>
     </main>
