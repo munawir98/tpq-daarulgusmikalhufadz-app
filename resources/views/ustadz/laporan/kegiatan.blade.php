@@ -164,9 +164,8 @@
 
         <!-- Floating Action Button -->
         <button
-            class="fixed bottom-6 right-4 flex items-center justify-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
-            <span class="material-symbols-outlined text-base">add</span>
-            <span class="text-xs font-semibold">Tambah Aktivitas</span>
+            class="fixed bottom-6 right-4 flex items-center justify-center bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
+            <span class="material-symbols-outlined text-xl">add</span>
         </button>
 
     </div>
