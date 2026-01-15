@@ -173,8 +173,6 @@
             <span class="font-bold">Tambah Aktivitas</span>
         </button>
 
-        <!-- Bottom Navigation Spacer for iOS -->
-        <div class="h-8 bg-background-light dark:bg-background-dark"></div>
     </div>
 
     <script>
