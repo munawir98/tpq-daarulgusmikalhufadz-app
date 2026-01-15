@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <main class="flex-1 pb-14">
+        <main class="flex-1 pb-8">
             <!-- Jurnal Harian Section -->
             <div id="sectionJurnal">
                 <!-- SectionHeader -->
