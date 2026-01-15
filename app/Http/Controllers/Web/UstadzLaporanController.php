@@ -141,4 +141,16 @@ class UstadzLaporanController extends Controller
             'year'
         ));
     }
+
+    /**
+     * Display the Laporan Kegiatan (Jurnal & Ekskul) page.
+     */
+    public function kegiatan()
+    {
+        // For now, return empty data. This can be connected to real tables later.
+        $jurnals = collect(); // Placeholder for Jurnal model data
+        $ekskuls = collect(); // Placeholder for Ekskul model data
+
+        return view('ustadz.laporan.kegiatan', compact('jurnals', 'ekskuls'));
+    }
 }
