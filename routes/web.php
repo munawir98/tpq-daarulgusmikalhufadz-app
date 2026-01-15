@@ -551,6 +551,10 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/laporan', fn() => view('ustadz.laporan.index'))->name('laporan.index');
         Route::get('/laporan/keuangan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'keuangan'])->name('laporan.keuangan');
         Route::get('/laporan/kegiatan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'kegiatan'])->name('laporan.kegiatan');
+        Route::get('/laporan/jurnal/create', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'createJurnal'])->name('laporan.jurnal.create');
+        Route::post('/laporan/jurnal', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'storeJurnal'])->name('laporan.jurnal.store');
+        Route::get('/laporan/ekskul/create', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'createEkskul'])->name('laporan.ekskul.create');
+        Route::post('/laporan/ekskul', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'storeEkskul'])->name('laporan.ekskul.store');
 
         // Nilai
         Route::prefix('nilai')->name('nilai.')->group(function () {

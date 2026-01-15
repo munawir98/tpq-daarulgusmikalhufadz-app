@@ -147,10 +147,133 @@ class UstadzLaporanController extends Controller
      */
     public function kegiatan()
     {
-        // For now, return empty data. This can be connected to real tables later.
-        $jurnals = collect(); // Placeholder for Jurnal model data
-        $ekskuls = collect(); // Placeholder for Ekskul model data
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user || !$user->ustadz) {
+            return redirect()->route('login');
+        }
+
+        $ustadz = $user->ustadz;
+
+        // Fetch Jurnal Harian for this ustadz
+        $jurnals = \App\Models\JurnalHarian::where('ustadz_id', $ustadz->id)
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        // Fetch Kegiatan Ekskul for this ustadz
+        $ekskuls = \App\Models\KegiatanEkskul::where('ustadz_id', $ustadz->id)
+            ->orderBy('tanggal', 'desc')
+            ->get();
 
         return view('ustadz.laporan.kegiatan', compact('jurnals', 'ekskuls'));
+    }
+
+    /**
+     * Show form to create new Jurnal Harian.
+     */
+    public function createJurnal()
+    {
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user || !$user->ustadz) {
+            return redirect()->route('login');
+        }
+
+        $kelasList = Kelas::where('ustadz_id', $user->ustadz->id)->get();
+
+        return view('ustadz.laporan.jurnal_form', compact('kelasList'));
+    }
+
+    /**
+     * Store new Jurnal Harian.
+     */
+    public function storeJurnal(Request $request)
+    {
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user || !$user->ustadz) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'tanggal' => 'required|date',
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
+            'kelas_id' => 'nullable|exists:kelas,id',
+            'foto' => 'nullable|image|max:2048',
+        ]);
+
+        $data = [
+            'ustadz_id' => $user->ustadz->id,
+            'tanggal' => $request->tanggal,
+            'judul' => $request->judul,
+            'deskripsi' => $request->deskripsi,
+            'kelas_id' => $request->kelas_id,
+        ];
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('jurnal', 'public');
+        }
+
+        \App\Models\JurnalHarian::create($data);
+
+        return redirect()->route('ustadz.laporan.kegiatan')->with('success', 'Jurnal berhasil ditambahkan!');
+    }
+
+    /**
+     * Show form to create new Kegiatan Ekskul.
+     */
+    public function createEkskul()
+    {
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user || !$user->ustadz) {
+            return redirect()->route('login');
+        }
+
+        return view('ustadz.laporan.ekskul_form');
+    }
+
+    /**
+     * Store new Kegiatan Ekskul.
+     */
+    public function storeEkskul(Request $request)
+    {
+        $userId = session('user.id');
+        $user = \App\Models\User::find($userId);
+
+        if (!$user || !$user->ustadz) {
+            return redirect()->route('login');
+        }
+
+        $request->validate([
+            'tanggal' => 'required|date',
+            'nama' => 'required|string|max:255',
+            'pelatih' => 'nullable|string|max:255',
+            'jumlah_peserta' => 'nullable|integer|min:0',
+            'keterangan' => 'nullable|string',
+            'foto' => 'nullable|image|max:2048',
+        ]);
+
+        $data = [
+            'ustadz_id' => $user->ustadz->id,
+            'tanggal' => $request->tanggal,
+            'nama' => $request->nama,
+            'pelatih' => $request->pelatih,
+            'jumlah_peserta' => $request->jumlah_peserta ?? 0,
+            'keterangan' => $request->keterangan,
+        ];
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('ekskul', 'public');
+        }
+
+        \App\Models\KegiatanEkskul::create($data);
+
+        return redirect()->route('ustadz.laporan.kegiatan')->with('success', 'Kegiatan Ekskul berhasil ditambahkan!');
     }
 }

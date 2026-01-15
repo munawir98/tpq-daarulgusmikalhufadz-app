@@ -163,10 +163,44 @@
         </main>
 
         <!-- Floating Action Button -->
-        <button
+        <button id="fabBtn"
             class="fixed bottom-6 right-6 flex items-center justify-center bg-primary text-white w-12 h-12 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
             <span class="material-symbols-outlined text-xl">add</span>
         </button>
+
+        <!-- Modal -->
+        <div id="addModal"
+            class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
+            <div id="modalContent"
+                class="bg-white w-full max-w-md rounded-t-2xl p-6 space-y-4 transform translate-y-full transition-transform duration-300">
+                <div class="flex justify-between items-center mb-2">
+                    <h3 class="text-lg font-bold text-slate-800">Tambah Aktivitas</h3>
+                    <button id="closeModal" class="text-slate-500 hover:text-slate-700">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <a href="{{ route('ustadz.laporan.jurnal.create') }}"
+                    class="flex items-center gap-4 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                    <div class="flex items-center justify-center w-12 h-12 bg-primary rounded-full text-white">
+                        <span class="material-symbols-outlined">edit_note</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Jurnal Harian</p>
+                        <p class="text-xs text-slate-500">Catat kegiatan harian kelas</p>
+                    </div>
+                </a>
+                <a href="{{ route('ustadz.laporan.ekskul.create') }}"
+                    class="flex items-center gap-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                    <div class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full text-white">
+                        <span class="material-symbols-outlined">sports_martial_arts</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-slate-800">Kegiatan Ekskul</p>
+                        <p class="text-xs text-slate-500">Dokumentasi kegiatan ekstrakurikuler</p>
+                    </div>
+                </a>
+            </div>
+        </div>
 
     </div>
 
@@ -198,6 +232,36 @@
             history.pushState(null, null, location.href);
             window.addEventListener('popstate', function (event) {
                 window.location.href = "{{ route('ustadz.laporan.index') }}";
+            });
+
+            // Modal functionality
+            const fabBtn = document.getElementById('fabBtn');
+            const addModal = document.getElementById('addModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+
+            function openModal() {
+                addModal.classList.remove('hidden');
+                setTimeout(() => {
+                    addModal.classList.remove('opacity-0');
+                    modalContent.classList.remove('translate-y-full');
+                }, 10);
+            }
+
+            function closeModalFn() {
+                addModal.classList.add('opacity-0');
+                modalContent.classList.add('translate-y-full');
+                setTimeout(() => {
+                    addModal.classList.add('hidden');
+                }, 300);
+            }
+
+            fabBtn.addEventListener('click', openModal);
+            closeModal.addEventListener('click', closeModalFn);
+            addModal.addEventListener('click', function (e) {
+                if (e.target === addModal) {
+                    closeModalFn();
+                }
             });
         });
     </script>
