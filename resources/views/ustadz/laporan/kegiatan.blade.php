@@ -46,13 +46,9 @@
         class="relative flex min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-xl">
         <!-- TopAppBar -->
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
-            <div class="flex items-center p-4 pb-2 justify-between">
-                <a href="{{ route('ustadz.laporan.index') }}"
-                    class="text-[#0e141b] dark:text-white flex size-12 shrink-0 items-center justify-start">
-                    <span class="material-symbols-outlined">arrow_back_ios</span>
-                </a>
+            <div class="flex items-center p-4 pb-2 justify-center">
                 <h2
-                    class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
+                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] text-center">
                     Jurnal & Kegiatan</h2>
             </div>
         </header>
