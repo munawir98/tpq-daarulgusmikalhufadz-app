@@ -74,14 +74,10 @@
                 <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Periode
                     Laporan</label>
                 <form id="periodForm" method="GET">
-                    <select name="period" onchange="document.getElementById('periodForm').submit()"
-                        class="form-select-custom w-full h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all">
-                        @foreach($periods as $p)
-                        <option value="{{ $p['value'] }}" {{ $selectedPeriod==$p['value'] ? 'selected' : '' }}>
-                            {{ $p['label'] }}
-                        </option>
-                        @endforeach
-                    </select>
+                    <input type="date" name="period"
+                        value="{{ \Carbon\Carbon::parse($selectedPeriod)->format('Y-m-d') }}"
+                        onchange="document.getElementById('periodForm').submit()"
+                        class="w-full h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all px-4">
                 </form>
             </div>
         </section>
