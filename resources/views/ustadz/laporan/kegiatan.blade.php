@@ -32,7 +32,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            min-height: max(884px, 100dvh);
+            min-height: 100dvh;
         }
 
         .material-symbols-outlined {
