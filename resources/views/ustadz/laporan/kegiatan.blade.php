@@ -170,9 +170,9 @@
 
         <!-- Modal -->
         <div id="addModal"
-            class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300 px-4">
             <div id="modalContent"
-                class="bg-white w-full max-w-md rounded-t-2xl p-4 space-y-3 transform translate-y-full transition-transform duration-300">
+                class="bg-white w-full max-w-md rounded-2xl p-4 space-y-3 transform scale-90 opacity-0 transition-all duration-300">
                 <div class="flex justify-between items-center mb-1">
                     <h3 class="text-sm font-bold text-slate-800">Tambah Aktivitas</h3>
                     <button id="closeModal" class="text-slate-500 hover:text-slate-700">
@@ -244,13 +244,15 @@
                 addModal.classList.remove('hidden');
                 setTimeout(() => {
                     addModal.classList.remove('opacity-0');
-                    modalContent.classList.remove('translate-y-full');
+                    modalContent.classList.remove('scale-90', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
                 }, 10);
             }
 
             function closeModalFn() {
                 addModal.classList.add('opacity-0');
-                modalContent.classList.add('translate-y-full');
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-90', 'opacity-0');
                 setTimeout(() => {
                     addModal.classList.add('hidden');
                 }, 300);
