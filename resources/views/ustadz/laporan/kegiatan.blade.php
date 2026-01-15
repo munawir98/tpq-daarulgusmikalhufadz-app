@@ -174,7 +174,7 @@
             <div id="modalContent"
                 class="bg-white w-full max-w-md rounded-t-2xl p-6 space-y-4 transform translate-y-full transition-transform duration-300">
                 <div class="flex justify-between items-center mb-2">
-                    <h3 class="text-lg font-bold text-slate-800">Tambah Aktivitas</h3>
+                    <h3 class="text-sm font-bold text-slate-800">Tambah Aktivitas</h3>
                     <button id="closeModal" class="text-slate-500 hover:text-slate-700">
                         <span class="material-symbols-outlined">close</span>
                     </button>
