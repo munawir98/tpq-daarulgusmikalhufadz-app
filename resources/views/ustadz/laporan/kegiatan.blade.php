@@ -47,7 +47,7 @@
         <!-- TopAppBar -->
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
             <div class="flex items-center p-4 pb-2 justify-between">
-                <a href="{{ route('ustadz.laporan') }}"
+                <a href="{{ route('ustadz.laporan.index') }}"
                     class="text-[#0e141b] dark:text-white flex size-12 shrink-0 items-center justify-start">
                     <span class="material-symbols-outlined">arrow_back_ios</span>
                 </a>
