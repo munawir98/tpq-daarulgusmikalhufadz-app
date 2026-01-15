@@ -54,7 +54,7 @@
         </header>
 
         <!-- Tabs -->
-        <div class="sticky top-[64px] z-20 bg-background-light dark:bg-background-dark">
+        <div class="sticky top-[64px] z-20 bg-background-light dark:bg-background-dark mb-4">
             <div class="flex border-b border-[#d0dbe7] dark:border-slate-700 px-4 justify-between">
                 <button id="tabJurnal"
                     class="tab-btn flex flex-col items-center justify-center border-b-[3px] border-b-primary text-primary pb-[13px] pt-4 flex-1">
