@@ -197,7 +197,7 @@
     <div id="infaqModal" class="fixed inset-0 z-[100] hidden" aria-labelledby="modal-title" role="dialog"
         aria-modal="true">
         <!-- Backdrop -->
-        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0"
+        <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0 pointer-events-none"
             id="infaqModalBackdrop"></div>
 
         <!-- Panel -->
@@ -272,14 +272,17 @@
 
                 // Animate in
                 backdrop.classList.remove('opacity-0');
+                backdrop.classList.remove('pointer-events-none');
                 panel.classList.remove('translate-y-full');
             } else {
                 // Close animation
                 backdrop.classList.add('opacity-0');
+                backdrop.classList.add('pointer-events-none');
                 panel.classList.add('translate-y-full');
 
                 // Wait for transition
                 setTimeout(() => {
+                    modal.classList.add('hidden');
                 }, 300);
             }
         }
