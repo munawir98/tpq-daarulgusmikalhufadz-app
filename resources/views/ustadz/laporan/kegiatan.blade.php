@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        <main class="flex-1 pb-20">
+        <main class="flex-1 pb-14">
             <!-- Jurnal Harian Section -->
             <div id="sectionJurnal">
                 <!-- SectionHeader -->
@@ -163,7 +163,7 @@
 
         <!-- Floating Action Button -->
         <button
-            class="fixed bottom-4 right-4 flex items-center justify-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
+            class="fixed bottom-2 right-2 flex items-center justify-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-full shadow-lg hover:bg-blue-600 transition-colors z-30">
             <span class="material-symbols-outlined text-base">add</span>
             <span class="text-xs font-semibold">Tambah Aktivitas</span>
         </button>
