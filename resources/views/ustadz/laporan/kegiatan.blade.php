@@ -172,30 +172,30 @@
         <div id="addModal"
             class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
             <div id="modalContent"
-                class="bg-white w-full max-w-md rounded-t-2xl p-6 space-y-4 transform translate-y-full transition-transform duration-300">
-                <div class="flex justify-between items-center mb-2">
+                class="bg-white w-full max-w-md rounded-t-2xl p-4 space-y-3 transform translate-y-full transition-transform duration-300">
+                <div class="flex justify-between items-center mb-1">
                     <h3 class="text-sm font-bold text-slate-800">Tambah Aktivitas</h3>
                     <button id="closeModal" class="text-slate-500 hover:text-slate-700">
-                        <span class="material-symbols-outlined">close</span>
+                        <span class="material-symbols-outlined text-xl">close</span>
                     </button>
                 </div>
                 <a href="{{ route('ustadz.laporan.jurnal.create') }}"
-                    class="flex items-center gap-4 p-4 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
-                    <div class="flex items-center justify-center w-12 h-12 bg-primary rounded-full text-white">
-                        <span class="material-symbols-outlined">edit_note</span>
+                    class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl hover:bg-blue-100 transition-colors">
+                    <div class="flex items-center justify-center w-10 h-10 bg-primary rounded-full text-white">
+                        <span class="material-symbols-outlined text-lg">edit_note</span>
                     </div>
                     <div>
-                        <p class="font-semibold text-slate-800">Jurnal Harian</p>
+                        <p class="text-sm font-semibold text-slate-800">Jurnal Harian</p>
                         <p class="text-xs text-slate-500">Catat kegiatan harian kelas</p>
                     </div>
                 </a>
                 <a href="{{ route('ustadz.laporan.ekskul.create') }}"
-                    class="flex items-center gap-4 p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
-                    <div class="flex items-center justify-center w-12 h-12 bg-green-500 rounded-full text-white">
-                        <span class="material-symbols-outlined">sports_martial_arts</span>
+                    class="flex items-center gap-3 p-3 bg-green-50 rounded-xl hover:bg-green-100 transition-colors">
+                    <div class="flex items-center justify-center w-10 h-10 bg-green-500 rounded-full text-white">
+                        <span class="material-symbols-outlined text-lg">sports_martial_arts</span>
                     </div>
                     <div>
-                        <p class="font-semibold text-slate-800">Kegiatan Ekskul</p>
+                        <p class="text-sm font-semibold text-slate-800">Kegiatan Ekskul</p>
                         <p class="text-xs text-slate-500">Dokumentasi kegiatan ekstrakurikuler</p>
                     </div>
                 </a>
