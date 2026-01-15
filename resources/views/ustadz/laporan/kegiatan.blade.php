@@ -198,6 +198,12 @@
             tabEkskul.addEventListener('click', function () {
                 setActiveTab(tabEkskul, sectionEkskul, tabJurnal, sectionJurnal);
             });
+
+            // Enable hardware back button
+            history.pushState(null, null, location.href);
+            window.addEventListener('popstate', function (event) {
+                window.location.href = "{{ route('ustadz.laporan.index') }}";
+            });
         });
     </script>
 </body>
