@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="p-2 text-center text-gray-500">
+                <div class="p-4 flex flex-col items-center text-center text-gray-500">
                     <span class="material-symbols-outlined text-3xl text-gray-300 mb-1">edit_note</span>
                     <p class="text-xs">Belum ada jurnal harian.</p>
                 </div>
@@ -120,7 +120,7 @@
             <!-- Kegiatan Ekskul Section (Hidden by default) -->
             <div id="sectionEkskul" class="hidden">
                 <h3
-                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-2">
+                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] px-8 pb-2 pt-2">
                     Kegiatan Ekskul Terbaru</h3>
 
                 @forelse($ekskuls ?? [] as $ekskul)
@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 @empty
-                <div class="p-2 text-center text-gray-500">
+                <div class="p-4 flex flex-col items-center text-center text-gray-500">
                     <span class="material-symbols-outlined text-3xl text-gray-300 mb-1">sports_martial_arts</span>
                     <p class="text-xs">Belum ada kegiatan ekskul.</p>
                 </div>
