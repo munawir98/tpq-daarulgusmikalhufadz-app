@@ -58,9 +58,9 @@
 <body class="bg-background-light dark:bg-background-dark text-[#0d181c] dark:text-gray-100 min-h-screen pb-32">
     <!-- Header -->
     <header
-        class="flex items-center bg-white dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        class="flex items-center bg-primary dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-primary dark:border-slate-800 shadow-sm">
         <div class="w-full flex items-center justify-center relative">
-            <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+            <h1 class="text-white dark:text-white text-base font-bold leading-tight tracking-tight text-center">
                 Kehadiran Santri</h1>
         </div>
     </header>
