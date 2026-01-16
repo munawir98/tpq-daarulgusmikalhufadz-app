@@ -62,7 +62,7 @@
     <header
         class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
         <div class="flex items-center px-4 h-14 relative justify-center">
-            <h2 class="text-lg font-bold leading-tight tracking-tight text-center">Rincian Keuangan</h2>
+            <h2 class="text-base font-bold leading-tight tracking-tight text-center">Rincian Keuangan</h2>
             <button class="text-primary absolute right-4">
                 <span class="material-symbols-outlined text-[22px]">info</span>
             </button>
@@ -71,11 +71,11 @@
     <main class="flex-1 pb-24">
         <section class="px-4 pt-4">
             <div class="w-full">
-                <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Periode
+                <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 ml-1">Periode
                     Laporan</label>
                 <form id="periodForm" method="GET">
                     <select name="period" onchange="document.getElementById('periodForm').submit()"
-                        class="form-select-custom w-full h-12 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-base font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                        class="form-select-custom w-full h-11 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-medium focus:ring-2 focus:ring-primary focus:border-primary transition-all">
                         @foreach($periods as $p)
                         <option value="{{ $p['value'] }}" {{ $selectedPeriod==$p['value'] ? 'selected' : '' }}>
                             {{ $p['label'] }}
@@ -98,7 +98,7 @@
                     <span
                         class="material-symbols-outlined text-sm ml-auto text-slate-400 group-hover:text-primary transition-colors">open_in_new</span>
                 </div>
-                <p class="text-xl font-extrabold leading-tight relative z-10">Rp {{ number_format($totalInfaq, 0, ',',
+                <p class="text-lg font-extrabold leading-tight relative z-10">Rp {{ number_format($totalInfaq, 0, ',',
                     '.') }}</p>
             </button>
             <div class="flex flex-col gap-2 rounded-xl p-5 bg-primary shadow-lg shadow-primary/20">
@@ -106,7 +106,7 @@
                     <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
                     <p class="text-xs font-bold uppercase tracking-tight">Total Bisyaroh</p>
                 </div>
-                <p class="text-white text-xl font-extrabold leading-tight">Rp {{ number_format($totalBisyaroh, 0, ',',
+                <p class="text-white text-lg font-extrabold leading-tight">Rp {{ number_format($totalBisyaroh, 0, ',',
                     '.') }}</p>
             </div>
         </section>
@@ -122,11 +122,11 @@
                             <span class="material-symbols-outlined">description</span>
                         </div>
                         <div>
-                            <p class="font-bold text-sm">Bisyaroh Pokok</p>
-                            <p class="text-xs text-slate-500">Gaji bulanan tetap</p>
+                            <p class="font-bold text-xs">Bisyaroh Pokok</p>
+                            <p class="text-[10px] text-slate-500">Gaji bulanan tetap</p>
                         </div>
                     </div>
-                    <p class="font-bold">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
+                    <p class="font-bold text-sm">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
                 </div>
 
                 <!-- Calendar Section -->
@@ -200,7 +200,7 @@
             id="infaqModalPanel">
             <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
                 <div>
-                    <h3 class="text-lg font-bold">Rincian Infaq Kelas</h3>
+                    <h3 class="text-base font-bold">Rincian Infaq Kelas</h3>
                     <p class="text-xs text-slate-500">Total: Rp {{ number_format($totalInfaq, 0, ',', '.') }} • {{
                         $santriCount }} Santri</p>
                 </div>
@@ -227,17 +227,17 @@
                         <tr>
                             <td class="p-4">
                                 <div class="flex flex-col">
-                                    <span class="font-semibold text-sm">{{ $infaq->nama_santri }}</span>
+                                    <span class="font-semibold text-xs">{{ $infaq->nama_santri }}</span>
                                     <span class="text-[10px] text-slate-400 italic">{{
                                         \Carbon\Carbon::parse($infaq->tanggal)->format('d M Y') }}</span>
                                 </div>
                             </td>
-                            <td class="p-4 text-right font-medium text-sm">Rp {{ number_format($infaq->jumlah, 0, ',',
+                            <td class="p-4 text-right font-medium text-xs">Rp {{ number_format($infaq->jumlah, 0, ',',
                                 '.') }}</td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="2" class="p-4 text-center text-sm text-gray-500 py-10">Belum ada data infaq di
+                            <td colspan="2" class="p-4 text-center text-xs text-gray-500 py-10">Belum ada data infaq di
                                 periode ini.</td>
                         </tr>
                         @endforelse
