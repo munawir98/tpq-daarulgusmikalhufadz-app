@@ -123,22 +123,32 @@
                     6 Months</span>
             </div>
             <div class="relative h-48 w-full mt-4">
+                @php
+                // Calculate Y positions based on percentage (0% = 160, 100% = 0)
+                $points = [];
+                $xPositions = [0, 80, 160, 240, 320, 400];
+                foreach ($trendData as $index => $trend) {
+                $yPos = 160 - (($trend['percentage'] / 100) * 160);
+                $points[] = ['x' => $xPositions[$index], 'y' => $yPos];
+                }
+
+                // Build path strings
+                $fillPath = "M 0 160 L " . implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points)) . " L 400
+                160 Z";
+                $linePath = implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points));
+                @endphp
                 <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 160">
                     <line class="chart-grid-line" x1="0" x2="400" y1="0" y2="0"></line>
                     <line class="chart-grid-line" x1="0" x2="400" y1="40" y2="40"></line>
                     <line class="chart-grid-line" x1="0" x2="400" y1="80" y2="80"></line>
                     <line class="chart-grid-line" x1="0" x2="400" y1="120" y2="120"></line>
                     <line class="chart-grid-line" x1="0" x2="400" y1="160" y2="160"></line>
-                    <path d="M 0 160 L 0 64 L 80 48 L 160 80 L 240 32 L 320 48 L 400 32 L 400 160 Z"
-                        fill="url(#gradient)" opacity="0.1"></path>
-                    <path d="M 0 64 L 80 48 L 160 80 L 240 32 L 320 48 L 400 32" fill="none" stroke="#0C5A9F"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
-                    <circle cx="0" cy="64" fill="#0C5A9F" r="4"></circle>
-                    <circle cx="80" cy="48" fill="#0C5A9F" r="4"></circle>
-                    <circle cx="160" cy="80" fill="#0C5A9F" r="4"></circle>
-                    <circle cx="240" cy="32" fill="#0C5A9F" r="4"></circle>
-                    <circle cx="320" cy="48" fill="#0C5A9F" r="4"></circle>
-                    <circle cx="400" cy="32" fill="#0C5A9F" r="4"></circle>
+                    <path d="{{ $fillPath }}" fill="url(#gradient)" opacity="0.1"></path>
+                    <path d="M {{ $linePath }}" fill="none" stroke="#0C5A9F" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="3"></path>
+                    @foreach($points as $point)
+                    <circle cx="{{ $point['x'] }}" cy="{{ $point['y'] }}" fill="#0C5A9F" r="4"></circle>
+                    @endforeach
                     <defs>
                         <linearGradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
                             <stop offset="0%" style="stop-color:#0C5A9F;stop-opacity:1"></stop>
