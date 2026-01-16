@@ -218,36 +218,42 @@
         </div>
     </section>
 
-    <!-- Action Buttons (Separate Section) -->
+    <!-- Action Buttons (Separate Section) with Vibrant Colors -->
     <section class="px-6 py-4">
         <div
             class="flex justify-between items-center bg-white dark:bg-slate-800/50 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
 
-            <!-- Tombol Kirim Notif (Aktif) -->
+            <!-- Tombol Kirim Notif (Biru) -->
             <a href="{{ route('ustadz.broadcast.create') }}" class="flex flex-col items-center gap-2 flex-1 group">
                 <div
-                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-blue-500 dark:bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-blue-200 dark:shadow-blue-900/20 group-active:scale-95 transition-transform">
                     <span class="material-symbols-outlined text-2xl">notifications</span>
                 </div>
-                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Kirim Notif</span>
+                <span class="text-[10px] font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Kirim
+                    Notif</span>
             </a>
 
+            <!-- Tombol Export PDF (Merah) -->
             <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
-                class="flex flex-col items-center gap-2 flex-1 group border-x border-gray-50 dark:border-gray-800">
+                class="flex flex-col items-center gap-2 flex-1 group border-x border-gray-100 dark:border-gray-700">
                 <div
-                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-red-500 dark:bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-red-200 dark:shadow-red-900/20 group-active:scale-95 transition-transform">
                     <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
                 </div>
-                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export PDF</span>
+                <span class="text-[10px] font-extrabold text-red-600 dark:text-red-400 uppercase tracking-wider">Export
+                    PDF</span>
             </a>
 
+            <!-- Tombol Export Excel (Hijau) -->
             <button class="flex flex-col items-center gap-2 flex-1 group"
                 onclick="alert('Export Excel belum tersedia')">
                 <div
-                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-green-500 dark:bg-green-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-green-200 dark:shadow-green-900/20 group-active:scale-95 transition-transform">
                     <span class="material-symbols-outlined text-2xl">table_view</span>
                 </div>
-                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export Excel</span>
+                <span
+                    class="text-[10px] font-extrabold text-green-600 dark:text-green-400 uppercase tracking-wider">Export
+                    Excel</span>
             </button>
         </div>
     </section>
@@ -257,26 +263,28 @@
     <section class="py-4">
         <h3 class="px-6 text-lg font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
             Santri Perlu Perhatian
-            <span class="text-danger text-sm font-bold bg-danger/10 px-2 py-0.5 rounded-full">&lt;70%</span>
+            <span class="text-white text-xs font-bold bg-danger px-2 py-1 rounded-lg">&lt;70%</span>
         </h3>
         <div class="flex overflow-x-auto hide-scrollbar gap-4 px-6 pb-2">
             @foreach($santriPerluPerhatian as $s)
             <div class="flex-none w-24 flex flex-col items-center">
                 <div class="relative mb-2">
                     @if($s['foto'])
-                    <img alt="{{ $s['nama'] }}" class="w-16 h-16 rounded-full border-2 border-danger p-0.5 object-cover"
+                    <img alt="{{ $s['nama'] }}"
+                        class="w-16 h-16 rounded-full border-[3px] border-danger p-0.5 object-cover bg-white"
                         src="{{ asset('storage/' . $s['foto']) }}" />
                     @else
                     <div
-                        class="w-16 h-16 rounded-full border-2 border-danger p-0.5 bg-gray-100 flex items-center justify-center">
+                        class="w-16 h-16 rounded-full border-[3px] border-danger p-0.5 bg-gray-100 flex items-center justify-center">
                         <span class="text-xl font-bold text-danger">{{ substr($s['nama'], 0, 1) }}</span>
                     </div>
                     @endif
                     <span
-                        class="absolute -bottom-1 -right-1 bg-danger text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">{{
+                        class="absolute -bottom-1 -right-1 bg-danger text-white text-[10px] font-bold px-2 py-1 rounded-full border-2 border-white shadow-sm">{{
                         $s['persentase'] }}%</span>
                 </div>
-                <p class="text-xs font-bold text-center truncate w-full">{{ Str::limit($s['nama'], 12) }}</p>
+                <p class="text-xs font-bold text-center truncate w-full text-gray-700 dark:text-gray-300">{{
+                    Str::limit($s['nama'], 12) }}</p>
             </div>
             @endforeach
         </div>
@@ -287,12 +295,14 @@
     <section class="px-6 py-6 mb-8">
         <div class="flex justify-between items-center mb-4">
             <h3 class="text-lg font-bold text-gray-800 dark:text-gray-100">Daftar Kehadiran</h3>
-            <button class="text-primary text-sm font-bold">Lihat Semua</button>
+            <button
+                class="text-primary text-sm font-bold bg-primary/10 px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition-colors">Lihat
+                Semua</button>
         </div>
         <div class="space-y-3">
             @forelse($daftarKehadiran as $santri)
             <div
-                class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
+                class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between hover:shadow-md transition-shadow">
                 <div class="flex items-center gap-3">
                     @if($santri['foto'])
                     <img src="{{ asset('storage/' . $santri['foto']) }}"
@@ -304,31 +314,37 @@
                     })->take(2)->join('');
                     @endphp
                     <div
-                        class="w-11 h-11 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                        class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 font-bold border border-slate-200 dark:border-slate-600">
                         {{ $initials }}
                     </div>
                     @endif
                     <div>
                         <p class="text-sm font-bold text-gray-800 dark:text-gray-100">{{ $santri['nama'] }}</p>
-                        <p class="text-[11px] text-gray-400 font-medium uppercase tracking-tight">Hadir: {{
-                            $santri['hadir'] }} Hari ({{ $santri['persentase'] }}%)</p>
+                        <p class="text-[11px] text-gray-400 font-semibold uppercase tracking-tight mt-0.5">
+                            <span class="text-success">{{ $santri['hadir'] }} Hadir</span> • {{ $santri['persentase']
+                            }}%
+                        </p>
                     </div>
                 </div>
                 <div class="flex gap-1.5">
-                    <span
-                        class="w-7 h-7 flex items-center justify-center bg-success{{ $santri['hadir'] > 0 ? '' : '/20 text-success' }} text-white text-[10px] font-bold rounded-lg"
-                        title="Hadir: {{ $santri['hadir'] }}">H</span>
-                    <span
-                        class="w-7 h-7 flex items-center justify-center bg-primary{{ $santri['izin'] > 0 ? '' : '/20 text-primary' }} text-white text-[10px] font-bold rounded-lg"
-                        title="Izin: {{ $santri['izin'] }}">I</span>
-                    <span
-                        class="w-7 h-7 flex items-center justify-center bg-danger{{ $santri['alpa'] > 0 ? '' : '/10 text-danger' }} text-white text-[10px] font-bold rounded-lg"
-                        title="Alpa: {{ $santri['alpa'] }}">A</span>
+                    <div class="flex flex-col items-center">
+                        <span
+                            class="w-7 h-7 flex items-center justify-center {{ $santri['hadir'] > 0 ? 'bg-success text-white shadow-sm shadow-success/30' : 'bg-gray-100 text-gray-300 dark:bg-gray-700 dark:text-gray-600' }} text-[10px] font-bold rounded-lg transition-colors">H</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span
+                            class="w-7 h-7 flex items-center justify-center {{ $santri['izin'] > 0 ? 'bg-primary text-white shadow-sm shadow-primary/30' : 'bg-gray-100 text-gray-300 dark:bg-gray-700 dark:text-gray-600' }} text-[10px] font-bold rounded-lg transition-colors">I</span>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <span
+                            class="w-7 h-7 flex items-center justify-center {{ $santri['alpa'] > 0 ? 'bg-danger text-white shadow-sm shadow-danger/30' : 'bg-gray-100 text-gray-300 dark:bg-gray-700 dark:text-gray-600' }} text-[10px] font-bold rounded-lg transition-colors">A</span>
+                    </div>
                 </div>
             </div>
             @empty
-            <div class="text-center py-8 text-gray-400 text-sm">
-                Belum ada data kehadiran untuk periode ini.
+            <div class="flex flex-col items-center justify-center py-12 text-center">
+                <span class="material-symbols-outlined text-gray-300 text-6xl mb-2">event_busy</span>
+                <p class="text-gray-400 text-sm font-medium">Belum ada data kehadiran bulan ini.</p>
             </div>
             @endforelse
         </div>

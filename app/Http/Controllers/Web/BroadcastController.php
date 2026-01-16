@@ -50,9 +50,9 @@ class BroadcastController extends Controller
         foreach ($users as $user) {
             Notification::createForUser(
                 $user->id,
-                'broadcast',
                 $request->title,
-                $request->content
+                $request->content,
+                'broadcast'
             );
             $sentCount++;
         }
