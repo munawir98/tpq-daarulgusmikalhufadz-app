@@ -66,15 +66,15 @@
                     Statistik TPQ</p>
             </div>
             <div class="flex w-12 items-center justify-end">
-                <button
-                    class="flex cursor-pointer items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-[#0e141b] dark:text-white">
+                <a href="{{ route('ustadz.notifications.index') }}"
+                    class="flex cursor-pointer items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-[#0e141b] dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
                     <span class="material-symbols-outlined text-[24px]">notifications</span>
-                </button>
+                </a>
             </div>
         </header>
         <div class="flex flex-wrap gap-3 p-4">
-            <div
-                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+            <a href="{{ route('ustadz.santri.index') }}"
+                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-95 cursor-pointer">
                 <div class="flex items-center justify-between">
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Santri</p>
                     <span class="material-symbols-outlined text-primary text-xl">groups</span>
@@ -84,7 +84,7 @@
                     <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
                     <p class="text-[#078838] text-xs font-semibold">+12% bln ini</p>
                 </div>
-            </div>
+            </a>
             <div
                 class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
                 <div class="flex items-center justify-between">
@@ -97,8 +97,8 @@
                     <p class="text-[#078838] text-xs font-semibold">+2% bln ini</p>
                 </div>
             </div>
-            <div
-                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+            <a href="{{ route('presensi.index') }}"
+                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-95 cursor-pointer">
                 <div class="flex items-center justify-between">
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Kehadiran Hari Ini</p>
                     <span class="material-symbols-outlined text-primary text-xl">event_available</span>
@@ -108,9 +108,9 @@
                     <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
                     <p class="text-[#078838] text-xs font-semibold">+5% vs kemarin</p>
                 </div>
-            </div>
-            <div
-                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800">
+            </a>
+            <a href="{{ route('ustadz.laporan.keuangan') }}"
+                class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-95 cursor-pointer">
                 <div class="flex items-center justify-between">
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Kas TPQ</p>
                     <span class="material-symbols-outlined text-primary text-xl">account_balance_wallet</span>
@@ -120,7 +120,7 @@
                     <span class="material-symbols-outlined text-[#e73908] text-sm">trending_down</span>
                     <p class="text-[#e73908] text-xs font-semibold">-1% bln ini</p>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="px-4 pt-4 pb-2">
             <h2 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Laporan
