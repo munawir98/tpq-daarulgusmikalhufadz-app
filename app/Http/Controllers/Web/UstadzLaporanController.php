@@ -62,11 +62,13 @@ class UstadzLaporanController extends Controller
 
         $totalBisyaroh = $gaji ? $gaji->jumlah : 0;
 
-        // Breakdown logic (simplified/estimated if not in DB)
-        // Bisyaroh Pokok - let's set a standard base if 0
-        $bisyarohPokok = 750000; // Default/Mock base
+        // Gaji Pokok - default value jika belum ada data gaji di database
+        $bisyarohPokok = $gaji ? $gaji->jumlah : 750000;
 
-        // Count Presensi for Tunjangan logic
+        // Total Bisyaroh = Gaji Pokok saja
+        $totalBisyaroh = $bisyarohPokok;
+
+        // Count Presensi for Calendar display
         // Hanya hitung hari yang memiliki MASUK dan PULANG (status lengkap/selesai)
         $presensiQuery = Presensi::where('user_id', $user->id)
                                 ->whereMonth('tanggal', $month)
@@ -79,20 +81,6 @@ class UstadzLaporanController extends Controller
         // Hitung tanggal yang ada di KEDUA array (memiliki masuk DAN pulang)
         $tanggalLengkap = array_intersect($tanggalMasuk, $tanggalPulang);
         $presensiCount = count(array_unique($tanggalLengkap));
-
-        $tarifHadir = 15000;
-        $tunjanganHadir = $presensiCount * $tarifHadir;
-
-        // Bonus - Mock for now or check data
-        $bonusHafalan = 0; // Logic for hafalan bonus needed
-
-        // Adjust Pokok to match Total if Gaji exists?
-        // If Gaji exists, we trust its total. Breakdown might be illustrative.
-        // If Gaji doesn't exist, we show potential calculation or 0.
-        // Let's rely on calculated potential if Gaji is null.
-        if (!$gaji) {
-            $totalBisyaroh = $bisyarohPokok + $tunjanganHadir + $bonusHafalan;
-        }
 
         // Get Presensi Details for Calendar
         $presensiDetails = Presensi::where('user_id', $user->id)
@@ -136,10 +124,7 @@ class UstadzLaporanController extends Controller
             'fullPeriodName',
             'totalBisyaroh',
             'bisyarohPokok',
-            'tunjanganHadir',
             'presensiCount',
-            'tarifHadir',
-            'bonusHafalan',
             'infaqList',
             'totalInfaq',
             'santriCount',

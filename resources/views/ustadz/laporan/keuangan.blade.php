@@ -122,8 +122,8 @@
                             <span class="material-symbols-outlined">description</span>
                         </div>
                         <div>
-                            <p class="font-bold text-xs">Bisyaroh Pokok</p>
-                            <p class="text-[10px] text-slate-500">Gaji bulanan tetap</p>
+                            <p class="font-bold text-xs">Gaji Pokok</p>
+                            <p class="text-[10px] text-slate-500">Bisyaroh bulanan</p>
                         </div>
                     </div>
                     <p class="font-bold text-sm">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
