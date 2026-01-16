@@ -58,14 +58,7 @@
 <body class="bg-background-light dark:bg-background-dark text-[#0d181c] dark:text-gray-100 min-h-screen pb-32">
     <!-- Header -->
     <header class="p-6 pb-4">
-        <div class="flex items-center justify-between mb-4">
-            <a href="{{ route('dashboard') }}"
-                class="flex items-center text-gray-400 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined absolute left-4 text-xl">arrow_back_ios_new</span>
-            </a>
-            <div class="flex-1"></div>
-            <span class="material-symbols-outlined text-deep-blue cursor-pointer">more_horiz</span>
-        </div>
+
         <div class="space-y-1">
             <p class="text-deep-blue text-[11px] font-extrabold uppercase tracking-[0.2em] opacity-90">Laporan</p>
             <h1 class="text-deep-blue text-2xl font-extrabold leading-tight tracking-tight">Atensi &amp; Kehadiran
