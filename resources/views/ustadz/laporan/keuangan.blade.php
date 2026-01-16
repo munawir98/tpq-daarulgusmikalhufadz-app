@@ -115,19 +115,52 @@
                 Rincian Bisyaroh</h3>
             <div
                 class="mx-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm">
+                <!-- Gaji per Pertemuan -->
                 <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
                     <div class="flex items-center gap-3">
                         <div
                             class="size-10 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined">description</span>
+                            <span class="material-symbols-outlined">payments</span>
                         </div>
                         <div>
-                            <p class="font-bold text-xs">Gaji Pokok</p>
-                            <p class="text-[10px] text-slate-500">Bisyaroh bulanan</p>
+                            <p class="font-bold text-xs">Gaji per Pertemuan</p>
+                            <p class="text-[10px] text-slate-500">Bisyaroh per hari hadir</p>
                         </div>
                     </div>
-                    <p class="font-bold text-sm">Rp {{ number_format($bisyarohPokok, 0, ',', '.') }}</p>
+                    <p class="font-bold text-sm">Rp {{ number_format($gajiPerPertemuan, 0, ',', '.') }}</p>
                 </div>
+
+                <!-- Jumlah Kehadiran -->
+                <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="size-10 bg-green-50 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600">
+                            <span class="material-symbols-outlined">event_available</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xs">Jumlah Kehadiran</p>
+                            <p class="text-[10px] text-slate-500">Periode {{ $fullPeriodName }}</p>
+                        </div>
+                    </div>
+                    <p class="font-bold text-sm text-green-600">{{ $presensiCount }} Hari</p>
+                </div>
+
+                <!-- Total Bisyaroh -->
+                <div class="flex items-center justify-between p-4 bg-primary/5 dark:bg-primary/10">
+                    <div class="flex items-center gap-3">
+                        <div class="size-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">account_balance_wallet</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-xs text-primary">Total Bisyaroh</p>
+                            <p class="text-[10px] text-slate-500">Rp {{ number_format($gajiPerPertemuan, 0, ',', '.') }}
+                                × {{ $presensiCount }} hari</p>
+                        </div>
+                    </div>
+                    <p class="font-extrabold text-base text-primary">Rp {{ number_format($totalBisyaroh, 0, ',', '.') }}
+                    </p>
+                </div>
+
 
                 <!-- Calendar Section -->
                 <div class="p-4 bg-slate-50/50 dark:bg-slate-800/20">

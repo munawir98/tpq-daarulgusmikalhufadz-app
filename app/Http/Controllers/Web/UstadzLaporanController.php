@@ -60,16 +60,10 @@ class UstadzLaporanController extends Controller
                     })
                     ->first();
 
-        $totalBisyaroh = $gaji ? $gaji->jumlah : 0;
+        // Gaji Pokok per Pertemuan (default Rp 50.000)
+        $gajiPerPertemuan = 50000;
 
-        // Gaji Pokok - default value jika belum ada data gaji di database
-        $bisyarohPokok = $gaji ? $gaji->jumlah : 750000;
-
-        // Total Bisyaroh = Gaji Pokok saja
-        $totalBisyaroh = $bisyarohPokok;
-
-        // Count Presensi for Calendar display
-        // Hanya hitung hari yang memiliki MASUK dan PULANG (status lengkap/selesai)
+        // Count Presensi - Hanya hitung hari yang memiliki MASUK dan PULANG (status lengkap)
         $presensiQuery = Presensi::where('user_id', $user->id)
                                 ->whereMonth('tanggal', $month)
                                 ->whereYear('tanggal', $year)
@@ -81,6 +75,9 @@ class UstadzLaporanController extends Controller
         // Hitung tanggal yang ada di KEDUA array (memiliki masuk DAN pulang)
         $tanggalLengkap = array_intersect($tanggalMasuk, $tanggalPulang);
         $presensiCount = count(array_unique($tanggalLengkap));
+
+        // Total Bisyaroh = Gaji Pokok per Pertemuan × Jumlah Kehadiran
+        $totalBisyaroh = $gajiPerPertemuan * $presensiCount;
 
         // Get Presensi Details for Calendar
         $presensiDetails = Presensi::where('user_id', $user->id)
@@ -123,7 +120,7 @@ class UstadzLaporanController extends Controller
             'selectedPeriod',
             'fullPeriodName',
             'totalBisyaroh',
-            'bisyarohPokok',
+            'gajiPerPertemuan',
             'presensiCount',
             'infaqList',
             'totalInfaq',
