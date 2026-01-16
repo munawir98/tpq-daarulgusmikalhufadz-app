@@ -15,9 +15,100 @@ class NilaiWebController extends Controller
     /**
      * Halaman utama menu nilai dengan 4 sub-menu
      */
-    public function index()
+    /**
+     * Halaman utama menu nilai dengan 4 sub-menu
+     */
+    public function index(Request $request)
     {
-        return view('ustadz.nilai.index');
+        $selectedTahunAjaran = $request->get('tahun_ajaran', '2024/2025 Genap');
+        $selectedKelas = $request->get('kelas_id');
+
+        $kelasList = \App\Models\Kelas::all();
+        $tahunAjaranList = ['2023/2024 Ganjil', '2023/2024 Genap', '2024/2025 Ganjil', '2024/2025 Genap'];
+
+        $query = Santri::with(['nilaiSantri' => function($q) use ($selectedTahunAjaran) {
+            $q->where('tahun_ajaran', $selectedTahunAjaran)->orderBy('created_at', 'desc');
+        }]);
+
+        if ($selectedKelas) {
+            $query->where('kelas_id', $selectedKelas);
+        }
+
+        $santriList = $query->get()->map(function($santri) {
+            $santri->nilai = $santri->nilaiSantri->first(); // Get latest for selected period
+            return $santri;
+        });
+
+        // Calculate stats
+        $santriWithNilai = $santriList->filter(fn($s) => $s->nilai != null);
+        $rataRataKelas = 0;
+        $santriTertinggi = '-';
+
+        if ($santriWithNilai->count() > 0) {
+            $totalScore = 0;
+            $maxScore = -1;
+
+            foreach($santriWithNilai as $santri) {
+                $n = $santri->nilai;
+                $avg = ($n->tilawah + $n->hafalan + $n->adab + $n->tajwid) / 4;
+                $totalScore += $avg;
+
+                if ($avg > $maxScore) {
+                    $maxScore = $avg;
+                    $santriTertinggi = $santri->nama_lengkap;
+                }
+            }
+            $rataRataKelas = $totalScore / $santriWithNilai->count();
+        }
+
+        return view('ustadz.nilai.index', compact(
+            'santriList', 'kelasList', 'tahunAjaranList',
+            'selectedTahunAjaran', 'selectedKelas',
+            'rataRataKelas', 'santriTertinggi'
+        ));
+    }
+
+    public function input()
+    {
+        $santriList = Santri::where('status_aktif', true)->orderBy('nama_lengkap')->get();
+        return view('ustadz.nilai.input', compact('santriList'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'santri_id' => 'required|exists:santri,id',
+            'tahun_ajaran' => 'required',
+            'kategori' => 'required',
+            'tilawah' => 'required|integer|min:0|max:100',
+            'hafalan' => 'required|integer|min:0|max:100',
+            'adab' => 'required|integer|min:0|max:100',
+            'tajwid' => 'required|integer|min:0|max:100',
+            'catatan' => 'nullable|string'
+        ]);
+
+        // Fallback ustadz_id if relationship not set or user not linked
+        $ustadzId = auth()->user()->ustadz ? auth()->user()->ustadz->id : 1;
+
+        $nilai = \App\Models\NilaiSantri::create([
+            'santri_id' => $request->santri_id,
+            'ustadz_id' => $ustadzId,
+            'tahun_ajaran' => $request->tahun_ajaran,
+            'kategori' => $request->kategori,
+            'tilawah' => $request->tilawah,
+            'hafalan' => $request->hafalan,
+            'adab' => $request->adab,
+            'tajwid' => $request->tajwid,
+            'catatan' => $request->catatan
+        ]);
+
+        return redirect()->route('ustadz.nilai.success', $nilai->id);
+    }
+
+    public function success($id)
+    {
+        $nilai = \App\Models\NilaiSantri::with('santri')->findOrFail($id);
+        return view('ustadz.nilai.success', compact('nilai'));
     }
 
     /**

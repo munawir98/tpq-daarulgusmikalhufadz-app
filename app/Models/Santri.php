@@ -129,4 +129,9 @@ class Santri extends Model
     {
         return $this->hasMany(Presensi::class, 'user_id', 'user_id');
     }
+
+    public function nilaiSantri(): HasMany
+    {
+        return $this->hasMany(NilaiSantri::class, 'santri_id');
+    }
 }

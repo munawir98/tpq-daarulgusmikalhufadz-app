@@ -127,7 +127,36 @@ Route::get('/fix-kegiatan-tables', function () {
     }
 });
 
-// [TEMPORARY DEBUG] Check biometric credentials
+// [TEMPORARY] Fix nilai_santri table
+Route::get('/fix-nilai-table', function () {
+    $results = [];
+
+    try {
+        if (\Schema::hasTable('nilai_santri')) {
+            \Schema::dropIfExists('nilai_santri');
+            $results[] = "✅ Dropped table nilai_santri";
+        }
+
+        \Schema::create('nilai_santri', function ($table) {
+            $table->id();
+            $table->foreignId('santri_id')->constrained('santri')->onDelete('cascade');
+            $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
+            $table->string('tahun_ajaran');
+            $table->string('kategori'); // Monthly, UTS, UAS
+            $table->integer('tilawah')->default(0);
+            $table->integer('hafalan')->default(0);
+            $table->integer('adab')->default(0);
+            $table->integer('tajwid')->default(0);
+            $table->text('catatan')->nullable();
+            $table->timestamps();
+        });
+        $results[] = "✅ Created table nilai_santri";
+
+        return "<h2>✅ Fix berhasil!</h2><pre>" . implode("\n", $results) . "</pre><br><a href='/debug-db'>Cek Tabel Database</a>";
+    } catch (\Exception $e) {
+        return "<h2>❌ Fix gagal</h2><pre>" . $e->getMessage() . "</pre>";
+    }
+});
 Route::get('/debug-biometric', function () {
     try {
         $credentials = \App\Models\BiometricCredential::with('user.santri')->get();
