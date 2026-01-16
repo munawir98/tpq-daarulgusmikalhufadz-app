@@ -67,9 +67,9 @@
     <form action="{{ route('ustadz.broadcast.store') }}" method="POST" class="flex flex-col flex-1 h-full">
         @csrf
         <header
-            class="flex items-center bg-white dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+            class="flex items-center bg-primary dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-primary dark:border-slate-800 shadow-sm">
             <div class="w-full flex items-center justify-center relative">
-                <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                <h1 class="text-white dark:text-white text-base font-bold leading-tight tracking-tight text-center">
                     Kirim Notifikasi</h1>
             </div>
         </header>
@@ -101,7 +101,7 @@
                         <span class="material-symbols-outlined text-slate-400 text-xl">group</span>
                     </div>
                     <select name="target" id="targetSelect" onchange="toggleTargetDetails()"
-                        class="w-full h-12 pl-10 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
+                        class="w-full h-12 pl-10 pr-10 bg-white border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
                         <option value="all_santri">Semua Santri</option>
                         <option value="all_ustadz">Semua Ustadz</option>
                         <option value="all_users">Semua Pengguna</option>
