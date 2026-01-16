@@ -624,6 +624,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
             Route::get('/', [\App\Http\Controllers\Web\NilaiWebController::class, 'index'])->name('index');
             Route::get('/input', [\App\Http\Controllers\Web\NilaiWebController::class, 'input'])->name('input');
             Route::post('/store', [\App\Http\Controllers\Web\NilaiWebController::class, 'store'])->name('store');
+            Route::get('/success/{id}', [\App\Http\Controllers\Web\NilaiWebController::class, 'success'])->name('success');
             Route::get('/hafalan', [\App\Http\Controllers\Web\NilaiWebController::class, 'hafalan'])->name('hafalan');
             Route::get('/tajwid', [\App\Http\Controllers\Web\NilaiWebController::class, 'tajwid'])->name('tajwid');
             Route::post('/tajwid', [\App\Http\Controllers\Web\NilaiWebController::class, 'storeTajwid'])->name('tajwid.store');
