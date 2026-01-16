@@ -183,7 +183,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                         </div>
                     </button>
                     <button type="submit"
-                        class="flex-1 h-14 bg-primary hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
+                        class="flex-1 h-14 bg-slate-800 hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
                         <div class="flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-xl">notifications_active</span>
                             <span class="text-[11px] font-bold leading-none text-center">Notifikasi App</span>
