@@ -71,7 +71,13 @@ class NotificationWebController extends Controller
      */
     public function show($id)
     {
-        return view('notifications.show');
+        $notification = \App\Models\Notification::findOrFail($id);
+
+        if (!$notification->read_at) {
+            $notification->update(['read_at' => now()]);
+        }
+
+        return view('notifications.show', compact('notification'));
     }
 
     /**
