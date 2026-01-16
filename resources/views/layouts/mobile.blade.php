@@ -8,7 +8,8 @@
     <title>@yield('title', 'TPQ Digital')</title>
 
     {{-- Fonts --}}
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
@@ -27,7 +28,7 @@
                         "background-dark": "#102216",
                     },
                     fontFamily: {
-                        display: ["Manrope", "sans-serif"]
+                        display: ["Poppins", "sans-serif"]
                     },
                     borderRadius: {
                         "2xl": "1rem",
