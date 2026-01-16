@@ -64,35 +64,34 @@
                 <span class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Filter
                     Laporan</span>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-400 uppercase px-1">Periode</label>
-                    <div class="relative">
-                        <select
-                            class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm py-3 pl-3 pr-8 focus:ring-2 focus:ring-primary appearance-none">
-                            <option>Januari 2026</option>
-                            <option>Februari 2026</option>
-                            <option>Maret 2026</option>
-                        </select>
-                        <span
-                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl">expand_more</span>
+            <form method="GET" action="{{ route('presensi.index') }}">
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase px-1">Periode</label>
+                        <div class="relative">
+                            <input type="month" name="month" value="{{ $selectedMonth }}"
+                                class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm py-3 pl-3 pr-3 focus:ring-2 focus:ring-primary"
+                                onchange="this.form.submit()">
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase px-1">Kelas</label>
+                        <div class="relative">
+                            <select name="kelas"
+                                class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm py-3 pl-3 pr-8 focus:ring-2 focus:ring-primary appearance-none"
+                                onchange="this.form.submit()">
+                                <option value="">Semua Kelas</option>
+                                @foreach($kelasList as $kelas)
+                                <option value="{{ $kelas->id }}" {{ $selectedKelas==$kelas->id ? 'selected' : '' }}>{{
+                                    $kelas->nama_kelas }}</option>
+                                @endforeach
+                            </select>
+                            <span
+                                class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl">expand_more</span>
+                        </div>
                     </div>
                 </div>
-                <div class="space-y-1">
-                    <label class="text-[10px] font-bold text-slate-400 uppercase px-1">Kelas</label>
-                    <div class="relative">
-                        <select
-                            class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl text-sm py-3 pl-3 pr-8 focus:ring-2 focus:ring-primary appearance-none">
-                            <option>Semua Kelas</option>
-                            <option>Iqra 1</option>
-                            <option>Iqra 2</option>
-                            <option>Al-Qur'an</option>
-                        </select>
-                        <span
-                            class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-xl">expand_more</span>
-                    </div>
-                </div>
-            </div>
+            </form>
         </section>
         <section class="grid grid-cols-2 gap-4">
             <div class="bg-primary p-4 rounded-2xl text-white shadow-lg shadow-primary/20">
@@ -100,7 +99,7 @@
                     <span class="material-symbols-outlined opacity-80 text-xl">groups</span>
                     <span class="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-full uppercase">Total</span>
                 </div>
-                <div class="text-2xl font-extrabold tracking-tight">54</div>
+                <div class="text-2xl font-extrabold tracking-tight">{{ $totalSantri }}</div>
                 <div class="text-xs opacity-80 font-medium">Santri Terdaftar</div>
             </div>
             <div class="bg-emerald-500 p-4 rounded-2xl text-white shadow-lg shadow-emerald-500/20">
@@ -108,7 +107,7 @@
                     <span class="material-symbols-outlined opacity-80 text-xl">monitoring</span>
                     <span class="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-full uppercase">Avg</span>
                 </div>
-                <div class="text-2xl font-extrabold tracking-tight">88%</div>
+                <div class="text-2xl font-extrabold tracking-tight">{{ $avgKehadiran }}%</div>
                 <div class="text-xs opacity-80 font-medium">Rata-rata Kehadiran</div>
             </div>
         </section>
@@ -157,12 +156,9 @@
                 </div>
             </div>
             <div class="flex justify-between mt-4 px-2">
-                <span class="text-[10px] font-bold text-slate-400">Agt</span>
-                <span class="text-[10px] font-bold text-slate-400">Sep</span>
-                <span class="text-[10px] font-bold text-slate-400">Okt</span>
-                <span class="text-[10px] font-bold text-slate-400">Nov</span>
-                <span class="text-[10px] font-bold text-slate-400">Des</span>
-                <span class="text-[10px] font-bold text-slate-400">Jan</span>
+                @foreach($trendData as $trend)
+                <span class="text-[10px] font-bold text-slate-400">{{ $trend['month'] }}</span>
+                @endforeach
             </div>
         </section>
         <section class="space-y-3">
@@ -176,14 +172,19 @@
                     70% Kehadiran</span>
             </div>
             <div class="flex gap-3 overflow-x-auto pb-4 pt-1 hide-scrollbar -mx-4 px-4 snap-x">
+                @forelse($santriPerluPerhatian as $santri)
                 <div
                     class="flex-shrink-0 w-36 bg-white dark:bg-slate-800 p-3 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm snap-start">
                     <div class="flex flex-col items-center text-center space-y-2">
                         <div class="relative">
                             <div
                                 class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-rose-500 font-bold overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm">
-                                <img alt="Ahmad" class="w-full h-full object-cover"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM81C1pYx76oABjrsPBtuk2dkVg8YspJ_3kTUDLp3zNMYolo4SmlorNrTCgJIq7a0nSyN57TtYydNjRO7S7NGY2M74ge-xhVP2NwqjiBI__U6FxqLF8SeeeXfayGqxbHxJWaYKKSzJ-iBiJF4_aSY5zAjALxi1gWCRSz0ud4IfAvElY8SqTqcx9M_yvzGoG9pU9vcwKCbpJPkN25X5-idFeNaUZi1fhKTEr9LMhaJ9SSPAIiS2q8vTUL94hnkv6XdCUUKRFs53sCI1" />
+                                @if($santri['foto'])
+                                <img alt="{{ $santri['nama'] }}" class="w-full h-full object-cover"
+                                    src="{{ asset('storage/' . $santri['foto']) }}" />
+                                @else
+                                <span class="text-lg">{{ strtoupper(substr($santri['nama'], 0, 1)) }}</span>
+                                @endif
                             </div>
                             <div
                                 class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800 flex items-center justify-center">
@@ -191,191 +192,66 @@
                             </div>
                         </div>
                         <div class="space-y-0.5">
-                            <h3 class="font-bold text-[11px] text-slate-800 dark:text-slate-200 line-clamp-1">Ahmad
-                                Dhani</h3>
-                            <div class="text-lg font-black text-rose-600">58%</div>
+                            <h3 class="font-bold text-[11px] text-slate-800 dark:text-slate-200 line-clamp-1">{{
+                                $santri['nama'] }}</h3>
+                            <div class="text-lg font-black text-rose-600">{{ $santri['persentase'] }}%</div>
                         </div>
                     </div>
                 </div>
-                <div
-                    class="flex-shrink-0 w-36 bg-white dark:bg-slate-800 p-3 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm snap-start">
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="relative">
-                            <div
-                                class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-rose-500 font-bold overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm">
-                                <img alt="Budi" class="w-full h-full object-cover"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdgSOuyMBMowqqrFI1oaRZp-tuSjl1qdQ533Jp5kXjzBcqgImaCMonXcQJGW5pKGQ9tnH4b_d04dIN53AHdkcXJQEeQl380bsA8CIDC_gMd8H8rTi-USDpZUzpgEnzIKgb22gDK4gyioStxOV3WXFNC1h1wjc28gMIA6DSU174BzTBDYXPvAZ5k9TEl0-LUB5kR_cCe3qSKHuaS32H4Yl5OJo32QUkkDKqrmjvwEPvSeWMNs70VZzh_PeQoJyIj9RbdrpHvbPNROCU" />
-                            </div>
-                            <div
-                                class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[10px] text-white">warning</span>
-                            </div>
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-[11px] text-slate-800 dark:text-slate-200 line-clamp-1">Zaki
-                                Musyafa</h3>
-                            <div class="text-lg font-black text-rose-600">62%</div>
-                        </div>
-                    </div>
+                @empty
+                <div class="flex-1 text-center py-4 text-slate-400 text-sm">
+                    <span class="material-symbols-outlined text-2xl mb-1">check_circle</span>
+                    <p>Semua santri memiliki kehadiran baik!</p>
                 </div>
-                <div
-                    class="flex-shrink-0 w-36 bg-white dark:bg-slate-800 p-3 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm snap-start">
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="relative">
-                            <div
-                                class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-rose-500 font-bold overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm">
-                                <img alt="Siti" class="w-full h-full object-cover"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA29r_Kw1sjiSumqEBuCn7MDW24R8WLjmtfhQ8kBV_z0wtazoc-Zr0H4uMNvbxNncGbl80_IMjm_nPNUt4zJqdxe4bwaT995ngrwR1gWnCerol9tYR0gem2tSNwaOhrCAIW9WUylc-c9H0C6jBqYXVSRr3oHFMSqyU4hXRLKojwqyQcxDjJluIr_8rpNVXsjffXdnAFGh31wWNpxTsYViE4OqjJIUBpZnY0WfmAvgJxuYvxswox9WwLWHSmJsvsFp_uqryJVTsj1nzH" />
-                            </div>
-                            <div
-                                class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[10px] text-white">warning</span>
-                            </div>
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-[11px] text-slate-800 dark:text-slate-200 line-clamp-1">Siti
-                                Aminah</h3>
-                            <div class="text-lg font-black text-rose-600">45%</div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    class="flex-shrink-0 w-36 bg-white dark:bg-slate-800 p-3 rounded-2xl border border-rose-100 dark:border-rose-900/30 shadow-sm snap-start">
-                    <div class="flex flex-col items-center text-center space-y-2">
-                        <div class="relative">
-                            <div
-                                class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-rose-500 font-bold overflow-hidden border-2 border-white dark:border-slate-700 shadow-sm">
-                                <img alt="Umar" class="w-full h-full object-cover"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVD9xDmS3gOy7en7yO_fbjqBPrw7wNMbvbyYDXDn1_9kPSiOaOTnp8amrGDLyUfGs64S4DRyUqhD7kPVnfOGdD8s39-gQFAUxzm-oAUbDCzJuLYqdDY8quMoxXJGYPXOYcI_d6e8dpMBex22UarYsoomqk8UKXqZgvTyOIZ7jX_STf9lyrs5zqF2w_iVWt70cCpyNOIEzMB4B9GGugNQkoWUo_t1_aGluJ7cXbKcMUcijb4T4WzO3wj2LVwz9ir1u3wvGA6w4zrYoD" />
-                            </div>
-                            <div
-                                class="absolute -bottom-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white dark:border-slate-800 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[10px] text-white">warning</span>
-                            </div>
-                        </div>
-                        <div class="space-y-0.5">
-                            <h3 class="font-bold text-[11px] text-slate-800 dark:text-slate-200 line-clamp-1">Umar
-                                Syarif</h3>
-                            <div class="text-lg font-black text-rose-600">68%</div>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </section>
         <div class="space-y-4">
             <div class="flex items-center justify-between pt-2 px-1">
                 <h2 class="font-bold text-slate-800 dark:text-slate-200">Daftar Kehadiran</h2>
-                <span class="text-xs font-medium text-slate-500">Januari 2026</span>
+                <span class="text-xs font-medium text-slate-500">{{ $selectedDate->translatedFormat('F Y') }}</span>
             </div>
             <div class="space-y-3 pb-32">
+                @forelse($daftarKehadiran as $santri)
                 <div
                     class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center justify-between">
                     <div class="flex gap-4 items-center">
                         <div
                             class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-primary font-bold overflow-hidden">
-                            <img alt="Avatar" class="w-full h-full object-cover"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyFGyF8aLKn3UddjYSrqm5w3GE-YTnGX0TaqVuBY4VddAPFMW8aNqDMa6Y9M1eDK0Z5lcCwZxp2K8CoERnq-sBB1MZFsBiBUSYTOz1kUD4sCyaAMSwp3F9KYBNhfJeHEMiLf8XfoJX1UpZF_fe7D3AHPfePPWMul3vMxuWoCCCDIjVE0uJ5eDlri4HqK1HyIVatheiql6NECXFI_wK57DE52_DI7Ok8QAvAGsGN6LamK9fxT7ZSVyh1jWnxKRX2qMnAhAP8jEfTpCu" />
+                            @if($santri['foto'])
+                            <img alt="{{ $santri['nama'] }}" class="w-full h-full object-cover"
+                                src="{{ asset('storage/' . $santri['foto']) }}" />
+                            @else
+                            <span class="text-sm">{{ strtoupper(substr($santri['nama'], 0, 1)) }}</span>
+                            @endif
                         </div>
                         <div class="space-y-2">
-                            <h3 class="font-bold text-sm">Ahmad Syafi'i</h3>
+                            <h3 class="font-bold text-sm">{{ $santri['nama'] }}</h3>
                             <div class="flex gap-2">
                                 <span
                                     class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 font-bold border border-emerald-100 dark:border-emerald-500/20">H:
-                                    20</span>
+                                    {{ $santri['hadir'] }}</span>
                                 <span
                                     class="text-[10px] px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-600 font-bold border border-amber-100 dark:border-amber-500/20">I:
-                                    2</span>
+                                    {{ $santri['izin'] + $santri['sakit'] }}</span>
                                 <span
                                     class="text-[10px] px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-600 font-bold border border-rose-100 dark:border-rose-500/20">A:
-                                    0</span>
+                                    {{ $santri['alpa'] }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="text-right">
-                        <div class="text-xl font-extrabold text-emerald-600">90%</div>
-                    </div>
-                </div>
-                <div
-                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center justify-between">
-                    <div class="flex gap-4 items-center">
                         <div
-                            class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-primary font-bold overflow-hidden">
-                            <img alt="Avatar" class="w-full h-full object-cover"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlttyb7F5FrUH5lMX9Etv41UyD7GhX8wmvNwlL6vK-AI8dsxcWIkODhYEaWOXFy_d3P-wG0RoyRH8Vrot7jiZLgbYMH7fAd231O6548dWXa7OfC6kjWnsQT9AfzHqEUxjngGkEboefGTI28WiIkXcTrhZjFYV-6k0mLixVM6RGqTXImY1ULN03pT_DKSxlWbCc7re-wtjMK7n-GWkGEJ51GCCw3N4MIFKlPKuh7Iuxa9jt9o-g8X0XUEZHEpeI99qBP3d4XLdwsNKL" />
-                        </div>
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-sm">Fatimah Az-Zahra</h3>
-                            <div class="flex gap-2">
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 font-bold border border-emerald-100 dark:border-emerald-500/20">H:
-                                    22</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-600 font-bold border border-amber-100 dark:border-amber-500/20">I:
-                                    0</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-600 font-bold border border-rose-100 dark:border-rose-500/20">A:
-                                    0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-extrabold text-emerald-600">100%</div>
+                            class="text-xl font-extrabold {{ $santri['persentase'] >= 80 ? 'text-emerald-600' : ($santri['persentase'] >= 70 ? 'text-amber-500' : 'text-rose-500') }}">
+                            {{ $santri['persentase'] }}%</div>
                     </div>
                 </div>
-                <div
-                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center justify-between">
-                    <div class="flex gap-4 items-center">
-                        <div
-                            class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-primary font-bold overflow-hidden">
-                            <img alt="Avatar" class="w-full h-full object-cover"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOexBbhHgA5pS_tDG4sWqhwUNLTXrqrU0u-C5wsG8sAtUyCpBQAbhoyBe9r0XFAKleGA0AbbsOGx_hWY7JDQiY_p3yBRBn1cJKYygiRjQwLxNEhAMs7vDoy6NTvC957xlbfigKb5DTtE0XPEPMrBgmdbns_ZPT-HlF-Q4S1_ihj7ngciZQBL653N204VsKBgQllGL7fo4V6F4CJ1Lb07OkEJM0ZNKxnhcxcknMqbZiLYombw5vg6ArcWqTcCMtTBe9numBrmltr9r5" />
-                        </div>
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-sm">Zaid Al-Khoir</h3>
-                            <div class="flex gap-2">
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 font-bold border border-emerald-100 dark:border-emerald-500/20">H:
-                                    16</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-600 font-bold border border-amber-100 dark:border-amber-500/20">I:
-                                    4</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-600 font-bold border border-rose-100 dark:border-rose-500/20">A:
-                                    2</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-extrabold text-amber-500">72%</div>
-                    </div>
+                @empty
+                <div class="text-center py-8 text-slate-400">
+                    <span class="material-symbols-outlined text-4xl mb-2">groups</span>
+                    <p>Belum ada data kehadiran</p>
                 </div>
-                <div
-                    class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm flex items-center justify-between">
-                    <div class="flex gap-4 items-center">
-                        <div
-                            class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-primary font-bold overflow-hidden">
-                            <img alt="Avatar" class="w-full h-full object-cover"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPGoexQ4QrUH9N3fPK8n_PinuEbSeWlKST_sUlGugxIlh5sbMS4ZyUluwA1LUBMX352h2DCVFzPQFA6LU6sqe_2kzX4s0MI2AQAYvIh3U-ojSa0da9iahzhPgd57uk-JZB6Tk2SD-O-WKlrixTTNx5fepk5WgGUuB9nTxwEbjyOpFrGTDAzHT8-SIC3rfgZlflLz1bGIwu49pKpfj0tguriA5MxV33h_yw8Pl7rKgp3FPoUrZ6QJ5to9J9m83f788xHNWieR4j0slX" />
-                        </div>
-                        <div class="space-y-2">
-                            <h3 class="font-bold text-sm">Maryam Nurul Huda</h3>
-                            <div class="flex gap-2">
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 font-bold border border-emerald-100 dark:border-emerald-500/20">H:
-                                    19</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-600 font-bold border border-amber-100 dark:border-amber-500/20">I:
-                                    2</span>
-                                <span
-                                    class="text-[10px] px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-600 font-bold border border-rose-100 dark:border-rose-500/20">A:
-                                    1</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-xl font-extrabold text-emerald-600">86%</div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
     </main>

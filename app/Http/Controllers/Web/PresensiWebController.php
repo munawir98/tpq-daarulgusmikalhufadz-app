@@ -202,74 +202,136 @@ class PresensiWebController extends Controller
     }
 
     /**
-     * Main Index (Rekap/History)
-     * Used by Ustadz & maybe shared
+     * Main Index (Laporan & Atensi)
+     * Used by Ustadz to view santri attendance report
      */
     public function index(Request $request)
     {
-        $userId = session('user.id');
-
-        // Handle Month Filter (format: YYYY-MM)
+        // Handle Filters
         $monthInput = $request->input('month', now()->format('Y-m'));
-        $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+        $kelasId = $request->input('kelas');
 
-        // 1. Data Hari Ini (Only relevant if selected month is current month, otherwise maybe hide or show average)
-        // For simplicity, we keep showing today's data or maybe null if looking at past months.
-        // Let's keep it simple: "Hari Ini" block always shows REAL TODAY regardless of filter,
-        // because it's a "dashboard" status widget.
-        $today = now()->format('Y-m-d');
-        $jamMasuk = \App\Models\Presensi::where('user_id', $userId)
-            ->where('tanggal', $today)
-            ->where('tipe', 'masuk')
-            ->first();
-        $jamPulang = \App\Models\Presensi::where('user_id', $userId)
-            ->where('tanggal', $today)
-            ->where('tipe', 'pulang')
-            ->first();
+        try {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+        } catch (\Exception $e) {
+            $date = now();
+        }
 
-        // 2. Statistik Bulanan (Based on Selected Month)
-        $totalHadir = \App\Models\Presensi::where('user_id', $userId)
-            ->whereYear('tanggal', $date->year)
-            ->whereMonth('tanggal', $date->month)
-            ->where('status_presensi', 'HADIR')
-            ->selectRaw('count(distinct tanggal) as total')
-            ->value('total');
+        // Get Kelas List for Filter
+        $kelasList = \App\Models\Kelas::orderBy('nama_kelas')->get();
 
-        $totalIzin = \App\Models\Presensi::where('user_id', $userId)
-            ->whereYear('tanggal', $date->year)
-            ->whereMonth('tanggal', $date->month)
-            ->where('status_presensi', 'IZIN')
-            ->count();
+        // 1. Total Santri Terdaftar (Active)
+        $santriQuery = \App\Models\Santri::where('status_aktif', true);
+        if ($kelasId) {
+            $santriQuery->where('kelas_id', $kelasId);
+        }
+        $totalSantri = $santriQuery->count();
 
-        $totalAlfa = \App\Models\Presensi::where('user_id', $userId)
-            ->whereYear('tanggal', $date->year)
-            ->whereMonth('tanggal', $date->month)
-            ->where('status_presensi', 'ALFA')
-            ->count();
+        // 2. Rata-rata Kehadiran Bulan Ini
+        $kehadiranQuery = \App\Models\KehadiranSantri::whereYear('tanggal', $date->year)
+            ->whereMonth('tanggal', $date->month);
 
-        // Simple heuristic for working days
-        $totalHariKerja = 22; // Placeholder/Standard
+        if ($kelasId) {
+            $kehadiranQuery->whereHas('santri', function($q) use ($kelasId) {
+                $q->where('kelas_id', $kelasId);
+            });
+        }
 
-        // 3. Riwayat (Filtered by Month)
-        $riwayatRaw = \App\Models\Presensi::where('user_id', $userId)
-            ->whereYear('tanggal', $date->year)
-            ->whereMonth('tanggal', $date->month)
-            ->orderBy('tanggal', 'desc')
-            ->orderBy('jam', 'asc')
-            ->get();
+        $totalKehadiran = (clone $kehadiranQuery)->count();
+        $totalHadir = (clone $kehadiranQuery)->where('status', 'Hadir')->count();
+        $avgKehadiran = $totalKehadiran > 0 ? round(($totalHadir / $totalKehadiran) * 100) : 0;
 
-        $riwayatMingguIni = $riwayatRaw->groupBy('tanggal'); // Variable name kept for compatibility but holds Month data now
+        // 3. Tren Kehadiran 6 Bulan Terakhir
+        $trendData = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $trendDate = now()->subMonths($i);
+            $trendQuery = \App\Models\KehadiranSantri::whereYear('tanggal', $trendDate->year)
+                ->whereMonth('tanggal', $trendDate->month);
+
+            if ($kelasId) {
+                $trendQuery->whereHas('santri', function($q) use ($kelasId) {
+                    $q->where('kelas_id', $kelasId);
+                });
+            }
+
+            $trendTotal = $trendQuery->count();
+            $trendHadir = (clone $trendQuery)->where('status', 'Hadir')->count();
+            $trendData[] = [
+                'month' => $trendDate->translatedFormat('M'),
+                'percentage' => $trendTotal > 0 ? round(($trendHadir / $trendTotal) * 100) : 0
+            ];
+        }
+
+        // 4. Santri Perlu Perhatian (< 70% kehadiran bulan ini)
+        $santriPerluPerhatian = [];
+        $santriListQuery = \App\Models\Santri::where('status_aktif', true);
+        if ($kelasId) {
+            $santriListQuery->where('kelas_id', $kelasId);
+        }
+        $santriList = $santriListQuery->get();
+
+        foreach ($santriList as $santri) {
+            $santriKehadiran = \App\Models\KehadiranSantri::where('santri_id', $santri->id)
+                ->whereYear('tanggal', $date->year)
+                ->whereMonth('tanggal', $date->month);
+
+            $santriTotal = $santriKehadiran->count();
+            $santriHadir = (clone $santriKehadiran)->where('status', 'Hadir')->count();
+            $santriPersen = $santriTotal > 0 ? round(($santriHadir / $santriTotal) * 100) : 0;
+
+            if ($santriPersen < 70 && $santriTotal > 0) {
+                $santriPerluPerhatian[] = [
+                    'id' => $santri->id,
+                    'nama' => $santri->nama_lengkap,
+                    'foto' => $santri->user?->foto,
+                    'persentase' => $santriPersen
+                ];
+            }
+        }
+
+        // Sort by lowest percentage
+        usort($santriPerluPerhatian, fn($a, $b) => $a['persentase'] <=> $b['persentase']);
+        $santriPerluPerhatian = array_slice($santriPerluPerhatian, 0, 10);
+
+        // 5. Daftar Kehadiran Santri
+        $daftarKehadiran = [];
+        foreach ($santriList as $santri) {
+            $santriKehadiran = \App\Models\KehadiranSantri::where('santri_id', $santri->id)
+                ->whereYear('tanggal', $date->year)
+                ->whereMonth('tanggal', $date->month);
+
+            $hadir = (clone $santriKehadiran)->where('status', 'Hadir')->count();
+            $izin = (clone $santriKehadiran)->where('status', 'Izin')->count();
+            $sakit = (clone $santriKehadiran)->where('status', 'Sakit')->count();
+            $alpa = (clone $santriKehadiran)->where('status', 'Alpa')->count();
+            $total = $santriKehadiran->count();
+            $persentase = $total > 0 ? round(($hadir / $total) * 100) : 0;
+
+            $daftarKehadiran[] = [
+                'id' => $santri->id,
+                'nama' => $santri->nama_lengkap,
+                'foto' => $santri->user?->foto,
+                'hadir' => $hadir,
+                'izin' => $izin,
+                'sakit' => $sakit,
+                'alpa' => $alpa,
+                'persentase' => $persentase
+            ];
+        }
+
+        // Sort by name
+        usort($daftarKehadiran, fn($a, $b) => strcmp($a['nama'], $b['nama']));
 
         return view('presensi.index', [
-            'jamMasuk' => $jamMasuk,
-            'jamPulang' => $jamPulang,
-            'totalHadir' => $totalHadir ?? 0,
-            'totalIzin' => $totalIzin ?? 0,
-            'totalAlfa' => $totalAlfa ?? 0,
-            'totalHariKerja' => $totalHariKerja,
-            'riwayat' => $riwayatMingguIni, // Renaming recommended but sticking to view expectations or creating alias
-            'riwayatMingguIni' => $riwayatMingguIni,
-            'selectedDate' => $date, // Pass Carbon object for view title
+            'totalSantri' => $totalSantri,
+            'avgKehadiran' => $avgKehadiran,
+            'trendData' => $trendData,
+            'santriPerluPerhatian' => $santriPerluPerhatian,
+            'daftarKehadiran' => $daftarKehadiran,
+            'selectedMonth' => $monthInput,
+            'selectedKelas' => $kelasId,
+            'kelasList' => $kelasList,
+            'selectedDate' => $date,
         ]);
     }
 
