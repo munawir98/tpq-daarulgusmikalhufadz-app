@@ -66,13 +66,11 @@
 <body class="bg-white text-slate-900 min-h-screen flex flex-col">
     <form action="{{ route('ustadz.broadcast.store') }}" method="POST" class="flex flex-col flex-1 h-full">
         @csrf
-        <header class="sticky top-0 z-50 bg-white border-b border-slate-100">
-            <div class="flex items-center p-4 h-16 max-w-md mx-auto w-full">
-                <a href="{{ url()->previous() }}"
-                    class="flex items-center justify-center p-2 -ml-2 rounded-full hover:bg-slate-100 transition-colors">
-                    <span class="material-symbols-outlined text-2xl text-primary font-bold">arrow_back_ios_new</span>
-                </a>
-                <h1 class="flex-1 text-center text-lg font-bold tracking-tight mr-8 text-primary">Kirim Notifikasi</h1>
+        <header
+            class="flex items-center bg-white dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+            <div class="w-full flex items-center justify-center relative">
+                <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                    Kirim Notifikasi</h1>
             </div>
         </header>
 
