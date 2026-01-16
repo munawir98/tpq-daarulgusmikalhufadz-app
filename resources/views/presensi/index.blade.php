@@ -240,7 +240,8 @@
                     </div>
                     <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Kirim Notif</span>
                 </button>
-                <a href="{{ route('ustadz.presensi.pdf') }}" class="flex flex-col items-center gap-2 flex-1 group">
+                <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
+                    class="flex flex-col items-center gap-2 flex-1 group">
                     <div
                         class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
                         <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>

@@ -486,4 +486,39 @@ class PresensiWebController extends Controller
     {
         return view('presensi.index');
     }
+
+
+    /**
+     * Show PDF Confirmation Page
+     */
+    public function pdfConfirmation(Request $request)
+    {
+        $monthInput = $request->input('month', now()->format('Y-m'));
+        $kelasId = $request->input('kelas');
+
+        try {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+        } catch (\Exception $e) {
+            $date = now();
+        }
+
+        $monthName = $date->locale('id')->translatedFormat('F Y');
+        $filename = 'Laporan_Kehadiran_' . $date->format('M_Y') . '.pdf';
+
+        return view('presensi.pdf_confirm', compact('monthInput', 'kelasId', 'monthName', 'filename'));
+    }
+
+    /**
+     * Handle PDF Download
+     */
+    public function pdfDownload(Request $request)
+    {
+        $monthInput = $request->input('month', now()->format('Y-m'));
+        $kelasId = $request->input('kelas');
+
+        // Logic generate PDF sesungguhnya akan ada di sini.
+        // Untuk saat ini response text sederhana.
+        return response("PDF Generator belum terinstall. Silakan gunakan fitur Print Browser (Ctrl+P) pada halaman laporan tabel.", 200)
+            ->header('Content-Type', 'text/plain');
+    }
 }
