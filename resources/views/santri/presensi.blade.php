@@ -7,7 +7,7 @@
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
     <div class="flex items-center justify-between px-5 py-4">
         <div class="w-16"></div> <!-- Spacer with width matching the history button approx width -->
-        <h2 class="text-xl font-bold flex-1 text-center">Presensi</h2>
+        <h2 class="text-base font-bold flex-1 text-center">Presensi</h2>
         <a href="{{ route('santri.presensi.history') }}"
             class="flex items-center justify-end gap-1 text-primary text-sm font-semibold hover:underline w-16">
             <span class="material-symbols-outlined" style="font-size: 18px;">history</span>
@@ -27,10 +27,10 @@
                 {{ $hasPresensi ? 'check_circle' : 'fingerprint' }}
             </span>
         </div>
-        <h3 class="text-2xl font-bold text-[#102216] dark:text-white mb-1">
+        <h3 class="text-lg font-bold text-[#102216] dark:text-white mb-1">
             {{ $hasPresensi ? 'Sudah Presensi!' : 'Presensi Hari Ini' }}
         </h3>
-        <p class="text-gray-500 dark:text-gray-400 text-sm">
+        <p class="text-gray-500 dark:text-gray-400 text-xs">
             @if($hasPresensi)
             Masuk: {{ $presensiTime }} WIB
             @else
@@ -49,7 +49,7 @@
             <span id="statusIcon" class="material-symbols-outlined">location_on</span>
         </div>
         <div class="flex-1">
-            <h4 class="font-bold text-[#111813] dark:text-white">Status Lokasi</h4>
+            <h4 class="font-bold text-sm text-[#111813] dark:text-white">Status Lokasi</h4>
             <p id="locationText" class="text-sm text-gray-500 mt-1">
                 Mencari lokasi...
             </p>
@@ -93,7 +93,7 @@
 <div class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-5 border border-dashed border-gray-200 dark:border-gray-700">
     <div class="flex items-center gap-2 mb-3">
         <span class="material-symbols-outlined text-primary" style="font-size: 20px;">info</span>
-        <h4 class="font-bold text-[#111813] dark:text-white">Cara Presensi</h4>
+        <h4 class="font-bold text-sm text-[#111813] dark:text-white">Cara Presensi</h4>
     </div>
     <ol class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
         <li class="flex items-start gap-3">
