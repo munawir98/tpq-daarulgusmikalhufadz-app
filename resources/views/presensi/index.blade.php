@@ -57,7 +57,7 @@
 
 <body class="bg-background-light dark:bg-background-dark text-[#0d181c] dark:text-gray-100 min-h-screen pb-32">
     <!-- Header -->
-    <header class="p-6 pb-4">
+    <header class="p-4 pb-2">
 
         <div class="space-y-1">
             <p class="text-deep-blue text-[11px] font-extrabold uppercase tracking-[0.2em] opacity-90">Laporan</p>
