@@ -179,7 +179,7 @@
                 <!-- Expanded Content (Previously Main Content) -->
                 <div class="flex flex-col items-center animate-fade-in-up">
                     <div class="mb-6 text-center">
-                        <p class="text-3xl font-bold text-gray-900" id="current-time">--:--</p>
+                        <p class="text-2xl font-bold text-gray-900" id="current-time">--:--</p>
                         <p class="text-gray-500 text-xs mt-1" id="current-date">--</p>
                     </div>
 
@@ -266,7 +266,7 @@
                     <div class="w-full bg-gray-50 border border-gray-100 rounded-2xl p-5 mb-8">
                         <div class="flex items-center space-x-2 mb-4">
                             <span class="material-symbols-outlined text-yellow-500">calendar_month</span>
-                            <h3 class="font-bold text-sm text-gray-900">Rekapitulasi Presensi</h3>
+                            <h3 class="font-bold text-xs text-gray-900">Rekapitulasi Presensi</h3>
                         </div>
                         <form action="{{ route('ustadz.presensi') }}" method="GET">
                             <div class="grid grid-cols-2 gap-3 mb-4">
@@ -312,7 +312,7 @@
                     <!-- Riwayat Pekan Ini -->
                     <div class="w-full pb-8">
                         <div class="flex items-center justify-between mb-4 px-2">
-                            <h3 class="font-bold text-lg text-gray-900">Riwayat Pekan Ini</h3>
+                            <h3 class="font-bold text-sm text-gray-900">Riwayat Pekan Ini</h3>
                             <a href="{{ route('ustadz.laporan.index') }}"
                                 class="text-xs text-blue-500 font-bold hover:text-blue-600 transition-colors">Lihat
                                 Semua</a>
@@ -328,7 +328,7 @@
                                             'logout' }}</span>
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-sm text-gray-900">{{ $item->tipe == 'masuk' ?
+                                        <p class="font-semibold text-xs text-gray-900">{{ $item->tipe == 'masuk' ?
                                             'Masuk Kelas' : 'Pulang / Selesai' }}</p>
                                         <p class="text-[11px] text-gray-500">
                                             {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('l, d M') }},
