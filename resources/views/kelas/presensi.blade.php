@@ -118,6 +118,15 @@
         </div>
     </div>
 
+    <!-- Kirim Notifikasi ke Orang Tua -->
+    <div class="p-4">
+        <a href="{{ route('ustadz.broadcast.create') }}"
+            class="w-full flex items-center justify-center gap-3 bg-primary text-[#102216] font-bold py-4 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all active:scale-95">
+            <span class="material-symbols-outlined">notifications_active</span>
+            Kirim Notifikasi ke Orang Tua
+        </a>
+    </div>
+
     <!-- Bottom Nav -->
     <nav
         class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-surface-light dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 pb-5 pt-3 px-6 z-50">
