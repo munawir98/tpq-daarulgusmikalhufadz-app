@@ -278,8 +278,17 @@ class UstadzLaporanController extends Controller
             $data['foto'] = $request->file('foto')->store('ekskul', 'public');
         }
 
-        \App\Models\KegiatanEkskul::create($data);
+        $ekskul = \App\Models\KegiatanEkskul::create($data);
 
-        return redirect()->route('ustadz.laporan.kegiatan')->with('success', 'Kegiatan Ekskul berhasil ditambahkan!');
+        return redirect()->route('ustadz.laporan.ekskul.success', $ekskul->id);
+    }
+
+    /**
+     * Show success page after storing Kegiatan Ekskul.
+     */
+    public function ekskulSuccess($id)
+    {
+        $ekskul = \App\Models\KegiatanEkskul::findOrFail($id);
+        return view('ustadz.laporan.ekskul_success', compact('ekskul'));
     }
 }
