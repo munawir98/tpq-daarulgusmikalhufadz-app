@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Tambah Jurnal Harian</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -22,7 +22,7 @@
                         "background-dark": "#111921",
                     },
                     fontFamily: {
-                        "display": ["Manrope"]
+                        "display": ["Poppins", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -40,7 +40,7 @@
         }
 
         body {
-            font-family: "Manrope", sans-serif
+            font-family: "Poppins", sans-serif
         }
 
         select {
