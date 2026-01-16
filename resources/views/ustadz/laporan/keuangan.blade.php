@@ -161,53 +161,63 @@
                     </p>
                 </div>
 
-                <!-- Calendar Section - Data Kehadiran -->
-                <div class="p-4 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
-                    <div class="flex items-center justify-between mb-4">
-                        <h4 class="text-xs font-bold uppercase text-slate-500">Tanggal Kehadiran</h4>
-                        <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
-                            $presensiCount }} Hari Hadir</span>
-                    </div>
+                <!-- Calendar Section - Data Kehadiran (Collapsible) -->
+                <div class="border-t border-slate-100 dark:border-slate-800">
+                    <!-- Toggle Header -->
+                    <button onclick="toggleKehadiran()"
+                        class="w-full p-4 bg-slate-50/50 dark:bg-slate-800/20 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors">
+                        <div class="flex items-center gap-2">
+                            <h4 class="text-xs font-bold uppercase text-slate-500">Tanggal Kehadiran</h4>
+                            <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
+                                $presensiCount }} Hari Hadir</span>
+                        </div>
+                        <span id="toggleIcon"
+                            class="material-symbols-outlined text-slate-400 transition-transform duration-300">expand_more</span>
+                    </button>
 
-                    @php
-                    $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
-                    $attendanceMap = [];
-                    foreach($presensiDetails as $detail) {
-                    $d = \Carbon\Carbon::parse($detail->tanggal)->day;
-                    if (!isset($attendanceMap[$d])) $attendanceMap[$d] = [];
-                    $attendanceMap[$d][] = [
-                    'jam' => $detail->jam,
-                    'status' => $detail->status_presensi
-                    ];
-                    }
-                    @endphp
+                    <!-- Collapsible Content -->
+                    <div id="kehadiranContent" class="hidden p-4 pt-0 bg-slate-50/50 dark:bg-slate-800/20">
+                        @php
+                        $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
+                        $attendanceMap = [];
+                        foreach($presensiDetails as $detail) {
+                        $d = \Carbon\Carbon::parse($detail->tanggal)->day;
+                        if (!isset($attendanceMap[$d])) $attendanceMap[$d] = [];
+                        $attendanceMap[$d][] = [
+                        'jam' => $detail->jam,
+                        'status' => $detail->status_presensi
+                        ];
+                        }
+                        @endphp
 
-                    <div class="rounded-lg">
-                        <div class="grid grid-cols-7 gap-1.5 text-center">
-                            <span class="text-[10px] font-bold text-slate-400">Sn</span>
-                            <span class="text-[10px] font-bold text-slate-400">Sl</span>
-                            <span class="text-[10px] font-bold text-slate-400">Rb</span>
-                            <span class="text-[10px] font-bold text-slate-400">Km</span>
-                            <span class="text-[10px] font-bold text-slate-400">Jm</span>
-                            <span class="text-[10px] font-bold text-slate-400">Sb</span>
-                            <span class="text-[10px] font-bold text-slate-400">Mg</span>
+                        <div class="rounded-lg">
+                            <div class="grid grid-cols-7 gap-1.5 text-center">
+                                <span class="text-[10px] font-bold text-slate-400">Sn</span>
+                                <span class="text-[10px] font-bold text-slate-400">Sl</span>
+                                <span class="text-[10px] font-bold text-slate-400">Rb</span>
+                                <span class="text-[10px] font-bold text-slate-400">Km</span>
+                                <span class="text-[10px] font-bold text-slate-400">Jm</span>
+                                <span class="text-[10px] font-bold text-slate-400">Sb</span>
+                                <span class="text-[10px] font-bold text-slate-400">Mg</span>
 
-                            {{-- Empty slots for start of month --}}
-                            @php
-                            $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
-                            @endphp
-                            @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
+                                {{-- Empty slots for start of month --}}
+                                @php
+                                $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
+                                @endphp
+                                @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
 
-                                {{-- Days --}}
-                                @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
-                                    $events=$hasData ? $attendanceMap[$day] : []; $dataAttr=$hasData ?
-                                    htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
-                                    onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
-                                    data-events="{{ $dataAttr }}"
-                                    class="aspect-square flex flex-col items-center justify-center rounded-lg text-[10px] font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-400 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700' }}">
-                                    {{ $day }}
-                                    </button>
-                                    @endfor
+                                    {{-- Days --}}
+                                    @for($day = 1; $day <= $daysInMonth; $day++) @php
+                                        $hasData=isset($attendanceMap[$day]); $events=$hasData ? $attendanceMap[$day] :
+                                        []; $dataAttr=$hasData ? htmlspecialchars(json_encode($events),
+                                        ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
+                                        onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
+                                        data-events="{{ $dataAttr }}"
+                                        class="aspect-square flex flex-col items-center justify-center rounded-lg text-[10px] font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-400 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700' }}">
+                                        {{ $day }}
+                                        </button>
+                                        @endfor
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -310,6 +320,19 @@
                 setTimeout(() => {
                     modal.classList.add('hidden');
                 }, 300);
+            }
+        }
+
+        function toggleKehadiran() {
+            const content = document.getElementById('kehadiranContent');
+            const icon = document.getElementById('toggleIcon');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
             }
         }
 
