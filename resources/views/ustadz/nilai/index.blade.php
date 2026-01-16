@@ -233,7 +233,7 @@
         <!-- Floating Action Area (Bottom Navigation) -->
         <div
             class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 p-4 pb-8 flex items-center gap-3 z-20">
-            <a href="{{ route('ustadz.nilai.hafalan') }}"
+            <a href="{{ route('ustadz.nilai.input') }}"
                 class="flex-1 bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary/25">
                 <span class="material-symbols-outlined">add_circle</span>
                 Input Nilai Baru
