@@ -55,7 +55,7 @@
 
             <!-- Tanggal -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Tanggal *</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Tanggal *</label>
                 <input type="date" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                 @error('tanggal')
@@ -65,7 +65,7 @@
 
             <!-- Judul -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Judul *</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Judul *</label>
                 <input type="text" name="judul" value="{{ old('judul') }}" placeholder="Judul jurnal hari ini..."
                     required
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
@@ -76,7 +76,7 @@
 
             <!-- Kelas -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Kelas (Opsional)</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Kelas (Opsional)</label>
                 <select name="kelas_id"
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                     <option value="">-- Pilih Kelas --</option>
@@ -90,14 +90,14 @@
 
             <!-- Deskripsi -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Deskripsi</label>
                 <textarea name="deskripsi" rows="4" placeholder="Deskripsikan kegiatan hari ini..."
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none">{{ old('deskripsi') }}</textarea>
             </div>
 
             <!-- Foto -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Foto (Opsional)</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Foto (Opsional)</label>
                 <input type="file" name="foto" accept="image/*"
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                 @error('foto')

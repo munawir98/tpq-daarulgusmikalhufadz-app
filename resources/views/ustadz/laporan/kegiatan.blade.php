@@ -48,7 +48,7 @@
         <header class="sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
             <div class="flex items-center pt-8 pb-2 px-4 justify-center">
                 <h2
-                    class="text-[#0e141b] dark:text-white text-sm font-bold leading-tight tracking-[-0.015em] text-center">
+                    class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] text-center">
                     Jurnal & Kegiatan</h2>
             </div>
         </header>

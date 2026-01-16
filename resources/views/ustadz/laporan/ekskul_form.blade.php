@@ -55,7 +55,7 @@
 
             <!-- Tanggal -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Tanggal *</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Tanggal *</label>
                 <input type="date" name="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                 @error('tanggal')
@@ -65,7 +65,7 @@
 
             <!-- Nama Kegiatan -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Nama Kegiatan *</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Nama Kegiatan *</label>
                 <input type="text" name="nama" value="{{ old('nama') }}"
                     placeholder="Contoh: Latihan Tahfidz, Pramuka..." required
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
@@ -76,28 +76,28 @@
 
             <!-- Pelatih -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Pelatih (Opsional)</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Pelatih (Opsional)</label>
                 <input type="text" name="pelatih" value="{{ old('pelatih') }}" placeholder="Nama pelatih..."
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
             </div>
 
             <!-- Jumlah Peserta -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Jumlah Peserta</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Jumlah Peserta</label>
                 <input type="number" name="jumlah_peserta" value="{{ old('jumlah_peserta', 0) }}" min="0"
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
             </div>
 
             <!-- Keterangan -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Keterangan</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Keterangan</label>
                 <textarea name="keterangan" rows="4" placeholder="Keterangan tambahan..."
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary resize-none">{{ old('keterangan') }}</textarea>
             </div>
 
             <!-- Foto -->
             <div>
-                <label class="block text-sm font-medium text-slate-700 mb-1">Foto (Opsional)</label>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Foto (Opsional)</label>
                 <input type="file" name="foto" accept="image/*"
                     class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary">
                 @error('foto')

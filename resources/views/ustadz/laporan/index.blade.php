@@ -72,7 +72,7 @@
         <div class="relative z-10 pt-12 pb-14 px-6">
             <div class="flex items-center justify-center mb-2">
                 <div class="text-center text-white">
-                    <h1 class="text-xl font-bold leading-tight">Laporan</h1>
+                    <h1 class="text-lg font-bold leading-tight">Laporan</h1>
                     <p class="text-xs opacity-75 mt-0.5">Pusat Data &amp; Statistik TPQ</p>
                 </div>
             </div>
