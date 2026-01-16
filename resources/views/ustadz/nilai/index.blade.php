@@ -67,7 +67,7 @@
                     </p>
                     <div class="relative">
                         <select name="tahun_ajaran" onchange="this.form.submit()"
-                            class="form-select flex w-full min-w-0 flex-1 appearance-none rounded-lg text-[#0e141b] dark:text-white focus:outline-0 focus:ring-0 border border-[#d0dbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 h-12 p-[12px] pr-10 text-sm font-normal">
+                            class="form-select flex w-full min-w-0 flex-1 appearance-none rounded-lg text-[#0e141b] dark:text-white focus:outline-0 focus:ring-0 border border-[#d0dbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 h-12 p-[12px] pr-10 text-sm font-normal bg-none">
                             @foreach($tahunAjaranList ?? [] as $ta)
                             <option value="{{ $ta }}" {{ ($selectedTahunAjaran ?? '' )==$ta ? 'selected' : '' }}>{{ $ta
                                 }}</option>
@@ -85,7 +85,7 @@
                     <p class="text-[#0e141b] dark:text-slate-300 text-sm font-medium leading-normal pb-2">Kelas</p>
                     <div class="relative">
                         <select name="kelas_id" onchange="this.form.submit()"
-                            class="form-select flex w-full min-w-0 flex-1 appearance-none rounded-lg text-[#0e141b] dark:text-white focus:outline-0 focus:ring-0 border border-[#d0dbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 h-12 p-[12px] pr-10 text-sm font-normal">
+                            class="form-select flex w-full min-w-0 flex-1 appearance-none rounded-lg text-[#0e141b] dark:text-white focus:outline-0 focus:ring-0 border border-[#d0dbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 h-12 p-[12px] pr-10 text-sm font-normal bg-none">
                             @foreach($kelasList ?? [] as $kelas)
                             <option value="{{ $kelas->id }}" {{ ($selectedKelas ?? '' )==$kelas->id ? 'selected' : ''
                                 }}>{{ $kelas->nama }}</option>
