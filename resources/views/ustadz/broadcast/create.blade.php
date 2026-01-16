@@ -77,7 +77,7 @@
         </header>
 
         <main class="flex-1 max-w-md mx-auto w-full pb-44">
-            {{-- Success/Error Messages --}}
+            {{-- Success/Error Messages (Preserved Functional Logic) --}}
             @if(session('success'))
             <div
                 class="p-4 mx-4 mt-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
@@ -95,21 +95,22 @@
 
             <section class="p-4">
                 <div class="mb-2">
-                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Target</h3>
+                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Santri</h3>
                 </div>
-                <!-- Dropdown Select Replacement for Search -->
+                <!-- Functional Wrapper for Search UI -->
                 <div class="relative group">
                     <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-slate-400 text-xl">groups</span>
+                        <span class="material-symbols-outlined text-slate-400 text-xl">search</span>
                     </div>
-                    {{-- Hidden title input for now, required by controller --}}
-                    <input type="hidden" name="title" value="Pekannbguaran" id="titleInput">
-                    <select name="target"
-                        class="w-full h-12 pl-10 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
-                        <option value="all_santri">Semua Santri</option>
-                        <option value="all_ustadz">Semua Ustadz</option>
-                        <option value="all_users">Semua Pengguna</option>
-                    </select>
+                    {{-- Hidden Target Input for Controller Compatibility --}}
+                    {{-- Defaulting to all_santri as the UI implies broad selection or single (which requires more
+                    logic) --}}
+                    <input type="hidden" name="target" value="all_santri">
+                    <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
+
+                    <input
+                        class="w-full h-12 pl-10 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
+                        placeholder="Cari nama santri..." type="text" />
                     <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
                         <span class="material-symbols-outlined text-slate-400 text-xl">unfold_more</span>
                     </div>
@@ -118,38 +119,39 @@
 
             <section class="px-4">
                 <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3">
-                    <div
-                        class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200 flex items-center justify-center bg-white text-gray-400">
-                        <span class="material-symbols-outlined text-2xl">campaign</span>
+                    {{-- Static image form design --}}
+                    <div class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-base font-bold text-slate-900">Broadcast Umum</h2>
-                        <p class="text-[11px] text-slate-500 font-medium">Kirim ke banyak penerima sekaligus</p>
+                        <h2 class="text-base font-bold text-slate-900">Ahmad Syarif</h2>
+                        <p class="text-[11px] text-slate-500 font-medium">Santri • Wali: Bpk. Ridwan</p>
                     </div>
                     <span
-                        class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded border border-amber-100 uppercase tracking-tighter">Draft</span>
+                        class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded border border-amber-100 uppercase tracking-tighter">Belum
+                        Dihubungi</span>
                 </div>
             </section>
 
             <section class="mt-4">
                 <div class="px-4 mb-2">
-                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Template</h3>
+                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Alasan</h3>
                 </div>
-                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar pb-2">
+                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar">
                     <button type="button" onclick="setTemplate('Absensi')"
-                        class="flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20">
+                        class="flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap">
                         Absensi
                     </button>
                     <button type="button" onclick="setTemplate('Izin Sakit')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
                         Izin Sakit
                     </button>
                     <button type="button" onclick="setTemplate('Pertemuan')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
                         Pertemuan
                     </button>
                     <button type="button" onclick="setTemplate('Lainnya')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
                         Lainnya
                     </button>
                 </div>
@@ -164,8 +166,8 @@
                     <textarea name="content" id="messageContent"
                         class="w-full bg-transparent border-none focus:ring-0 text-slate-700 p-4 min-h-[180px] text-sm leading-relaxed resize-none"
                         placeholder="Tulis pesan Anda di sini...">Assalamu'alaikum Warahmatullahi Wabarakatuh,
-Kami menginfokan pengumuman penting.
-Mohon perhatiannya. Terima kasih.</textarea>
+Bpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.
+Mohon konfirmasinya. Terima kasih.</textarea>
                 </div>
             </section>
         </main>
@@ -218,13 +220,15 @@ Mohon perhatiannya. Terima kasih.</textarea>
                 title = "Informasi Umum";
                 text = "Assalamu'alaikum Warahmatullahi Wabarakatuh,\n";
             }
-            textarea.value = text;
-            titleInput.value = title;
+            if (textarea) textarea.value = text;
+            if (titleInput) titleInput.value = title;
         }
 
         function sendWhatsApp() {
-            const msg = encodeURIComponent(textarea.value);
-            window.open(`https://wa.me/?text=${msg}`, '_blank');
+            if (textarea) {
+                const msg = encodeURIComponent(textarea.value);
+                window.open(`https://wa.me/?text=${msg}`, '_blank');
+            }
         }
     </script>
 </body>
