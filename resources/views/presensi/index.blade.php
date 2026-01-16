@@ -382,25 +382,54 @@
     <div
         class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent pt-12">
         <div class="space-y-3">
-            <a href="{{ route('notifications.create') }}"
-                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 shadow-xl shadow-primary/30 transition-all active:scale-95">
-                <span class="material-symbols-outlined text-xl">send_to_mobile</span>
-                Kirim Notifikasi ke Orang Tua
-            </a>
-            <div class="grid grid-cols-2 gap-3">
-                <a href="{{ route('ustadz.presensi.pdf', request()->query()) }}" id="exportPdfBtn"
-                    class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
-                    <span class="material-symbols-outlined text-rose-500 text-xl">picture_as_pdf</span>
-                    <span class="text-sm text-primary">Export PDF</span>
+            <!-- Toggle Button -->
+            <button id="actionToggle" onclick="toggleActions()"
+                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-5 rounded-2xl flex items-center justify-between shadow-xl shadow-primary/30 transition-all active:scale-95">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-xl">more_horiz</span>
+                    <span>Aksi Lainnya</span>
+                </div>
+                <span id="toggleIcon"
+                    class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+            </button>
+
+            <!-- Hidden Actions Panel -->
+            <div id="actionPanel" class="hidden space-y-2">
+                <a href="{{ route('notifications.create') }}"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl flex items-center gap-3 shadow-md transition-all active:scale-95">
+                    <span class="material-symbols-outlined text-xl">send_to_mobile</span>
+                    <span class="text-sm">Kirim Notifikasi ke Orang Tua</span>
                 </a>
-                <button
-                    class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
-                    <span class="material-symbols-outlined text-emerald-500 text-xl">description</span>
-                    <span class="text-sm text-primary">Export Excel</span>
-                </button>
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="{{ route('ustadz.presensi.pdf', request()->query()) }}" id="exportPdfBtn"
+                        class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-rose-500 text-lg">picture_as_pdf</span>
+                        <span class="text-xs text-primary">Export PDF</span>
+                    </a>
+                    <button
+                        class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
+                        <span class="material-symbols-outlined text-emerald-500 text-lg">description</span>
+                        <span class="text-xs text-primary">Export Excel</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleActions() {
+            const panel = document.getElementById('actionPanel');
+            const icon = document.getElementById('toggleIcon');
+
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                panel.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
 
     <script>
         // PDF Loading State Logic
