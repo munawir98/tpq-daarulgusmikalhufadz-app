@@ -160,63 +160,8 @@
                     <p class="font-extrabold text-base text-primary">Rp {{ number_format($totalBisyaroh, 0, ',', '.') }}
                     </p>
                 </div>
-
-
-                <!-- Calendar Section -->
-                <div class="p-4 bg-slate-50/50 dark:bg-slate-800/20">
-                    <div class="flex items-center justify-between mb-6">
-                        <h4 class="text-xs font-bold uppercase text-slate-500">Data Kehadiran</h4>
-                        <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
-                            $presensiCount }} Hari Hadir</span>
-                    </div>
-
-                    @php
-                    $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
-                    $attendanceMap = [];
-                    foreach($presensiDetails as $detail) {
-                    $d = \Carbon\Carbon::parse($detail->tanggal)->day;
-                    // Store detail. If multiple, maybe append? For now, just taking the first 'HADIR' or latest.
-                    // Ideally we want Masuk and Pulang.
-                    // Let's store an array of events for that day
-                    if (!isset($attendanceMap[$d])) $attendanceMap[$d] = [];
-                    $attendanceMap[$d][] = [
-                    'jam' => $detail->jam,
-                    'status' => $detail->status_presensi
-                    ];
-                    }
-                    @endphp
-
-                    <div class="max-h-48 overflow-y-auto rounded-lg">
-                        <div class="grid grid-cols-7 gap-2 text-center">
-                            <span class="text-[10px] font-bold text-slate-400">Sn</span>
-                            <span class="text-[10px] font-bold text-slate-400">Sl</span>
-                            <span class="text-[10px] font-bold text-slate-400">Rb</span>
-                            <span class="text-[10px] font-bold text-slate-400">Km</span>
-                            <span class="text-[10px] font-bold text-slate-400">Jm</span>
-                            <span class="text-[10px] font-bold text-slate-400">Sb</span>
-                            <span class="text-[10px] font-bold text-slate-400">Mg</span>
-
-                            {{-- Empty slots for start of month --}}
-                            @php
-                            $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month, 1)->dayOfWeekIso;
-                            @endphp
-                            @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
-
-                                {{-- Days --}}
-                                @for($day = 1; $day <= $daysInMonth; $day++) @php $hasData=isset($attendanceMap[$day]);
-                                    $events=$hasData ? $attendanceMap[$day] : []; $dataAttr=$hasData ?
-                                    htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ; @endphp <button
-                                    onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
-                                    data-events="{{ $dataAttr }}"
-                                    class="aspect-square flex flex-col items-center justify-center rounded-lg text-xs font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-500 bg-white border border-slate-100 hover:bg-slate-50' }}">
-                                    {{ $day }}
-                                    </button>
-                                    @endfor
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
+
 
     </main>
 
