@@ -132,21 +132,22 @@
                 <div class="px-4 mb-2">
                     <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Alasan</h3>
                 </div>
-                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar pb-3 mask-linear">
-                    <button type="button" onclick="setTemplate('Absensi')"
-                        class="flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0">
+                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar pb-3 mask-linear scroll-smooth"
+                    id="templateContainer">
+                    <button type="button" onclick="setTemplate('Absensi', this)"
+                        class="template-btn flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0 transition-all">
                         Absensi
                     </button>
-                    <button type="button" onclick="setTemplate('Izin Sakit')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
+                    <button type="button" onclick="setTemplate('Izin Sakit', this)"
+                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
                         Izin Sakit
                     </button>
-                    <button type="button" onclick="setTemplate('Pertemuan')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
+                    <button type="button" onclick="setTemplate('Pertemuan', this)"
+                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
                         Pertemuan
                     </button>
-                    <button type="button" onclick="setTemplate('Lainnya')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
+                    <button type="button" onclick="setTemplate('Lainnya', this)"
+                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
                         Lainnya
                     </button>
                     <div class="w-2 shrink-0"></div>
@@ -189,9 +190,10 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                         </div>
                     </button>
                 </div>
-                <p class="text-[10px] text-slate-400 text-center leading-tight px-6">
-                    Pesan akan dikirim langsung ke aplikasi orang tua atau melalui WhatsApp.
-                </p>
+            </div>
+            <p class="text-[10px] text-slate-400 text-center leading-tight">
+                Pesan dikirim ke aplikasi orang tua atau via WhatsApp.
+            </p>
             </div>
         </footer>
     </form>
@@ -200,7 +202,21 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         const textarea = document.getElementById('messageContent');
         const titleInput = document.getElementById('titleInput');
 
-        function setTemplate(type) {
+        function setTemplate(type, btnElement) {
+            // Update UI State
+            document.querySelectorAll('.template-btn').forEach(btn => {
+                // Reset to inactive state
+                btn.className = "template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all";
+            });
+
+            // Set active state
+            if (btnElement) {
+                btnElement.className = "template-btn flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0 transition-all";
+                // Scroll into view
+                btnElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+
+            // Set Content
             let text = "";
             let title = "";
             if (type === 'Absensi') {
