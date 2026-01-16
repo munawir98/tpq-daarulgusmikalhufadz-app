@@ -639,7 +639,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
 
         // Laporan Hafalan
         // Hub Laporan
-        Route::get('/laporan', fn() => view('ustadz.laporan.index'))->name('laporan.index');
+        Route::get('/laporan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'index'])->name('laporan.index');
         Route::get('/laporan/keuangan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'keuangan'])->name('laporan.keuangan');
         Route::get('/laporan/kegiatan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'kegiatan'])->name('laporan.kegiatan');
         Route::get('/laporan/jurnal/create', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'createJurnal'])->name('laporan.jurnal.create');

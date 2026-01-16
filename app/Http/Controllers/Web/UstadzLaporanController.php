@@ -18,7 +18,59 @@ class UstadzLaporanController extends Controller
 {
     public function index()
     {
-        return view('ustadz.laporan.index');
+        // 1. Total Santri
+        $totalSantri = Santri::where('status_aktif', true)->count();
+        // Santri baru bulan ini untuk trend
+        $santriBaruBulanIni = Santri::where('status_aktif', true)
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->count();
+        $persenSantri = $totalSantri > 0 ? round(($santriBaruBulanIni / $totalSantri) * 100, 1) : 0;
+
+        // 2. Total Ustadz
+        $totalUstadz = \App\Models\Ustadz::where('status_aktif', true)->count();
+
+        // 3. Kehadiran Hari Ini (Global TPQ)
+        // Menggunakan tabel KehadiranSantri (Rekap harian)
+        $totalSantriHadir = \App\Models\KehadiranSantri::whereDate('tanggal', now())
+            ->where('status', 'Hadir')
+            ->count();
+
+        // Persentase
+        $persenKehadiran = $totalSantri > 0 ? round(($totalSantriHadir / $totalSantri) * 100) : 0;
+
+        // Compare with yesterday
+        $totalSantriHadirKemarin = \App\Models\KehadiranSantri::whereDate('tanggal', now()->subDay())
+            ->where('status', 'Hadir')
+            ->count();
+        $persenKehadiranKemarin = $totalSantri > 0 ? round(($totalSantriHadirKemarin / $totalSantri) * 100) : 0;
+        $trendKehadiran = $persenKehadiran - $persenKehadiranKemarin;
+
+        // 4. Kas TPQ (Total Infaq Masuk)
+        $totalKas = Infaq::sum('jumlah');
+        // Infaq bulan ini
+        $infaqBulanIni = Infaq::whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->sum('jumlah');
+
+        // Trend Kas (Infaq bulan ini vs bulan lalu)
+        $infaqBulanLalu = Infaq::whereMonth('tanggal', now()->subMonth()->month)
+            ->whereYear('tanggal', now()->subMonth()->year)
+            ->sum('jumlah');
+
+        $trendKas = 0;
+        if ($infaqBulanLalu > 0) {
+            $trendKas = round((($infaqBulanIni - $infaqBulanLalu) / $infaqBulanLalu) * 100, 1);
+        } else if ($infaqBulanIni > 0) {
+            $trendKas = 100; // Jika bulan lalu 0 dan sekarang ada, naik 100% (atau infinite)
+        }
+
+        return view('ustadz.laporan.index', compact(
+            'totalSantri', 'persenSantri', 'santriBaruBulanIni',
+            'totalUstadz',
+            'persenKehadiran', 'trendKehadiran',
+            'totalKas', 'infaqBulanIni', 'trendKas'
+        ));
     }
 
     public function keuangan(Request $request)

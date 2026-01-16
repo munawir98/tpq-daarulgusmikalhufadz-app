@@ -72,6 +72,14 @@
                 </a>
             </div>
         </header>
+        @php
+        function formatMoneyShort($amount) {
+        if ($amount >= 1000000000) return 'Rp ' . round($amount / 1000000000, 1) . 'M';
+        if ($amount >= 1000000) return 'Rp ' . round($amount / 1000000, 1) . 'Jt';
+        if ($amount >= 1000) return 'Rp ' . round($amount / 1000, 1) . 'Rb';
+        return 'Rp ' . number_format($amount, 0, ',', '.');
+        }
+        @endphp
         <div class="flex flex-wrap gap-3 p-4">
             <a href="{{ route('ustadz.santri.index') }}"
                 class="flex min-w-[150px] flex-1 flex-col gap-2 rounded-xl p-5 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 hover:shadow-md transition-all active:scale-95 cursor-pointer">
@@ -79,10 +87,10 @@
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Santri</p>
                     <span class="material-symbols-outlined text-primary text-xl">groups</span>
                 </div>
-                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">450</p>
+                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">{{ $totalSantri }}</p>
                 <div class="flex items-center gap-1">
                     <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
-                    <p class="text-[#078838] text-xs font-semibold">+12% bln ini</p>
+                    <p class="text-[#078838] text-xs font-semibold">+{{ $persenSantri }}% bln ini</p>
                 </div>
             </a>
             <div
@@ -91,10 +99,10 @@
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Total Ustadz</p>
                     <span class="material-symbols-outlined text-primary text-xl">person_book</span>
                 </div>
-                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">24</p>
+                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">{{ $totalUstadz }}</p>
                 <div class="flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
-                    <p class="text-[#078838] text-xs font-semibold">+2% bln ini</p>
+                    <span class="material-symbols-outlined text-slate-400 text-sm">remove</span>
+                    <p class="text-slate-500 text-xs font-semibold">Stabil</p>
                 </div>
             </div>
             <a href="{{ route('presensi.index') }}"
@@ -103,10 +111,15 @@
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Kehadiran Hari Ini</p>
                     <span class="material-symbols-outlined text-primary text-xl">event_available</span>
                 </div>
-                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">92%</p>
+                <p class="text-[#0e141b] dark:text-white tracking-tight text-2xl font-bold">{{ $persenKehadiran }}%</p>
                 <div class="flex items-center gap-1">
+                    @if($trendKehadiran >= 0)
                     <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
-                    <p class="text-[#078838] text-xs font-semibold">+5% vs kemarin</p>
+                    <p class="text-[#078838] text-xs font-semibold">+{{ $trendKehadiran }}% vs kemarin</p>
+                    @else
+                    <span class="material-symbols-outlined text-[#e73908] text-sm">trending_down</span>
+                    <p class="text-[#e73908] text-xs font-semibold">{{ $trendKehadiran }}% vs kemarin</p>
+                    @endif
                 </div>
             </a>
             <a href="{{ route('ustadz.laporan.keuangan') }}"
@@ -115,10 +128,16 @@
                     <p class="text-slate-500 dark:text-slate-400 text-sm font-medium">Kas TPQ</p>
                     <span class="material-symbols-outlined text-primary text-xl">account_balance_wallet</span>
                 </div>
-                <p class="text-[#0e141b] dark:text-white tracking-tight text-xl font-bold">Rp 15.2M</p>
+                <p class="text-[#0e141b] dark:text-white tracking-tight text-xl font-bold">{{
+                    formatMoneyShort($totalKas) }}</p>
                 <div class="flex items-center gap-1">
+                    @if($trendKas >= 0)
+                    <span class="material-symbols-outlined text-[#078838] text-sm">trending_up</span>
+                    <p class="text-[#078838] text-xs font-semibold">+{{ $trendKas }}% bln ini</p>
+                    @else
                     <span class="material-symbols-outlined text-[#e73908] text-sm">trending_down</span>
-                    <p class="text-[#e73908] text-xs font-semibold">-1% bln ini</p>
+                    <p class="text-[#e73908] text-xs font-semibold">{{ $trendKas }}% bln ini</p>
+                    @endif
                 </div>
             </a>
         </div>
