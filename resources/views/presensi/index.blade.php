@@ -141,9 +141,9 @@
     </section>
 
     <!-- Chart Section -->
-    <section class="px-6 py-4">
+    <section class="px-6 pt-4 pb-2">
         <div
-            class="w-full bg-white dark:bg-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm mb-6">
+            class="w-full bg-white dark:bg-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
             <div class="flex justify-between items-center mb-6">
                 <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 uppercase tracking-wide">Tren Kehadiran (6
                     Bln)</h3>
@@ -152,39 +152,28 @@
 
             @php
             // Logic Chart SVG
-            // X points: 0, 20, 40, 60, 80, 100 for 6 months
             $points = "";
             $pointsCurve = "";
             $labels = [];
             $xStep = 20;
 
-            // Ensure we have 6 data points (fill with 0 if less)
             $data = $trendData ?? [];
-            // Reverse to standard order (Oldest -> Newest) for chart
-            $data = array_reverse($data);
-
-            // Ambil 6 terakhir jika lebih
+            $data = array_reverse($data); // Oldest first
             $data = array_slice($data, -6);
 
             foreach($data as $key => $item) {
             $x = $key * $xStep;
-            // Y = 100 - percentage (karena SVG 0 di atas)
-            // Scaling: 100% -> Y=10 (biar ga mentok atas), 0% -> Y=100
-            // Let's say top padding 10, graph height 90
+            // Y scaler: 100% -> 15 (top padding), 0% -> 100
             $pct = $item['percentage'];
-            $y = 100 - ($pct * 0.9); // 100% attendance = Y 10
+            $y = 100 - ($pct * 0.85); // 100% = 15
 
             $points .= "L $x,$y ";
-            // Circle points
             $labels[] = ['x' => $x, 'y' => $y, 'val' => $pct . '%', 'month' => $item['month']];
             }
 
-            // M 0,Y ....
-            // First point logic
             if (count($labels) > 0) {
             $startParams = "M " . $labels[0]['x'] . "," . $labels[0]['y'];
             $pathLine = $startParams . " " . $points;
-            // Area path needs to close securely
             $lastX = $labels[count($labels)-1]['x'];
             $pathArea = $pathLine . " L $lastX,100 L 0,100 Z";
             } else {
@@ -193,7 +182,7 @@
             }
             @endphp
 
-            <div class="relative w-full h-40 mb-4">
+            <div class="relative w-full h-40">
                 <div class="absolute inset-0 flex flex-col justify-between">
                     <div class="border-t border-gray-100 dark:border-gray-700/30 w-full h-0"></div>
                     <div class="border-t border-gray-100 dark:border-gray-700/30 w-full h-0"></div>
@@ -207,13 +196,9 @@
                             <stop offset="100%" style="stop-color:#25c0f4;stop-opacity:0"></stop>
                         </linearGradient>
                     </defs>
-                    <!-- Area Fill -->
                     <path d="{{ $pathArea }}" fill="url(#chartFill)"></path>
-                    <!-- Line Stroke -->
                     <path d="{{ $pathLine }}" fill="none" stroke="#25c0f4" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="3"></path>
-
-                    <!-- Circles -->
                     @foreach($labels as $p)
                     <circle cx="{{ $p['x'] }}" cy="{{ $p['y'] }}" fill="#25c0f4" r="3" stroke="white"
                         stroke-width="1.5">
@@ -221,8 +206,7 @@
                     </circle>
                     @endforeach
                 </svg>
-
-                <!-- X Axis Labels (Simple) -->
+                <!-- Axis Labels -->
                 <div
                     class="absolute -bottom-6 w-full flex justify-between text-[8px] text-gray-400 font-bold uppercase tracking-wider">
                     @foreach($labels as $p)
@@ -230,33 +214,41 @@
                     @endforeach
                 </div>
             </div>
+            <div class="h-4"></div>
+        </div>
+    </section>
 
-            <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-50 dark:border-gray-800">
-                <button class="flex flex-col items-center gap-2 flex-1 group"
-                    onclick="alert('Fitur notifikasi massal akan segera hadir!')">
-                    <div
-                        class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
-                        <span class="material-symbols-outlined text-2xl">notifications</span>
-                    </div>
-                    <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Kirim Notif</span>
-                </button>
-                <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
-                    class="flex flex-col items-center gap-2 flex-1 group">
-                    <div
-                        class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
-                        <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
-                    </div>
-                    <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export PDF</span>
-                </a>
-                <button class="flex flex-col items-center gap-2 flex-1 group"
-                    onclick="alert('Export Excel belum tersedia')">
-                    <div
-                        class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
-                        <span class="material-symbols-outlined text-2xl">table_view</span>
-                    </div>
-                    <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export Excel</span>
-                </button>
-            </div>
+    <!-- Action Buttons (Separate Section) -->
+    <section class="px-6 py-4">
+        <div
+            class="flex justify-between items-center bg-white dark:bg-slate-800/50 rounded-2xl p-5 border border-gray-100 dark:border-gray-800 shadow-sm">
+
+            <!-- Tombol Kirim Notif (Aktif) -->
+            <a href="{{ route('ustadz.broadcast.create') }}" class="flex flex-col items-center gap-2 flex-1 group">
+                <div
+                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">notifications</span>
+                </div>
+                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Kirim Notif</span>
+            </a>
+
+            <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
+                class="flex flex-col items-center gap-2 flex-1 group border-x border-gray-50 dark:border-gray-800">
+                <div
+                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
+                </div>
+                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export PDF</span>
+            </a>
+
+            <button class="flex flex-col items-center gap-2 flex-1 group"
+                onclick="alert('Export Excel belum tersedia')">
+                <div
+                    class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary group-active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined text-2xl">table_view</span>
+                </div>
+                <span class="text-[9px] font-bold text-primary uppercase tracking-wider">Export Excel</span>
+            </button>
         </div>
     </section>
 
@@ -316,9 +308,8 @@
                         {{ $initials }}
                     </div>
                     @endif
-
                     <div>
-                        <p class="text-sm font-bold text-gray-800 dark:text-white">{{ $santri['nama'] }}</p>
+                        <p class="text-sm font-bold text-gray-800 dark:text-gray-100">{{ $santri['nama'] }}</p>
                         <p class="text-[11px] text-gray-400 font-medium uppercase tracking-tight">Hadir: {{
                             $santri['hadir'] }} Hari ({{ $santri['persentase'] }}%)</p>
                     </div>
@@ -342,8 +333,6 @@
             @endforelse
         </div>
     </section>
-
-    <div class="h-8"></div>
 
 </body>
 
