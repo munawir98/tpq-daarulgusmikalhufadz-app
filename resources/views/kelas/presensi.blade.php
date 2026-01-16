@@ -118,14 +118,51 @@
         </div>
     </div>
 
-    <!-- Kirim Notifikasi ke Orang Tua -->
+    <!-- Action Toggle -->
     <div class="p-4">
-        <a href="{{ route('ustadz.broadcast.create') }}"
-            class="w-full flex items-center justify-center gap-3 bg-primary text-[#102216] font-bold py-4 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all active:scale-95">
-            <span class="material-symbols-outlined">notifications_active</span>
-            Kirim Notifikasi ke Orang Tua
-        </a>
+        <button id="actionToggle" onclick="toggleActions()"
+            class="w-full flex items-center justify-between bg-primary text-[#102216] font-bold py-4 px-5 rounded-2xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all active:scale-95">
+            <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined">more_horiz</span>
+                <span>Aksi Lainnya</span>
+            </div>
+            <span id="toggleIcon" class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+        </button>
+
+        <!-- Hidden Actions -->
+        <div id="actionPanel" class="hidden mt-3 space-y-2 animate-fade-in">
+            <a href="{{ route('ustadz.broadcast.create') }}"
+                class="w-full flex items-center gap-3 bg-blue-500 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-blue-600 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-xl">notifications_active</span>
+                <span class="text-sm">Kirim Notifikasi ke Orang Tua</span>
+            </a>
+            <a href="#"
+                class="w-full flex items-center gap-3 bg-red-500 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-red-600 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-xl">picture_as_pdf</span>
+                <span class="text-sm">Export PDF</span>
+            </a>
+            <a href="#"
+                class="w-full flex items-center gap-3 bg-green-600 text-white font-semibold py-3 px-4 rounded-xl shadow-md hover:bg-green-700 transition-all active:scale-95">
+                <span class="material-symbols-outlined text-xl">table_chart</span>
+                <span class="text-sm">Export Excel</span>
+            </a>
+        </div>
     </div>
+
+    <script>
+        function toggleActions() {
+            const panel = document.getElementById('actionPanel');
+            const icon = document.getElementById('toggleIcon');
+
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                panel.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+    </script>
 
     <!-- Bottom Nav -->
     <nav
