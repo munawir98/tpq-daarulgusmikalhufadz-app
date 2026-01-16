@@ -75,7 +75,7 @@
                         class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-0.5 tracking-wider">Periode</label>
                     <div class="relative">
                         <select name="month" onchange="document.getElementById('filterForm').submit()"
-                            class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:ring-primary focus:border-primary shadow-sm">
+                            class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold focus:ring-primary focus:border-primary shadow-sm">
                             @for ($i = 0; $i < 6; $i++) @php $m=now()->subMonths($i);
                                 @endphp
                                 <option value="{{ $m->format('Y-m') }}" {{ $selectedMonth==$m->format('Y-m') ?
@@ -85,8 +85,6 @@
                                 </option>
                                 @endfor
                         </select>
-                        <span
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xl">expand_more</span>
                     </div>
                 </div>
                 <div class="flex-1">
@@ -94,7 +92,7 @@
                         class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-0.5 tracking-wider">Kelas</label>
                     <div class="relative">
                         <select name="kelas" onchange="document.getElementById('filterForm').submit()"
-                            class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold appearance-none focus:ring-primary focus:border-primary shadow-sm">
+                            class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold focus:ring-primary focus:border-primary shadow-sm">
                             <option value="">Semua Kelas</option>
                             @foreach ($kelasList as $kelas)
                             <option value="{{ $kelas->id }}" {{ $selectedKelas==$kelas->id ? 'selected' : '' }}>
@@ -102,8 +100,6 @@
                             </option>
                             @endforeach
                         </select>
-                        <span
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xl">expand_more</span>
                     </div>
                 </div>
             </div>
