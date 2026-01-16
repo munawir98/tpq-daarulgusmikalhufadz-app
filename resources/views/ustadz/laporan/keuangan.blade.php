@@ -182,7 +182,7 @@
                     }
                     @endphp
 
-                    <div class="max-h-48 overflow-y-auto rounded-lg">
+                    <div class="rounded-lg">
                         <div class="grid grid-cols-7 gap-1.5 text-center">
                             <span class="text-[10px] font-bold text-slate-400">Sn</span>
                             <span class="text-[10px] font-bold text-slate-400">Sl</span>
@@ -214,6 +214,8 @@
             </div>
         </section>
 
+        <!-- Spacer untuk bottom padding -->
+        <div class="h-8"></div>
     </main>
 
 
