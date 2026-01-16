@@ -173,9 +173,9 @@
             class="fixed inset-0 z-50 flex items-end justify-center bg-black/50 hidden opacity-0 transition-opacity duration-300">
             <div id="modalContent"
                 class="bg-white w-full max-w-md rounded-t-2xl p-4 space-y-3 transform translate-y-full transition-transform duration-300">
-                <div class="flex justify-between items-center mb-1">
+                <div class="relative flex items-center justify-center mb-1">
                     <h3 class="text-sm font-bold text-slate-800">Tambah Aktivitas</h3>
-                    <button id="closeModal" class="text-slate-500 hover:text-slate-700">
+                    <button id="closeModal" class="absolute right-0 text-slate-500 hover:text-slate-700">
                         <span class="material-symbols-outlined text-xl">close</span>
                     </button>
                 </div>
