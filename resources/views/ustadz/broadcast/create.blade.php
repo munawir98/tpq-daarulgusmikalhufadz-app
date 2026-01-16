@@ -95,41 +95,38 @@
 
             <section class="p-4">
                 <div class="mb-2">
-                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Santri</h3>
+                    <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Target Penerima</h3>
                 </div>
-                <!-- Functional Wrapper for Search UI -->
+                <!-- Functional Target Selection -->
                 <div class="relative group">
                     <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-slate-400 text-xl">search</span>
+                        <span class="material-symbols-outlined text-slate-400 text-xl">group</span>
                     </div>
-                    {{-- Hidden Target Input for Controller Compatibility --}}
-                    {{-- Defaulting to all_santri as the UI implies broad selection or single (which requires more
-                    logic) --}}
-                    <input type="hidden" name="target" value="all_santri">
-                    <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
-
-                    <input
-                        class="w-full h-12 pl-10 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
-                        placeholder="Cari nama santri..." type="text" />
+                    <select name="target" id="targetSelect" onchange="toggleTargetDetails()"
+                        class="w-full h-12 pl-10 pr-10 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
+                        <option value="all_santri">Semua Santri</option>
+                        <option value="all_ustadz">Semua Ustadz</option>
+                        <option value="all_users">Semua Pengguna</option>
+                        <option value="specific_santri">Pilih Santri (Manual)</option>
+                    </select>
                     <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-slate-400 text-xl">unfold_more</span>
+                        <span class="material-symbols-outlined text-slate-400 text-xl">expand_more</span>
                     </div>
+                    <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
                 </div>
             </section>
 
-            <section class="px-4">
+            <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
+            <section class="px-4 hidden" id="specificSantriSection">
                 <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3">
-                    {{-- Static image form design --}}
                     <div class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200"
                         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
                     </div>
                     <div class="flex-1">
-                        <h2 class="text-base font-bold text-slate-900">Ahmad Syarif</h2>
-                        <p class="text-[11px] text-slate-500 font-medium">Santri • Wali: Bpk. Ridwan</p>
+                        <input type="text" placeholder="Ketik nama santri..."
+                            class="w-full bg-transparent border-0 border-b border-gray-300 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal">
+                        <p class="text-[10px] text-slate-500 font-medium">Cari spesifik</p>
                     </div>
-                    <span
-                        class="text-[10px] font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded border border-amber-100 uppercase tracking-tighter">Belum
-                        Dihubungi</span>
                 </div>
             </section>
 
@@ -223,6 +220,16 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             }
             if (textarea) textarea.value = text;
             if (titleInput) titleInput.value = title;
+        }
+
+        function toggleTargetDetails() {
+            const select = document.getElementById('targetSelect');
+            const section = document.getElementById('specificSantriSection');
+            if (select.value === 'specific_santri') {
+                section.classList.remove('hidden');
+            } else {
+                section.classList.add('hidden');
+            }
         }
 
         function sendWhatsApp() {
