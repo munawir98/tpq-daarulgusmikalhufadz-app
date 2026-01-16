@@ -65,8 +65,8 @@
             </div>
         </div>
         <div class="flex flex-col items-center flex-1 text-center">
-            <h1 class="text-[#0e141b] dark:text-white text-xl font-bold leading-tight tracking-tight">Laporan</h1>
-            <p class="text-sm text-slate-500 dark:text-slate-400 font-normal leading-tight">Kehadiran Santri</p>
+            <h1 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-tight">Kehadiran Santri
+            </h1>
         </div>
         <div class="flex w-12 items-center justify-end">
             <a href="{{ route('ustadz.notifications.index') }}"
