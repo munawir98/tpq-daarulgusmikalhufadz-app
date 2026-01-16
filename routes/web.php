@@ -77,6 +77,56 @@ Route::get('/run-migrate', function () {
     }
 });
 
+// [TEMPORARY] Fix jurnal_harian and kegiatan_ekskul tables
+Route::get('/fix-kegiatan-tables', function () {
+    $results = [];
+
+    try {
+        // Drop jurnal_harian if exists (with wrong FK)
+        if (\Schema::hasTable('jurnal_harian')) {
+            \Schema::dropIfExists('jurnal_harian');
+            $results[] = "✅ Dropped table jurnal_harian";
+        }
+
+        // Drop kegiatan_ekskul if exists
+        if (\Schema::hasTable('kegiatan_ekskul')) {
+            \Schema::dropIfExists('kegiatan_ekskul');
+            $results[] = "✅ Dropped table kegiatan_ekskul";
+        }
+
+        // Recreate jurnal_harian with correct FK
+        \Schema::create('jurnal_harian', function ($table) {
+            $table->id();
+            $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
+            $table->foreignId('kelas_id')->nullable()->constrained('kelas')->onDelete('set null');
+            $table->date('tanggal');
+            $table->string('judul');
+            $table->text('deskripsi')->nullable();
+            $table->string('foto')->nullable();
+            $table->timestamps();
+        });
+        $results[] = "✅ Created table jurnal_harian";
+
+        // Recreate kegiatan_ekskul with correct FK
+        \Schema::create('kegiatan_ekskul', function ($table) {
+            $table->id();
+            $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
+            $table->string('nama');
+            $table->string('pelatih')->nullable();
+            $table->integer('jumlah_peserta')->default(0);
+            $table->string('foto')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->date('tanggal');
+            $table->timestamps();
+        });
+        $results[] = "✅ Created table kegiatan_ekskul";
+
+        return "<h2>✅ Fix berhasil!</h2><pre>" . implode("\n", $results) . "</pre><br><a href='/debug-db'>Cek Tabel Database</a>";
+    } catch (\Exception $e) {
+        return "<h2>❌ Fix gagal</h2><pre>" . $e->getMessage() . "</pre><pre>" . implode("\n", $results) . "</pre>";
+    }
+});
+
 // [TEMPORARY DEBUG] Check biometric credentials
 Route::get('/debug-biometric', function () {
     try {
