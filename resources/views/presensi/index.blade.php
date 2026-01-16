@@ -57,12 +57,12 @@
 
 <body class="bg-background-light dark:bg-background-dark text-[#0d181c] dark:text-gray-100 min-h-screen pb-32">
     <!-- Header -->
-    <header class="p-4 pb-2">
+    <header class="p-4 pb-2 text-center">
 
         <div class="space-y-1">
             <p class="text-deep-blue text-[11px] font-extrabold uppercase tracking-[0.2em] opacity-90">Laporan</p>
-            <h1 class="text-deep-blue text-2xl font-extrabold leading-tight tracking-tight">Atensi &amp; Kehadiran
-                Santri</h1>
+            <h1 class="text-deep-blue text-2xl font-extrabold leading-tight tracking-tight">Laporan Kehadiran Santri
+            </h1>
         </div>
     </header>
 
