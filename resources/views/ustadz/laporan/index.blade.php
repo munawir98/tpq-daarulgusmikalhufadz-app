@@ -61,9 +61,9 @@
                 </div>
             </div>
             <div class="flex flex-col items-center flex-1 text-center">
-                <h1 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-tight">Pusat Data
+                <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight">Pusat Data
                     &amp;
-                    Statistik TPQ</h1>
+                    Statistik</h1>
             </div>
             <div class="flex w-12 items-center justify-end">
                 <a href="{{ route('ustadz.notifications.index') }}"
