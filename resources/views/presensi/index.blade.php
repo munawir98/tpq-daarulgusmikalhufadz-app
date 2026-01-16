@@ -170,7 +170,7 @@
             }
             @endphp
 
-            <div class="relative w-full h-40">
+            <div class="relative w-full h-28">
                 <div class="absolute inset-0 flex flex-col justify-between">
                     <div class="border-t border-gray-100 dark:border-gray-700/30 w-full h-0"></div>
                     <div class="border-t border-gray-100 dark:border-gray-700/30 w-full h-0"></div>
