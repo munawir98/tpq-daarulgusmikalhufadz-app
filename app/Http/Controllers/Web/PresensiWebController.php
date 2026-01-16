@@ -241,9 +241,14 @@ class PresensiWebController extends Controller
         $totalHadir = (clone $kehadiranQuery)->where('status', 'Hadir')->count();
         $avgKehadiran = $totalKehadiran > 0 ? round(($totalHadir / $totalKehadiran) * 100) : 0;
 
-        // 3. Tren Kehadiran 6 Bulan Terakhir
+        // 3. Tren Kehadiran (configurable months)
+        $trendMonths = (int) $request->input('trend_months', 6);
+        if (!in_array($trendMonths, [3, 6, 12])) {
+            $trendMonths = 6;
+        }
+
         $trendData = [];
-        for ($i = 5; $i >= 0; $i--) {
+        for ($i = $trendMonths - 1; $i >= 0; $i--) {
             $trendDate = now()->subMonths($i);
             $trendQuery = \App\Models\KehadiranSantri::whereYear('tanggal', $trendDate->year)
                 ->whereMonth('tanggal', $trendDate->month);

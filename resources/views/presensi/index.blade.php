@@ -118,52 +118,67 @@
                     <span class="material-symbols-outlined text-primary text-xl">show_chart</span>
                     <h2 class="font-bold text-slate-800 dark:text-slate-200">Tren Kehadiran Bulanan</h2>
                 </div>
-                <span
-                    class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-lg uppercase tracking-wider">Last
-                    6 Months</span>
+                <form method="GET" action="{{ route('presensi.index') }}" class="flex items-center">
+                    <input type="hidden" name="month" value="{{ $selectedMonth }}">
+                    @if($selectedKelas)<input type="hidden" name="kelas" value="{{ $selectedKelas }}">@endif
+                    <select name="trend_months" onchange="this.form.submit()"
+                        class="text-[10px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-lg uppercase tracking-wider border-none focus:ring-1 focus:ring-primary appearance-none cursor-pointer">
+                        <option value="3" {{ request('trend_months', 6)==3 ? 'selected' : '' }}>3 Bulan</option>
+                        <option value="6" {{ request('trend_months', 6)==6 ? 'selected' : '' }}>6 Bulan</option>
+                        <option value="12" {{ request('trend_months', 6)==12 ? 'selected' : '' }}>12 Bulan</option>
+                    </select>
+                </form>
             </div>
             <div class="relative h-48 w-full mt-4">
                 @php
                 // Calculate Y positions based on percentage (0% = 160, 100% = 0)
                 $points = [];
-                $xPositions = [0, 80, 160, 240, 320, 400];
-                foreach ($trendData as $index => $trend) {
-                $yPos = 160 - (($trend['percentage'] / 100) * 160);
-                $points[] = ['x' => $xPositions[$index], 'y' => $yPos];
-                }
+                $numMonths = count($trendData);
+                $chartWidth = 400;
 
-                // Build path strings
-                $fillPath = "M 0 160 L " . implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points)) . " L 400
-                160 Z";
-                $linePath = implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points));
-                @endphp
-                <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 160">
-                    <line class="chart-grid-line" x1="0" x2="400" y1="0" y2="0"></line>
-                    <line class="chart-grid-line" x1="0" x2="400" y1="40" y2="40"></line>
-                    <line class="chart-grid-line" x1="0" x2="400" y1="80" y2="80"></line>
-                    <line class="chart-grid-line" x1="0" x2="400" y1="120" y2="120"></line>
-                    <line class="chart-grid-line" x1="0" x2="400" y1="160" y2="160"></line>
-                    <path d="{{ $fillPath }}" fill="url(#gradient)" opacity="0.1"></path>
-                    <path d="M {{ $linePath }}" fill="none" stroke="#0C5A9F" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="3"></path>
-                    @foreach($points as $point)
-                    <circle cx="{{ $point['x'] }}" cy="{{ $point['y'] }}" fill="#0C5A9F" r="4"></circle>
-                    @endforeach
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#0C5A9F;stop-opacity:1"></stop>
-                            <stop offset="100%" style="stop-color:#0C5A9F;stop-opacity:0"></stop>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <div
-                    class="absolute -left-1 top-0 h-full flex flex-col justify-between text-[8px] font-bold text-slate-400 pointer-events-none py-0.5">
-                    <span>100%</span>
-                    <span>75%</span>
-                    <span>50%</span>
-                    <span>25%</span>
-                    <span>0%</span>
-                </div>
+                // Generate xPositions dynamically based on number of months
+                $xPositions = [];
+                for ($i = 0; $i < $numMonths; $i++) { $xPositions[]=$numMonths> 1 ? round(($i / ($numMonths - 1)) *
+                    $chartWidth) : 200;
+                    }
+
+                    foreach ($trendData as $index => $trend) {
+                    $yPos = 160 - (($trend['percentage'] / 100) * 160);
+                    $points[] = ['x' => $xPositions[$index] ?? 0, 'y' => $yPos];
+                    }
+
+                    // Build path strings
+                    $fillPath = "M 0 160 L " . implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points)) . " L
+                    400 160 Z";
+                    $linePath = implode(' L ', array_map(fn($p) => "{$p['x']} {$p['y']}", $points));
+                    @endphp
+                    <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 160">
+                        <line class="chart-grid-line" x1="0" x2="400" y1="0" y2="0"></line>
+                        <line class="chart-grid-line" x1="0" x2="400" y1="40" y2="40"></line>
+                        <line class="chart-grid-line" x1="0" x2="400" y1="80" y2="80"></line>
+                        <line class="chart-grid-line" x1="0" x2="400" y1="120" y2="120"></line>
+                        <line class="chart-grid-line" x1="0" x2="400" y1="160" y2="160"></line>
+                        <path d="{{ $fillPath }}" fill="url(#gradient)" opacity="0.1"></path>
+                        <path d="M {{ $linePath }}" fill="none" stroke="#0C5A9F" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="3"></path>
+                        @foreach($points as $point)
+                        <circle cx="{{ $point['x'] }}" cy="{{ $point['y'] }}" fill="#0C5A9F" r="4"></circle>
+                        @endforeach
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#0C5A9F;stop-opacity:1"></stop>
+                                <stop offset="100%" style="stop-color:#0C5A9F;stop-opacity:0"></stop>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div
+                        class="absolute -left-1 top-0 h-full flex flex-col justify-between text-[8px] font-bold text-slate-400 pointer-events-none py-0.5">
+                        <span>100%</span>
+                        <span>75%</span>
+                        <span>50%</span>
+                        <span>25%</span>
+                        <span>0%</span>
+                    </div>
             </div>
             <div class="flex justify-between mt-4 px-2">
                 @foreach($trendData as $trend)
