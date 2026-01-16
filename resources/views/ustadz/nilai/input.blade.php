@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Input Nilai Santri</title>
+    <title>Input Nilai Baru</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
@@ -21,7 +21,7 @@
                         "background-dark": "#111921",
                     },
                     fontFamily: {
-                        "display": ["Poppins", "sans-serif"]
+                        "display": ["Lexend", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -35,7 +35,7 @@
     </script>
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Lexend', sans-serif;
         }
 
         .material-symbols-outlined {
@@ -70,13 +70,24 @@
         .dark input[type=range]::-webkit-slider-runnable-track {
             background: #334155;
         }
+
+        /* Hide number input spinners */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#0e141b] dark:text-slate-200 min-h-screen">
     <div
         class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-white dark:bg-background-dark shadow-xl">
-        <!-- TopAppBar -->
         <div
             class="sticky top-0 z-20 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-100 dark:border-slate-800">
             <a href="{{ route('ustadz.nilai.index') }}"
@@ -91,7 +102,6 @@
         <form action="{{ route('ustadz.nilai.store') }}" method="POST" id="nilaiForm">
             @csrf
             <div class="flex-1 overflow-y-auto p-4 space-y-6 pb-32">
-                <!-- Pilih Santri -->
                 <section class="space-y-3">
                     <label class="flex flex-col gap-2">
                         <p class="text-[#0e141b] dark:text-slate-200 text-sm font-semibold">Pilih Santri</p>
@@ -102,7 +112,8 @@
                                 <option value="">Cari Nama Santri...</option>
                                 @foreach($santriList ?? [] as $santri)
                                 <option value="{{ $santri->id }}">{{ $santri->nama_lengkap }} (NIS: {{ $santri->nis ??
-                                    '-' }})</option>
+                                    '-' }})
+                                </option>
                                 @endforeach
                             </select>
                             <span
@@ -113,18 +124,16 @@
                     <p class="text-red-500 text-xs">{{ $message }}</p>
                     @enderror
                 </section>
-
-                <!-- Tahun Ajaran & Kategori -->
                 <section class="grid grid-cols-2 gap-4">
                     <label class="flex flex-col gap-2">
                         <p class="text-[#0e141b] dark:text-slate-200 text-sm font-semibold">Tahun Ajaran</p>
                         <div class="relative">
                             <select name="tahun_ajaran"
                                 class="form-select flex w-full appearance-none rounded-xl text-[#0e141b] dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 h-12 px-3 text-sm font-normal">
-                                <option>2024/2025 Ganjil</option>
                                 <option>2024/2025 Genap</option>
-                                <option>2023/2024 Ganjil</option>
+                                <option>2024/2025 Ganjil</option>
                                 <option>2023/2024 Genap</option>
+                                <option>2023/2024 Ganjil</option>
                             </select>
                             <span
                                 class="material-symbols-outlined absolute right-2 top-3 text-slate-400 pointer-events-none scale-75">expand_more</span>
@@ -144,8 +153,6 @@
                         </div>
                     </label>
                 </section>
-
-                <!-- Input Komponen Nilai -->
                 <section
                     class="bg-white dark:bg-slate-800/30 rounded-2xl border border-slate-100 dark:border-slate-800 p-5 space-y-6">
                     <h3 class="text-sm font-bold text-primary uppercase tracking-wider mb-2">Input Komponen Nilai</h3>
@@ -154,11 +161,11 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <span class="text-sm font-medium">Tilawah</span>
-                            <input name="tilawah" id="tilawahNumber"
-                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary"
-                                max="100" min="0" type="number" value="0" oninput="syncRange('tilawah')" />
+                            <input type="number" name="tilawah" id="tilawahNumber" max="100" min="0" value="85"
+                                oninput="syncRange('tilawah')"
+                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary" />
                         </div>
-                        <input id="tilawahRange" class="w-full" max="100" min="0" type="range" value="0"
+                        <input type="range" id="tilawahRange" max="100" min="0" value="85" class="w-full"
                             oninput="syncNumber('tilawah')" />
                     </div>
 
@@ -166,11 +173,11 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <span class="text-sm font-medium">Hafalan</span>
-                            <input name="hafalan" id="hafalanNumber"
-                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary"
-                                max="100" min="0" type="number" value="0" oninput="syncRange('hafalan')" />
+                            <input type="number" name="hafalan" id="hafalanNumber" max="100" min="0" value="80"
+                                oninput="syncRange('hafalan')"
+                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary" />
                         </div>
-                        <input id="hafalanRange" class="w-full" max="100" min="0" type="range" value="0"
+                        <input type="range" id="hafalanRange" max="100" min="0" value="80" class="w-full"
                             oninput="syncNumber('hafalan')" />
                     </div>
 
@@ -178,11 +185,11 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <span class="text-sm font-medium">Adab</span>
-                            <input name="adab" id="adabNumber"
-                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary"
-                                max="100" min="0" type="number" value="0" oninput="syncRange('adab')" />
+                            <input type="number" name="adab" id="adabNumber" max="100" min="0" value="95"
+                                oninput="syncRange('adab')"
+                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary" />
                         </div>
-                        <input id="adabRange" class="w-full" max="100" min="0" type="range" value="0"
+                        <input type="range" id="adabRange" max="100" min="0" value="95" class="w-full"
                             oninput="syncNumber('adab')" />
                     </div>
 
@@ -190,42 +197,36 @@
                     <div class="space-y-3">
                         <div class="flex justify-between items-center">
                             <span class="text-sm font-medium">Tajwid</span>
-                            <input name="tajwid" id="tajwidNumber"
-                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary"
-                                max="100" min="0" type="number" value="0" oninput="syncRange('tajwid')" />
+                            <input type="number" name="tajwid" id="tajwidNumber" max="100" min="0" value="88"
+                                oninput="syncRange('tajwid')"
+                                class="w-16 h-8 text-center bg-slate-100 dark:bg-slate-700 border-none rounded-lg text-sm font-bold text-primary focus:ring-1 focus:ring-primary" />
                         </div>
-                        <input id="tajwidRange" class="w-full" max="100" min="0" type="range" value="0"
+                        <input type="range" id="tajwidRange" max="100" min="0" value="88" class="w-full"
                             oninput="syncNumber('tajwid')" />
                     </div>
                 </section>
-
-                <!-- Catatan Ustadz -->
                 <section class="space-y-2">
                     <p class="text-[#0e141b] dark:text-slate-200 text-sm font-semibold">Catatan Ustadz</p>
                     <textarea name="catatan"
                         class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 text-sm focus:ring-primary focus:border-primary placeholder:text-slate-400"
                         placeholder="Berikan feedback kualitatif untuk santri..." rows="3"></textarea>
                 </section>
-
-                <!-- Rata-rata & Predikat -->
                 <section
                     class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-2xl p-4 flex items-center justify-between">
                     <div class="space-y-1">
                         <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Rata-rata</p>
-                        <p id="rataRata" class="text-2xl font-bold text-primary">0.0</p>
+                        <p id="rataRata" class="text-2xl font-bold text-primary">87.0</p>
                     </div>
                     <div class="h-12 w-px bg-primary/20"></div>
                     <div class="space-y-1 text-right">
                         <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Predikat</p>
-                        <p id="predikat" class="text-2xl font-bold text-slate-400">-</p>
+                        <p id="predikat" class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">A</p>
                     </div>
                 </section>
             </div>
-
-            <!-- Bottom Action -->
             <div
                 class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 p-4 pb-8 z-30">
-                <button type="submit"
+                <button
                     class="w-full bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-lg shadow-primary/25">
                     <span class="material-symbols-outlined">save</span>
                     Simpan Nilai
@@ -254,29 +255,37 @@
             const tajwid = parseInt(document.getElementById('tajwidNumber').value) || 0;
 
             const rata = (tilawah + hafalan + adab + tajwid) / 4;
+            const rataFormatted = rata % 1 === 0 ? rata.toFixed(1) : rata.toFixed(1); // Ensure at least 1 decimal if needed, actually toFixed(1) always gives 1 decimal
+
             document.getElementById('rataRata').textContent = rata.toFixed(1);
 
             const predikatEl = document.getElementById('predikat');
+            let grade = '-';
+            let color = 'text-slate-400';
+
             if (rata >= 90) {
-                predikatEl.textContent = 'A+';
-                predikatEl.className = 'text-2xl font-bold text-emerald-500';
+                grade = 'A+';
+                color = 'text-emerald-600 dark:text-emerald-400';
             } else if (rata >= 80) {
-                predikatEl.textContent = 'A';
-                predikatEl.className = 'text-2xl font-bold text-primary';
+                grade = 'A';
+                color = 'text-primary'; // Primary Blue
             } else if (rata >= 70) {
-                predikatEl.textContent = 'B';
-                predikatEl.className = 'text-2xl font-bold text-amber-500';
+                grade = 'B';
+                color = 'text-amber-500';
             } else if (rata >= 60) {
-                predikatEl.textContent = 'C';
-                predikatEl.className = 'text-2xl font-bold text-orange-500';
+                grade = 'C';
+                color = 'text-orange-500';
             } else if (rata > 0) {
-                predikatEl.textContent = 'D';
-                predikatEl.className = 'text-2xl font-bold text-red-500';
-            } else {
-                predikatEl.textContent = '-';
-                predikatEl.className = 'text-2xl font-bold text-slate-400';
+                grade = 'D';
+                color = 'text-red-500';
             }
+
+            predikatEl.textContent = grade;
+            predikatEl.className = `text-2xl font-bold ${color}`;
         }
+
+        // Initialize on load to set correct average from default values
+        document.addEventListener('DOMContentLoaded', updateRataRata);
     </script>
 </body>
 
