@@ -58,14 +58,10 @@
 <body class="bg-background-light dark:bg-background-dark text-[#0d181c] dark:text-gray-100 min-h-screen pb-32">
     <!-- Header -->
     <header
-        class="flex items-center bg-white dark:bg-slate-900 p-4 pb-3 justify-between sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex size-12 shrink-0 items-center">
-        </div>
-        <div class="flex flex-col items-center flex-1 text-center">
-            <h1 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-tight">Kehadiran Santri
-            </h1>
-        </div>
-        <div class="flex w-12 items-center justify-end">
+        class="flex items-center bg-white dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="w-full flex items-center justify-center relative">
+            <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                Kehadiran Santri</h1>
         </div>
     </header>
 

@@ -137,23 +137,24 @@
                 <div class="px-4 mb-2">
                     <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Alasan</h3>
                 </div>
-                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar">
+                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar pb-3 mask-linear">
                     <button type="button" onclick="setTemplate('Absensi')"
-                        class="flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap">
+                        class="flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0">
                         Absensi
                     </button>
                     <button type="button" onclick="setTemplate('Izin Sakit')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
                         Izin Sakit
                     </button>
                     <button type="button" onclick="setTemplate('Pertemuan')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
                         Pertemuan
                     </button>
                     <button type="button" onclick="setTemplate('Lainnya')"
-                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap">
+                        class="flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0">
                         Lainnya
                     </button>
+                    <div class="w-2 shrink-0"></div>
                 </div>
             </section>
 
@@ -164,7 +165,7 @@
                 <div
                     class="bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/10 focus-within:border-primary transition-all">
                     <textarea name="content" id="messageContent"
-                        class="w-full bg-transparent border-none focus:ring-0 text-slate-700 p-4 min-h-[180px] text-sm leading-relaxed resize-none"
+                        class="w-full bg-transparent border-none focus:ring-0 text-slate-700 p-4 min-h-[180px] text-xs leading-relaxed resize-none"
                         placeholder="Tulis pesan Anda di sini...">Assalamu'alaikum Warahmatullahi Wabarakatuh,
 Bpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.
 Mohon konfirmasinya. Terima kasih.</textarea>
