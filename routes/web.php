@@ -66,6 +66,17 @@ Route::get('/debug-db', function () {
 
 Route::get('/health', fn () => response()->json(['status' => 'ok'], 200));
 
+// [TEMPORARY] Run migrations on production
+Route::get('/run-migrate', function () {
+    try {
+        \Artisan::call('migrate', ['--force' => true]);
+        $output = \Artisan::output();
+        return "<h2>✅ Migration berhasil!</h2><pre>{$output}</pre><br><a href='/debug-db'>Cek Tabel Database</a>";
+    } catch (\Exception $e) {
+        return "<h2>❌ Migration gagal</h2><pre>" . $e->getMessage() . "</pre>";
+    }
+});
+
 // [TEMPORARY DEBUG] Check biometric credentials
 Route::get('/debug-biometric', function () {
     try {

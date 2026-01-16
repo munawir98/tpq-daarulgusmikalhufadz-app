@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('kegiatan_ekskul', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('ustadz_id')->constrained('ustadzs')->onDelete('cascade');
+            $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
             $table->string('nama');
             $table->string('pelatih')->nullable();
             $table->integer('jumlah_peserta')->default(0);
