@@ -118,11 +118,11 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <span class="material-icons-round text-xl">fact_check</span>
+                            <span class="material-icons-round text-2xl">fact_check</span>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-xs">Laporan Kehadiran Santri</h3>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Rekap absensi harian &amp;
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Laporan Kehadiran Santri</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Rekap absensi harian &amp;
                                 bulanan</p>
                         </div>
                         <div
@@ -137,11 +137,11 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <span class="material-icons-round text-xl">menu_book</span>
+                            <span class="material-icons-round text-2xl">menu_book</span>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-xs">Laporan Setoran Hafalan</h3>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Progress tahfidz dan iqra</p>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Laporan Setoran Hafalan</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Progress tahfidz dan iqra</p>
                         </div>
                         <div
                             class="w-8 h-8 rounded-full bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-gray-400 group-hover:text-indigo-500 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/20 transition-colors">
@@ -154,11 +154,11 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <span class="material-icons-round text-xl">grade</span>
+                            <span class="material-icons-round text-2xl">grade</span>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-xs">Laporan Nilai Santri</h3>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Hasil ujian dan evaluasi</p>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Laporan Nilai Santri</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Hasil ujian dan evaluasi</p>
                         </div>
                         <div
                             class="w-8 h-8 rounded-full bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-gray-400 group-hover:text-orange-500 group-hover:bg-orange-50 dark:group-hover:bg-orange-900/20 transition-colors">
@@ -172,11 +172,11 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <span class="material-icons-round text-xl">account_balance_wallet</span>
+                            <span class="material-icons-round text-2xl">account_balance_wallet</span>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-xs">Laporan Keuangan</h3>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">SPP, Infaq dan tabungan</p>
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Laporan Keuangan</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">SPP, Infaq dan tabungan</p>
                         </div>
                         <div
                             class="w-8 h-8 rounded-full bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-gray-400 group-hover:text-green-500 group-hover:bg-green-50 dark:group-hover:bg-green-900/20 transition-colors">
@@ -190,11 +190,11 @@
                     <div class="flex items-center gap-4">
                         <div
                             class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-105 transition-transform">
-                            <span class="material-icons-round text-xl">event_note</span>
+                            <span class="material-icons-round text-2xl">event_note</span>
                         </div>
                         <div class="flex-1">
-                            <h3 class="font-bold text-gray-800 dark:text-white text-xs">Laporan Kegiatan</h3>
-                            <p class="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5">Jurnal aktivitas &amp;
+                            <h3 class="font-bold text-gray-800 dark:text-white text-sm">Laporan Kegiatan</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Jurnal aktivitas &amp;
                                 ekstrakurikuler</p>
                         </div>
                         <div
