@@ -55,10 +55,6 @@
         <header
             class="flex items-center bg-white dark:bg-slate-900 p-4 pb-3 justify-between sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800">
             <div class="flex size-12 shrink-0 items-center">
-                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
-                    data-alt="TPQ Daarul Gusmik Al-Hufadz official logo"
-                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDLiUnszySqLqDtMxZbO3260Gh_fnaUn8e_IyoKnxM1wBbldnUVfayRq7VuHekfzv1MKhs_RwubG6kLRLTKoBNTVDPkCmwCvgQUAJ5jI5aLibJmtn7r4YBHAIQzVmkGMM2gmMIvLDj6z2tqIMNSRFBKQyL0t1XDBpM0OT_naryDdfJumlFTvbEENEoSRZ67k8ex1uoY5gCDomdH9RHXQsYOsXPPsvKC2tVSPV9HTBqzGNk3zBk8JsRk581XTVmMX-NG6T-WhSOaRxMZ");'>
-                </div>
             </div>
             <div class="flex flex-col items-center flex-1 text-center">
                 <h1 class="text-[#0e141b] dark:text-white text-base font-bold leading-tight tracking-tight">Pusat Data
@@ -66,10 +62,6 @@
                     Statistik</h1>
             </div>
             <div class="flex w-12 items-center justify-end">
-                <a href="{{ route('ustadz.notifications.index') }}"
-                    class="flex cursor-pointer items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-[#0e141b] dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
-                    <span class="material-symbols-outlined text-[24px]">notifications</span>
-                </a>
             </div>
         </header>
         @php
