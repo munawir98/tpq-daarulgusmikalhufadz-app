@@ -382,22 +382,27 @@
     <div
         class="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-background-light dark:from-background-dark via-background-light/95 dark:via-background-dark/95 to-transparent pt-12">
         <div class="space-y-3">
-            <!-- Toggle Button -->
-            <button id="actionToggle" onclick="toggleActions()"
-                class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-5 rounded-xl flex items-center gap-2 shadow-lg shadow-primary/30 transition-all active:scale-95 mx-auto">
-                <span class="material-symbols-outlined text-lg">send</span>
-                <span class="text-sm">Kirim</span>
-                <span id="toggleIcon"
-                    class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
-            </button>
+            <!-- Two buttons side by side -->
+            <div class="flex gap-2">
+                <!-- Kirim Notifikasi Button -->
+                <a href="{{ route('notifications.create') }}"
+                    class="flex-1 bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-primary/30 transition-all active:scale-95">
+                    <span class="material-symbols-outlined text-lg">send_to_mobile</span>
+                    <span class="text-xs">Kirim Notifikasi</span>
+                </a>
+
+                <!-- Lainnya Toggle Button -->
+                <button id="actionToggle" onclick="toggleActions()"
+                    class="bg-slate-600 hover:bg-slate-700 text-white font-bold py-3.5 px-4 rounded-xl flex items-center gap-2 shadow-lg transition-all active:scale-95">
+                    <span class="material-symbols-outlined text-lg">more_horiz</span>
+                    <span class="text-xs">Lainnya</span>
+                    <span id="toggleIcon"
+                        class="material-symbols-outlined text-sm transition-transform duration-300">expand_more</span>
+                </button>
+            </div>
 
             <!-- Hidden Actions Panel -->
-            <div id="actionPanel" class="hidden space-y-2">
-                <a href="{{ route('notifications.create') }}"
-                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl flex items-center gap-3 shadow-md transition-all active:scale-95">
-                    <span class="material-symbols-outlined text-xl">send_to_mobile</span>
-                    <span class="text-sm">Kirim Notifikasi ke Orang Tua</span>
-                </a>
+            <div id="actionPanel" class="hidden">
                 <div class="grid grid-cols-2 gap-2">
                     <a href="{{ route('ustadz.presensi.pdf', request()->query()) }}" id="exportPdfBtn"
                         class="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold py-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm active:scale-95 transition-all">
