@@ -384,13 +384,11 @@
         <div class="space-y-3">
             <!-- Toggle Button -->
             <button id="actionToggle" onclick="toggleActions()"
-                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 px-5 rounded-2xl flex items-center justify-between shadow-xl shadow-primary/30 transition-all active:scale-95">
-                <div class="flex items-center gap-2">
-                    <span class="material-symbols-outlined text-xl">more_horiz</span>
-                    <span>Aksi Lainnya</span>
-                </div>
+                class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-5 rounded-xl flex items-center gap-2 shadow-lg shadow-primary/30 transition-all active:scale-95 mx-auto">
+                <span class="material-symbols-outlined text-lg">send</span>
+                <span class="text-sm">Kirim</span>
                 <span id="toggleIcon"
-                    class="material-symbols-outlined transition-transform duration-300">expand_more</span>
+                    class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
             </button>
 
             <!-- Hidden Actions Panel -->
