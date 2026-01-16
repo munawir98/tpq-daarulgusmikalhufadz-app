@@ -215,9 +215,18 @@ class UstadzLaporanController extends Controller
             $data['foto'] = $request->file('foto')->store('jurnal', 'public');
         }
 
-        \App\Models\JurnalHarian::create($data);
+        $jurnal = \App\Models\JurnalHarian::create($data);
 
-        return redirect()->route('ustadz.laporan.kegiatan')->with('success', 'Jurnal berhasil ditambahkan!');
+        return redirect()->route('ustadz.laporan.jurnal.success', $jurnal->id);
+    }
+
+    /**
+     * Show success page after storing Jurnal.
+     */
+    public function jurnalSuccess($id)
+    {
+        $jurnal = \App\Models\JurnalHarian::with('kelas')->findOrFail($id);
+        return view('ustadz.laporan.jurnal_success', compact('jurnal'));
     }
 
     /**

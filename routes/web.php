@@ -553,6 +553,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/laporan/kegiatan', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'kegiatan'])->name('laporan.kegiatan');
         Route::get('/laporan/jurnal/create', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'createJurnal'])->name('laporan.jurnal.create');
         Route::post('/laporan/jurnal', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'storeJurnal'])->name('laporan.jurnal.store');
+        Route::get('/laporan/jurnal/{id}/success', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'jurnalSuccess'])->name('laporan.jurnal.success');
         Route::get('/laporan/ekskul/create', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'createEkskul'])->name('laporan.ekskul.create');
         Route::post('/laporan/ekskul', [\App\Http\Controllers\Web\UstadzLaporanController::class, 'storeEkskul'])->name('laporan.ekskul.store');
 
