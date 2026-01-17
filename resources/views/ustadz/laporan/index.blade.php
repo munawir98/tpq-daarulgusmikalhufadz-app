@@ -220,7 +220,7 @@
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="relative bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center gap-3 z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">event_note</span>
