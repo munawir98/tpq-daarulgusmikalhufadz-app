@@ -42,22 +42,6 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .animate-slide-down {
-            animation: slideDown 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
     </style>
 </head>
 
@@ -90,10 +74,10 @@
 
     <!-- Modal Backdrop Overlay -->
     <div
-        class="fixed inset-0 z-10 bg-[#141414]/40 glass-blur flex flex-col justify-start pt-6 md:pt-10 transition-opacity p-4">
+        class="fixed inset-0 z-10 bg-[#141414]/40 glass-blur flex flex-col justify-end md:justify-center transition-opacity p-4">
         <!-- Modal Content -->
         <div
-            class="relative w-full max-w-sm mx-auto bg-white dark:bg-background-dark rounded-3xl shadow-2xl animate-slide-down">
+            class="relative w-full max-w-sm mx-auto bg-white dark:bg-background-dark rounded-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 md:animate-in md:zoom-in-95">
 
             <!-- Handle for Mobile (Visual only) -->
             <div class="md:hidden flex justify-center pt-3 pb-1">
