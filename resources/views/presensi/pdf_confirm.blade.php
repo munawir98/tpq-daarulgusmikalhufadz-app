@@ -130,6 +130,7 @@
                 </button>
                 <a href="{{ route('ustadz.presensi.download', ['month' => $monthInput, 'kelas' => $kelasId]) }}"
                     target="_blank"
+                    onclick="this.innerHTML = '<span class=\'material-symbols-outlined animate-spin text-[20px]\'>progress_activity</span><span>Memproses...</span>'; this.style.pointerEvents='none'; this.classList.add('opacity-75'); setTimeout(() => { this.innerHTML = '<span class=\'material-symbols-outlined text-[20px]\'>check</span><span>Selesai</span>'; this.classList.remove('opacity-75'); }, 3000); setTimeout(() => { this.innerHTML = '<span class=\'material-symbols-outlined text-[18px]\'>download</span><span>Download</span>'; this.style.pointerEvents='auto'; }, 5000);"
                     class="flex-[2] cursor-pointer flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25 active:scale-95 transition-all outline-none md:hover:bg-sky-500">
                     <span class="material-symbols-outlined text-[18px]">download</span>
                     <span>Download</span>
