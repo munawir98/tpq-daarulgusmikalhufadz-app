@@ -145,10 +145,10 @@
                 &amp; Sub-Menu</h2>
             <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola data akademik dan finansial</p>
         </div>
-        <div class="grid grid-cols-2 gap-3 p-4 pt-2">
+        <div class="flex flex-wrap gap-3 p-4 pt-2">
             <!-- Kehadiran Santri (Primary/Blue) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative bg-blue-600 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-md hover:shadow-lg transition-all active:scale-95 group">
+                class="relative flex-1 min-w-[140px] bg-blue-600 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-md hover:shadow-lg transition-all active:scale-95 group">
                 <div class="flex items-center justify-between z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">analytics</span>
@@ -169,7 +169,7 @@
 
             <!-- Setoran Hafalan (Emerald) -->
             <a href="{{ route('ustadz.hafalan.laporan') }}"
-                class="relative bg-emerald-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative flex-1 min-w-[140px] bg-emerald-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">auto_stories</span>
@@ -186,7 +186,7 @@
 
             <!-- Penilaian & Rapor (Amber/Orange) -->
             <a href="{{ route('ustadz.nilai.index') }}"
-                class="relative bg-amber-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative flex-1 min-w-[140px] bg-amber-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">grade</span>
@@ -206,7 +206,7 @@
 
             <!-- Laporan Keuangan (Topaz/Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative bg-indigo-600 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative flex-1 min-w-[140px] bg-indigo-600 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">payments</span>
@@ -220,7 +220,7 @@
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="relative bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md col-span-2 hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative flex-1 min-w-[140px] bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center gap-3 z-10 relative">
                     <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
                         <span class="material-symbols-outlined text-white">event_note</span>
