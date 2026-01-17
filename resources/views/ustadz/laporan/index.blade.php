@@ -263,7 +263,7 @@
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="card-anim relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden group icon-float"
+                class="card-anim relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden group icon-float mt-3"
                 style="animation-delay: 0.5s;">
                 <div class="flex items-center gap-3 z-10 relative">
                     <div
