@@ -66,8 +66,8 @@
         }
 
         th {
-            background-color: #f3f4f6;
-            /* gray-100 */
+            background-color: #ffffff;
+            /* white */
             border-top: 1px solid #1f2937;
             /* gray-800 */
             border-bottom: 1px solid #1f2937;
