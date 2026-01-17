@@ -182,7 +182,7 @@
         </style>
         @endpush
 
-        <div class="grid grid-cols-2 gap-3 p-4 pt-2">
+        <div class="grid grid-cols-3 gap-3 p-4 pt-2">
             <!-- Kehadiran Santri (Primary/Blue) -->
             <a href="{{ route('presensi.index') }}"
                 class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 group icon-float"
