@@ -216,18 +216,18 @@
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="relative col-span-2 bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
+                class="relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center gap-3 z-10 relative">
-                    <div class="p-2 bg-rose-50 dark:bg-rose-900/20 rounded-lg">
-                        <span class="material-symbols-outlined text-rose-600 dark:text-rose-400">event_note</span>
+                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <span class="material-symbols-outlined text-white">event_note</span>
                     </div>
                     <div>
-                        <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Jurnal &amp;
+                        <p class="text-white text-sm font-bold leading-tight">Jurnal &amp;
                             Kegiatan</p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">12 Agenda pekan ini</p>
+                        <p class="text-xs text-white/80">12 Agenda pekan ini</p>
                     </div>
                     <div class="ml-auto">
-                        <span class="material-symbols-outlined text-slate-400">chevron_right</span>
+                        <span class="material-symbols-outlined text-white/70">chevron_right</span>
                     </div>
                 </div>
             </a>
