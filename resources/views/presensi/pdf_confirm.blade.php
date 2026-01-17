@@ -73,72 +73,68 @@
     </div>
 
     <!-- Modal Backdrop Overlay -->
-    <div class="fixed inset-0 z-10 bg-[#141414]/40 glass-blur flex flex-col justify-end transition-opacity">
-        <!-- Bottom Sheet Modal Content -->
+    <div
+        class="fixed inset-0 z-10 bg-[#141414]/40 glass-blur flex flex-col justify-end md:justify-center transition-opacity p-4">
+        <!-- Modal Content -->
         <div
-            class="relative bg-white dark:bg-background-dark rounded-t-3xl shadow-2xl animate-in slide-in-from-bottom duration-300">
-            <!-- BottomSheetHandle -->
-            <button class="flex h-6 w-full items-center justify-center pt-2 cursor-pointer" onclick="history.back()">
-                <div class="h-1 w-10 rounded-full bg-[#cee2e8] dark:bg-gray-700"></div>
-            </button>
+            class="relative w-full max-w-sm mx-auto bg-white dark:bg-background-dark rounded-3xl shadow-2xl animate-in slide-in-from-bottom duration-300 md:animate-in md:zoom-in-95">
+
+            <!-- Handle for Mobile (Visual only) -->
+            <div class="md:hidden flex justify-center pt-3 pb-1">
+                <div class="h-1 w-10 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+            </div>
 
             <!-- Modal Header Icon -->
             <div class="flex justify-center mt-6">
-                <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary text-4xl">picture_as_pdf</span>
+                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-3xl">picture_as_pdf</span>
                 </div>
             </div>
 
             <!-- HeadlineText -->
             <h3
-                class="text-[#0d181c] dark:text-white tracking-tight text-2xl font-bold leading-tight px-6 text-center pb-2 pt-4">
+                class="text-[#0d181c] dark:text-white tracking-tight text-xl font-bold leading-tight px-6 text-center pb-2 pt-4">
                 Konfirmasi Ekspor
             </h3>
 
             <!-- BodyText -->
             <p
-                class="text-[#49879c] dark:text-gray-400 text-base font-normal leading-relaxed pb-6 pt-1 px-8 text-center">
-                Apakah Anda yakin ingin mengunduh laporan periode <span
-                    class="font-semibold text-[#0d181c] dark:text-white">{{ $monthName }}</span> dalam format <span
-                    class="font-semibold text-[#0d181c] dark:text-white">PDF</span>?
+                class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-relaxed pb-6 pt-1 px-8 text-center">
+                Download laporan periode <span class="font-bold text-slate-700 dark:text-white">{{ $monthName }}</span>?
             </p>
 
             <!-- ListItem (File Metadata Box) -->
             <div class="px-6 pb-6">
                 <div
-                    class="flex items-center gap-4 bg-[#f8fbfc] dark:bg-[#1a2b30] border border-[#e7f0f4] dark:border-gray-800 px-4 min-h-[72px] py-2 rounded-xl">
+                    class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 px-4 py-3 rounded-2xl">
                     <div
-                        class="text-primary flex items-center justify-center rounded-lg bg-primary/10 shrink-0 size-12">
-                        <span class="material-symbols-outlined">description</span>
+                        class="text-primary flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 shrink-0 size-10 shadow-sm border border-slate-100 dark:border-slate-600">
+                        <span class="material-symbols-outlined text-[20px]">description</span>
                     </div>
-                    <div class="flex flex-col justify-center">
-                        <p class="text-[#0d181c] dark:text-white text-base font-medium leading-normal line-clamp-1">
+                    <div class="flex flex-col overflow-hidden">
+                        <p class="text-slate-700 dark:text-white text-sm font-bold leading-tight truncate">
                             {{ $filename }}
                         </p>
-                        <p class="text-[#49879c] dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">
-                            Ukuran: ~KB
+                        <p class="text-slate-400 dark:text-slate-500 text-xs font-medium mt-0.5">
+                            Format PDF • A4
                         </p>
                     </div>
                 </div>
             </div>
 
             <!-- ButtonGroup -->
-            <div class="flex justify-center pb-10">
-                <div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch px-6 py-3">
-                    <a href="{{ route('ustadz.presensi.download', ['month' => $monthInput, 'kelas' => $kelasId]) }}"
-                        target="_blank"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] w-full shadow-lg shadow-primary/25 active:scale-[0.98] transition-transform">
-                        <span class="truncate">Unduh Sekarang</span>
-                    </a>
-                    <button onclick="history.back()"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-transparent text-[#49879c] dark:text-gray-400 text-base font-semibold leading-normal tracking-[0.015em] w-full active:bg-gray-50 dark:active:bg-gray-800 transition-colors">
-                        <span class="truncate">Batal</span>
-                    </button>
-                </div>
+            <div class="flex gap-3 px-6 pb-6">
+                <button onclick="history.back()"
+                    class="flex-1 cursor-pointer items-center justify-center rounded-xl h-12 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-bold active:scale-95 transition-all">
+                    Batal
+                </button>
+                <a href="{{ route('ustadz.presensi.download', ['month' => $monthInput, 'kelas' => $kelasId]) }}"
+                    target="_blank"
+                    class="flex-[2] cursor-pointer flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25 active:scale-95 transition-all outline-none md:hover:bg-sky-500">
+                    <span class="material-symbols-outlined text-[18px]">download</span>
+                    <span>Download</span>
+                </a>
             </div>
-
-            <!-- Safe Area Bottom (iOS) -->
-            <div class="h-5 bg-transparent"></div>
         </div>
     </div>
 </body>
