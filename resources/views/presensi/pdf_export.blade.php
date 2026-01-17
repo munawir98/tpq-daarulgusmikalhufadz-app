@@ -122,8 +122,8 @@
         .summary-box {
             width: 48%;
             float: left;
-            background-color: #f9fafb;
-            /* gray-50 */
+            background-color: #ffffff;
+            /* white */
             border: 1px solid #e5e7eb;
             border-radius: 4px;
             padding: 12px;
