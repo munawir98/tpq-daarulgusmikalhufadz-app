@@ -148,89 +148,86 @@
         <div class="grid grid-cols-2 gap-3 p-4 pt-2">
             <!-- Kehadiran Santri (Primary/Blue) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative bg-blue-600 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-md hover:shadow-lg transition-all active:scale-95 group">
+                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 group">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">analytics</span>
+                    <div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">analytics</span>
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <p class="text-white text-sm font-bold leading-tight">Kehadiran Santri</p>
-                    <p class="text-white/70 text-[10px] font-medium mt-1">Laporan Presensi</p>
-                </div>
-                <!-- Mini Chart Deco -->
-                <div class="flex items-end gap-1 h-8 absolute bottom-4 right-4 opacity-30">
-                    <div class="w-1.5 bg-white h-4 rounded-t-sm"></div>
-                    <div class="w-1.5 bg-white h-6 rounded-t-sm"></div>
-                    <div class="w-1.5 bg-white h-8 rounded-t-sm"></div>
-                    <div class="w-1.5 bg-white h-5 rounded-t-sm"></div>
+                    <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Kehadiran Santri</p>
+                    <p class="text-slate-500 dark:text-slate-400 text-[10px] font-medium mt-1">Laporan Presensi</p>
                 </div>
             </a>
 
             <!-- Setoran Hafalan (Emerald) -->
             <a href="{{ route('ustadz.hafalan.laporan') }}"
-                class="relative bg-emerald-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">auto_stories</span>
+                    <div class="p-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
+                        <span
+                            class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">auto_stories</span>
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <p class="text-white text-sm font-bold leading-tight">Setoran Hafalan</p>
-                    <div class="w-full bg-black/10 h-1.5 rounded-full mt-2">
-                        <div class="bg-white h-1.5 rounded-full w-3/4"></div>
+                    <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Setoran Hafalan</p>
+                    <div class="w-full bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full mt-2">
+                        <div class="bg-emerald-500 h-1.5 rounded-full w-3/4"></div>
                     </div>
-                    <p class="text-[10px] text-white/80 font-medium mt-1">Target: Juz 30 (75%)</p>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-1">Target: Juz 30 (75%)</p>
                 </div>
             </a>
 
             <!-- Penilaian & Rapor (Amber/Orange) -->
             <a href="{{ route('ustadz.nilai.index') }}"
-                class="relative bg-amber-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">grade</span>
+                    <div class="p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                        <span class="material-symbols-outlined text-amber-600 dark:text-amber-400">grade</span>
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <p class="text-white text-sm font-bold leading-tight">Penilaian &amp; Rapor</p>
+                    <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Penilaian &amp; Rapor
+                    </p>
                     <div class="flex gap-0.5 mt-2">
-                        <span class="material-symbols-outlined text-white text-[14px] fill-white">star</span>
-                        <span class="material-symbols-outlined text-white text-[14px] fill-white">star</span>
-                        <span class="material-symbols-outlined text-white text-[14px] fill-white">star</span>
-                        <span class="material-symbols-outlined text-white text-[14px] fill-white">star</span>
-                        <span class="material-symbols-outlined text-white/40 text-[14px]">star</span>
+                        <span class="material-symbols-outlined text-amber-400 text-[14px] fill-amber-400">star</span>
+                        <span class="material-symbols-outlined text-amber-400 text-[14px] fill-amber-400">star</span>
+                        <span class="material-symbols-outlined text-amber-400 text-[14px] fill-amber-400">star</span>
+                        <span class="material-symbols-outlined text-amber-400 text-[14px] fill-amber-400">star</span>
+                        <span
+                            class="material-symbols-outlined text-slate-200 dark:text-slate-600 text-[14px]">star</span>
                     </div>
                 </div>
             </a>
 
             <!-- Laporan Keuangan (Topaz/Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative bg-indigo-600 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">payments</span>
+                    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
+                        <span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400">payments</span>
                     </div>
                 </div>
                 <div class="relative z-10">
-                    <p class="text-white text-sm font-bold leading-tight">Laporan Keuangan</p>
-                    <p class="text-[10px] text-white/70 font-medium mt-2">Update: Hari ini</p>
+                    <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Laporan Keuangan</p>
+                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-medium mt-2">Update: Hari ini</p>
                 </div>
             </a>
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="relative col-span-2 bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
                 <div class="flex items-center gap-3 z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">event_note</span>
+                    <div class="p-2 bg-rose-50 dark:bg-rose-900/20 rounded-lg">
+                        <span class="material-symbols-outlined text-rose-600 dark:text-rose-400">event_note</span>
                     </div>
                     <div>
-                        <p class="text-white text-sm font-bold leading-tight">Jurnal &amp; Kegiatan</p>
-                        <p class="text-xs text-white/80">12 Agenda pekan ini</p>
+                        <p class="text-slate-700 dark:text-slate-200 text-sm font-bold leading-tight">Jurnal &amp;
+                            Kegiatan</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">12 Agenda pekan ini</p>
                     </div>
                     <div class="ml-auto">
-                        <span class="material-symbols-outlined text-white/70">chevron_right</span>
+                        <span class="material-symbols-outlined text-slate-400">chevron_right</span>
                     </div>
                 </div>
             </a>
