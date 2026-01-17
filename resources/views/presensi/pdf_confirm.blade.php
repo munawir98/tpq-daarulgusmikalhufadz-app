@@ -129,8 +129,7 @@
                     Batal
                 </button>
                 <a href="{{ route('ustadz.presensi.download', ['month' => $monthInput, 'kelas' => $kelasId]) }}"
-                    target="_blank"
-                    onclick="this.innerHTML = '<span class=\'material-symbols-outlined animate-spin text-[20px]\'>progress_activity</span><span>Memproses...</span>'; this.style.pointerEvents='none'; this.classList.add('opacity-75'); setTimeout(() => { this.innerHTML = '<span class=\'material-symbols-outlined text-[20px]\'>check</span><span>Selesai</span>'; this.classList.remove('opacity-75'); }, 3000); setTimeout(() => { this.innerHTML = '<span class=\'material-symbols-outlined text-[18px]\'>download</span><span>Download</span>'; this.style.pointerEvents='auto'; }, 5000);"
+                    target="_blank" onclick="simulateDownload(this)"
                     class="flex-[2] cursor-pointer flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25 active:scale-95 transition-all outline-none md:hover:bg-sky-500">
                     <span class="material-symbols-outlined text-[18px]">download</span>
                     <span>Download</span>
@@ -138,6 +137,36 @@
             </div>
         </div>
     </div>
+    <script>
+        function simulateDownload(btn) {
+            btn.style.pointerEvents = 'none';
+            btn.classList.add('opacity-75');
+            let progress = 0;
+
+            // Initial state
+            btn.innerHTML = `<span class='material-symbols-outlined animate-spin text-[20px]'>progress_activity</span><span>Memproses ${progress}%</span>`;
+
+            // Progress Interval
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 5) + 2; // Random increment 2-6%
+                if (progress > 95) progress = 95; // Hold at 95%
+                btn.innerHTML = `<span class='material-symbols-outlined animate-spin text-[20px]'>progress_activity</span><span>Memproses ${progress}%</span>`;
+            }, 100);
+
+            // Finish after 3s (simulated PDF gen time)
+            setTimeout(() => {
+                clearInterval(interval);
+                btn.innerHTML = `<span class='material-symbols-outlined text-[20px]'>check</span><span>100% Selesai</span>`;
+                btn.classList.remove('opacity-75');
+            }, 3000);
+
+            // Reset after 5s
+            setTimeout(() => {
+                btn.innerHTML = `<span class='material-symbols-outlined text-[18px]'>download</span><span>Download</span>`;
+                btn.style.pointerEvents = 'auto';
+            }, 5000);
+        }
+    </script>
 </body>
 
 </html>
