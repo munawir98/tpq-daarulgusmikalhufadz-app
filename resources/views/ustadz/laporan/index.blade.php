@@ -145,13 +145,54 @@
                 &amp; Sub-Menu</h2>
             <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola data akademik dan finansial</p>
         </div>
+        @push('styles')
+        <style>
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes float {
+
+                0%,
+                100% {
+                    transform: translateY(0px);
+                }
+
+                50% {
+                    transform: translateY(-5px);
+                }
+            }
+
+            .card-anim {
+                opacity: 0;
+                /* Hidden initially */
+                animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            }
+
+            .icon-float:hover .material-symbols-outlined {
+                animation: float 2s ease-in-out infinite;
+            }
+        </style>
+        @endpush
+
         <div class="grid grid-cols-2 gap-3 p-4 pt-2">
             <!-- Kehadiran Santri (Primary/Blue) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 group">
+                class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 group icon-float"
+                style="animation-delay: 0.1s;">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">analytics</span>
+                    <div
+                        class="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <span
+                            class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-2xl">analytics</span>
                     </div>
                 </div>
                 <div class="relative z-10">
@@ -162,11 +203,13 @@
 
             <!-- Setoran Hafalan (Emerald) -->
             <a href="{{ route('ustadz.hafalan.laporan') }}"
-                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
+                class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden group icon-float"
+                style="animation-delay: 0.2s;">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
+                    <div
+                        class="p-2 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
                         <span
-                            class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">auto_stories</span>
+                            class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-2xl">auto_stories</span>
                     </div>
                 </div>
                 <div class="relative z-10">
@@ -180,10 +223,12 @@
 
             <!-- Penilaian & Rapor (Amber/Orange) -->
             <a href="{{ route('ustadz.nilai.index') }}"
-                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
+                class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden group icon-float"
+                style="animation-delay: 0.3s;">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-                        <span class="material-symbols-outlined text-amber-600 dark:text-amber-400">grade</span>
+                    <div
+                        class="p-2 bg-amber-50 dark:bg-amber-900/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 text-2xl">grade</span>
                     </div>
                 </div>
                 <div class="relative z-10">
@@ -202,10 +247,13 @@
 
             <!-- Laporan Keuangan (Topaz/Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden">
+                class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-3 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 overflow-hidden group icon-float"
+                style="animation-delay: 0.4s;">
                 <div class="flex items-center justify-between z-10 relative">
-                    <div class="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-                        <span class="material-symbols-outlined text-indigo-600 dark:text-indigo-400">payments</span>
+                    <div
+                        class="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        <span
+                            class="material-symbols-outlined text-indigo-600 dark:text-indigo-400 text-2xl">payments</span>
                     </div>
                 </div>
                 <div class="relative z-10">
@@ -216,18 +264,20 @@
 
             <!-- Jurnal & Kegiatan (Rose) -->
             <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                class="relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden">
+                class="card-anim relative col-span-2 bg-rose-500 flex flex-col gap-3 rounded-2xl p-4 shadow-md hover:shadow-lg transition-all active:scale-95 overflow-hidden group icon-float"
+                style="animation-delay: 0.5s;">
                 <div class="flex items-center gap-3 z-10 relative">
-                    <div class="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
-                        <span class="material-symbols-outlined text-white">event_note</span>
+                    <div
+                        class="p-2 bg-white/20 rounded-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-white text-2xl">event_note</span>
                     </div>
                     <div>
-                        <p class="text-white text-sm font-bold leading-tight">Jurnal &amp;
-                            Kegiatan</p>
+                        <p class="text-white text-sm font-bold leading-tight">Jurnal &amp; Kegiatan</p>
                         <p class="text-xs text-white/80">12 Agenda pekan ini</p>
                     </div>
                     <div class="ml-auto">
-                        <span class="material-symbols-outlined text-white/70">chevron_right</span>
+                        <span
+                            class="material-symbols-outlined text-white/70 group-hover:translate-x-1 transition-transform">chevron_right</span>
                     </div>
                 </div>
             </a>
