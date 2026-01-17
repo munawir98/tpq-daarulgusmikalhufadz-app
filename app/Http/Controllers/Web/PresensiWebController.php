@@ -567,10 +567,13 @@ class PresensiWebController extends Controller
         }
 
         // Generate PDF
+        $printedBy = auth()->user() ? auth()->user()->name : 'Sistem';
+
         $pdf = Pdf::loadView('presensi.pdf_export', [
             'data' => $data,
             'monthName' => $monthName,
-            'kelasNama' => $kelasNama
+            'kelasNama' => $kelasNama,
+            'printedBy' => $printedBy
         ])->setPaper('a4', 'portrait');
 
         return $pdf->download($filename);

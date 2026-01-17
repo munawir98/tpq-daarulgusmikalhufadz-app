@@ -262,7 +262,7 @@
 
     <div class="footer">
         <span class="footer-left">Dicetak pada: {{ now()->translatedFormat('d M Y H:i') }}</span>
-        <span class="footer-right">Oleh: {{ auth()->user()->name }}</span>
+        <span class="footer-right">Oleh: {{ $printedBy }}</span>
     </div>
 </body>
 
