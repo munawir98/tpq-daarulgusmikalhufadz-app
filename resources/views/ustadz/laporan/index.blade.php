@@ -140,10 +140,9 @@
                     class="material-symbols-outlined absolute -right-2 -bottom-3 text-white/20 text-[70px] pointer-events-none group-hover:scale-110 transition-transform duration-500">account_balance_wallet</span>
             </a>
         </div>
-        <div class="px-4 pt-4 pb-2">
-            <h2 class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Laporan
-                &amp; Sub-Menu</h2>
-            <p class="text-slate-500 dark:text-slate-400 text-sm">Kelola data akademik dan finansial</p>
+        <div class="px-4 pt-2 pb-1 text-center">
+            <h2 class="text-base font-bold text-slate-700 dark:text-white leading-tight">Laporan &amp; Sub-Menu</h2>
+            <p class="text-slate-500 dark:text-slate-400 text-[10px]">Kelola data akademik dan finansial</p>
         </div>
         @push('styles')
         <style>
