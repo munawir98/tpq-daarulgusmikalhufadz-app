@@ -268,8 +268,8 @@
                 <!-- Jurnal & Kegiatan -->
                 <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-5 bg-gradient-to-br from-red-600 to-pink-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
-                    <div class="flex items-center gap-2 relative z-10">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-gradient-to-br from-red-600 to-pink-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
+                    <div class="flex items-center gap-4 relative z-10">
                         <div
                             class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                             <span class="material-symbols-outlined text-white text-xl">edit_note</span>
