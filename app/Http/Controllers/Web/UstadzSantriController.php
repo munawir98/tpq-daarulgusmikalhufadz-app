@@ -15,7 +15,7 @@ class UstadzSantriController extends Controller
     {
         // Get all santri (or filter by class if ustadz is wali kelas - logic to be added later)
         // For now, list all active santri
-        $santri = Santri::where('status', 'active')->orderBy('nama', 'asc')->paginate(10);
+        $santri = Santri::aktif()->orderBy('nama_lengkap', 'asc')->paginate(10);
 
         return view('ustadz.santri.index', compact('santri'));
     }
