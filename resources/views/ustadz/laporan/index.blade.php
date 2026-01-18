@@ -208,138 +208,115 @@
         </style>
         @endpush
 
-        <div class="grid grid-cols-2 gap-2 p-3 pt-2">
-            <!-- Kehadiran Santri (Primary/Blue) -->
-            <a href="{{ route('presensi.index') }}"
-                class="card-anim relative bg-white dark:bg-slate-800 flex flex-col gap-2 rounded-2xl p-3 overflow-hidden shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md transition-all active:scale-95 group icon-float"
-                style="animation-delay: 0.1s;">
-                <div class="flex items-center justify-between z-10 relative">
+
+
+        <div class="px-4 pb-20 pt-4">
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Kehadiran Santri -->
+                <a href="{{ route('ustadz.santri.index') }}"
+                    class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
                     <div
-                        class="p-1.5 bg-blue-50 dark:bg-blue-900/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                        class="p-2 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        <span class="material-symbols-outlined text-blue-600 text-2xl">how_to_reg</span>
+                    </div>
+                    <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                        Kehadiran Santri</h4>
+                    <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Rekap harian &
+                        bulanan</p>
+                </a>
+
+                <!-- Setoran Hafalan -->
+                <a href="{{ route('ustadz.hafalan.index') }}"
+                    class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
+                    <div
+                        class="p-2 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        <span class="material-symbols-outlined text-purple-600 text-2xl">menu_book</span>
+                    </div>
+                    <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
+                        Setoran Hafalan</h4>
+                    <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Progres hafalan
+                        santri</p>
+                </a>
+
+                <!-- Penilaian & Rapor -->
+                <a href="{{ route('ustadz.nilai.index') }}"
+                    class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden">
+                    <div
+                        class="p-2 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        <span class="material-symbols-outlined text-amber-600 text-2xl">stars</span>
+                    </div>
+                    <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
+                        Penilaian & Rapor</h4>
+                    <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Input nilai &
+                        cetak rapor</p>
+                </a>
+
+                <!-- Laporan Keuangan -->
+                <a href="{{ route('ustadz.laporan.keuangan') }}"
+                    class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden">
+                    <div
+                        class="p-2 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        <span class="material-symbols-outlined text-emerald-600 text-2xl">account_balance_wallet</span>
+                    </div>
+                    <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
+                        Laporan Keuangan</h4>
+                    <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Arus kas &
+                        pemasukan</p>
+                </a>
+
+                <!-- Jurnal & Kegiatan -->
+                <a href="{{ route('ustadz.laporan.kegiatan') }}"
+                    class="col-span-2 relative flex flex-row items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-pink-200 transition-all duration-300 group overflow-hidden">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="p-2 bg-pink-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-pink-600 text-2xl">edit_note</span>
+                        </div>
+                        <div class="text-left">
+                            <h4 class="text-sm font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
+                                Jurnal & Kegiatan</h4>
+                            <p class="text-xs text-gray-400 mt-0.5 leading-tight">Catatan harian &
+                                ekstrakurikuler</p>
+                        </div>
+                    </div>
+                    <div
+                        class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
                         <span
-                            class="material-symbols-outlined text-blue-600 dark:text-blue-400 text-xl">analytics</span>
+                            class="material-symbols-outlined text-gray-400 text-sm group-hover:text-white transition-colors">arrow_forward_ios</span>
                     </div>
-                </div>
-                <div class="relative z-10">
-                    <p class="text-slate-700 dark:text-slate-200 text-xs font-bold leading-tight">Kehadiran Santri</p>
-                    <p class="text-slate-500 dark:text-slate-400 text-[9px] font-medium mt-0.5">Laporan Presensi</p>
-                </div>
-            </a>
-
-            <!-- Setoran Hafalan (Emerald) -->
-            <div class="px-4 pb-20">
-                <h3 class="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-green-600">bar_chart</span>
-                    Statistik & Laporan
-                </h3>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <!-- Kehadiran Santri -->
-                    <a href="{{ route('ustadz.santri.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
-                        <div
-                            class="p-2 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-blue-600 text-2xl">how_to_reg</span>
-                        </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
-                            Kehadiran Santri</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Rekap harian &
-                            bulanan</p>
-                    </a>
-
-                    <!-- Setoran Hafalan -->
-                    <a href="{{ route('ustadz.hafalan.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
-                        <div
-                            class="p-2 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-purple-600 text-2xl">menu_book</span>
-                        </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
-                            Setoran Hafalan</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Progres hafalan
-                            santri</p>
-                    </a>
-
-                    <!-- Penilaian & Rapor -->
-                    <a href="{{ route('ustadz.nilai.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden">
-                        <div
-                            class="p-2 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-amber-600 text-2xl">stars</span>
-                        </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
-                            Penilaian & Rapor</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Input nilai &
-                            cetak rapor</p>
-                    </a>
-
-                    <!-- Laporan Keuangan -->
-                    <a href="{{ route('ustadz.laporan.keuangan') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden">
-                        <div
-                            class="p-2 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span
-                                class="material-symbols-outlined text-emerald-600 text-2xl">account_balance_wallet</span>
-                        </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
-                            Laporan Keuangan</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Arus kas &
-                            pemasukan</p>
-                    </a>
-
-                    <!-- Jurnal & Kegiatan -->
-                    <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                        class="col-span-2 relative flex flex-row items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-pink-200 transition-all duration-300 group overflow-hidden">
-                        <div class="flex items-center gap-3">
-                            <div
-                                class="p-2 bg-pink-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                                <span class="material-symbols-outlined text-pink-600 text-2xl">edit_note</span>
-                            </div>
-                            <div class="text-left">
-                                <h4 class="text-sm font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
-                                    Jurnal & Kegiatan</h4>
-                                <p class="text-xs text-gray-400 mt-0.5 leading-tight">Catatan harian &
-                                    ekstrakurikuler</p>
-                            </div>
-                        </div>
-                        <div
-                            class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
-                            <span
-                                class="material-symbols-outlined text-gray-400 text-sm group-hover:text-white transition-colors">arrow_forward_ios</span>
-                        </div>
-                    </a>
-                </div>
+                </a>
             </div>
-            <div class="px-4 pb-3 pt-4">
-                <h2 class="text-[#0e141b] dark:text-white text-[20px] font-bold leading-tight tracking-[-0.015em]">Quick
-                    Insights</h2>
-            </div>
-            <div class="px-4 pb-12">
-                <div
-                    class="bg-gradient-to-br from-primary to-blue-700 rounded-xl p-4 text-white shadow-lg shadow-primary/20">
-                    <div class="flex items-start justify-between">
-                        <div class="flex flex-col gap-1">
-                            <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-yellow-300">emoji_events</span>
-                                <p class="text-sm font-medium opacity-90">Capaian Pekan Ini</p>
-                            </div>
-                            <h3 class="text-lg font-bold mt-2 leading-tight">Kelas Tahfidz B</h3>
-                            <p class="text-xs opacity-80 mt-1">Kehadiran Tertinggi (98.4%) dengan rata-rata setoran 3
-                                halaman/santri.</p>
-                        </div>
-                        <div class="bg-white/20 p-2 rounded-lg">
-                            <span class="material-symbols-outlined">trending_up</span>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-white/20 flex justify-between items-center">
-                        <span class="text-[10px] font-medium tracking-wider uppercase">Highlight Admin</span>
-                        <button class="text-xs font-bold px-3 py-1 bg-white text-primary rounded-full">Lihat
-                            Detail</button>
-                    </div>
-                </div>
-            </div>
-            <div class="h-8"></div>
         </div>
+        <div class="px-4 pb-3 pt-4">
+            <h2 class="text-[#0e141b] dark:text-white text-[20px] font-bold leading-tight tracking-[-0.015em]">Quick
+                Insights</h2>
+        </div>
+        <div class="px-4 pb-12">
+            <div
+                class="bg-gradient-to-br from-primary to-blue-700 rounded-xl p-4 text-white shadow-lg shadow-primary/20">
+                <div class="flex items-start justify-between">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-yellow-300">emoji_events</span>
+                            <p class="text-sm font-medium opacity-90">Capaian Pekan Ini</p>
+                        </div>
+                        <h3 class="text-lg font-bold mt-2 leading-tight">Kelas Tahfidz B</h3>
+                        <p class="text-xs opacity-80 mt-1">Kehadiran Tertinggi (98.4%) dengan rata-rata setoran 3
+                            halaman/santri.</p>
+                    </div>
+                    <div class="bg-white/20 p-2 rounded-lg">
+                        <span class="material-symbols-outlined">trending_up</span>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-white/20 flex justify-between items-center">
+                    <span class="text-[10px] font-medium tracking-wider uppercase">Highlight Admin</span>
+                    <button class="text-xs font-bold px-3 py-1 bg-white text-primary rounded-full">Lihat
+                        Detail</button>
+                </div>
+            </div>
+        </div>
+        <div class="h-8"></div>
+    </div>
 
 </body>
 
