@@ -70,7 +70,7 @@
         <div class="flex flex-wrap gap-3 p-3">
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
-                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
+                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -92,7 +92,7 @@
 
             <!-- Card 2: Total Ustadz (Emerald) -->
             <div
-                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group hover:-translate-y-1 transition-all duration-300 ease-out">
+                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-emerald-400 to-teal-600 shadow-lg shadow-emerald-500/20 overflow-hidden group hover:-translate-y-1 transition-all duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -114,7 +114,7 @@
 
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
+                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-amber-400 to-orange-600 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -141,7 +141,7 @@
 
             <!-- Card 4: Kas TPQ (Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
+                class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-indigo-500 to-purple-700 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -268,7 +268,7 @@
                 <!-- Jurnal & Kegiatan -->
                 <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
                     <div class="flex items-center gap-2 relative z-10">
                         <div
                             class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
