@@ -265,25 +265,29 @@
                 </a>
 
                 <!-- Jurnal & Kegiatan -->
+                <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-50 rounded-2xl shadow-sm border border-red-200 hover:shadow-md hover:border-red-300 transition-all duration-300 group overflow-hidden">
-                    <div class="flex items-center gap-2">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500">
+                    <div class="flex items-center gap-2 relative z-10">
                         <div
-                            class="p-1.5 bg-white relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-red-600 text-xl">edit_note</span>
+                            class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-white text-xl">edit_note</span>
                         </div>
                         <div class="text-left">
-                            <h4 class="text-xs font-bold text-gray-800 group-hover:text-red-700 transition-colors">
+                            <h4 class="text-xs font-bold text-white group-hover:text-white transition-colors">
                                 Jurnal & Kegiatan</h4>
-                            <p class="text-[10px] text-gray-500 mt-0.5 leading-tight">Catatan harian &
+                            <p class="text-[10px] text-white/90 mt-0.5 leading-tight">Catatan harian &
                                 ekstrakurikuler</p>
                         </div>
                     </div>
                     <div
-                        class="w-6 h-6 rounded-full bg-white flex items-center justify-center group-hover:bg-red-600 transition-colors duration-300">
+                        class="w-6 h-6 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white transition-colors duration-300 relative z-10">
                         <span
-                            class="material-symbols-outlined text-red-300 text-[10px] group-hover:text-white transition-colors">arrow_forward_ios</span>
+                            class="material-symbols-outlined text-white text-[10px] group-hover:text-red-600 transition-colors">arrow_forward_ios</span>
                     </div>
+                    <!-- Decoration Icon -->
+                    <span
+                        class="material-symbols-outlined absolute -right-2 -bottom-4 text-white/10 text-6xl pointer-events-none z-0">edit_note</span>
                 </a>
             </div>
         </div>
