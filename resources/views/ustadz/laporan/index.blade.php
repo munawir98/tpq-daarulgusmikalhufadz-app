@@ -67,11 +67,11 @@
         return 'Rp ' . number_format($amount, 0, ',', '.');
         }
         @endphp
-        <div class="flex flex-wrap gap-3 p-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 p-4">
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
-                class="relative flex min-w-[135px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex flex-col gap-1 rounded-2xl p-4 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -93,7 +93,7 @@
 
             <!-- Card 2: Total Ustadz (Emerald) -->
             <div
-                class="relative flex min-w-[135px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
+                class="relative flex flex-col gap-1 rounded-2xl p-4 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -116,7 +116,7 @@
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative flex min-w-[135px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex flex-col gap-1 rounded-2xl p-4 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
@@ -144,7 +144,7 @@
             <!-- Card 4: Kas TPQ (Indigo) -->
             <!-- Card 4: Kas TPQ (Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative flex min-w-[135px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex flex-col gap-1 rounded-2xl p-4 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
