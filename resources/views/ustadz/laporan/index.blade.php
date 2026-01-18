@@ -53,9 +53,9 @@
     <div
         class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
         <header
-            class="flex items-center bg-primary dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-primary dark:border-slate-800 shadow-sm">
+            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 sticky top-0 z-50 shadow-lg shadow-blue-900/20">
             <div class="w-full flex items-center justify-center relative">
-                <h1 class="text-white dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                <h1 class="text-white text-base font-bold leading-tight tracking-tight text-center drop-shadow-sm">
                     Pusat Data &amp; Statistik</h1>
             </div>
         </header>
