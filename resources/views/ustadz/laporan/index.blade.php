@@ -73,7 +73,7 @@
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
-                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm group-hover:animate-scale-pulse">
                             <span class="material-symbols-outlined text-white text-[22px]">groups</span>
                         </div>
                         <div class="flex items-center gap-0.5">
@@ -95,7 +95,7 @@
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-emerald-400 to-teal-600 shadow-lg shadow-emerald-500/20 overflow-hidden group hover:-translate-y-1 transition-all duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
-                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm group-hover:animate-scale-pulse">
                             <span class="material-symbols-outlined text-white text-[22px]">person_book</span>
                         </div>
                         <div class="flex items-center gap-0.5">
@@ -117,7 +117,7 @@
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-amber-400 to-orange-600 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
-                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm group-hover:animate-scale-pulse">
                             <span class="material-symbols-outlined text-white text-[22px]">event_available</span>
                         </div>
                         <div class="flex items-center gap-0.5">
@@ -144,7 +144,7 @@
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-gradient-to-br from-indigo-500 to-purple-700 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all hover:-translate-y-1 active:scale-95 duration-300 ease-out">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-2">
-                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm group-hover:animate-scale-pulse">
                             <span class="material-symbols-outlined text-white text-[22px]">account_balance_wallet</span>
                         </div>
                         <div class="flex items-center gap-0.5">
@@ -206,6 +206,22 @@
             .icon-float:hover .material-symbols-outlined {
                 animation: float 2s ease-in-out infinite;
             }
+
+            @keyframes scalePulse {
+
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.2);
+                }
+            }
+
+            .group:hover .group-hover\:animate-scale-pulse {
+                animation: scalePulse 1.2s infinite ease-in-out;
+            }
         </style>
         @endpush
 
@@ -217,7 +233,7 @@
                 <a href="{{ route('ustadz.santri.index') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
-                        class="p-1.5 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        class="p-1.5 bg-blue-50 relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-blue-600 text-xl">how_to_reg</span>
                     </div>
                     <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
@@ -230,7 +246,7 @@
                 <a href="{{ route('ustadz.hafalan.index') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
-                        class="p-1.5 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        class="p-1.5 bg-purple-50 relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-purple-600 text-xl">menu_book</span>
                     </div>
                     <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
@@ -243,7 +259,7 @@
                 <a href="{{ route('ustadz.nilai.index') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
-                        class="p-1.5 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        class="p-1.5 bg-amber-50 relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-amber-600 text-xl">stars</span>
                     </div>
                     <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
@@ -256,7 +272,7 @@
                 <a href="{{ route('ustadz.laporan.keuangan') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
-                        class="p-1.5 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                        class="p-1.5 bg-emerald-50 relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-emerald-600 text-xl">account_balance_wallet</span>
                     </div>
                     <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
@@ -271,7 +287,7 @@
                     class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-gradient-to-br from-red-600 to-pink-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
                     <div class="flex items-center gap-4 relative z-10">
                         <div
-                            class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
                             <span class="material-symbols-outlined text-white text-xl">edit_note</span>
                         </div>
                         <div class="text-left">
