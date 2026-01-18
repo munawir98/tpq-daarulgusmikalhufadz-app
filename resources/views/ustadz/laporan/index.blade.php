@@ -251,7 +251,7 @@
                     </a>
 
                     <!-- Setoran Hafalan -->
-                    <a href="{{ route('ustadz.tahfidz.index') }}"
+                    <a href="{{ route('ustadz.hafalan.index') }}"
                         class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
                         <div
                             class="p-2 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
