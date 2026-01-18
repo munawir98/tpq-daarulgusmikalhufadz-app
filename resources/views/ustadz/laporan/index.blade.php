@@ -82,9 +82,9 @@
                             <p class="text-white text-[9px] font-bold">+{{ $persenSantri }}%</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-[9px] font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Total
                         Santri</p>
-                    <p class="text-white text-lg font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
                         $totalSantri }}</p>
                 </div>
                 <span
@@ -104,9 +104,9 @@
                             <p class="text-white text-[9px] font-bold">Stabil</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-[9px] font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Total
                         Ustadz</p>
-                    <p class="text-white text-lg font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
                         $totalUstadz }}</p>
                 </div>
                 <span
@@ -132,9 +132,9 @@
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-[9px] font-bold uppercase tracking-wider">Hadir
+                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Hadir
                         Hari Ini</p>
-                    <p class="text-white text-lg font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
                         $persenKehadiran }}%</p>
                 </div>
                 <span
@@ -160,9 +160,9 @@
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-[9px] font-bold uppercase tracking-wider">Kas TPQ
+                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Kas TPQ
                     </p>
-                    <p class="text-white text-lg font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
                         formatMoneyShort($totalKas) }}</p>
                 </div>
                 <span
