@@ -59,6 +59,48 @@
                     Pusat Data &amp; Statistik</h1>
             </div>
         </header>
+        <div class="px-3 pt-4 pb-2">
+            <div
+                class="relative w-full rounded-3xl p-5 overflow-hidden bg-gradient-to-br from-[#0F2027] via-[#203A43] to-[#2C5364] shadow-xl shadow-slate-300/50">
+
+                <!-- Decoration: Mosque Silhouette (SVG) -->
+                <div class="absolute bottom-0 right-0 opacity-10 pointer-events-none translate-y-2 translate-x-2">
+                    <svg width="180" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M100 20C110 20 120 28 120 40H140V120H60V40H80C80 28 90 20 100 20ZM100 0C70 0 50 30 50 40H20V120H180V40H150C150 30 130 0 100 0Z"
+                            fill="white" />
+                        <circle cx="100" cy="15" r="5" fill="white" />
+                        <rect x="30" y="50" width="10" height="20" rx="5" fill="white" />
+                        <rect x="160" y="50" width="10" height="20" rx="5" fill="white" />
+                    </svg>
+                </div>
+
+                <!-- Decoration: Abstract Pattern -->
+                <div class="absolute -top-10 -left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl pointer-events-none">
+                </div>
+                <div
+                    class="absolute top-10 right-10 w-20 h-20 bg-emerald-400/10 rounded-full blur-2xl pointer-events-none">
+                </div>
+
+                <div class="relative z-10 text-white">
+                    <div class="flex items-center gap-2 mb-1 opacity-90">
+                        <span class="text-[10px] font-medium tracking-wide uppercase">Assalamualaikum,</span>
+                        <span class="material-symbols-outlined text-[10px]">waving_hand</span>
+                    </div>
+                    <h1 class="text-xl font-bold leading-tight mb-3 tracking-tight font-display">
+                        {{ auth()->user()->name ?? 'Ustadz' }}
+                    </h1>
+
+                    <div
+                        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+                        <span class="material-symbols-outlined text-emerald-300 text-[14px]">calendar_month</span>
+                        <p class="text-[10px] font-medium text-white/90">
+                            {{ \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
         @php
         function formatMoneyShort($amount) {
         if ($amount >= 1000000000) return 'Rp ' . round($amount / 1000000000, 1) . 'M';
