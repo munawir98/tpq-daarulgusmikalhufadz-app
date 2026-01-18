@@ -83,7 +83,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-white/90 text-xs font-bold">Total Santri</p>
-                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $totalSantri }}</p>
+                        <p class="text-white text-lg font-extrabold tracking-tight">{{ $totalSantri }}</p>
                     </div>
                 </div>
                 <span
@@ -105,7 +105,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-white/90 text-xs font-bold">Total Ustadz</p>
-                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $totalUstadz }}</p>
+                        <p class="text-white text-lg font-extrabold tracking-tight">{{ $totalUstadz }}</p>
                     </div>
                 </div>
                 <span
@@ -132,7 +132,7 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-white/90 text-xs font-bold">Hadir Hari Ini</p>
-                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $persenKehadiran }}%</p>
+                        <p class="text-white text-lg font-extrabold tracking-tight">{{ $persenKehadiran }}%</p>
                     </div>
                 </div>
                 <span
