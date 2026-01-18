@@ -53,8 +53,13 @@
     <div
         class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
         <header
-            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 sticky top-0 z-50 shadow-lg shadow-blue-900/20">
-            <div class="w-full flex items-center justify-center relative">
+            class="relative flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 sticky top-0 z-50 shadow-lg shadow-blue-900/20 overflow-hidden">
+            <!-- Pattern Overlay -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none"
+                style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+            </div>
+
+            <div class="w-full flex items-center justify-center relative z-10">
                 <h1 class="text-white text-base font-bold leading-tight tracking-tight text-center drop-shadow-sm">
                     Pusat Data &amp; Statistik</h1>
             </div>
