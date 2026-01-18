@@ -72,7 +72,7 @@
             <a href="{{ route('ustadz.santri.index') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
                             <span class="material-symbols-outlined text-white text-[22px]">groups</span>
                         </div>
@@ -81,10 +81,10 @@
                             <p class="text-white text-[10px] font-bold">+{{ $persenSantri }}%</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
-                        Santri</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
-                        $totalSantri }}</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-white/90 text-xs font-bold">Total Santri</p>
+                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $totalSantri }}</p>
+                    </div>
                 </div>
                 <span
                     class="material-symbols-outlined absolute -right-3 -bottom-3 text-white/10 text-6xl pointer-events-none">groups</span>
@@ -94,7 +94,7 @@
             <div
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
                             <span class="material-symbols-outlined text-white text-[22px]">person_book</span>
                         </div>
@@ -103,10 +103,10 @@
                             <p class="text-white text-[10px] font-bold">Stabil</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
-                        Ustadz</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
-                        $totalUstadz }}</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-white/90 text-xs font-bold">Total Ustadz</p>
+                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $totalUstadz }}</p>
+                    </div>
                 </div>
                 <span
                     class="material-symbols-outlined absolute -right-3 -bottom-3 text-white/10 text-6xl pointer-events-none">person_book</span>
@@ -116,7 +116,7 @@
             <a href="{{ route('presensi.index') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
                             <span class="material-symbols-outlined text-white text-[22px]">event_available</span>
                         </div>
@@ -130,10 +130,10 @@
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Hadir
-                        Hari Ini</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
-                        $persenKehadiran }}%</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-white/90 text-xs font-bold">Hadir Hari Ini</p>
+                        <p class="text-white text-xl font-extrabold tracking-tight">{{ $persenKehadiran }}%</p>
+                    </div>
                 </div>
                 <span
                     class="material-symbols-outlined absolute -right-3 -bottom-3 text-white/10 text-6xl pointer-events-none">event_available</span>
@@ -143,7 +143,7 @@
             <a href="{{ route('ustadz.laporan.keuangan') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
-                    <div class="flex items-center justify-between mb-1">
+                    <div class="flex items-center justify-between mb-2">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
                             <span class="material-symbols-outlined text-white text-[22px]">account_balance_wallet</span>
                         </div>
@@ -157,10 +157,11 @@
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Kas TPQ
-                    </p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
-                        formatMoneyShort($totalKas) }}</p>
+                    <div class="flex items-center justify-between">
+                        <p class="text-white/90 text-xs font-bold">Kas TPQ</p>
+                        <p class="text-white text-xl font-extrabold tracking-tight">{{ formatMoneyShort($totalKas) }}
+                        </p>
+                    </div>
                 </div>
                 <span
                     class="material-symbols-outlined absolute -right-3 -bottom-3 text-white/10 text-6xl pointer-events-none">account_balance_wallet</span>
