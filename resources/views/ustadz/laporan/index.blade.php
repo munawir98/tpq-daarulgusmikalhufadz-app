@@ -69,7 +69,6 @@
         @endphp
         <div class="flex flex-wrap gap-3 p-4">
             <!-- Card 1: Total Santri (Cyan/Blue) -->
-            <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-4 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
@@ -114,7 +113,6 @@
             </div>
 
             <!-- Card 3: Kehadiran (Amber/Orange) -->
-            <!-- Card 3: Kehadiran (Amber/Orange) -->
             <a href="{{ route('presensi.index') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-4 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
@@ -141,7 +139,6 @@
                     class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">event_available</span>
             </a>
 
-            <!-- Card 4: Kas TPQ (Indigo) -->
             <!-- Card 4: Kas TPQ (Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-4 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
