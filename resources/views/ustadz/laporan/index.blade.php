@@ -266,55 +266,28 @@
 
                 <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 transition-all duration-300 group overflow-hidden">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-50 rounded-2xl shadow-sm border border-red-200 hover:shadow-md hover:border-red-300 transition-all duration-300 group overflow-hidden">
                     <div class="flex items-center gap-2">
                         <div
-                            class="p-1.5 bg-red-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            class="p-1.5 bg-white relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                             <span class="material-symbols-outlined text-red-600 text-xl">edit_note</span>
                         </div>
                         <div class="text-left">
-                            <h4 class="text-xs font-bold text-gray-800 group-hover:text-red-600 transition-colors">
+                            <h4 class="text-xs font-bold text-gray-800 group-hover:text-red-700 transition-colors">
                                 Jurnal & Kegiatan</h4>
-                            <p class="text-[10px] text-gray-400 mt-0.5 leading-tight">Catatan harian &
+                            <p class="text-[10px] text-gray-500 mt-0.5 leading-tight">Catatan harian &
                                 ekstrakurikuler</p>
                         </div>
                     </div>
                     <div
-                        class="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-red-600 transition-colors duration-300">
+                        class="w-6 h-6 rounded-full bg-white flex items-center justify-center group-hover:bg-red-600 transition-colors duration-300">
                         <span
-                            class="material-symbols-outlined text-gray-400 text-[10px] group-hover:text-white transition-colors">arrow_forward_ios</span>
+                            class="material-symbols-outlined text-red-300 text-[10px] group-hover:text-white transition-colors">arrow_forward_ios</span>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="px-4 pb-3 pt-4">
-            <h2 class="text-[#0e141b] dark:text-white text-[20px] font-bold leading-tight tracking-[-0.015em]">Quick
-                Insights</h2>
-        </div>
-        <div class="px-4 pb-12">
-            <div
-                class="bg-gradient-to-br from-primary to-blue-700 rounded-xl p-4 text-white shadow-lg shadow-primary/20">
-                <div class="flex items-start justify-between">
-                    <div class="flex flex-col gap-1">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-yellow-300">emoji_events</span>
-                            <p class="text-sm font-medium opacity-90">Capaian Pekan Ini</p>
-                        </div>
-                        <h3 class="text-lg font-bold mt-2 leading-tight">Kelas Tahfidz B</h3>
-                        <p class="text-xs opacity-80 mt-1">Kehadiran Tertinggi (98.4%) dengan rata-rata setoran 3
-                            halaman/santri.</p>
-                    </div>
-                    <div class="bg-white/20 p-2 rounded-lg">
-                        <span class="material-symbols-outlined">trending_up</span>
-                    </div>
-                </div>
-                <div class="mt-4 pt-3 border-t border-white/20 flex justify-between items-center">
-                    <span class="text-[10px] font-medium tracking-wider uppercase">Highlight Admin</span>
-                    <button class="text-xs font-bold px-3 py-1 bg-white text-primary rounded-full">Lihat
-                        Detail</button>
-                </div>
-            </div>
-        </div>
+
         <div class="h-8"></div>
     </div>
 
