@@ -71,102 +71,102 @@
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
-                class="relative flex min-w-[140px] flex-1 flex-col gap-1 rounded-2xl p-5 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
-                        <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[28px]">groups</span>
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-white text-[24px]">groups</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[16px]">trending_up</span>
-                            <p class="text-white text-[12px] font-bold">+{{ $persenSantri }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $persenSantri }}%</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
                         Santri</p>
-                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $totalSantri }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-8xl pointer-events-none">groups</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">groups</span>
             </a>
 
             <!-- Card 2: Total Ustadz (Emerald) -->
             <div
-                class="relative flex min-w-[140px] flex-1 flex-col gap-1 rounded-2xl p-5 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
-                        <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[28px]">person_book</span>
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-white text-[24px]">person_book</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[16px]">remove</span>
-                            <p class="text-white text-[12px] font-bold">Stabil</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">remove</span>
+                            <p class="text-white text-[11px] font-bold">Stabil</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
                         Ustadz</p>
-                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $totalUstadz }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-8xl pointer-events-none">person_book</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">person_book</span>
             </div>
 
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative flex min-w-[140px] flex-1 flex-col gap-1 rounded-2xl p-5 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
-                        <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[28px]">event_available</span>
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-white text-[24px]">event_available</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKehadiran >= 0)
-                            <span class="material-symbols-outlined text-white text-[16px]">trending_up</span>
-                            <p class="text-white text-[12px] font-bold">+{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $trendKehadiran }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[16px]">trending_down</span>
-                            <p class="text-white text-[12px] font-bold">{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_down</span>
+                            <p class="text-white text-[11px] font-bold">{{ $trendKehadiran }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Hadir
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Hadir
                         Hari Ini</p>
-                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $persenKehadiran }}%</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-8xl pointer-events-none">event_available</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">event_available</span>
             </a>
 
             <!-- Card 4: Kas TPQ (Indigo) -->
             <!-- Card 4: Kas TPQ (Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative flex min-w-[140px] flex-1 flex-col gap-1 rounded-2xl p-5 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
-                        <div class="p-1.5 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[28px]">account_balance_wallet</span>
+                        <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-white text-[24px]">account_balance_wallet</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKas >= 0)
-                            <span class="material-symbols-outlined text-white text-[16px]">trending_up</span>
-                            <p class="text-white text-[12px] font-bold">+{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $trendKas }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[16px]">trending_down</span>
-                            <p class="text-white text-[12px] font-bold">{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_down</span>
+                            <p class="text-white text-[11px] font-bold">{{ $trendKas }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Kas TPQ
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Kas TPQ
                     </p>
-                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         formatMoneyShort($totalKas) }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-8xl pointer-events-none">account_balance_wallet</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">account_balance_wallet</span>
             </a>
         </div>
         <div class="px-4 pt-2 pb-1 text-center">
@@ -236,79 +236,79 @@
                     Statistik & Laporan
                 </h3>
 
-                <div class="grid grid-cols-2 gap-3">
+                <div class="grid grid-cols-2 gap-2">
                     <!-- Kehadiran Santri -->
                     <a href="{{ route('ustadz.santri.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
+                        class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
                         <div
-                            class="p-2 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-blue-600 text-3xl">how_to_reg</span>
+                            class="p-1.5 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-blue-600 text-xl">how_to_reg</span>
                         </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                        <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
                             Kehadiran Santri</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Rekap harian &
+                        <p class="text-[9px] text-gray-400 text-center mt-0.5 leading-tight">Rekap harian &
                             bulanan</p>
                     </a>
 
                     <!-- Setoran Hafalan -->
                     <a href="{{ route('ustadz.hafalan.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
+                        class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
                         <div
-                            class="p-2 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-purple-600 text-3xl">menu_book</span>
+                            class="p-1.5 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-purple-600 text-xl">menu_book</span>
                         </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
+                        <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-purple-600 transition-colors">
                             Setoran Hafalan</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Progres hafalan
+                        <p class="text-[9px] text-gray-400 text-center mt-0.5 leading-tight">Progres hafalan
                             santri</p>
                     </a>
 
                     <!-- Penilaian & Rapor -->
                     <a href="{{ route('ustadz.nilai.index') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden">
+                        class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden">
                         <div
-                            class="p-2 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-amber-600 text-3xl">stars</span>
+                            class="p-1.5 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-amber-600 text-xl">stars</span>
                         </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
+                        <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-amber-600 transition-colors">
                             Penilaian & Rapor</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Input nilai &
+                        <p class="text-[9px] text-gray-400 text-center mt-0.5 leading-tight">Input nilai &
                             cetak rapor</p>
                     </a>
 
                     <!-- Laporan Keuangan -->
                     <a href="{{ route('ustadz.laporan.keuangan') }}"
-                        class="relative flex flex-col items-center justify-center p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden">
+                        class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden">
                         <div
-                            class="p-2 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            class="p-1.5 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                             <span
-                                class="material-symbols-outlined text-emerald-600 text-3xl">account_balance_wallet</span>
+                                class="material-symbols-outlined text-emerald-600 text-xl">account_balance_wallet</span>
                         </div>
-                        <h4 class="mt-3 text-sm font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
+                        <h4 class="mt-2 text-xs font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
                             Laporan Keuangan</h4>
-                        <p class="text-xs text-gray-400 text-center mt-0.5 leading-tight">Arus kas &
+                        <p class="text-[9px] text-gray-400 text-center mt-0.5 leading-tight">Arus kas &
                             pemasukan</p>
                     </a>
 
                     <!-- Jurnal & Kegiatan -->
                     <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                        class="col-span-2 relative flex flex-row items-center justify-between p-4 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-pink-200 transition-all duration-300 group overflow-hidden mt-2">
-                        <div class="flex items-center gap-3">
+                        class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-pink-200 transition-all duration-300 group overflow-hidden mt-2">
+                        <div class="flex items-center gap-2">
                             <div
-                                class="p-2 bg-pink-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                                <span class="material-symbols-outlined text-pink-600 text-3xl">edit_note</span>
+                                class="p-1.5 bg-pink-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                                <span class="material-symbols-outlined text-pink-600 text-xl">edit_note</span>
                             </div>
                             <div class="text-left">
-                                <h4 class="text-sm font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
+                                <h4 class="text-xs font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
                                     Jurnal & Kegiatan</h4>
-                                <p class="text-xs text-gray-400 mt-0.5 leading-tight">Catatan harian &
+                                <p class="text-[9px] text-gray-400 mt-0.5 leading-tight">Catatan harian &
                                     ekstrakurikuler</p>
                             </div>
                         </div>
                         <div
-                            class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
+                            class="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
                             <span
-                                class="material-symbols-outlined text-gray-400 text-lg group-hover:text-white transition-colors">arrow_forward_ios</span>
+                                class="material-symbols-outlined text-gray-400 text-[10px] group-hover:text-white transition-colors">arrow_forward_ios</span>
                         </div>
                     </a>
                 </div>
