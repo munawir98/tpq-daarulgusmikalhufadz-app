@@ -215,7 +215,7 @@
             <div class="grid grid-cols-2 gap-3">
                 <!-- Kehadiran Santri -->
                 <a href="{{ route('ustadz.santri.index') }}"
-                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
+                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
                         class="p-1.5 bg-blue-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-blue-600 text-xl">how_to_reg</span>
@@ -228,7 +228,7 @@
 
                 <!-- Setoran Hafalan -->
                 <a href="{{ route('ustadz.hafalan.index') }}"
-                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden">
+                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-purple-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
                         class="p-1.5 bg-purple-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-purple-600 text-xl">menu_book</span>
@@ -241,7 +241,7 @@
 
                 <!-- Penilaian & Rapor -->
                 <a href="{{ route('ustadz.nilai.index') }}"
-                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden">
+                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
                         class="p-1.5 bg-amber-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-amber-600 text-xl">stars</span>
@@ -254,7 +254,7 @@
 
                 <!-- Laporan Keuangan -->
                 <a href="{{ route('ustadz.laporan.keuangan') }}"
-                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden">
+                    class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-emerald-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
                         class="p-1.5 bg-emerald-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
                         <span class="material-symbols-outlined text-emerald-600 text-xl">account_balance_wallet</span>
@@ -268,7 +268,7 @@
                 <!-- Jurnal & Kegiatan -->
                 <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-red-600 rounded-2xl shadow-lg shadow-red-600/20 hover:shadow-xl hover:shadow-red-600/30 transition-all duration-300 group overflow-hidden border border-red-500 hover:-translate-y-1 active:scale-95 ease-out">
                     <div class="flex items-center gap-2 relative z-10">
                         <div
                             class="p-1.5 bg-white/20 backdrop-blur-sm relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
