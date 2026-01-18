@@ -67,7 +67,7 @@
         return 'Rp ' . number_format($amount, 0, ',', '.');
         }
         @endphp
-        <div class="flex flex-wrap gap-2 p-3">
+        <div class="flex flex-wrap gap-3 p-3">
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
                 class="relative flex w-[48%] flex-grow flex-col gap-1 rounded-2xl p-3 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
@@ -211,7 +211,7 @@
 
 
         <div class="px-4 pb-20 pt-2">
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-2 gap-3">
                 <!-- Kehadiran Santri -->
                 <a href="{{ route('ustadz.santri.index') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden">
@@ -266,21 +266,21 @@
 
                 <!-- Jurnal & Kegiatan -->
                 <a href="{{ route('ustadz.laporan.kegiatan') }}"
-                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-pink-200 transition-all duration-300 group overflow-hidden">
+                    class="col-span-2 relative flex flex-row items-center justify-between p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-red-200 transition-all duration-300 group overflow-hidden">
                     <div class="flex items-center gap-2">
                         <div
-                            class="p-1.5 bg-pink-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
-                            <span class="material-symbols-outlined text-pink-600 text-xl">edit_note</span>
+                            class="p-1.5 bg-red-50 relative group-hover:scale-110 transition-transform duration-300 rounded-xl">
+                            <span class="material-symbols-outlined text-red-600 text-xl">edit_note</span>
                         </div>
                         <div class="text-left">
-                            <h4 class="text-xs font-bold text-gray-800 group-hover:text-pink-600 transition-colors">
+                            <h4 class="text-xs font-bold text-gray-800 group-hover:text-red-600 transition-colors">
                                 Jurnal & Kegiatan</h4>
                             <p class="text-[10px] text-gray-400 mt-0.5 leading-tight">Catatan harian &
                                 ekstrakurikuler</p>
                         </div>
                     </div>
                     <div
-                        class="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-pink-600 transition-colors duration-300">
+                        class="w-6 h-6 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-red-600 transition-colors duration-300">
                         <span
                             class="material-symbols-outlined text-gray-400 text-[10px] group-hover:text-white transition-colors">arrow_forward_ios</span>
                     </div>
