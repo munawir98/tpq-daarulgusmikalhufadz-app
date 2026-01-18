@@ -75,20 +75,20 @@
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[16px]">groups</span>
+                            <span class="material-symbols-outlined text-white text-[20px]">groups</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[10px]">trending_up</span>
-                            <p class="text-white text-[9px] font-bold">+{{ $persenSantri }}%</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
+                            <p class="text-white text-[10px] font-bold">+{{ $persenSantri }}%</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
                         Santri</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $totalSantri }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/10 text-5xl pointer-events-none">groups</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">groups</span>
             </a>
 
             <!-- Card 2: Total Ustadz (Emerald) -->
@@ -97,20 +97,20 @@
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[16px]">person_book</span>
+                            <span class="material-symbols-outlined text-white text-[20px]">person_book</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[10px]">remove</span>
-                            <p class="text-white text-[9px] font-bold">Stabil</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">remove</span>
+                            <p class="text-white text-[10px] font-bold">Stabil</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
                         Ustadz</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $totalUstadz }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/10 text-5xl pointer-events-none">person_book</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">person_book</span>
             </div>
 
             <!-- Card 3: Kehadiran (Amber/Orange) -->
@@ -120,25 +120,25 @@
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[16px]">event_available</span>
+                            <span class="material-symbols-outlined text-white text-[20px]">event_available</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKehadiran >= 0)
-                            <span class="material-symbols-outlined text-white text-[10px]">trending_up</span>
-                            <p class="text-white text-[9px] font-bold">+{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
+                            <p class="text-white text-[10px] font-bold">+{{ $trendKehadiran }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[10px]">trending_down</span>
-                            <p class="text-white text-[9px] font-bold">{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">trending_down</span>
+                            <p class="text-white text-[10px] font-bold">{{ $trendKehadiran }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Hadir
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Hadir
                         Hari Ini</p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         $persenKehadiran }}%</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/10 text-5xl pointer-events-none">event_available</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">event_available</span>
             </a>
 
             <!-- Card 4: Kas TPQ (Indigo) -->
@@ -148,25 +148,25 @@
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[16px]">account_balance_wallet</span>
+                            <span class="material-symbols-outlined text-white text-[20px]">account_balance_wallet</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKas >= 0)
-                            <span class="material-symbols-outlined text-white text-[10px]">trending_up</span>
-                            <p class="text-white text-[9px] font-bold">+{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
+                            <p class="text-white text-[10px] font-bold">+{{ $trendKas }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[10px]">trending_down</span>
-                            <p class="text-white text-[9px] font-bold">{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[12px]">trending_down</span>
+                            <p class="text-white text-[10px] font-bold">{{ $trendKas }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-[10px] font-bold uppercase tracking-wider">Kas TPQ
+                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Kas TPQ
                     </p>
-                    <p class="text-white text-xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
                         formatMoneyShort($totalKas) }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/10 text-5xl pointer-events-none">account_balance_wallet</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">account_balance_wallet</span>
             </a>
         </div>
         <div class="px-4 pt-2 pb-1 text-center">
