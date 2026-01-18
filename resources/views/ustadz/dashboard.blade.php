@@ -575,7 +575,7 @@
                                 <!-- Slide 1: Map -->
                                 <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
                                     <div id="mapWrapper"
-                                        class="relative w-full h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-lg transition-shadow duration-300">
+                                        class="relative w-full h-[150px] rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-shadow duration-300">
                                         <!-- Swipe Handle Overlay (for touch events) -->
                                         <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none">
                                         </div>
