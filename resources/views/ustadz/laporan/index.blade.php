@@ -71,102 +71,102 @@
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
-                class="relative flex min-w-[120px] flex-1 flex-col gap-1 rounded-2xl p-3 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-cyan-500 shadow-lg shadow-cyan-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[20px]">groups</span>
+                            <span class="material-symbols-outlined text-white text-[24px]">groups</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
-                            <p class="text-white text-[10px] font-bold">+{{ $persenSantri }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $persenSantri }}%</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Total
                         Santri</p>
-                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
                         $totalSantri }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">groups</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">groups</span>
             </a>
 
             <!-- Card 2: Total Ustadz (Emerald) -->
             <div
-                class="relative flex min-w-[120px] flex-1 flex-col gap-1 rounded-2xl p-3 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-emerald-500 shadow-lg shadow-emerald-500/20 overflow-hidden group">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[20px]">person_book</span>
+                            <span class="material-symbols-outlined text-white text-[24px]">person_book</span>
                         </div>
                         <div class="flex items-center gap-0.5">
-                            <span class="material-symbols-outlined text-white text-[12px]">remove</span>
-                            <p class="text-white text-[10px] font-bold">Stabil</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">remove</span>
+                            <p class="text-white text-[11px] font-bold">Stabil</p>
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Total
+                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Total
                         Ustadz</p>
-                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
                         $totalUstadz }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">person_book</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">person_book</span>
             </div>
 
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <!-- Card 3: Kehadiran (Amber/Orange) -->
             <a href="{{ route('presensi.index') }}"
-                class="relative flex min-w-[120px] flex-1 flex-col gap-1 rounded-2xl p-3 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-amber-500 shadow-lg shadow-amber-500/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[20px]">event_available</span>
+                            <span class="material-symbols-outlined text-white text-[24px]">event_available</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKehadiran >= 0)
-                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
-                            <p class="text-white text-[10px] font-bold">+{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $trendKehadiran }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[12px]">trending_down</span>
-                            <p class="text-white text-[10px] font-bold">{{ $trendKehadiran }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_down</span>
+                            <p class="text-white text-[11px] font-bold">{{ $trendKehadiran }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Hadir
+                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Hadir
                         Hari Ini</p>
-                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
                         $persenKehadiran }}%</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">event_available</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">event_available</span>
             </a>
 
             <!-- Card 4: Kas TPQ (Indigo) -->
             <!-- Card 4: Kas TPQ (Indigo) -->
             <a href="{{ route('ustadz.laporan.keuangan') }}"
-                class="relative flex min-w-[120px] flex-1 flex-col gap-1 rounded-2xl p-3 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
+                class="relative flex min-w-[130px] flex-1 flex-col gap-1 rounded-2xl p-4 bg-indigo-600 shadow-lg shadow-indigo-600/20 overflow-hidden group hover:shadow-md transition-all">
                 <div class="relative z-10">
                     <div class="flex items-center justify-between mb-1.5">
                         <div class="p-1 bg-white/20 rounded-lg backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-white text-[20px]">account_balance_wallet</span>
+                            <span class="material-symbols-outlined text-white text-[24px]">account_balance_wallet</span>
                         </div>
                         <div class="flex items-center gap-0.5">
                             @if($trendKas >= 0)
-                            <span class="material-symbols-outlined text-white text-[12px]">trending_up</span>
-                            <p class="text-white text-[10px] font-bold">+{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_up</span>
+                            <p class="text-white text-[11px] font-bold">+{{ $trendKas }}%</p>
                             @else
-                            <span class="material-symbols-outlined text-white text-[12px]">trending_down</span>
-                            <p class="text-white text-[10px] font-bold">{{ $trendKas }}%</p>
+                            <span class="material-symbols-outlined text-white text-[14px]">trending_down</span>
+                            <p class="text-white text-[11px] font-bold">{{ $trendKas }}%</p>
                             @endif
                         </div>
                     </div>
-                    <p class="text-white/80 text-xs font-bold uppercase tracking-wider">Kas TPQ
+                    <p class="text-white/80 text-sm font-bold uppercase tracking-wider">Kas TPQ
                     </p>
-                    <p class="text-white text-2xl font-extrabold tracking-tight mt-0.5">{{
+                    <p class="text-white text-3xl font-extrabold tracking-tight mt-0.5">{{
                         formatMoneyShort($totalKas) }}</p>
                 </div>
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-6xl pointer-events-none">account_balance_wallet</span>
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-white/10 text-7xl pointer-events-none">account_balance_wallet</span>
             </a>
         </div>
         <div class="px-4 pt-2 pb-1 text-center">
