@@ -235,7 +235,7 @@
         <div class="px-4 pb-20 pt-2">
             <div class="grid grid-cols-2 gap-3">
                 <!-- Kehadiran Santri -->
-                <a href="{{ route('ustadz.presensi.index') }}"
+                <a href="{{ route('ustadz.presensi') }}"
                     class="relative flex flex-col items-center justify-center p-3 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-blue-200 transition-all duration-300 group overflow-hidden hover:-translate-y-1 active:scale-95 ease-out">
                     <div
                         class="p-1.5 bg-blue-50 relative group-hover:animate-scale-pulse transition-transform duration-300 rounded-xl">
