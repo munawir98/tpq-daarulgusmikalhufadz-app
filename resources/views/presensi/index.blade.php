@@ -67,6 +67,7 @@
 
     <!-- Filter Section -->
     <form method="GET" action="{{ route('presensi.index') }}" id="filterForm">
+        <input type="hidden" name="trend_months" id="trendMonthsInput" value="{{ request('trend_months', 6) }}">
         <section class="px-6 py-2">
             <div class="flex gap-4">
                 <div class="flex-1">
@@ -135,9 +136,17 @@
         <div
             class="w-full bg-white dark:bg-slate-800/50 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 uppercase tracking-wide">Tren Kehadiran (6
-                    Bln)</h3>
-                <span class="material-symbols-outlined text-gray-400 text-lg">info</span>
+                <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 uppercase tracking-wide">Tren Kehadiran
+                </h3>
+                <div
+                    class="flex items-center gap-1 bg-gray-50 dark:bg-gray-700/30 rounded-lg p-1 border border-gray-100 dark:border-gray-700">
+                    <button type="button" onclick="setTrend(6)"
+                        class="px-2.5 py-1 text-[10px] uppercase font-bold rounded-md transition-all {{ request('trend_months', 6) == 6 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }}">6
+                        Bln</button>
+                    <button type="button" onclick="setTrend(12)"
+                        class="px-2.5 py-1 text-[10px] uppercase font-bold rounded-md transition-all {{ request('trend_months') == 12 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }}">1
+                        Thn</button>
+                </div>
             </div>
 
             @php
@@ -340,6 +349,12 @@
         </div>
     </section>
 
+    <script>
+        function setTrend(months) {
+            document.getElementById('trendMonthsInput').value = months;
+            document.getElementById('filterForm').submit();
+        }
+    </script>
 </body>
 
 </html>
