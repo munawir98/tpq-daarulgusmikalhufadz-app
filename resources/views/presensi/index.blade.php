@@ -71,7 +71,7 @@
             <div class="flex gap-4">
                 <div class="flex-1">
                     <label
-                        class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-2 tracking-wider">Periode</label>
+                        class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-4 tracking-wider">Periode</label>
                     <div class="relative">
                         <select name="month" onchange="document.getElementById('filterForm').submit()"
                             class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold focus:ring-primary focus:border-primary shadow-sm">
@@ -88,7 +88,7 @@
                 </div>
                 <div class="flex-1">
                     <label
-                        class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-2 tracking-wider">Kelas</label>
+                        class="block text-[10px] font-bold text-gray-400 uppercase mb-1.5 ml-4 tracking-wider">Kelas</label>
                     <div class="relative">
                         <select name="kelas" onchange="document.getElementById('filterForm').submit()"
                             class="w-full bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl px-4 py-3 text-sm font-semibold focus:ring-primary focus:border-primary shadow-sm">
