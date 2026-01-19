@@ -157,8 +157,10 @@
             $xStep = 20;
 
             $data = $trendData ?? [];
-            $data = array_reverse($data); // Oldest first
-            $data = array_slice($data, -6);
+            $data = array_reverse($data); // Newest first (Left)
+
+            $count = count($data);
+            $xStep = $count > 1 ? 100 / ($count - 1) : 0;
 
             foreach($data as $key => $item) {
             $x = $key * $xStep;
