@@ -107,7 +107,8 @@
 
     <!-- Stats Cards -->
     <section class="px-6 py-4 flex gap-4">
-        <div class="flex-1 bg-primary rounded-2xl p-5 shadow-lg shadow-primary/20 relative overflow-hidden">
+        <div
+            class="flex-1 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl p-5 shadow-lg shadow-cyan-500/20 relative overflow-hidden">
             <div class="relative z-10">
                 <p class="text-white/80 text-xs font-bold uppercase mb-1">Total Santri</p>
                 <p class="text-white text-3xl font-extrabold tracking-tight">{{ $totalSantri }}</p>
@@ -115,7 +116,8 @@
             <span
                 class="material-symbols-outlined absolute -right-2 -bottom-2 text-white/20 text-6xl pointer-events-none">group</span>
         </div>
-        <div class="flex-1 bg-success rounded-2xl p-5 shadow-lg shadow-success/20 relative overflow-hidden">
+        <div
+            class="flex-1 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl p-5 shadow-lg shadow-emerald-500/20 relative overflow-hidden">
             <div class="relative z-10">
                 <p class="text-white/80 text-xs font-bold uppercase mb-1">Rata-rata</p>
                 <div class="flex items-baseline gap-1">
