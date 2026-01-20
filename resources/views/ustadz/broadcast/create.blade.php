@@ -101,21 +101,19 @@
                         <span class="material-symbols-outlined text-slate-400 text-xl">group</span>
                     </div>
                     <select name="target" id="targetSelect" onchange="toggleTargetDetails()"
-                        class="w-full h-12 pl-10 pr-10 bg-white border border-slate-200 rounded-xl text-[11px] font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
+                        class="w-full h-12 pl-10 pr-4 bg-white border border-slate-200 rounded-xl text-[11px] font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
                         <option value="all_santri">Semua Santri</option>
                         <option value="all_ustadz">Semua Ustadz</option>
                         <option value="all_users">Semua Pengguna</option>
                         <option value="specific_santri">Pilih Santri (Manual)</option>
                     </select>
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-slate-400 text-xl">expand_more</span>
-                    </div>
                     <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
                 </div>
             </section>
 
             <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
-            <div class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative">
+            <div id="specificSantriSection"
+                class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative mx-4 mb-4 hidden">
                 <input type="hidden" name="santri_id" id="selectedSantriId">
                 <div class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200"
                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
