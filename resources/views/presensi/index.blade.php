@@ -141,11 +141,11 @@
                 <div
                     class="flex items-center gap-1 bg-gray-50 dark:bg-gray-700/30 rounded-lg p-1 border border-gray-100 dark:border-gray-700">
                     <button type="button" onclick="setTrend(6)"
-                        class="px-2.5 py-1 text-[10px] uppercase font-bold rounded-md transition-all {{ request('trend_months', 6) == 6 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }}">6
-                        Bln</button>
+                        class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all {{ request('trend_months', 6) == 6 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-200/50 dark:hover:text-gray-300 dark:hover:bg-gray-700/50' }}">6
+                        bln</button>
                     <button type="button" onclick="setTrend(12)"
-                        class="px-2.5 py-1 text-[10px] uppercase font-bold rounded-md transition-all {{ request('trend_months') == 12 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }}">1
-                        Thn</button>
+                        class="px-2.5 py-1 text-[10px] font-bold rounded-md transition-all {{ request('trend_months') == 12 ? 'bg-white dark:bg-slate-700 text-primary dark:text-cyan-400 shadow-sm border border-gray-100 dark:border-gray-600' : 'text-gray-400 hover:text-gray-600 hover:bg-gray-200/50 dark:hover:text-gray-300 dark:hover:bg-gray-700/50' }}">1
+                        thn</button>
                 </div>
             </div>
 
