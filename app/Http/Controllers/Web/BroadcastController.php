@@ -73,6 +73,8 @@ class BroadcastController extends Controller
         }
 
         $santri = Santri::where('nama_lengkap', 'like', "%{$search}%")
+            ->orWhere('nama_panggilan', 'like', "%{$search}%")
+            ->orWhere('nis', 'like', "%{$search}%")
             ->limit(10)
             ->get(['id', 'nama_lengkap', 'nis']);
 

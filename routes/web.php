@@ -672,7 +672,6 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         });
 
         // Broadcast / Pengumuman
-        // Broadcast / Pengumuman
         Route::prefix('broadcast')->name('broadcast.')->group(function () {
             Route::get('/create', [\App\Http\Controllers\Web\BroadcastController::class, 'create'])->name('create');
             Route::post('/', [\App\Http\Controllers\Web\BroadcastController::class, 'store'])->name('store');

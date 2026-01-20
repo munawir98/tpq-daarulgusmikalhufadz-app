@@ -275,8 +275,15 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                 }
 
                 debounceTimer = setTimeout(() => {
+                    // Show loading
+                    searchResults.innerHTML = '<div class="p-3 text-[10px] text-slate-400 text-center">Mencari...</div>';
+                    searchResults.classList.remove('hidden');
+
                     fetch(`{{ route('ustadz.broadcast.search.santri') }}?q=${query}`)
-                        .then(response => response.json())
+                        .then(response => {
+                            if (!response.ok) throw new Error('Network response was not ok');
+                            return response.json();
+                        })
                         .then(data => {
                             searchResults.innerHTML = '';
                             if (data.length > 0) {
@@ -294,11 +301,15 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                                     };
                                     searchResults.appendChild(div);
                                 });
-                                searchResults.classList.remove('hidden');
                             } else {
                                 searchResults.innerHTML = '<div class="p-3 text-[10px] text-slate-400 text-center">Tidak ditemukan</div>';
-                                searchResults.classList.remove('hidden');
                             }
+                            searchResults.classList.remove('hidden');
+                        })
+                        .catch(error => {
+                            console.error('Error fetching santri:', error);
+                            searchResults.innerHTML = '<div class="p-3 text-[10px] text-red-400 text-center">Gagal memuat data</div>';
+                            searchResults.classList.remove('hidden');
                         });
                 }, 300);
             });
