@@ -67,7 +67,7 @@
     <form action="{{ route('ustadz.broadcast.store') }}" method="POST" class="flex flex-col flex-1 h-full">
         @csrf
         <header
-            class="flex items-center bg-white dark:bg-slate-900 h-14 px-4 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+            class="flex items-center bg-white dark:bg-slate-900 h-14 px-6 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
             <div class="w-full flex items-center justify-center relative">
                 <h1 class="text-blue-600 dark:text-white text-base font-bold leading-tight tracking-tight text-center">
                     Kirim Notifikasi</h1>
@@ -78,20 +78,20 @@
             {{-- Success/Error Messages (Preserved Functional Logic) --}}
             @if(session('success'))
             <div
-                class="p-4 mx-4 mt-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
+                class="p-4 mx-6 mt-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
                 <span class="material-symbols-outlined text-lg">check_circle</span>
                 {{ session('success') }}
             </div>
             @endif
             @if($errors->any())
             <div
-                class="p-4 mx-4 mt-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm flex items-center gap-2">
+                class="p-4 mx-6 mt-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm flex items-center gap-2">
                 <span class="material-symbols-outlined text-lg">error</span>
                 {{ $errors->first() }}
             </div>
             @endif
 
-            <section class="p-4">
+            <section class="px-6 py-4">
                 <div class="mb-2">
                     <h3 class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Target Penerima</h3>
                 </div>
@@ -113,7 +113,7 @@
 
             <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
             <div id="specificSantriSection"
-                class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative mx-4 mb-4 hidden">
+                class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative mx-6 mb-4 hidden">
                 <input type="hidden" name="santri_id" id="selectedSantriId">
                 <div class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200"
                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
@@ -132,10 +132,10 @@
             </div>
 
             <section class="mt-4">
-                <div class="px-4 mb-2">
+                <div class="px-6 mb-2">
                     <h3 class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Pilih Alasan</h3>
                 </div>
-                <div class="flex gap-2 px-4 overflow-x-auto no-scrollbar pb-3 mask-linear scroll-smooth"
+                <div class="flex gap-2 px-6 overflow-x-auto no-scrollbar pb-3 mask-linear scroll-smooth"
                     id="templateContainer">
                     <button type="button" onclick="setTemplate('Absensi', this)"
                         class="template-btn flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-[10px] font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0 transition-all">
@@ -157,7 +157,7 @@
                 </div>
             </section>
 
-            <section class="p-4 mt-2">
+            <section class="px-6 py-4 mt-2">
                 <div class="mb-2">
                     <h3 class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Isi Pesan</h3>
                 </div>
@@ -172,7 +172,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             </section>
         </main>
 
-        <footer class="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-slate-100 z-50">
+        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100 z-50">
             <div class="max-w-md mx-auto flex flex-col gap-3">
                 <div class="grid grid-cols-2 gap-3">
                     <button type="button" onclick="sendWhatsApp()"
