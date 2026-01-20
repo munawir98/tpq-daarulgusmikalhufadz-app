@@ -132,7 +132,7 @@
             </div>
 
             <section class="mt-4">
-                <div class="px-6 mb-2">
+                <div class="px-6 mb-2 ml-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Pilih Alasan</h3>
                 </div>
                 <div class="flex gap-2 px-6 overflow-x-auto no-scrollbar pb-3 mask-linear scroll-smooth"
@@ -158,7 +158,7 @@
             </section>
 
             <section class="px-6 py-4 mt-2">
-                <div class="mb-2">
+                <div class="mb-2 ml-2">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Isi Pesan</h3>
                 </div>
                 <div
