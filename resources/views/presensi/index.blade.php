@@ -224,7 +224,7 @@
             <!-- Tombol Kirim Notif (Biru) -->
             <a href="{{ route('ustadz.broadcast.create') }}" class="flex flex-col items-center gap-2 flex-1 group">
                 <div
-                    class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white shadow-md shadow-blue-200 dark:shadow-blue-900/20 group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-blue-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
                     <span class="material-symbols-outlined text-2xl">notifications</span>
                 </div>
                 <span class="text-[10px] font-extrabold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Kirim
@@ -235,7 +235,7 @@
             <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
                 class="flex flex-col items-center gap-2 flex-1 group border-x border-gray-100 dark:border-gray-700">
                 <div
-                    class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white shadow-md shadow-red-200 dark:shadow-red-900/20 group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
                     <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
                 </div>
                 <span class="text-[10px] font-extrabold text-red-600 dark:text-red-400 uppercase tracking-wider">Export
@@ -246,7 +246,7 @@
             <button class="flex flex-col items-center gap-2 flex-1 group"
                 onclick="alert('Export Excel belum tersedia')">
                 <div
-                    class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white shadow-md shadow-green-200 dark:shadow-green-900/20 group-active:scale-95 transition-transform">
+                    class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-green-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
                     <span class="material-symbols-outlined text-2xl">table_view</span>
                 </div>
                 <span
