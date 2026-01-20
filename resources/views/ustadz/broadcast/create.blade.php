@@ -92,7 +92,7 @@
             @endif
 
             <section class="px-6 py-4">
-                <div class="mb-2">
+                <div class="mb-2 mt-4 ml-2">
                     <h3 class="text-[10px] font-bold uppercase tracking-wider text-blue-600">Target Penerima</h3>
                 </div>
                 <!-- Functional Target Selection -->
