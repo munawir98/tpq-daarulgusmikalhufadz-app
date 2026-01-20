@@ -67,7 +67,7 @@
     <form action="{{ route('ustadz.broadcast.store') }}" method="POST" class="flex flex-col flex-1 h-full">
         @csrf
         <header
-            class="flex items-center bg-white dark:bg-slate-900 h-14 px-6 sticky top-0 z-50 border-b border-slate-200 dark:border-slate-800 shadow-sm">
+            class="flex items-center bg-white dark:bg-slate-900 h-14 px-6 sticky top-4 z-50 border border-slate-200 dark:border-slate-800 shadow-sm mx-6 rounded-2xl">
             <div class="w-full flex items-center justify-center relative">
                 <h1 class="text-blue-600 dark:text-white text-base font-bold leading-tight tracking-tight text-center">
                     Kirim Notifikasi</h1>
