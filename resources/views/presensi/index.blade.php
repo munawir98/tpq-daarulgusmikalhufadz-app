@@ -292,9 +292,9 @@
     <!-- Daftar Kehadiran -->
     <section class="px-6 py-6 mb-8">
         <div class="flex justify-between items-center mb-4">
-            <h3 class="text-sm font-bold text-gray-800 dark:text-gray-100 uppercase tracking-wide">Daftar Kehadiran</h3>
+            <h3 class="text-xs font-bold text-gray-800 dark:text-gray-100 uppercase tracking-wide">Daftar Kehadiran</h3>
             <button
-                class="text-primary text-xs font-bold bg-primary/10 px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition-colors">Lihat
+                class="text-primary text-[10px] font-bold bg-primary/10 px-3 py-1 rounded-lg hover:bg-primary hover:text-white transition-colors">Lihat
                 Semua</button>
         </div>
         <div class="space-y-3">

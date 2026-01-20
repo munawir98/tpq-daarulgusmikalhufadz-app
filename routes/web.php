@@ -672,10 +672,12 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         });
 
         // Broadcast / Pengumuman
+        // Broadcast / Pengumuman
         Route::prefix('broadcast')->name('broadcast.')->group(function () {
             Route::get('/create', [\App\Http\Controllers\Web\BroadcastController::class, 'create'])->name('create');
             Route::post('/', [\App\Http\Controllers\Web\BroadcastController::class, 'store'])->name('store');
             Route::get('/', [\App\Http\Controllers\Web\BroadcastController::class, 'index'])->name('index');
+            Route::get('/search-santri', [\App\Http\Controllers\Web\BroadcastController::class, 'searchSantri'])->name('search.santri');
         });
 
         // Notifications

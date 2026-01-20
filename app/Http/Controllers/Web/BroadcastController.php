@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Notification;
+use App\Models\Santri;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -58,6 +59,24 @@ class BroadcastController extends Controller
         }
 
         return back()->with('success', "Pengumuman berhasil dikirim ke {$sentCount} penerima!");
+    }
+
+    /**
+     * Search santri for auto-complete
+     */
+    public function searchSantri(Request $request)
+    {
+        $search = $request->get('q');
+
+        if (!$search) {
+            return response()->json([]);
+        }
+
+        $santri = Santri::where('nama_lengkap', 'like', "%{$search}%")
+            ->limit(10)
+            ->get(['id', 'nama_lengkap', 'nis']);
+
+        return response()->json($santri);
     }
 
     /**
