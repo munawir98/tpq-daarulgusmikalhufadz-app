@@ -69,7 +69,7 @@
         <header
             class="flex items-center bg-white dark:bg-slate-900 h-14 px-6 sticky top-4 z-50 border border-slate-200 dark:border-slate-800 shadow-sm mx-6 rounded-2xl">
             <div class="w-full flex items-center justify-center relative">
-                <h1 class="text-blue-600 dark:text-white text-lg font-bold leading-tight tracking-tight text-center">
+                <h1 class="text-blue-600 dark:text-white text-sm font-bold leading-tight tracking-tight text-center">
                     Kirim Notifikasi</h1>
             </div>
         </header>
