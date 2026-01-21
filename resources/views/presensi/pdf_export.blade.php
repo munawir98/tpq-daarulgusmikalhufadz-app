@@ -189,10 +189,9 @@
             <p class="tpq-name">TPQ Daarul Gusmikal Hufadz</p>
             <p class="periode">Periode: {{ $monthName }} | Kelas: {{ $kelasNama ?? 'Semua Kelas' }}</p>
         </div>
-        <!-- Simple text icon replacement for PDF -->
-        <div class="header-icon" style="font-weight:bold; color:#9ca3af; font-size:20px;">
-            DGH
-        </div>
+        <!-- Logo TPQ -->
+        <img src="{{ public_path('logo-tpq.png') }}" class="header-icon"
+            style="object-fit: contain; background: transparent;">
     </div>
 
     <table>
