@@ -243,25 +243,22 @@
                                         style="font-size: 16px;">check_circle</span>
                                 </label>
                                 <div class="relative flex items-center gap-2">
-                                    <button type="button" onclick="adjustAyat('ayat_awal', 1); highlightStepBtn(this)"
-                                        disabled
-                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <button type="button" onclick="adjustAyat('ayat_awal', 1)" disabled
+                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 active:bg-primary active:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                                         <span class="material-symbols-rounded">add</span>
                                     </button>
                                     <input name="ayat_awal" type="number" min="0" required placeholder="Awal" value="0"
                                         disabled oninput="syncAyatManual(this.value)"
                                         class="ayat-input flex-1 w-full h-12 rounded-xl border-none bg-transparent text-[#111813] dark:text-white p-[10px] text-center text-sm font-medium shadow-none ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow disabled:opacity-50 disabled:cursor-not-allowed" />
-                                    <button type="button" onclick="adjustAyat('ayat_akhir', -1); highlightStepBtn(this)"
-                                        disabled
-                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10">
+                                    <button type="button" onclick="adjustAyat('ayat_akhir', -1)" disabled
+                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 active:bg-primary active:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed z-10">
                                         <span class="material-symbols-rounded">remove</span>
                                     </button>
                                     <input name="ayat_akhir" type="number" min="0" required placeholder="Akhir"
                                         value="0" disabled oninput="checkQualityInput()"
                                         class="ayat-input flex-1 w-full h-12 rounded-xl border-none bg-transparent text-[#111813] dark:text-white p-[10px] text-center text-sm font-medium shadow-none ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow disabled:opacity-50 disabled:cursor-not-allowed" />
-                                    <button type="button" onclick="adjustAyat('ayat_akhir', 1); highlightStepBtn(this)"
-                                        disabled
-                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                                    <button type="button" onclick="adjustAyat('ayat_akhir', 1)" disabled
+                                        class="stepper-btn ayat-btn size-10 flex shrink-0 items-center justify-center rounded-full bg-white dark:bg-surface-dark text-gray-600 dark:text-gray-400 ring-1 ring-inset ring-gray-200 dark:ring-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95 active:bg-primary active:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                                         <span class="material-symbols-rounded">add</span>
                                     </button>
                                 </div>
@@ -832,15 +829,7 @@
             checkQualityInput();
         };
 
-        window.highlightStepBtn = function (btn) {
-            const allBtns = document.querySelectorAll('.stepper-btn');
-            allBtns.forEach(b => {
-                b.classList.remove('bg-primary', 'text-white');
-                b.classList.add('bg-white', 'dark:bg-surface-dark');
-            });
-            btn.classList.remove('bg-white', 'dark:bg-surface-dark');
-            btn.classList.add('bg-primary', 'text-white');
-        };
+
 
         // Quality Functions
         window.checkQualityInput = function () {
