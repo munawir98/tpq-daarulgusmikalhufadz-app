@@ -48,16 +48,21 @@
     <div
         class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-white dark:bg-background-dark shadow-xl">
         <!-- TopAppBar -->
-        <div
-            class="sticky top-0 z-10 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-100 dark:border-slate-800">
+        <!-- Gradient Header -->
+        <header
+            class="flex items-center justify-between bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-16 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4 relative z-20">
             <a href="{{ route('ustadz.laporan.index') }}"
-                class="text-primary flex size-12 shrink-0 items-center justify-start cursor-pointer">
-                <span class="material-symbols-outlined">arrow_back_ios</span>
+                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors">
+                <span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span>
             </a>
-            <h2
-                class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
-                Laporan Nilai Santri</h2>
-        </div>
+            <div class="flex items-center gap-2">
+                <div class="bg-white/20 p-1.5 rounded-lg">
+                    <span class="material-symbols-outlined text-white text-[20px]">grade</span>
+                </div>
+                <h1 class="text-white text-base font-bold leading-tight tracking-wide">Laporan Nilai</h1>
+            </div>
+            <div class="w-10"></div> <!-- Spacer for centering -->
+        </header>
 
         <div class="p-4 space-y-4">
             <!-- TextField Filters -->
