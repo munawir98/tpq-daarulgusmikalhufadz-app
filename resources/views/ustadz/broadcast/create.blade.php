@@ -142,7 +142,7 @@
             </section>
 
             <!-- Section: Pilih Alasan -->
-            <section class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <section class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm">
                 <div class="mb-3">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Pilih Alasan</h3>
                 </div>
@@ -168,7 +168,7 @@
             </section>
 
             <!-- Section: Isi Pesan -->
-            <section class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+            <section class="bg-white border border-slate-100 rounded-2xl p-3 shadow-sm">
                 <div class="mb-3">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Isi Pesan</h3>
                 </div>
