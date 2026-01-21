@@ -235,7 +235,7 @@
             <a href="{{ route('ustadz.presensi.pdf', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
                 class="flex flex-col items-center gap-2 flex-1 group border-x border-gray-100 dark:border-gray-700">
                 <div
-                    class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
+                    class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-red-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
                     <span class="material-symbols-outlined text-2xl">picture_as_pdf</span>
                 </div>
                 <span class="text-[10px] font-extrabold text-red-600 dark:text-red-400 uppercase tracking-wider">Export
