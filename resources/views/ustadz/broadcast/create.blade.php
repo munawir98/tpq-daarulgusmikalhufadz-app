@@ -181,11 +181,11 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             </section>
         </main>
 
-        <footer class="fixed bottom-0 left-0 right-0 px-6 pt-6 pb-12 bg-white border-t border-slate-100 z-50">
+        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100 z-50">
             <div class="max-w-md mx-auto flex flex-col gap-3">
                 <div class="grid grid-cols-2 gap-3">
                     <button type="button" onclick="sendWhatsApp()"
-                        class="flex-1 h-16 bg-whatsapp hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
+                        class="flex-1 h-14 bg-whatsapp hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
                         <div class="flex items-center gap-1.5">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path
@@ -195,7 +195,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                         </div>
                     </button>
                     <button type="submit"
-                        class="flex-1 h-16 bg-primary hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
+                        class="flex-1 h-14 bg-primary hover:brightness-105 active:scale-[0.96] transition-all rounded-xl flex flex-col items-center justify-center text-white shadow-sm px-2">
                         <div class="flex items-center gap-1.5">
                             <span class="material-symbols-outlined text-xl">notifications_active</span>
                             <span class="text-xs font-bold leading-none text-center">Notifikasi App</span>
