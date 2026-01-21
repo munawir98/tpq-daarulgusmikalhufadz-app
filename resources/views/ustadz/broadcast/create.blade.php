@@ -81,8 +81,8 @@
         <main class="flex-1 max-w-md mx-auto w-full pb-44 px-6 pt-4 space-y-4">
             {{-- Success/Error Messages (Preserved Functional Logic) --}}
             @if(session('success'))
-            <div
-                class="p-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
+            <div id="successMessage"
+                class="p-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2 transition-opacity duration-500">
                 <span class="material-symbols-outlined text-lg">check_circle</span>
                 {{ session('success') }}
             </div>
@@ -360,6 +360,17 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                     searchResults.classList.add('hidden');
                 }
             });
+        }
+
+        // Auto-hide success message
+        const successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 500); // Wait for transition
+            }, 5000);
         }
     </script>
 </body>
