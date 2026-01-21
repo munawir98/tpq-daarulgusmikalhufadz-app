@@ -1077,61 +1077,62 @@
                     // Only apply when Edit Setoran tab is visible
                     if (contentEditSetoran && !contentEditSetoran.classList.contains('hidden')) {
                         const headerRect = stickyHeader.getBoundingClientRect();
-                        const containerRect = scrollable.getBoundingClientRect();
+                        scrollable.addEventListener('scroll', function () {
+                            const stickyHeader = document.getElementById('editSetoranStickyHeader');
+                            if (stickyHeader) {
+                                // Use scrollTop for more reliable "stickiness" at the very top of the scrollable area
+                                if (scrollable.scrollTop > 10) { // Small threshold to avoid flickering
+                                    stickyHeader.classList.add('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
+                                    stickyHeader.style.zIndex = '50';
+                                } else {
+                                    stickyHeader.classList.remove('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
+                                    stickyHeader.style.zIndex = '';
+                                }
+                            }
+                        });
+                    }
 
-                        // Check if header has scrolled past the top of the scrollable container
-                        if (headerRect.top < containerRect.top) {
-                            stickyHeader.classList.add('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full');
-                            stickyHeader.style.zIndex = '50';
-                        } else {
-                            stickyHeader.classList.remove('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full');
-                            stickyHeader.style.zIndex = '';
-                        }
+                    // Scroll Materi Hafalan into view when focused (prevent keyboard from covering)
+                    const surahSearch = document.getElementById('surahSearch');
+                    const hafalanSection = document.getElementById('hafalanSection');
+                    if (surahSearch && hafalanSection) {
+                        surahSearch.addEventListener('focus', function () {
+                            // Small delay to let keyboard appear first
+                            setTimeout(function () {
+                                hafalanSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 300);
+                        });
                     }
                 });
-            }
 
-            // Scroll Materi Hafalan into view when focused (prevent keyboard from covering)
-            const surahSearch = document.getElementById('surahSearch');
-            const hafalanSection = document.getElementById('hafalanSection');
-            if (surahSearch && hafalanSection) {
-                surahSearch.addEventListener('focus', function () {
-                    // Small delay to let keyboard appear first
-                    setTimeout(function () {
-                        hafalanSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 300);
-                });
-            }
-        });
+                // Edit Modal Functions
+                window.openEditModal = function (setoran) {
+                    const modal = document.getElementById('editModal');
+                    const form = document.getElementById('editForm');
+                    if (modal && form) {
+                        // Set form action with dynamic ID
+                        form.action = '/ustadz/hafalan/' + setoran.id;
 
-        // Edit Modal Functions
-        window.openEditModal = function (setoran) {
-            const modal = document.getElementById('editModal');
-            const form = document.getElementById('editForm');
-            if (modal && form) {
-                // Set form action with dynamic ID
-                form.action = '/ustadz/hafalan/' + setoran.id;
+                        // Populate form with setoran data
+                        document.getElementById('editSetoranId').value = setoran.id || '';
+                        document.getElementById('editSurah').value = setoran.surah || '';
+                        document.getElementById('editAyatAwal').value = setoran.ayat_awal || '';
+                        document.getElementById('editAyatAkhir').value = setoran.ayat_akhir || '';
+                        document.getElementById('editNilai').value = setoran.nilai || 1;
+                        document.getElementById('editCatatan').value = setoran.catatan || '';
 
-                // Populate form with setoran data
-                document.getElementById('editSetoranId').value = setoran.id || '';
-                document.getElementById('editSurah').value = setoran.surah || '';
-                document.getElementById('editAyatAwal').value = setoran.ayat_awal || '';
-                document.getElementById('editAyatAkhir').value = setoran.ayat_akhir || '';
-                document.getElementById('editNilai').value = setoran.nilai || 1;
-                document.getElementById('editCatatan').value = setoran.catatan || '';
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    }
+                };
 
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        };
-
-        window.closeEditModal = function () {
-            const modal = document.getElementById('editModal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        };
+                window.closeEditModal = function () {
+                    const modal = document.getElementById('editModal');
+                    if (modal) {
+                        modal.classList.add('hidden');
+                        modal.classList.remove('flex');
+                    }
+                };
     </script>
 
     <!-- Edit Modal -->
