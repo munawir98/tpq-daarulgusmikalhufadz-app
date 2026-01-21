@@ -1094,6 +1094,18 @@
                     }
                 });
             }
+
+            // Scroll Materi Hafalan into view when focused (prevent keyboard from covering)
+            const surahSearch = document.getElementById('surahSearch');
+            const hafalanSection = document.getElementById('hafalanSection');
+            if (surahSearch && hafalanSection) {
+                surahSearch.addEventListener('focus', function () {
+                    // Small delay to let keyboard appear first
+                    setTimeout(function () {
+                        hafalanSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                });
+            }
         });
 
         // Edit Modal Functions
