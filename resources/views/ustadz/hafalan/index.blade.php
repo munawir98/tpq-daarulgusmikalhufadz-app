@@ -816,7 +816,10 @@
                     input.value = newVal;
                     if (newVal > otherVal) otherInput.value = newVal;
                 } else {
-                    if (newVal < otherVal) newVal = otherVal;
+                    // Logic: If decreasing end makes it smaller than start, decrease start down to match
+                    if (newVal < otherVal) {
+                        otherInput.value = newVal;
+                    }
                     input.value = newVal;
                 }
                 checkQualityInput();
