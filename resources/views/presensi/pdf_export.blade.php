@@ -20,7 +20,8 @@
         }
 
         .header-content {
-            width: 70%;
+            margin-left: 80px;
+            /* Space for logo */
         }
 
         .header h1 {
@@ -48,15 +49,12 @@
 
         .header-icon {
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 40px;
-            height: 40px;
-            background-color: #e5e7eb;
-            /* gray-200 */
-            border-radius: 6px;
-            text-align: center;
-            line-height: 40px;
+            top: -5px;
+            left: 0;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
         table {
