@@ -121,6 +121,10 @@
                 <div id="specificSantriSection"
                     class="mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative hidden">
                     <input type="hidden" name="santri_id" id="selectedSantriId">
+                    <div
+                        class="shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400">
+                        <span class="material-symbols-outlined text-lg">person</span>
+                    </div>
 
                     <div class="flex-1 relative">
                         <!-- Search Input (Hidden when selected) -->
