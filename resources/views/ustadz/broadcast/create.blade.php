@@ -302,7 +302,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                                         <p class="text-xs text-slate-500">${santri.nis}</p>
                                     `;
                                     div.onclick = () => {
-                                        searchInput.value = santri.nama_lengkap;
+                                        searchInput.value = santri.nis;
                                         selectedSantriId.value = santri.id;
                                         searchResults.classList.add('hidden');
                                     };
