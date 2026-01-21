@@ -220,8 +220,20 @@
                 @empty
                 <div class="flex flex-col items-center justify-center py-12 text-center">
                     <span class="material-symbols-outlined text-5xl text-slate-300 mb-3">school</span>
-                    <p class="text-slate-500 text-sm">Belum ada data nilai santri</p>
-                    <p class="text-slate-400 text-xs mt-1">Silakan input nilai terlebih dahulu</p>
+                    <p class="text-slate-500 text-sm">
+                        @if(request('kelas_id'))
+                        Tidak ada data santri di kelas ini
+                        @else
+                        Belum ada data nilai santri
+                        @endif
+                    </p>
+                    <p class="text-slate-400 text-xs mt-1">
+                        @if(request('kelas_id'))
+                        Silakan pilih kelas lain
+                        @else
+                        Silakan input nilai terlebih dahulu
+                        @endif
+                    </p>
                 </div>
                 @endforelse
             </div>
