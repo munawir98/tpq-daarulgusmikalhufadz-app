@@ -89,24 +89,17 @@
     <div
         class="relative w-full max-w-[400px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
 
-        <!-- Header Background -->
-        <div
-            class="absolute top-0 left-0 w-full h-[200px] bg-gradient-to-br from-[#4A90B8] via-[#3D7A9E] to-[#2E6B8A] z-0 rounded-b-[40px] overflow-hidden">
-            <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#5BA3CC] rounded-full blur-3xl opacity-60">
-            </div>
-            <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
-            </div>
-        </div>
-
         <!-- Scrollable Content -->
         <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar pb-6">
 
-            <!-- Header -->
-            <div class="px-4 pt-12 pb-4 text-white">
-                <div class="flex items-center justify-center">
-                    <h1 class="text-xl font-bold tracking-tight text-center">Setoran Hafalan</h1>
+            <!-- Header Slim Box -->
+            <header
+                class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4">
+                <div class="w-full flex items-center justify-center relative">
+                    <h1 class="text-white dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                        Setoran Hafalan</h1>
                 </div>
-            </div>
+            </header>
 
             <!-- Main Content Container -->
             <div
