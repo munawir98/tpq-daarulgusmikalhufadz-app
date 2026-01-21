@@ -105,16 +105,13 @@
                         <span class="material-symbols-outlined text-slate-400 text-xl">group</span>
                     </div>
                     <select name="target" id="targetSelect" onchange="toggleTargetDetails()"
-                        class="w-full h-12 pl-10 pr-4 bg-slate-50 border-0 text-slate-700 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
+                        class="w-full h-12 pl-10 pr-4 bg-slate-50 border-0 text-slate-700 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer">
                         <option value="all_santri">Semua Santri</option>
                         <option value="all_ustadz">Semua Ustadz</option>
                         <option value="all_users">Semua Pengguna</option>
                         <option value="specific_santri">Pilih Santri (Manual)</option>
                     </select>
                     <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
-                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
-                    </div>
                 </div>
 
                 <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
