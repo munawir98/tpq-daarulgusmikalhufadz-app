@@ -181,7 +181,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
             </section>
         </main>
 
-        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-white border-t border-slate-100 z-50">
+        <footer class="fixed bottom-0 left-0 right-0 px-6 pt-6 pb-2 bg-white border-t border-slate-100 z-50">
             <div class="max-w-md mx-auto flex flex-col gap-3">
                 <div class="grid grid-cols-2 gap-3">
                     <button type="button" onclick="sendWhatsApp()"
