@@ -393,85 +393,82 @@
 
                 <!-- Tab Content: Edit Setoran -->
                 <div id="contentEditSetoran" class="tab-content hidden">
-                    <div class="mb-4">
-                        <!-- Sticky Header -->
-                        <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 -mx-6 px-6">
-                            <div class="flex items-center gap-2">
-                                <div
-                                    class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                                    <span
-                                        class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
-                                    <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit
-                                    </p>
-                                </div>
+                    <!-- Sticky Header - positioned at tab level -->
+                    <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 mb-4">
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                                <span
+                                    class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
+                                <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit</p>
                             </div>
                         </div>
-
-                        @php
-                        $sampleRiwayat = $riwayatSetoran ?? [];
-                        @endphp
-
-                        @if(count($sampleRiwayat) > 0)
-                        <div class="flex flex-col gap-3">
-                            @foreach($sampleRiwayat as $setoran)
-                            @php
-                            $nilaiStr = $setoran->nilai ?? '';
-                            $nilaiMap = ['Tidak Lancar' => 1, 'Kurang Lancar' => 2, 'Lancar' => 3, 'Sangat Lancar' => 4,
-                            'Sempurna' => 5];
-                            $nilai = $nilaiMap[$nilaiStr] ?? (is_numeric($nilaiStr) ? intval($nilaiStr) : 0);
-                            $nilaiLabels = ['', 'Kurang', 'Cukup', 'Jayyid', 'Jayyid Jiddan', 'Mumtaz'];
-                            $nilaiColors = [
-                            '',
-                            'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400',
-                            'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400',
-                            'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
-                            'bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400',
-                            'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
-                            ];
-                            // Prepare data for modal with integer nilai
-                            $setoranData = $setoran->toArray();
-                            $setoranData['nilai'] = $nilai;
-                            @endphp
-                            <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 group hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors {{ (isset($isScheduleActive) && !$isScheduleActive) ? 'cursor-not-allowed opacity-60' : 'cursor-pointer' }}"
-                                @if(isset($isScheduleActive) && !$isScheduleActive)
-                                onclick="alert('{{ $scheduleMessage ?? 'Jadwal input ditutup.' }}')" @else
-                                onclick='openEditModal(@json($setoranData))' @endif>
-                                <div
-                                    class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-900/50 transition-colors">
-                                    <span
-                                        class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[24px]">edit</span>
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <h4 class="font-semibold text-sm text-text-main-light dark:text-white truncate">
-                                        Surah {{ $setoran->surah ?? 'Surah' }}</h4>
-                                    <p class="text-text-sub-light dark:text-gray-400 text-xs mt-0.5">
-                                        Ayat {{ $setoran->ayat_awal ?? '-' }}-{{ $setoran->ayat_akhir ?? '-' }} •
-                                        {{ isset($setoran->santri_name) ? $setoran->santri_name : '' }}
-                                    </p>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <span
-                                        class="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0 {{ $nilaiColors[$nilai] ?? 'bg-gray-100 text-gray-600' }}">
-                                        {{ $nilaiLabels[$nilai] ?? 'Nilai' }}
-                                    </span>
-                                    <span
-                                        class="material-symbols-rounded text-gray-400 group-hover:text-emerald-500 transition-colors">chevron_right</span>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                        @else
-                        <div
-                            class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-8 text-center border border-gray-100 dark:border-gray-700">
-                            <span class="material-symbols-rounded text-gray-300 dark:text-gray-600 mb-3"
-                                style="font-size: 48px;">edit_off</span>
-                            <p class="text-text-sub-light dark:text-gray-400 text-sm">Belum ada setoran untuk diedit</p>
-                        </div>
-                        @endif
                     </div>
+
+                    @php
+                    $sampleRiwayat = $riwayatSetoran ?? [];
+                    @endphp
+
+                    @if(count($sampleRiwayat) > 0)
+                    <div class="flex flex-col gap-3">
+                        @foreach($sampleRiwayat as $setoran)
+                        @php
+                        $nilaiStr = $setoran->nilai ?? '';
+                        $nilaiMap = ['Tidak Lancar' => 1, 'Kurang Lancar' => 2, 'Lancar' => 3, 'Sangat Lancar' => 4,
+                        'Sempurna' => 5];
+                        $nilai = $nilaiMap[$nilaiStr] ?? (is_numeric($nilaiStr) ? intval($nilaiStr) : 0);
+                        $nilaiLabels = ['', 'Kurang', 'Cukup', 'Jayyid', 'Jayyid Jiddan', 'Mumtaz'];
+                        $nilaiColors = [
+                        '',
+                        'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400',
+                        'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400',
+                        'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400',
+                        'bg-teal-100 text-teal-600 dark:bg-teal-900/30 dark:text-teal-400',
+                        'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
+                        ];
+                        // Prepare data for modal with integer nilai
+                        $setoranData = $setoran->toArray();
+                        $setoranData['nilai'] = $nilai;
+                        @endphp
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 group hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors {{ (isset($isScheduleActive) && !$isScheduleActive) ? 'cursor-not-allowed opacity-60' : 'cursor-pointer' }}"
+                            @if(isset($isScheduleActive) && !$isScheduleActive)
+                            onclick="alert('{{ $scheduleMessage ?? 'Jadwal input ditutup.' }}')" @else
+                            onclick='openEditModal(@json($setoranData))' @endif>
+                            <div
+                                class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-900/50 transition-colors">
+                                <span
+                                    class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[24px]">edit</span>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-sm text-text-main-light dark:text-white truncate">
+                                    Surah {{ $setoran->surah ?? 'Surah' }}</h4>
+                                <p class="text-text-sub-light dark:text-gray-400 text-xs mt-0.5">
+                                    Ayat {{ $setoran->ayat_awal ?? '-' }}-{{ $setoran->ayat_akhir ?? '-' }} •
+                                    {{ isset($setoran->santri_name) ? $setoran->santri_name : '' }}
+                                </p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span
+                                    class="px-3 py-1.5 rounded-full text-[10px] font-bold flex-shrink-0 {{ $nilaiColors[$nilai] ?? 'bg-gray-100 text-gray-600' }}">
+                                    {{ $nilaiLabels[$nilai] ?? 'Nilai' }}
+                                </span>
+                                <span
+                                    class="material-symbols-rounded text-gray-400 group-hover:text-emerald-500 transition-colors">chevron_right</span>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    @else
+                    <div
+                        class="bg-gray-50 dark:bg-gray-800/50 rounded-2xl p-8 text-center border border-gray-100 dark:border-gray-700">
+                        <span class="material-symbols-rounded text-gray-300 dark:text-gray-600 mb-3"
+                            style="font-size: 48px;">edit_off</span>
+                        <p class="text-text-sub-light dark:text-gray-400 text-sm">Belum ada setoran untuk diedit</p>
+                    </div>
+                    @endif
                 </div> <!-- End Tab Content: Edit Setoran -->
 
             </div>
