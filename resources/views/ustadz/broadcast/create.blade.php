@@ -128,7 +128,7 @@
                     <div class="flex-1 relative">
                         <input type="text" id="santriSearchInput" placeholder="Ketik nama santri..." autocomplete="off"
                             class="w-full bg-transparent border-0 border-b border-gray-300 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal text-slate-700">
-                        <p class="text-[10px] text-slate-500 font-medium">Nomor NIS</p>
+                        <p id="nisDisplay" class="text-[10px] text-slate-500 font-medium">Nomor NIS</p>
 
                         <!-- Search Results Dropdown -->
                         <div id="searchResults"
@@ -300,8 +300,11 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                                         <p class="text-xs text-slate-500">${santri.nis}</p>
                                     `;
                                     div.onclick = () => {
-                                        searchInput.value = santri.nis;
+                                        searchInput.value = santri.nama_lengkap;
                                         selectedSantriId.value = santri.id;
+                                        if (document.getElementById('nisDisplay')) {
+                                            document.getElementById('nisDisplay').innerText = santri.nis;
+                                        }
                                         searchResults.classList.add('hidden');
                                     };
                                     searchResults.appendChild(div);
