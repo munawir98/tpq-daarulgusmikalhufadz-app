@@ -85,9 +85,10 @@
             </div>
 
             <!-- Modal Header Icon -->
+            <!-- Modal Header Icon -->
             <div class="flex justify-center mt-6">
-                <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary text-3xl">picture_as_pdf</span>
+                <div class="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-red-600 text-3xl">picture_as_pdf</span>
                 </div>
             </div>
 
@@ -108,7 +109,7 @@
                 <div
                     class="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 px-4 py-3 rounded-2xl">
                     <div
-                        class="text-primary flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 shrink-0 size-10 shadow-sm border border-slate-100 dark:border-slate-600">
+                        class="text-red-500 flex items-center justify-center rounded-xl bg-white dark:bg-slate-700 shrink-0 size-10 shadow-sm border border-slate-100 dark:border-slate-600">
                         <span class="material-symbols-outlined text-[20px]">description</span>
                     </div>
                     <div class="flex flex-col overflow-hidden">
@@ -130,41 +131,82 @@
                 </button>
                 <a href="{{ route('ustadz.presensi.download', ['month' => $monthInput, 'kelas' => $kelasId]) }}"
                     target="_blank" onclick="simulateDownload(this)"
-                    class="flex-[2] cursor-pointer flex items-center justify-center gap-2 rounded-xl h-12 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/25 active:scale-95 transition-all outline-none md:hover:bg-sky-500">
+                    class="flex-[2] cursor-pointer flex items-center justify-center gap-2 rounded-xl h-12 bg-red-600 text-white text-sm font-bold shadow-lg shadow-red-500/30 active:scale-95 transition-all outline-none md:hover:bg-red-700">
                     <span class="material-symbols-outlined text-[18px]">download</span>
                     <span>Download</span>
                 </a>
             </div>
         </div>
     </div>
+    <!-- Download Progress Popup (Hidden by default) -->
+    <div id="downloadPopup"
+        class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-sm bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 p-4 transform transition-all duration-300 translate-y-[-150%] opacity-0 flex items-center gap-4">
+        <div class="shrink-0 w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+            <span class="material-symbols-outlined text-blue-500 animate-bounce">download</span>
+        </div>
+        <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-1">
+                <p id="popupTitle" class="text-sm font-bold text-slate-800 dark:text-white">Mengunduh...</p>
+                <span id="popupPercent" class="text-xs font-bold text-blue-500">0%</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                <div id="progressBar" class="bg-blue-500 h-1.5 rounded-full transition-all duration-100"
+                    style="width: 0%">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function simulateDownload(btn) {
-            btn.style.pointerEvents = 'none';
-            btn.classList.add('opacity-75');
+            // Prevent double click
+            if (btn.dataset.downloading === "true") return;
+            btn.dataset.downloading = "true";
+
+            // Show Popup
+            const popup = document.getElementById('downloadPopup');
+            const progressBar = document.getElementById('progressBar');
+            const popupPercent = document.getElementById('popupPercent');
+            const popupTitle = document.getElementById('popupTitle');
+
+            popup.classList.remove('translate-y-[-150%]', 'opacity-0');
+
+            // Reset state
+            progressBar.style.width = '0%';
+            popupPercent.innerText = '0%';
+            popupTitle.innerText = 'Mengunduh Laporan...';
+
             let progress = 0;
-
-            // Initial state
-            btn.innerHTML = `<span class='material-symbols-outlined animate-spin text-[20px]'>progress_activity</span><span>Memproses ${progress}%</span>`;
-
-            // Progress Interval
             const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 5) + 2; // Random increment 2-6%
-                if (progress > 95) progress = 95; // Hold at 95%
-                btn.innerHTML = `<span class='material-symbols-outlined animate-spin text-[20px]'>progress_activity</span><span>Memproses ${progress}%</span>`;
-            }, 100);
+                progress += Math.floor(Math.random() * 5) + 3; // Increment 3-8%
+                if (progress > 100) progress = 100;
 
-            // Finish after 3s (simulated PDF gen time)
-            setTimeout(() => {
-                clearInterval(interval);
-                btn.innerHTML = `<span class='material-symbols-outlined text-[20px]'>check</span><span>100% Selesai</span>`;
-                btn.classList.remove('opacity-75');
-            }, 3000);
+                progressBar.style.width = `${progress}%`;
+                popupPercent.innerText = `${progress}%`;
 
-            // Reset after 5s
-            setTimeout(() => {
-                btn.innerHTML = `<span class='material-symbols-outlined text-[18px]'>download</span><span>Download</span>`;
-                btn.style.pointerEvents = 'auto';
-            }, 5000);
+                if (progress === 100) {
+                    clearInterval(interval);
+                    popupTitle.innerText = 'Download Selesai';
+                    popupTitle.classList.add('text-green-600');
+                    progressBar.classList.remove('bg-blue-500');
+                    progressBar.classList.add('bg-green-500');
+                    popupPercent.innerText = ''; // Clear percent on finish
+
+                    // Hide after delay
+                    setTimeout(() => {
+                        popup.classList.add('translate-y-[-150%]', 'opacity-0');
+                        btn.dataset.downloading = "false";
+
+                        // Reset popup style for next time
+                        setTimeout(() => {
+                            popupTitle.classList.remove('text-green-600');
+                            progressBar.classList.add('bg-blue-500');
+                            progressBar.classList.remove('bg-green-500');
+                        }, 300);
+
+                    }, 2500);
+                }
+            }, 150); // Speed of download simulation
         }
     </script>
 </body>
