@@ -148,7 +148,7 @@
 
         <!-- Header Background -->
         <div
-            class="absolute top-0 left-0 w-full h-[260px] bg-gradient-to-r from-[#1A2980] to-[#26D0CE] z-0 rounded-b-[40px] overflow-hidden">
+            class="absolute top-0 left-0 w-full h-[280px] bg-gradient-to-r from-[#1A2980] to-[#26D0CE] z-0 rounded-b-[40px] overflow-hidden">
             <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#5BA3CC] rounded-full blur-3xl opacity-60">
             </div>
             <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
@@ -163,7 +163,7 @@
 
             <!-- Header Content -->
             <div
-                class="px-6 pt-8 pb-6 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
+                class="px-6 pt-8 pb-10 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
                 <div class="flex items-center justify-center space-x-3">
                     <div class="text-center">
                         <h1 class="text-lg font-bold leading-tight">Presensi Kehadiran</h1>
@@ -241,9 +241,7 @@
                     <div class="grid grid-cols-2 gap-4 w-full mb-8">
                         <button onclick="checkBiometricAndSubmit('masuk')"
                             class="relative flex flex-col items-center justify-center p-5 bg-white border border-gray-100 rounded-2xl shadow-lg text-blue-600 active:scale-95 transition-transform overflow-hidden group {{ !$jamMasuk ? 'animate-pulse-slow ring-4 ring-blue-50' : '' }}">
-                            <div class="absolute top-0 right-0 p-1 bg-green-500 text-white rounded-bl-lg">
-                                <span class="material-icons-round text-sm">login</span>
-                            </div>
+                            <!-- Removed redundant badge -->
                             <span class="material-symbols-outlined text-4xl mb-2 text-blue-600">login</span>
                             <span class="text-[10px] font-bold uppercase tracking-wide">Presensi Masuk</span>
                             <div class="mt-2 flex items-center text-[8px] text-blue-500 font-medium">
