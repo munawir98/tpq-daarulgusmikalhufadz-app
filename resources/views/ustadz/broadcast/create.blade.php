@@ -67,32 +67,36 @@
     <form action="{{ route('ustadz.broadcast.store') }}" method="POST" class="flex flex-col flex-1 h-full">
         @csrf
         <header
-            class="flex items-center bg-white dark:bg-slate-900 h-14 px-6 sticky top-4 z-50 border border-slate-200 dark:border-slate-800 shadow-sm mx-6 rounded-2xl">
-            <div class="w-full flex items-center justify-center relative">
-                <h1 class="text-blue-600 dark:text-white text-sm font-bold leading-tight tracking-tight text-center">
+            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-6 sticky top-4 z-50 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl overflow-hidden">
+            <!-- Pattern Overlay -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none"
+                style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+            </div>
+            <div class="w-full flex items-center justify-center relative z-10">
+                <h1 class="text-white text-md font-bold leading-tight tracking-tight text-center drop-shadow-sm">
                     Kirim Notifikasi</h1>
             </div>
         </header>
 
-        <main class="flex-1 max-w-md mx-auto w-full pb-44">
+        <main class="flex-1 max-w-md mx-auto w-full pb-44 px-6 pt-4 space-y-4">
             {{-- Success/Error Messages (Preserved Functional Logic) --}}
             @if(session('success'))
             <div
-                class="p-4 mx-6 mt-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
+                class="p-4 bg-green-50 border border-green-200 rounded-xl text-green-600 text-sm flex items-center gap-2">
                 <span class="material-symbols-outlined text-lg">check_circle</span>
                 {{ session('success') }}
             </div>
             @endif
             @if($errors->any())
-            <div
-                class="p-4 mx-6 mt-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm flex items-center gap-2">
+            <div class="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm flex items-center gap-2">
                 <span class="material-symbols-outlined text-lg">error</span>
                 {{ $errors->first() }}
             </div>
             @endif
 
-            <section class="px-6 py-4">
-                <div class="mb-2 mt-4 ml-2">
+            <!-- Section: Target Penerima -->
+            <section class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                <div class="mb-3">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Target Penerima</h3>
                 </div>
                 <!-- Functional Target Selection -->
@@ -101,70 +105,75 @@
                         <span class="material-symbols-outlined text-slate-400 text-xl">group</span>
                     </div>
                     <select name="target" id="targetSelect" onchange="toggleTargetDetails()"
-                        class="w-full h-12 pl-10 pr-4 bg-white border border-slate-200 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all appearance-none cursor-pointer">
+                        class="w-full h-12 pl-10 pr-4 bg-slate-50 border-0 text-slate-700 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-primary/20 transition-all appearance-none cursor-pointer">
                         <option value="all_santri">Semua Santri</option>
                         <option value="all_ustadz">Semua Ustadz</option>
                         <option value="all_users">Semua Pengguna</option>
                         <option value="specific_santri">Pilih Santri (Manual)</option>
                     </select>
                     <input type="hidden" name="title" value="Pemberitahuan" id="titleInput">
+                    <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-slate-400">expand_more</span>
+                    </div>
+                </div>
+
+                <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
+                <div id="specificSantriSection"
+                    class="mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative hidden">
+                    <input type="hidden" name="santri_id" id="selectedSantriId">
+                    <div
+                        class="shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400">
+                        <span class="material-symbols-outlined text-lg">person</span>
+                    </div>
+                    <div class="flex-1 relative">
+                        <input type="text" id="santriSearchInput" placeholder="Ketik nama santri..." autocomplete="off"
+                            class="w-full bg-transparent border-0 border-b border-gray-300 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal text-slate-700">
+                        <p class="text-[10px] text-slate-500 font-medium">Cari spesifik</p>
+
+                        <!-- Search Results Dropdown -->
+                        <div id="searchResults"
+                            class="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto hidden">
+                            <!-- Results will be populated here -->
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Specific Santri Selection Mockup (Hidden by Default unless Specific selected) -->
-            <div id="specificSantriSection"
-                class="bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative mx-6 mb-4 hidden">
-                <input type="hidden" name="santri_id" id="selectedSantriId">
-                <div class="w-12 h-12 rounded-full bg-cover bg-center border border-slate-200"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsPh3V9snwxqJ69AnhvGeQwvOVnZ6L0e0vMJ9Q9WkfxLRrTPkV7pirsmN3bp5RT7LdXnOkk4dEuRBqYQ4Jl8uWSIv22i9KZghv0YJzYufRtuBxztQNVEH_B4aGqYUr148_C03mpqH88WGbaX6NBXax5nDi32S4zcbGkUjDYl2j5zOkQkcCjlDd-bvBT3kcuuhaUEL0T_JS88T7V3pCoGHtwpGtNNAKOaek38IcIm75A_LZcxzhimSyVNtDEwuHRQhPolYF32GkIhx9')">
-                </div>
-                <div class="flex-1 relative">
-                    <input type="text" id="santriSearchInput" placeholder="Ketik nama santri..." autocomplete="off"
-                        class="w-full bg-transparent border-0 border-b border-gray-300 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal">
-                    <p class="text-xs text-slate-500 font-medium">Cari spesifik</p>
-
-                    <!-- Search Results Dropdown -->
-                    <div id="searchResults"
-                        class="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-xl shadow-lg z-50 max-h-48 overflow-y-auto hidden">
-                        <!-- Results will be populated here -->
-                    </div>
-                </div>
-            </div>
-
-            <section class="mt-4">
-                <div class="px-6 mb-2 ml-2">
+            <!-- Section: Pilih Alasan -->
+            <section class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                <div class="mb-3">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Pilih Alasan</h3>
                 </div>
-                <div class="flex gap-2 px-6 overflow-x-auto no-scrollbar pb-3 mask-linear scroll-smooth"
+                <div class="flex gap-2 overflow-x-auto no-scrollbar mask-linear scroll-smooth pb-1"
                     id="templateContainer">
                     <button type="button" onclick="setTemplate('Absensi', this)"
                         class="template-btn flex items-center justify-center rounded-full bg-primary text-white px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-sm shadow-primary/20 shrink-0 transition-all">
                         Absensi
                     </button>
                     <button type="button" onclick="setTemplate('Izin Sakit', this)"
-                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
+                        class="template-btn flex items-center justify-center rounded-full bg-slate-50 border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-100 shrink-0 transition-all">
                         Izin Sakit
                     </button>
                     <button type="button" onclick="setTemplate('Pertemuan', this)"
-                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
+                        class="template-btn flex items-center justify-center rounded-full bg-slate-50 border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-100 shrink-0 transition-all">
                         Pertemuan
                     </button>
                     <button type="button" onclick="setTemplate('Lainnya', this)"
-                        class="template-btn flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-50 shrink-0 transition-all">
+                        class="template-btn flex items-center justify-center rounded-full bg-slate-50 border border-slate-200 text-slate-600 px-4 py-2 text-xs font-medium whitespace-nowrap hover:bg-slate-100 shrink-0 transition-all">
                         Lainnya
                     </button>
-                    <div class="w-2 shrink-0"></div>
                 </div>
             </section>
 
-            <section class="px-6 py-4 mt-2">
-                <div class="mb-2 ml-2">
+            <!-- Section: Isi Pesan -->
+            <section class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+                <div class="mb-3">
                     <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Isi Pesan</h3>
                 </div>
                 <div
-                    class="bg-white border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/10 focus-within:border-primary transition-all">
+                    class="bg-slate-50 border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-primary/10 focus-within:border-primary transition-all">
                     <textarea name="content" id="messageContent"
-                        class="w-full bg-transparent border-none focus:ring-0 text-slate-700 p-4 min-h-[180px] text-sm leading-relaxed resize-none"
+                        class="w-full bg-transparent border-none focus:ring-0 text-slate-700 p-4 min-h-[150px] text-sm leading-relaxed resize-none"
                         placeholder="Tulis pesan Anda di sini...">Assalamu'alaikum Warahmatullahi Wabarakatuh,
 Bpk. Ridwan, kami dari TPQ Daarul Gusmik menginfokan bahwa Ahmad Syarif sudah tidak hadir selama 3 hari berturut-turut tanpa keterangan.
 Mohon konfirmasinya. Terima kasih.</textarea>

@@ -349,8 +349,9 @@
     <div
         class="relative w-full h-[100dvh] bg-background-light dark:bg-background-dark rounded-none overflow-hidden shadow-none flex flex-col">
 
-        <!-- Header Background - Solid Blue -->
-        <div class="absolute top-0 left-0 w-full h-[260px] bg-[#1A2980] z-0 rounded-b-[40px] overflow-hidden">
+        <!-- Header Background - Blue Gradient -->
+        <div
+            class="absolute top-0 left-0 w-full h-[260px] bg-gradient-to-r from-[#1A2980] to-[#26D0CE] z-0 rounded-b-[40px] overflow-hidden">
             <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#5BA3CC] rounded-full blur-3xl opacity-60">
             </div>
             <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
