@@ -578,4 +578,83 @@ class PresensiWebController extends Controller
 
         return $pdf->download($filename);
     }
+
+    /**
+     * Show Excel Confirmation Page
+     */
+    public function excelConfirmation(Request $request)
+    {
+        $monthInput = $request->input('month', now()->format('Y-m'));
+        $kelasId = $request->input('kelas');
+
+        try {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+        } catch (\Exception $e) {
+            $date = now();
+        }
+
+        $monthName = $date->locale('id')->translatedFormat('F Y');
+        $filename = 'Laporan_Kehadiran_' . $date->format('M_Y') . '.xlsx';
+
+        return view('presensi.excel_confirm', compact('monthInput', 'kelasId', 'monthName', 'filename'));
+    }
+
+    /**
+     * Handle Excel Download
+     */
+    public function excelDownload(Request $request)
+    {
+        $monthInput = $request->input('month', now()->format('Y-m'));
+        $kelasId = $request->input('kelas');
+
+        try {
+            $date = \Carbon\Carbon::createFromFormat('Y-m', $monthInput);
+        } catch (\Exception $e) {
+            $date = now();
+        }
+
+        $monthName = $date->locale('id')->translatedFormat('F Y');
+        $filename = 'Laporan_Kehadiran_' . $date->format('M_Y') . '.xlsx';
+
+        // Get Kelas Name if filter active
+        $kelasNama = null;
+        if ($kelasId) {
+            $kelas = \App\Models\Kelas::find($kelasId);
+            if ($kelas) $kelasNama = $kelas->nama_kelas;
+        }
+
+        // Fetch Data Logic (Similar to PDF)
+        $santriListQuery = \App\Models\Santri::where('status_aktif', true)->orderBy('nama_lengkap', 'asc');
+
+        if ($kelasId) {
+            $santriListQuery->where('kelas_id', $kelasId);
+        }
+        $santriList = $santriListQuery->get();
+
+        $data = [];
+        foreach ($santriList as $santri) {
+            $santriKehadiran = \App\Models\KehadiranSantri::where('santri_id', $santri->id)
+                ->whereYear('tanggal', $date->year)
+                ->whereMonth('tanggal', $date->month);
+
+            // Clone queries for counts
+            $hadir = (clone $santriKehadiran)->where('status', 'Hadir')->count();
+            $izin = (clone $santriKehadiran)->where('status', 'Izin')->count();
+            $sakit = (clone $santriKehadiran)->where('status', 'Sakit')->count();
+            $alpa = (clone $santriKehadiran)->where('status', 'Alpa')->count();
+            $total = $santriKehadiran->count();
+            $persentase = $total > 0 ? round(($hadir / $total) * 100) : 0;
+
+            $data[] = [
+                'nama' => $santri->nama_lengkap,
+                'hadir' => $hadir,
+                'izin' => $izin,
+                'sakit' => $sakit,
+                'alpa' => $alpa,
+                'persentase' => $persentase
+            ];
+        }
+
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\LaporanKehadiranExport($data, $monthName, $kelasNama), $filename);
+    }
 }

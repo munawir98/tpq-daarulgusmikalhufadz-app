@@ -623,6 +623,10 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/presensi/pdf', [PresensiWebController::class, 'pdfConfirmation'])->name('presensi.pdf');
         Route::get('/presensi/download', [PresensiWebController::class, 'pdfDownload'])->name('presensi.download');
 
+        // Excel Export
+        Route::get('/presensi/excel', [PresensiWebController::class, 'excelConfirmation'])->name('presensi.excel');
+        Route::get('/presensi/download-excel', [PresensiWebController::class, 'excelDownload'])->name('presensi.download_excel');
+
         Route::prefix('hafalan')->name('hafalan.')->group(function () {
             Route::get('/', [HafalanWebController::class, 'index'])->name('index');
             Route::get('/input', [HafalanWebController::class, 'inputForm'])->name('input');

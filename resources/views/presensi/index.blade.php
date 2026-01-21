@@ -243,8 +243,8 @@
             </a>
 
             <!-- Tombol Export Excel (Hijau) -->
-            <button class="flex flex-col items-center gap-2 flex-1 group"
-                onclick="alert('Export Excel belum tersedia')">
+            <a href="{{ route('ustadz.presensi.excel', ['month' => $selectedMonth, 'kelas' => $selectedKelas]) }}"
+                class="flex flex-col items-center gap-2 flex-1 group">
                 <div
                     class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white shadow-lg shadow-green-500/40 ring-1 ring-white/20 group-active:scale-95 transition-all">
                     <span class="material-symbols-outlined text-2xl">table_view</span>
@@ -252,7 +252,7 @@
                 <span
                     class="text-[10px] font-extrabold text-green-600 dark:text-green-400 uppercase tracking-wider">Export
                     Excel</span>
-            </button>
+            </a>
         </div>
     </section>
 
