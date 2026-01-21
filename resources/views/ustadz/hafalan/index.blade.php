@@ -102,8 +102,7 @@
             </header>
 
             <!-- Main Content Container -->
-            <div
-                class="mx-6 mb-6 bg-white dark:bg-surface-dark rounded-[30px] shadow-soft pt-6 relative z-20 min-h-[600px]">
+            <div class="mx-6 mb-6 pt-0 relative z-20">
 
                 <!-- Success/Error Messages -->
                 @if(session('success'))
@@ -122,7 +121,7 @@
 
 
                 <!-- Tab Navigation -->
-                <div class="flex gap-2 mx-4 mb-4">
+                <div class="flex gap-2 mb-4">
                     <button id="tabInputBaru" onclick="switchTab('input')"
                         class="tab-btn flex-1 flex items-center justify-center gap-2 h-12 rounded-xl font-semibold text-sm transition-all duration-300 bg-primary text-white shadow-lg shadow-primary/30">
                         <span class="material-symbols-rounded text-[18px]">add_circle</span>
@@ -151,7 +150,7 @@
                     @else
                     <!-- Embedded Input Form -->
                     <form action="{{ route('ustadz.hafalan.store') }}" method="POST" id="setoranForm"
-                        enctype="multipart/form-data" class="mx-4 mb-6">
+                        enctype="multipart/form-data" class="mb-6">
                         @csrf
 
                         <div class="flex flex-col gap-4">
