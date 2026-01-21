@@ -203,9 +203,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                     </button>
                 </div>
             </div>
-            <p class="text-xs text-slate-400 text-center leading-tight">
-                Pesan dikirim ke aplikasi orang tua atau via WhatsApp.
-            </p>
+            </div>
             </div>
         </footer>
     </form>
