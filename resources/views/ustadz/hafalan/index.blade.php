@@ -273,9 +273,9 @@
                                         style="font-size: 16px;">check_circle</span>
                                 </label>
                                 <div id="qualitySection"
-                                    class="flex flex-col gap-2 bg-white dark:bg-surface-dark p-3 rounded-xl shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 opacity-50 pointer-events-none transition-all">
+                                    class="flex flex-col gap-2 bg-white dark:bg-surface-dark p-4 rounded-xl shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 opacity-50 pointer-events-none transition-all w-full">
                                     <input type="hidden" name="nilai" id="nilaiInput" value="0">
-                                    <div class="flex items-center justify-center gap-2">
+                                    <div class="flex items-center justify-center gap-4 w-full">
                                         @for($i = 1; $i <= 5; $i++) <button type="button" onclick="setRating({{ $i }})"
                                             class="star-btn group relative focus:outline-none transition-all duration-300">
                                             <span
