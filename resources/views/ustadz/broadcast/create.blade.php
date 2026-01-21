@@ -126,9 +126,26 @@
                         <span class="material-symbols-outlined text-lg">person</span>
                     </div>
                     <div class="flex-1 relative">
-                        <input type="text" id="santriSearchInput" placeholder="Ketik nama santri..." autocomplete="off"
-                            class="w-full bg-transparent border-0 border-b border-gray-300 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal text-slate-700">
-                        <p id="nisDisplay" class="text-[10px] text-slate-500 font-medium">Nomor NIS</p>
+                        <!-- Search Input (Hidden when selected) -->
+                        <div id="searchContainer">
+                            <input type="text" id="santriSearchInput" placeholder="Ketik nama santri..."
+                                autocomplete="off"
+                                class="w-full bg-transparent border-0 border-b border-slate-200 focus:ring-0 p-0 text-sm font-bold placeholder:font-normal text-slate-700 h-8">
+                            <p class="text-[10px] text-slate-500 font-medium mt-1">Nomor NIS</p>
+                        </div>
+
+                        <!-- Selected State Display (Visible when selected) -->
+                        <div id="selectedSantriDisplay"
+                            class="hidden flex items-center justify-between w-full h-8 border-b border-transparent">
+                            <div class="flex flex-col justify-center">
+                                <p id="selectedNameDisplay" class="text-sm font-bold text-slate-800 leading-none"></p>
+                                <p id="selectedNisDisplay" class="text-[10px] text-blue-600 font-bold mt-1"></p>
+                            </div>
+                            <button type="button" onclick="resetSantriSelection()"
+                                class="text-slate-400 hover:text-red-500 transition-colors">
+                                <span class="material-symbols-outlined text-lg">close</span>
+                            </button>
+                        </div>
 
                         <!-- Search Results Dropdown -->
                         <div id="searchResults"
@@ -267,7 +284,27 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         const searchInput = document.getElementById('santriSearchInput');
         const searchResults = document.getElementById('searchResults');
         const selectedSantriId = document.getElementById('selectedSantriId');
+
+        // New Elements for Toggle State
+        const searchContainer = document.getElementById('searchContainer');
+        const selectedSantriDisplay = document.getElementById('selectedSantriDisplay');
+        const selectedNameDisplay = document.getElementById('selectedNameDisplay');
+        const selectedNisDisplay = document.getElementById('selectedNisDisplay');
+
         let debounceTimer;
+
+        function resetSantriSelection() {
+            // Reset Values
+            if (searchInput) searchInput.value = '';
+            if (selectedSantriId) selectedSantriId.value = '';
+
+            // Toggle Visibility
+            if (searchContainer) searchContainer.classList.remove('hidden');
+            if (selectedSantriDisplay) selectedSantriDisplay.classList.add('hidden');
+
+            // Focus back to input
+            if (searchInput) searchInput.focus();
+        }
 
         if (searchInput) {
             searchInput.addEventListener('input', function () {
@@ -300,11 +337,18 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                                         <p class="text-xs text-slate-500">${santri.nis}</p>
                                     `;
                                     div.onclick = () => {
-                                        searchInput.value = santri.nama_lengkap;
+                                        // Set Hidden Value
                                         selectedSantriId.value = santri.id;
-                                        if (document.getElementById('nisDisplay')) {
-                                            document.getElementById('nisDisplay').innerText = santri.nis;
-                                        }
+
+                                        // Update Display UI
+                                        if (selectedNameDisplay) selectedNameDisplay.innerText = santri.nama_lengkap;
+                                        if (selectedNisDisplay) selectedNisDisplay.innerText = 'NIS: ' + santri.nis;
+
+                                        // Toggle Visibility
+                                        if (searchContainer) searchContainer.classList.add('hidden');
+                                        if (selectedSantriDisplay) selectedSantriDisplay.classList.remove('hidden');
+
+                                        // Hide Results
                                         searchResults.classList.add('hidden');
                                     };
                                     searchResults.appendChild(div);
