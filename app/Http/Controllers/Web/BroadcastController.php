@@ -76,7 +76,7 @@ class BroadcastController extends Controller
             ->orWhere('nama_panggilan', 'like', "%{$search}%")
             ->orWhere('nis', 'like', "%{$search}%")
             ->limit(10)
-            ->get(['id', 'nama_lengkap', 'nis']);
+            ->get(['id', 'nama_lengkap', 'nis', 'no_hp_orang_tua']);
 
         return response()->json($santri);
     }

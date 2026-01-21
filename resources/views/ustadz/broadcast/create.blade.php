@@ -118,6 +118,7 @@
                 <div id="specificSantriSection"
                     class="mt-3 bg-slate-50 border border-slate-100 rounded-xl p-3 flex items-center gap-3 relative hidden">
                     <input type="hidden" name="santri_id" id="selectedSantriId">
+                    <input type="hidden" id="selectedSantriPhone">
                     <div
                         class="shrink-0 w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-400">
                         <span class="material-symbols-outlined text-lg">person</span>
@@ -256,9 +257,34 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         }
 
         function sendWhatsApp() {
+            const textarea = document.getElementById('messageContent');
+            const targetSelect = document.getElementById('targetSelect');
+            const selectedSantriPhone = document.getElementById('selectedSantriPhone');
+            const selectedSantriId = document.getElementById('selectedSantriId');
+
             if (textarea) {
                 const msg = encodeURIComponent(textarea.value);
-                window.open(`https://wa.me/?text=${msg}`, '_blank');
+                let url = `https://wa.me/?text=${msg}`;
+
+                // Logic for Specific Santri
+                if (targetSelect && targetSelect.value === 'specific_santri') {
+                    const phone = selectedSantriPhone ? selectedSantriPhone.value : '';
+
+                    if (phone) {
+                        // Use specific number
+                        url = `https://wa.me/${phone}?text=${msg}`;
+                    } else if (selectedSantriId && selectedSantriId.value) {
+                        // Santri selected but no phone
+                        alert('Nomor WhatsApp tidak ditemukan untuk santri ini.');
+                        return;
+                    } else {
+                        // No santri selected
+                        alert('Silakan pilih santri terlebih dahulu.');
+                        return;
+                    }
+                }
+
+                window.open(url, '_blank');
             }
         }
 
@@ -266,6 +292,7 @@ Mohon konfirmasinya. Terima kasih.</textarea>
         const searchInput = document.getElementById('santriSearchInput');
         const searchResults = document.getElementById('searchResults');
         const selectedSantriId = document.getElementById('selectedSantriId');
+        const selectedSantriPhone = document.getElementById('selectedSantriPhone'); // Get hidden input
         const nisDisplay = document.getElementById('nisDisplay');
         let debounceTimer;
 
@@ -302,6 +329,9 @@ Mohon konfirmasinya. Terima kasih.</textarea>
                                     div.onclick = () => {
                                         searchInput.value = santri.nama_lengkap;
                                         selectedSantriId.value = santri.id;
+                                        if (selectedSantriPhone) {
+                                            selectedSantriPhone.value = santri.no_hp_orang_tua || ''; // Store phone
+                                        }
                                         if (nisDisplay) {
                                             nisDisplay.innerText = 'NIS: ' + santri.nis;
                                             nisDisplay.classList.remove('text-slate-500', 'font-medium');
