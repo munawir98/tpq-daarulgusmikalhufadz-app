@@ -103,7 +103,7 @@
 
             <!-- Main Content Container -->
             <div
-                class="w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-6 relative z-20 min-h-[600px]">
+                class="mx-6 mb-6 bg-white dark:bg-surface-dark rounded-[30px] shadow-soft pt-6 relative z-20 min-h-[600px]">
 
                 <!-- Success/Error Messages -->
                 @if(session('success'))
