@@ -50,18 +50,10 @@
         <!-- TopAppBar -->
         <!-- Gradient Header -->
         <header
-            class="flex items-center justify-between bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-16 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4 relative z-20">
-            <a href="{{ route('ustadz.laporan.index') }}"
-                class="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors">
-                <span class="material-symbols-outlined text-[20px]">arrow_back_ios_new</span>
-            </a>
+            class="flex items-center justify-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-16 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4 relative z-20">
             <div class="flex items-center gap-2">
-                <div class="bg-white/20 p-1.5 rounded-lg">
-                    <span class="material-symbols-outlined text-white text-[20px]">grade</span>
-                </div>
                 <h1 class="text-white text-base font-bold leading-tight tracking-wide">Laporan Nilai</h1>
             </div>
-            <div class="w-10"></div> <!-- Spacer for centering -->
         </header>
 
         <div class="p-4 space-y-4">
