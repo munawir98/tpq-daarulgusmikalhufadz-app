@@ -396,7 +396,8 @@
             <!-- Tab Content: Edit Setoran - OUTSIDE mx-6 for proper sticky behavior -->
             <div id="contentEditSetoran" class="tab-content hidden">
                 <!-- Sticky Header - direct child of scrollable container -->
-                <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 px-6 mb-4">
+                <div id="editSetoranStickyHeader"
+                    class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 px-6 mb-4">
                     <div class="flex items-center gap-2">
                         <div
                             class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
@@ -1048,6 +1049,12 @@
                 // Show/Hide Content
                 contentInputBaru.classList.remove('hidden');
                 contentEditSetoran.classList.add('hidden');
+
+                // Reset sticky header state
+                const stickyHeader = document.getElementById('editSetoranStickyHeader');
+                if (stickyHeader) {
+                    stickyHeader.classList.remove('fixed', 'top-0', 'left-0', 'right-0', 'max-w-[400px]', 'mx-auto');
+                }
             } else {
                 // Activate Edit Setoran Tab (Green/Emerald)
                 tabEditSetoran.className = 'tab-btn flex-1 flex items-center justify-center gap-2 h-12 rounded-xl font-semibold text-sm transition-all duration-300 bg-emerald-500 text-white shadow-lg shadow-emerald-500/30';
@@ -1056,8 +1063,38 @@
                 // Show/Hide Content
                 contentEditSetoran.classList.remove('hidden');
                 contentInputBaru.classList.add('hidden');
+
+                // Scroll to top when switching to Edit tab
+                const scrollable = document.querySelector('.overflow-y-auto');
+                if (scrollable) scrollable.scrollTop = 0;
             }
         };
+
+        // Scroll-based sticky header for Edit Setoran
+        document.addEventListener('DOMContentLoaded', function () {
+            const scrollable = document.querySelector('.overflow-y-auto');
+            const stickyHeader = document.getElementById('editSetoranStickyHeader');
+            const contentEditSetoran = document.getElementById('contentEditSetoran');
+
+            if (scrollable && stickyHeader) {
+                scrollable.addEventListener('scroll', function () {
+                    // Only apply when Edit Setoran tab is visible
+                    if (contentEditSetoran && !contentEditSetoran.classList.contains('hidden')) {
+                        const headerRect = stickyHeader.getBoundingClientRect();
+                        const containerRect = scrollable.getBoundingClientRect();
+
+                        // Check if header has scrolled past the top of the scrollable container
+                        if (headerRect.top < containerRect.top) {
+                            stickyHeader.classList.add('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full');
+                            stickyHeader.style.zIndex = '50';
+                        } else {
+                            stickyHeader.classList.remove('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full');
+                            stickyHeader.style.zIndex = '';
+                        }
+                    }
+                });
+            }
+        });
 
         // Edit Modal Functions
         window.openEditModal = function (setoran) {
