@@ -365,7 +365,7 @@
                             <div class="flex flex-col gap-2">
                                 <label
                                     class="text-[#111813] dark:text-gray-200 text-sm font-bold leading-normal">Catatan</label>
-                                <textarea name="catatan" rows="2"
+                                <textarea name="catatan" rows="5"
                                     class="flex w-full rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white p-3 text-sm font-normal leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none resize-none transition-shadow"
                                     placeholder="Tulis catatan untuk santri (opsional)"></textarea>
                             </div>
@@ -1195,7 +1195,7 @@
                 <!-- Catatan -->
                 <div>
                     <label class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1 block">Catatan</label>
-                    <textarea id="editCatatan" name="catatan" rows="3"
+                    <textarea id="editCatatan" name="catatan" rows="5"
                         class="w-full rounded-xl border-none bg-white dark:bg-surface-dark p-4 text-sm font-normal ring-1 ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-emerald-500 focus:outline-none resize-none"
                         placeholder="Catatan untuk santri"></textarea>
                 </div>
