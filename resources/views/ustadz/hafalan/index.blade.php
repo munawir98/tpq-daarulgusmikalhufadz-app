@@ -394,15 +394,19 @@
                 <!-- Tab Content: Edit Setoran -->
                 <div id="contentEditSetoran" class="tab-content hidden">
                     <div class="mb-4">
-                        <div class="flex items-center gap-2 mb-4">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                                <span
-                                    class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
-                                <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit</p>
+                        <!-- Sticky Header -->
+                        <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 -mx-6 px-6">
+                            <div class="flex items-center gap-2">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                                    <span
+                                        class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
+                                    <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
