@@ -371,15 +371,22 @@
                             </div>
 
                             <!-- Submit Button -->
-                            <button type="submit" id="submitBtn"
-                                class="w-full flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-primary to-[#3D7A9E] hover:from-primary-dark hover:to-[#2A5A78] active:scale-[0.98] rounded-xl transition-all shadow-lg shadow-primary/30">
-                                <span id="submitText" class="text-white text-sm font-bold tracking-wide">Simpan
-                                    Setoran</span>
-                                <span id="submitIcon" class="material-symbols-rounded text-white"
-                                    style="font-size: 18px;">check_circle</span>
-                                <span id="submitSpinner"
-                                    class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
-                            </button>
+                            <!-- Spacer for Fixed Button -->
+                            <div class="h-24"></div>
+
+                            <!-- Fixed Submit Button -->
+                            <div
+                                class="fixed bottom-0 left-0 right-0 p-4 bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md border-t border-gray-200 dark:border-gray-800 z-40 transform translate-y-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+                                <button type="submit" id="submitBtn"
+                                    class="w-full flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-primary to-[#3D7A9E] hover:from-primary-dark hover:to-[#2A5A78] active:scale-[0.98] rounded-xl transition-all shadow-lg shadow-primary/30">
+                                    <span id="submitText" class="text-white text-sm font-bold tracking-wide">Simpan
+                                        Setoran</span>
+                                    <span id="submitIcon" class="material-symbols-rounded text-white"
+                                        style="font-size: 18px;">check_circle</span>
+                                    <span id="submitSpinner"
+                                        class="hidden animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                                </button>
+                            </div>
                         </div>
                     </form>
                     @endif
