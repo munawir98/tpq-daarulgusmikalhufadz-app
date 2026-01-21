@@ -393,7 +393,7 @@
 
                 <!-- Tab Content: Edit Setoran -->
                 <div id="contentEditSetoran" class="tab-content hidden">
-                    <div class="mx-4 mb-4">
+                    <div class="mb-4">
                         <div class="flex items-center gap-2 mb-4">
                             <div
                                 class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
