@@ -376,7 +376,7 @@
 
                             <!-- Fixed Submit Button -->
                             <div
-                                class="fixed bottom-6 left-6 right-6 p-4 bg-white/80 dark:bg-surface-dark/80 backdrop-blur-md rounded-2xl shadow-lg ring-1 ring-gray-100 dark:ring-gray-800 z-40 transform translate-y-0">
+                                class="fixed bottom-6 left-6 right-6 p-4 bg-white dark:bg-surface-dark rounded-2xl shadow-lg ring-1 ring-gray-100 dark:ring-gray-800 z-40 transform translate-y-0">
                                 <button type="submit" id="submitBtn"
                                     class="w-full flex items-center justify-center gap-2 h-12 bg-gradient-to-r from-primary to-[#3D7A9E] hover:from-primary-dark hover:to-[#2A5A78] active:scale-[0.98] rounded-xl transition-all shadow-lg shadow-primary/30">
                                     <span id="submitText" class="text-white text-sm font-bold tracking-wide">Simpan
