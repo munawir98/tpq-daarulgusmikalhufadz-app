@@ -1083,16 +1083,11 @@
                                 stickyHeader.classList.add('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
                                 stickyHeader.style.zIndex = '50';
                             } else {
-                                // Use scrollTop for more reliable "stickiness" at the very top of the scrollable area
-                                if (scrollable.scrollTop > 10) { // Small threshold to avoid flickering
-                                    stickyHeader.classList.add('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
-                                    stickyHeader.style.zIndex = '50';
-                                } else {
-                                    stickyHeader.classList.remove('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
-                                    stickyHeader.style.zIndex = '';
-                                }
+                                stickyHeader.classList.remove('fixed', 'top-0', 'left-1/2', '-translate-x-1/2', 'max-w-[400px]', 'w-full', 'shadow-md');
+                                stickyHeader.style.zIndex = '';
                             }
-                        });
+                        }
+                    });
             }
 
             // Scroll Materi Hafalan into view when focused (prevent keyboard from covering)
@@ -1107,24 +1102,27 @@
                 });
             }
         });
-        const modal = document.getElementById('editModal');
-        const form = document.getElementById('editForm');
-        if (modal && form) {
-            // Set form action with dynamic ID
-            form.action = '/ustadz/hafalan/' + setoran.id;
 
-            // Populate form with setoran data
-            document.getElementById('editSetoranId').value = setoran.id || '';
-            document.getElementById('editSurah').value = setoran.surah || '';
-            document.getElementById('editAyatAwal').value = setoran.ayat_awal || '';
-            document.getElementById('editAyatAkhir').value = setoran.ayat_akhir || '';
-            document.getElementById('editNilai').value = setoran.nilai || 1;
-            document.getElementById('editCatatan').value = setoran.catatan || '';
+        // Edit Modal Functions
+        window.openEditModal = function (setoran) {
+            const modal = document.getElementById('editModal');
+            const form = document.getElementById('editForm');
+            if (modal && form) {
+                // Set form action with dynamic ID
+                form.action = '/ustadz/hafalan/' + setoran.id;
 
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-                };
+                // Populate form with setoran data
+                document.getElementById('editSetoranId').value = setoran.id || '';
+                document.getElementById('editSurah').value = setoran.surah || '';
+                document.getElementById('editAyatAwal').value = setoran.ayat_awal || '';
+                document.getElementById('editAyatAkhir').value = setoran.ayat_akhir || '';
+                document.getElementById('editNilai').value = setoran.nilai || 1;
+                document.getElementById('editCatatan').value = setoran.catatan || '';
+
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        };
 
         window.closeEditModal = function () {
             const modal = document.getElementById('editModal');
