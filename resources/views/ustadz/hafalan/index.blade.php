@@ -391,23 +391,27 @@
                     @endif
                 </div> <!-- End Tab Content: Input Baru -->
 
-                <!-- Tab Content: Edit Setoran -->
-                <div id="contentEditSetoran" class="tab-content hidden">
-                    <!-- Sticky Header - positioned at tab level -->
-                    <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 mb-4">
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-                                <span
-                                    class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
-                                <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit</p>
-                            </div>
+            </div> <!-- End Main Content Container (mx-6) -->
+
+            <!-- Tab Content: Edit Setoran - OUTSIDE mx-6 for proper sticky behavior -->
+            <div id="contentEditSetoran" class="tab-content hidden">
+                <!-- Sticky Header - direct child of scrollable container -->
+                <div class="sticky top-0 z-30 bg-background-light dark:bg-background-dark py-3 px-6 mb-4">
+                    <div class="flex items-center gap-2">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
+                            <span
+                                class="material-symbols-rounded text-emerald-600 dark:text-emerald-400 text-[20px]">edit_note</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-sm text-text-main-light dark:text-white">Edit Setoran</h3>
+                            <p class="text-text-sub-light dark:text-gray-400 text-xs">Pilih setoran untuk diedit</p>
                         </div>
                     </div>
+                </div>
 
+                <!-- Content with px-6 for margins -->
+                <div class="px-6 pb-6">
                     @php
                     $sampleRiwayat = $riwayatSetoran ?? [];
                     @endphp
@@ -469,9 +473,8 @@
                         <p class="text-text-sub-light dark:text-gray-400 text-sm">Belum ada setoran untuk diedit</p>
                     </div>
                     @endif
-                </div> <!-- End Tab Content: Edit Setoran -->
-
-            </div>
+                </div>
+            </div> <!-- End Tab Content: Edit Setoran -->
         </div>
     </div>
     <script>
