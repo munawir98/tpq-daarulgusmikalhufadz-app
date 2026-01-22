@@ -163,7 +163,7 @@
                                         style="font-size: 16px;">check_circle</span>
                                 </label>
                                 <input type="hidden" name="santri_id" id="santriIdInput" required>
-                                <div class="relative">
+                                <div class="relative z-50">
                                     <input type="text" id="santriSearch"
                                         placeholder="Cari nama santri ({{ count($santriList) }} Data)"
                                         class="peer flex w-full h-12 rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white placeholder:text-gray-400 p-[15px] pr-12 text-sm font-medium leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow relative z-10"
@@ -191,6 +191,14 @@
                                         <div id="santriEmpty"
                                             class="hidden px-4 py-4 text-center text-gray-400 text-sm">Tidak ditemukan
                                         </div>
+                                    </div>
+
+                                    <!-- DEBUG LIST: Force visible list -->
+                                    <div class="mt-2 p-2 bg-yellow-50 text-xs text-gray-600 rounded">
+                                        <strong>Debug List ({{ count($santriList) }}):</strong><br>
+                                        @foreach($santriList as $s)
+                                        - {{ $s->name }}<br>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- Auto-fill Banner -->
