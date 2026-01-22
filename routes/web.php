@@ -721,3 +721,59 @@ Route::middleware(['web.auth', 'role.web:SANTRI'])
         Route::get('/hafalan', [DashboardController::class, 'hafalanHistory'])->name('hafalan.index');
     });
 
+// [TEMPORARY FIX] Setup Test Data for Ustadz Hafalan
+Route::get('/setup-test-data', function () {
+    try {
+        $email = 'ustadz_real@tpq.test';
+        $user = \App\Models\User::where('email', $email)->first();
+
+        if (!$user) {
+            return "User not found: $email";
+        }
+
+        $ustadz = \App\Models\Ustadz::where('user_id', $user->id)->first();
+        if (!$ustadz) {
+            return "Ustadz profile not found for user: $email";
+        }
+
+        // Create or Get Class
+        $kelas = \App\Models\Kelas::firstOrCreate(
+            ['ustadz_id' => $ustadz->id],
+            [
+                'kode_kelas' => 'CLS-TEST',
+                'nama_kelas' => 'Kelas Testing',
+                'tipe' => 'pagi',
+                'tingkat' => 'jilid_1',
+                'status' => 'aktif',
+            ]
+        );
+
+        // Create or Get Santri
+        $santriUser = \App\Models\User::firstOrCreate(
+            ['email' => 'santri_test@tpq.test'],
+            [
+                'name' => 'Santri Testing',
+                'password' => \Illuminate\Support\Facades\Hash::make('password'),
+                'role' => 'SANTRI',
+                'nis' => 'TEST-001-' . rand(100,999),
+            ]
+        );
+
+        $santri = \App\Models\Santri::firstOrCreate(
+        ['user_id' => $santriUser->id],
+        [
+            'nis' => $santriUser->nis,
+            'nama_lengkap' => $santriUser->name,
+            'nama_panggilan' => 'Santri',
+            'jenis_kelamin' => 'L',
+            'status_aktif' => true,
+            'kelas_id' => $kelas->id,
+        ]);
+
+        return "Setup Complete! <br>Ustadz: {$ustadz->nama} <br>Kelas: {$kelas->nama_kelas} <br>Santri: {$santri->nama_lengkap}";
+
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+

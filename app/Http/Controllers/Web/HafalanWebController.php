@@ -90,12 +90,35 @@ class HafalanWebController extends Controller
             }
         }
 
-        // Get all santri list for SEARCH dropdown (FILTER BY NIP USTADZ)
-        $user = session('user'); // Use session instead of auth()->user()
+        // Get all santri list for SEARCH dropdown (FILTER BY CLASS ASSIGNMENT)
+        $userSession = session('user'); // Use session instead of auth()->user()
         $querySantri = \App\Models\User::where('role', 'SANTRI');
 
-        if ($user && isset($user['role']) && $user['role'] === 'USTADZ' && !empty($user['nip'])) {
-            $querySantri->where('pembimbing_nip', $user['nip']);
+        if ($userSession && isset($userSession['role']) && $userSession['role'] === 'USTADZ') {
+            // Find Ustadz Profile
+            $ustadz = \App\Models\Ustadz::where('user_id', $userSession['id'])->first();
+            $nip = $userSession['nip'] ?? null; // Get NIP from session
+
+            if ($ustadz) {
+                 // Combine filters: Class Taught OR Direct Mentoring (NIP)
+                 $querySantri->where(function($q) use ($ustadz, $nip) {
+                     // 1. Class Based
+                     $q->whereHas('santri.kelas', function($subQ) use ($ustadz) {
+                         $subQ->where('ustadz_id', $ustadz->id);
+                     });
+
+                     // 2. NIP Based (if available)
+                     if ($nip) {
+                         $q->orWhere('pembimbing_nip', $nip);
+                     }
+                 });
+            } elseif ($nip) {
+                // Fallback: If no Ustadz profile found but NIP exists in session
+                $querySantri->where('pembimbing_nip', $nip);
+            } else {
+                // If Ustadz profile not found and no NIP, return empty
+                $querySantri->whereRaw('1 = 0');
+            }
         }
 
         $allSantri = $querySantri->select('id', 'name')
