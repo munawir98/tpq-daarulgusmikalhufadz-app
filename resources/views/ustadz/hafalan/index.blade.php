@@ -174,7 +174,8 @@
                                         <span class="material-symbols-rounded" style="font-size: 24px;">search</span>
                                     </div>
                                     <div id="santriDropdown"
-                                        class="hidden absolute left-0 right-0 top-full mt-1 bg-white dark:bg-surface-dark rounded-xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 max-h-48 overflow-y-auto z-40">
+                                        class="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-surface-dark rounded-xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 max-h-48 overflow-y-auto z-[100] border-2 border-red-500"
+                                        style="display: block !important;">
                                         @foreach($santriList as $santri)
                                         <button type="button"
                                             onclick="selectSantri(this.getAttribute('data-id'), this.getAttribute('data-name'))"
@@ -191,14 +192,6 @@
                                         <div id="santriEmpty"
                                             class="hidden px-4 py-4 text-center text-gray-400 text-sm">Tidak ditemukan
                                         </div>
-                                    </div>
-
-                                    <!-- DEBUG LIST: Force visible list -->
-                                    <div class="mt-2 p-2 bg-yellow-50 text-xs text-gray-600 rounded">
-                                        <strong>Debug List ({{ count($santriList) }}):</strong><br>
-                                        @foreach($santriList as $s)
-                                        - {{ $s->name }}<br>
-                                        @endforeach
                                     </div>
                                 </div>
                                 <!-- Auto-fill Banner -->
