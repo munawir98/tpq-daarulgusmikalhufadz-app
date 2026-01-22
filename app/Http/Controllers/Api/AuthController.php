@@ -33,7 +33,31 @@ class AuthController extends Controller
         $data['status']     = 'aktif';
         $data['last_login'] = now();
 
+        $nip = null;
+        if ($data['role'] === 'USTADZ') {
+             $year = date('y');
+             $month = date('m');
+             $prefix = "{$year}{$month}1";
+             $lastUser = User::where('role', 'USTADZ')
+                 ->where('nip', 'like', "{$prefix}%")
+                 ->orderBy('nip', 'desc')
+                 ->first();
+             $sequence = $lastUser ? intval(substr($lastUser->nip, -3)) + 1 : 1;
+             $nip = $prefix . str_pad($sequence, 3, '0', STR_PAD_LEFT);
+             $data['nip'] = $nip;
+        }
+
         $user = User::create($data);
+
+        // Auto-create Ustadz Profile if needed
+        if ($user->role === 'USTADZ') {
+             \App\Models\Ustadz::create([
+                 'user_id' => $user->id,
+                 'nama' => $user->name,
+                 'nik' => $nip, // Fallback
+                 'status_aktif' => true,
+             ]);
+        }
 
         $nis = null;
 
