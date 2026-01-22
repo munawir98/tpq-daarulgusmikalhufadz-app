@@ -118,9 +118,20 @@ class HafalanWebController extends Controller
             // If NIP is empty, we do NOTHING -> Returns All Santri.
         }
 
-        $allSantri = $querySantri->select('id', 'name')
+        $allSantri = $querySantri->select('id', 'name', 'pembimbing_nip')
             ->orderBy('name')
             ->get();
+
+        // DEBUG DUMP: Check what is actually being retrieved
+        dd([
+            'SESSION_USER' => $userSession,
+            'USTADZ_PROFILE' => $ustadz ?? 'NOT FOUND',
+            'SESSION_NIP' => $nip ?? 'NULL',
+            'QUERY_SQL' => $querySantri->toSql(),
+            'QUERY_BINDINGS' => $querySantri->getBindings(),
+            'SANTRI_RESULT_COUNT' => $allSantri->count(),
+            'SANTRI_LIST' => $allSantri->toArray()
+        ]);
 
         $selectedSantriId = $request->santri_id;
         $selectedSantri = $selectedSantriId ? $allSantri->firstWhere('id', $selectedSantriId) : null;

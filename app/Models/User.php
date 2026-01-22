@@ -45,6 +45,8 @@ class User extends Authenticatable
         'last_login',
         'fcm_token',
         'instansi',
+        'nip',
+        'pembimbing_nip',
 
         // RELASI
         'kelas_id',
