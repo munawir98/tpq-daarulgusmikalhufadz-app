@@ -64,16 +64,7 @@
                     Pusat Data &amp; Statistik</h1>
             </div>
         </header>
-        @php
-        if (!function_exists('formatMoneyShort')) {
-        function formatMoneyShort($amount) {
-        if ($amount >= 1000000000) return 'Rp ' . round($amount / 1000000000, 1) . 'M';
-        if ($amount >= 1000000) return 'Rp ' . round($amount / 1000000, 1) . 'Jt';
-        if ($amount >= 1000) return 'Rp ' . round($amount / 1000, 1) . 'Rb';
-        return 'Rp ' . number_format($amount, 0, ',', '.');
-        }
-        }
-        @endphp
+        {{-- Helper function moved to App\Helpers\FormatUtil --}}
         <div class="flex flex-wrap gap-3 p-3">
             <!-- Card 1: Total Santri (Cyan/Blue) -->
             <a href="{{ route('ustadz.santri.index') }}"
@@ -166,7 +157,8 @@
                     </div>
                     <div class="flex items-center justify-between">
                         <p class="text-white/90 text-xs font-bold">Kas TPQ</p>
-                        <p class="text-white text-xl font-extrabold tracking-tight">{{ formatMoneyShort($totalKas) }}
+                        <p class="text-white text-xl font-extrabold tracking-tight">{{
+                            \App\Helpers\FormatUtil::formatMoneyShort($totalKas) }}
                         </p>
                     </div>
                 </div>
