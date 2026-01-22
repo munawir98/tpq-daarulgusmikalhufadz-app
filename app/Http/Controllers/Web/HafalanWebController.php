@@ -248,7 +248,8 @@ class HafalanWebController extends Controller
             // For collective, just show latest activity from anyone
             $lastHafalan = $riwayatSetoran->first();
             if ($lastHafalan) {
-                $currentTarget = "{$lastHafalan->surah} ({$lastHafalan->santri->name})";
+                $santriName = optional($lastHafalan->santri)->name ?? 'Santri (Terhapus)';
+                $currentTarget = "{$lastHafalan->surah} ({$santriName})";
                 $targetProgress = 0;
                 $currentSurah = $lastHafalan->surah;
 
@@ -476,7 +477,7 @@ class HafalanWebController extends Controller
                 'ayat_akhir' => $hafalan->ayat_akhir,
                 'nilai' => $nilai,
                 'catatan' => $hafalan->catatan,
-                'santri_name' => $hafalan->santri->name ?? '',
+                'santri_name' => optional($hafalan->santri)->name ?? 'Santri (Terhapus)',
             ]
         ]);
     }
