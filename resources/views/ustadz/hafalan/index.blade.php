@@ -164,7 +164,8 @@
                                 </label>
                                 <input type="hidden" name="santri_id" id="santriIdInput" required>
                                 <div class="relative">
-                                    <input type="text" id="santriSearch" placeholder="Cari nama santri"
+                                    <input type="text" id="santriSearch"
+                                        placeholder="Cari nama santri ({{ count($santriList) }} Data)"
                                         class="peer flex w-full h-12 rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white placeholder:text-gray-400 p-[15px] pr-12 text-sm font-medium leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow relative z-10"
                                         onfocus="showSantriDropdown()" onclick="showSantriDropdown()"
                                         oninput="filterSantri(this.value)" autocomplete="off" />
