@@ -174,8 +174,7 @@
                                         <span class="material-symbols-rounded" style="font-size: 24px;">search</span>
                                     </div>
                                     <div id="santriDropdown"
-                                        class="absolute left-0 right-0 top-full mt-1 bg-white dark:bg-surface-dark rounded-xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 max-h-48 overflow-y-auto z-[100] border-2 border-red-500"
-                                        style="display: block !important;">
+                                        class="hidden absolute left-0 right-0 top-full mt-1 bg-white dark:bg-surface-dark rounded-xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 max-h-48 overflow-y-auto z-[100]">
                                         @foreach($santriList as $santri)
                                         <button type="button"
                                             onclick="selectSantri(this.getAttribute('data-id'), this.getAttribute('data-name'))"
