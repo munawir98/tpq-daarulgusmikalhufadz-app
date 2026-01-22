@@ -87,7 +87,7 @@
 
 <body class="bg-white dark:bg-gray-900 font-display flex justify-center items-center min-h-screen p-0 sm:p-4">
     <div
-        class="relative w-full max-w-[400px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
+        class="relative w-full max-w-[400px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] shadow-none sm:shadow-2xl flex flex-col">
 
         <!-- Scrollable Content -->
         <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar pb-6">
