@@ -99,26 +99,23 @@ class HafalanWebController extends Controller
             $ustadz = \App\Models\Ustadz::where('user_id', $userSession['id'])->first();
             $nip = $userSession['nip'] ?? null; // Get NIP from session
 
-            if ($ustadz) {
-                 // Combine filters: Class Taught OR Direct Mentoring (NIP)
+            // Logic Adjustment to match inputForm behavior:
+            // Only apply filters if NIP is set. If NIP is missing, default to showing ALL santri.
+            // This handles cases where Ustadz data is incomplete (no NIP, no Class links) but they need to see list.
+            if (!empty($nip)) {
                  $querySantri->where(function($q) use ($ustadz, $nip) {
-                     // 1. Class Based
-                     $q->whereHas('santri.kelas', function($subQ) use ($ustadz) {
-                         $subQ->where('ustadz_id', $ustadz->id);
-                     });
+                     // 1. NIP Based
+                     $q->where('pembimbing_nip', $nip);
 
-                     // 2. NIP Based (if available)
-                     if ($nip) {
-                         $q->orWhere('pembimbing_nip', $nip);
+                     // 2. Class Based (Bonus: if profile exists, also show class students)
+                     if ($ustadz) {
+                         $q->orWhereHas('santri.kelas', function($subQ) use ($ustadz) {
+                             $subQ->where('ustadz_id', $ustadz->id);
+                         });
                      }
                  });
-            } elseif ($nip) {
-                // Fallback: If no Ustadz profile found but NIP exists in session
-                $querySantri->where('pembimbing_nip', $nip);
-            } else {
-                // If Ustadz profile not found and no NIP, return empty
-                $querySantri->whereRaw('1 = 0');
             }
+            // If NIP is empty, we do NOTHING -> Returns All Santri.
         }
 
         $allSantri = $querySantri->select('id', 'name')
