@@ -65,11 +65,13 @@
             </div>
         </header>
         @php
+        if (!function_exists('formatMoneyShort')) {
         function formatMoneyShort($amount) {
         if ($amount >= 1000000000) return 'Rp ' . round($amount / 1000000000, 1) . 'M';
         if ($amount >= 1000000) return 'Rp ' . round($amount / 1000000, 1) . 'Jt';
         if ($amount >= 1000) return 'Rp ' . round($amount / 1000, 1) . 'Rb';
         return 'Rp ' . number_format($amount, 0, ',', '.');
+        }
         }
         @endphp
         <div class="flex flex-wrap gap-3 p-3">
