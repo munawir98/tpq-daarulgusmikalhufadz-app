@@ -574,6 +574,9 @@
         // Santri Functions
         window.showSantriDropdown = function () {
             document.getElementById('santriDropdown').classList.remove('hidden');
+            // Show all items by default on click (User Request)
+            document.querySelectorAll('.santri-item').forEach(item => item.classList.remove('hidden'));
+            document.getElementById('santriEmpty').classList.add('hidden');
         };
 
         window.selectSantri = function (id, name) {
