@@ -442,7 +442,7 @@
                         <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center gap-4 group hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors {{ (isset($isScheduleActive) && !$isScheduleActive) ? 'cursor-not-allowed opacity-60' : 'cursor-pointer' }}"
                             @if(isset($isScheduleActive) && !$isScheduleActive)
                             onclick="alert('{{ $scheduleMessage ?? 'Jadwal input ditutup.' }}')" @else
-                            onclick='openEditModal(@json($setoranData))' @endif>
+                            onclick="openEditModalById({{ $setoran->id }})" @endif>
                             <div
                                 class="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-900/50 transition-colors">
                                 <span
@@ -480,6 +480,17 @@
         </div>
     </div>
     <script>
+        // Store Setoran Data globally for safe access
+        window.setoranData = {};
+        @if (isset($riwayatSetoran) && count($riwayatSetoran) > 0)
+            @foreach($riwayatSetoran as $s)
+        window.setoranData[{{ $s -> id }}] = @json($s);
+        // Ensure helper fields exist
+        window.setoranData[{{ $s -> id }}].nilai_numeric = {{ $nilaiMap[$s -> nilai] ?? (is_numeric($s -> nilai) ? intval($s -> nilai) : 0) }};
+        window.setoranData[{{ $s -> id }}].santri_name = "{{ $s->santri->name ?? '' }}";
+        @endforeach
+        @endif
+
         // Ensure global functions are defined on window
         window.fuzzyMatch = function (needle, haystack) {
             if (!haystack) return false;
@@ -499,98 +510,15 @@
             return needleIdx === needle.length;
         };
 
-        window.filterSantriOptions = function (query) {
-            const items = document.querySelectorAll('.santri-option');
-            const allOption = document.getElementById('optionAllSantri');
-            const emptyMsg = document.getElementById('filterSantriEmpty');
-            const searchIcon = document.getElementById('searchIcon');
-            const clearIcon = document.getElementById('clearIcon');
-
-            const q = (query || '').toLowerCase();
-            let visible = 0;
-
-            // Handle "Semua Santri" explicitly
-            if (allOption) {
-                if (q.length > 0) {
-                    allOption.classList.add('hidden');
-                } else {
-                    allOption.classList.remove('hidden');
-                }
-            }
-
-            // Toggle Icons
-            if (searchIcon && clearIcon) {
-                if (q.length > 0) {
-                    searchIcon.classList.add('hidden');
-                    clearIcon.classList.remove('hidden');
-                } else {
-                    searchIcon.classList.remove('hidden');
-                    clearIcon.classList.add('hidden');
-                }
-            }
-
-            // Filter Items
-            items.forEach((item) => {
-                if (item.id === 'optionAllSantri') return;
-
-                const name = item.getAttribute('data-name');
-                if (window.fuzzyMatch(q, name)) {
-                    item.classList.remove('hidden');
-                    visible++;
-                } else {
-                    item.classList.add('hidden');
-                }
-            });
-
-            // Toggle Empty Message
-            if (emptyMsg) {
-                if (visible > 0) {
-                    emptyMsg.classList.add('hidden');
-                } else {
-                    emptyMsg.classList.remove('hidden');
-                }
-            }
-        };
-
-        window.clearSearch = function () {
-            const input = document.getElementById('filterSantriSearch');
-            if (input) {
-                input.value = '';
-                filterSantriOptions(''); // Call global
-                input.focus();
-            }
-        };
-
-        window.selectSantriFilter = function (id, name) {
-            const idInput = document.getElementById('filterSantriId');
-            const searchInput = document.getElementById('filterSantriSearch');
-            const form = document.getElementById('filterForm');
-
-            if (idInput && searchInput && form) {
-                idInput.value = id;
-                searchInput.value = name;
-                form.submit();
-            }
-        };
-
-        window.selectFirstVisibleSantri = function () {
-            const items = document.querySelectorAll('.santri-option:not(.hidden)');
-            if (items.length > 0) {
-                // Simulate click on the first visible item
-                // Use the data attributes to call selectSantriFilter directly for robustness
-                const firstItem = items[0];
-                const onclickAttr = firstItem.getAttribute('onclick');
-                if (firstItem.onclick) {
-                    firstItem.click();
-                } else if (onclickAttr) {
-                    // Fallback if onclick property isn't set but attribute is (rare)
-                    firstItem.click();
-                }
-            }
-        };
+        // Remove legacy filterSantriOptions and related functions to prevent conflicts with new search logic.
+        // window.filterSantriOptions = ... (REMOVED)
+        // window.clearSearch = ... (REMOVED)
+        // window.selectSantriFilter = ... (REMOVED)
+        // window.selectFirstVisibleSantri = ... (REMOVED)
 
         // Event Listeners
         document.addEventListener('click', function (e) {
+            // Updated ID to match new structure if needed, or keep for legacy cleanup
             const dropdown = document.getElementById('filterSantriDropdown');
             const search = document.getElementById('filterSantriSearch');
             if (dropdown && search && !search.contains(e.target) && !dropdown.contains(e.target)) {
@@ -1104,7 +1032,13 @@
         });
 
         // Edit Modal Functions
-        window.openEditModal = function (setoran) {
+        window.openEditModalById = function (id) {
+            const setoran = window.setoranData[id];
+            if (!setoran) {
+                alert('Data setoran tidak ditemukan!');
+                return;
+            }
+
             const modal = document.getElementById('editModal');
             const form = document.getElementById('editForm');
             if (modal && form) {
@@ -1116,7 +1050,11 @@
                 document.getElementById('editSurah').value = setoran.surah || '';
                 document.getElementById('editAyatAwal').value = setoran.ayat_awal || '';
                 document.getElementById('editAyatAkhir').value = setoran.ayat_akhir || '';
-                document.getElementById('editNilai').value = setoran.nilai || 1;
+
+                // Use the numeric value we computed in php/blade loop
+                const nilaiVal = setoran.nilai_numeric || 1;
+                document.getElementById('editNilai').value = nilaiVal;
+
                 document.getElementById('editCatatan').value = setoran.catatan || '';
 
                 modal.classList.remove('hidden');
