@@ -162,6 +162,14 @@
                                     <span id="checkSantri" class="hidden text-green-500 material-symbols-rounded"
                                         style="font-size: 16px;">check_circle</span>
                                 </label>
+                                <!-- DEBUG BLOCK -->
+                                <div class="p-2 bg-yellow-100 text-xs text-yellow-800 rounded mb-2">
+                                    DEBUG INFO:<br>
+                                    Role: {{ session('user.role') }}<br>
+                                    NIP: {{ session('user.nip') ?? 'KOSONG' }}<br>
+                                    Total Santri ditemukan: {{ $santriList->count() }}
+                                </div>
+                                <!-- END DEBUG BLOCK -->
                                 <input type="hidden" name="santri_id" id="santriIdInput" required>
                                 <div class="relative">
                                     <input type="text" id="santriSearch" placeholder="Cari nama santri"
