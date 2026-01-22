@@ -83,12 +83,14 @@
                     <div class="relative">
                         <select name="kelas_id" onchange="this.form.submit()"
                             class="form-select flex w-full min-w-0 flex-1 appearance-none rounded-lg text-[#0e141b] dark:text-white focus:outline-0 focus:ring-0 border border-[#d0dbe7] dark:border-slate-700 bg-slate-50 dark:bg-slate-800 h-12 p-[12px] pr-10 text-sm font-normal bg-none">
-                            @foreach($kelasList ?? [] as $kelas)
+                            @if($kelasList->isNotEmpty())
+                            <option value="">Semua Kelas</option>
+                            @foreach($kelasList as $kelas)
                             <option value="{{ $kelas->id }}" {{ ($selectedKelas ?? '' )==$kelas->id ? 'selected' : ''
                                 }}>{{ $kelas->nama }}</option>
                             @endforeach
-                            @if(empty($kelasList))
-                            <option>Semua Kelas</option>
+                            @else
+                            <option disabled selected>Kelas belum dibuat</option>
                             @endif
                         </select>
                         <span
