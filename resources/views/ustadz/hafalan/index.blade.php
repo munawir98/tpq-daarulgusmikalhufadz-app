@@ -527,10 +527,6 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            const input = document.getElementById('filterSantriSearch');
-            if (input && input.value) {
-                window.filterSantriOptions(input.value);
-            }
             // Initialize Surah List
             initSurahList();
         });
