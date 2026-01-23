@@ -3,7 +3,7 @@
 @section('content')
 <div class="space-y-6 pb-20">
     <!-- Header -->
-    <div class="flex items-center gap-4 pt-2 px-4">
+    <div class="flex items-center gap-4 pt-2 px-6">
         <a href="{{ route('ustadz.santri.index') }}"
             class="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
             <span class="material-symbols-outlined">arrow_back</span>
@@ -12,7 +12,7 @@
     </div>
 
     <form action="{{ route('ustadz.santri.update', $santri->id) }}" method="POST" enctype="multipart/form-data"
-        class="px-4 space-y-6">
+        class="px-6 space-y-6">
         @csrf
         @method('PUT')
 

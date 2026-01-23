@@ -127,13 +127,17 @@
                 <!-- Kelas Filter Dropdown -->
                 <div class="relative shrink-0 max-w-[90px]">
                     <select name="kelas_id" onchange="this.form.submit()"
-                        class="form-select h-10 w-full pl-2 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-xs font-medium text-slate-700 dark:text-white cursor-pointer truncate text-center {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
+                        style="-webkit-appearance: none; -moz-appearance: none; background-image: none !important;"
+                        class="appearance-none h-10 w-full pl-2 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-xs font-medium text-slate-700 dark:text-white cursor-pointer truncate text-center {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
                         <option value="">Kelas</option>
                         @foreach($kelasList as $kelas)
                         <option value="{{ $kelas->id }}" @if(request('kelas_id')==$kelas->id) selected @endif>{{
                             $kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-slate-400">
+                        <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                    </div>
                 </div>
             </form>
 
@@ -196,7 +200,7 @@
                 <div class="flex items-center gap-2 relative z-10 w-auto justify-end">
                     <!-- Edit (Direct) -->
                     <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
-                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors"
+                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors mx-1"
                         title="Edit">
                         <span class="material-symbols-outlined text-[18px]">edit</span>
                     </button>
