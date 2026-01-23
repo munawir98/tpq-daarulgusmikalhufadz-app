@@ -85,7 +85,7 @@
                 class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-4 shadow-lg shadow-indigo-500/20 border border-indigo-500/20 flex items-center justify-between relative overflow-hidden group">
                 <!-- Decorative BG Icon -->
                 <span
-                    class="material-symbols-outlined absolute -right-6 -bottom-6 text-[8rem] text-white/10 rotate-12 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                    class="material-symbols-outlined absolute -right-6 -bottom-6 text-[8rem] text-white/10 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
                     groups
                 </span>
 
