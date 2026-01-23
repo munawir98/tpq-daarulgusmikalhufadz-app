@@ -130,7 +130,7 @@
                         <option value="">Semua Kelas</option>
                         @foreach($kelasList as $kelas)
                         <option value="{{ $kelas->id }}" {{ request('kelas_id')==$kelas->id ? 'selected' : '' }}>{{
-                            $kelas->nama }}</option>
+                            $kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-slate-400">
@@ -145,7 +145,7 @@
                 @if(request('kelas_id'))
                 <a href="{{ route('ustadz.santri.index', request('search') ? ['search' => request('search')] : []) }}"
                     class="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full hover:bg-primary/20 transition-colors">
-                    <span>{{ $kelasList->find(request('kelas_id'))->nama ?? 'Kelas' }}</span>
+                    <span>{{ $kelasList->find(request('kelas_id'))->nama_kelas ?? 'Kelas' }}</span>
                     <span class="material-symbols-outlined text-[14px]">close</span>
                 </a>
                 @endif

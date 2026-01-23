@@ -32,7 +32,7 @@ class UstadzSantriController extends Controller
         $santri = $query->orderBy('nama_lengkap', 'asc')->paginate(10)->withQueryString();
 
         // Get all kelas for filter dropdown
-        $kelasList = \App\Models\Kelas::orderBy('nama')->get();
+        $kelasList = \App\Models\Kelas::orderBy('nama_kelas')->get();
 
         return view('ustadz.santri.index', compact('santri', 'kelasList'));
     }
