@@ -144,7 +144,7 @@
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
                         <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-200 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white ring-slate-50 dark:ring-offset-slate-900 dark:ring-slate-700"
-                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
+                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true&font-size=0.35");'>
                         </div>
                         @endif
                     </div>
