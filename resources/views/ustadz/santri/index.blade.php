@@ -180,7 +180,7 @@
                     <!-- More Menu (Dropdown) -->
                     <div class="relative group/menu" tabindex="0">
                         <button
-                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white group-focus-within/menu:bg-primary group-focus-within/menu:text-white group-focus-within/menu:ring-4 group-focus-within/menu:ring-primary/20 transition-all">
                             <span class="material-symbols-outlined text-[20px]">more_vert</span>
                         </button>
 
