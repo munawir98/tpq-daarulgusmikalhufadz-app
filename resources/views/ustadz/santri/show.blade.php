@@ -45,16 +45,30 @@
     <!-- Stats Grid -->
     <div class="grid grid-cols-2 gap-4">
         <!-- Hafalan -->
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm flex flex-col items-center gap-1">
-            <span class="material-symbols-rounded text-2xl text-blue-500">menu_book</span>
-            <span class="text-xs text-gray-500">Hafalan</span>
-            <span class="text-lg font-bold">0 Juz</span>
+        <div
+            class="bg-gradient-to-br from-blue-500 to-cyan-500 p-4 rounded-2xl shadow-lg shadow-blue-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
+            <div
+                class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-rounded text-6xl">menu_book</span>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-1 backdrop-blur-sm">
+                <span class="material-symbols-rounded text-2xl text-white">menu_book</span>
+            </div>
+            <span class="text-xs text-blue-50 font-medium">Hafalan</span>
+            <span class="text-xl font-bold">0 Juz</span>
         </div>
         <!-- Kehadiran -->
-        <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm flex flex-col items-center gap-1">
-            <span class="material-symbols-rounded text-2xl text-teal-500">how_to_reg</span>
-            <span class="text-xs text-gray-500">Kehadiran</span>
-            <span class="text-lg font-bold">0%</span>
+        <div
+            class="bg-gradient-to-br from-emerald-500 to-teal-500 p-4 rounded-2xl shadow-lg shadow-emerald-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
+            <div
+                class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-rounded text-6xl">how_to_reg</span>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-1 backdrop-blur-sm">
+                <span class="material-symbols-rounded text-2xl text-white">how_to_reg</span>
+            </div>
+            <span class="text-xs text-emerald-50 font-medium">Kehadiran</span>
+            <span class="text-xl font-bold">0%</span>
         </div>
     </div>
 
@@ -97,41 +111,44 @@
 
         <!-- Input Hafalan -->
         <a href="#"
-            class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm flex items-center gap-4 active:scale-[0.98] transition-all">
-            <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center">
-                <span class="material-symbols-rounded">mic</span>
+            class="bg-gradient-to-r from-orange-400 to-pink-500 p-4 rounded-2xl shadow-lg shadow-orange-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            <div
+                class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-rounded text-white text-2xl">mic</span>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 text-white">
                 <h4 class="font-bold text-sm">Input Hafalan</h4>
-                <p class="text-xs text-gray-500">Tambah setoran hafalan baru</p>
+                <p class="text-xs text-white/80">Tambah setoran hafalan baru</p>
             </div>
-            <span class="material-symbols-rounded text-gray-400">chevron_right</span>
+            <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
 
         <!-- Input Akhlak -->
         <a href="{{ route('ustadz.santri.akhlak.create', $santri->id) }}"
-            class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm flex items-center gap-4 active:scale-[0.98] transition-all">
-            <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
-                <span class="material-symbols-rounded">psychology</span>
+            class="bg-gradient-to-r from-violet-500 to-purple-600 p-4 rounded-2xl shadow-lg shadow-purple-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            <div
+                class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-rounded text-white text-2xl">psychology</span>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 text-white">
                 <h4 class="font-bold text-sm">Catatan Akhlak</h4>
-                <p class="text-xs text-gray-500">Input penilaian perilaku</p>
+                <p class="text-xs text-white/80">Input penilaian perilaku</p>
             </div>
-            <span class="material-symbols-rounded text-gray-400">chevron_right</span>
+            <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
 
         <!-- Riwayat Absensi -->
         <a href="#"
-            class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm flex items-center gap-4 active:scale-[0.98] transition-all">
-            <div class="w-10 h-10 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center">
-                <span class="material-symbols-rounded">history</span>
+            class="bg-gradient-to-r from-teal-400 to-emerald-500 p-4 rounded-2xl shadow-lg shadow-teal-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            <div
+                class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span class="material-symbols-rounded text-white text-2xl">history</span>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 text-white">
                 <h4 class="font-bold text-sm">Riwayat Absensi</h4>
-                <p class="text-xs text-gray-500">Lihat kehadiran santri</p>
+                <p class="text-xs text-white/80">Lihat kehadiran santri</p>
             </div>
-            <span class="material-symbols-rounded text-gray-400">chevron_right</span>
+            <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
     </div>
 
