@@ -86,10 +86,7 @@
             <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Manajemen
                 Daftar Santri</h2>
             <div class="flex w-10 items-center justify-end">
-                <button
-                    class="flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-transparent text-white hover:bg-white/10 transition-colors">
-                    <span class="material-symbols-outlined">filter_list</span>
-                </button>
+                <!-- Icon removed as requested -->
             </div>
         </div>
 
