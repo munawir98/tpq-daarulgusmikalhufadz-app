@@ -34,7 +34,11 @@ class UstadzSantriController extends Controller
         // Get all kelas for filter dropdown
         $kelasList = \App\Models\Kelas::orderBy('nama_kelas')->get();
 
-        return view('ustadz.santri.index', compact('santri', 'kelasList'));
+        // Global stats
+        $totalSantri = Santri::aktif()->count();
+        $totalTanpaKelas = Santri::aktif()->whereNull('kelas_id')->count();
+
+        return view('ustadz.santri.index', compact('santri', 'kelasList', 'totalSantri', 'totalTanpaKelas'));
     }
 
     /**
