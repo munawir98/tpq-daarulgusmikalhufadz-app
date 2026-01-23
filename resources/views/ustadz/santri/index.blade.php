@@ -280,11 +280,10 @@
         </div>
 
         <!-- Floating Action Button -->
-        <div class="fixed bottom-6 right-6 z-50">
-            <!-- Example: Add new santri (if allowed) or other action -->
-            <!-- Currently Ustadz usually cannot add santri freely, but we keep the button from design as 'add activity' or similar -->
-            <!-- Or correct it to something useful logic -->
-        </div>
+        <a href="{{ route('ustadz.santri.create') }}"
+            class="fixed bottom-24 right-6 z-50 flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary to-primary-dark text-white rounded-full shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:scale-110 active:scale-95 transition-all duration-200">
+            <span class="material-symbols-outlined text-2xl">add</span>
+        </a>
 
     </div>
 
