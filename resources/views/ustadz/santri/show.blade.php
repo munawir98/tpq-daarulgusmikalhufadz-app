@@ -4,42 +4,45 @@
 <div class="space-y-6 pb-20 px-6">
 
 
-    <!-- Profile Card (Refactored) -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm relative overflow-hidden">
+    <!-- Profile Card (Refactored & Colored) -->
+    <div
+        class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-3xl p-6 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
+        <!-- Decorative bg pattern -->
+        <div class="absolute top-0 right-0 p-8 opacity-10">
+            <span class="material-symbols-rounded text-9xl transform rotate-12">person</span>
+        </div>
+
         <div class="flex flex-col items-center justify-center gap-4 relative z-10 text-center">
             <!-- Avatar -->
-            <div class="w-24 h-24 rounded-full p-1 shadow-md bg-white dark:bg-gray-700">
+            <div class="w-24 h-24 rounded-full p-1 shadow-md bg-white/20 backdrop-blur-sm">
                 <div
-                    class="w-full h-full rounded-full overflow-hidden bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
+                    class="w-full h-full rounded-full overflow-hidden bg-white/10 flex items-center justify-center border-2 border-white/50">
                     @if($santri->user && $santri->user->foto)
                     <img src="{{ asset('storage/' . $santri->user->foto) }}" class="w-full h-full object-cover">
                     @else
-                    <span class="material-symbols-rounded text-4xl text-gray-400">person</span>
+                    <span class="material-symbols-rounded text-4xl text-white/80">person</span>
                     @endif
                 </div>
             </div>
 
             <!-- Info -->
             <div class="flex flex-col items-center gap-1">
-                <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 leading-tight">{{ $santri->nama_lengkap }}
-                </h2>
-                <p class="text-xs text-gray-500">{{ $santri->nis }}</p>
+                <h2 class="text-lg font-bold text-white leading-tight">{{ $santri->nama_lengkap }}</h2>
+                <p class="text-xs text-indigo-100">{{ $santri->nis }}</p>
 
                 <!-- Badges -->
                 <div class="flex flex-wrap justify-center gap-2 mt-2">
-                    <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-medium">
+                    <span
+                        class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-medium backdrop-blur-sm border border-white/10">
                         {{ $santri->kelas?->nama_kelas ?? 'Tanpa Kelas' }}
                     </span>
                     <span
-                        class="px-3 py-1 rounded-full {{ $santri->status_aktif ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} text-xs font-medium uppercase">
+                        class="px-3 py-1 rounded-full {{ $santri->status_aktif ? 'bg-emerald-500/30 text-emerald-50' : 'bg-rose-500/30 text-rose-50' }} text-xs font-medium uppercase backdrop-blur-sm border border-white/10">
                         {{ $santri->status_aktif ? 'Aktif' : 'Non-Aktif' }}
                     </span>
                 </div>
             </div>
         </div>
-
-        <!-- Subtle Background Decoration (Optional, keeping it simple inside main container) -->
-        <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-primary/5 to-transparent -z-0"></div>
     </div>
 
     <!-- Stats Grid -->
@@ -78,10 +81,10 @@
         @if(isset($riwayatHafalan) && $riwayatHafalan->count() > 0)
         @foreach($riwayatHafalan as $hafalan)
         <a href="{{ route('ustadz.hafalan.show', $hafalan->id) }}"
-            class="block bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
+            class="block bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 p-4 rounded-2xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
             <div class="flex justify-between items-start mb-1">
                 <h4 class="font-bold text-gray-800 dark:text-gray-100">{{ $hafalan->surah }}</h4>
-                <span class="text-xs text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
+                <span class="text-xs text-blue-600 bg-white/50 dark:bg-gray-700 px-2 py-1 rounded-full">
                     {{ \Carbon\Carbon::parse($hafalan->created_at)->format('d M') }}
                 </span>
             </div>
@@ -153,13 +156,18 @@
     </div>
 
     <!-- Biodata Lengkap -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm space-y-4">
-        <h3 class="font-bold border-b pb-2 dark:border-gray-700">Biodata Lengkap</h3>
+    <div
+        class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-3xl p-5 shadow-sm space-y-4 border border-indigo-100 dark:border-gray-700">
+        <h3
+            class="font-bold border-b border-indigo-200 dark:border-gray-700 pb-2 text-indigo-900 dark:text-gray-200 flex items-center gap-2">
+            <span class="material-symbols-rounded text-indigo-500">badge</span>
+            Biodata Lengkap
+        </h3>
 
         <div class="space-y-3 text-sm">
             <div class="flex justify-between">
                 <span class="text-gray-500">Tempat Lahir</span>
-                <span class="font-medium">{{ $santri->tempat_lahir ?? '-' }}</span>
+                <span class="font-medium text-gray-700 dark:text-gray-300">{{ $santri->tempat_lahir ?? '-' }}</span>
             </div>
             <div class="flex justify-between">
                 <span class="text-gray-500">Tanggal Lahir</span>
