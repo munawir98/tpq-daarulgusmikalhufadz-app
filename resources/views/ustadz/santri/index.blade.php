@@ -110,9 +110,10 @@
                 <!-- Search Input -->
                 <div
                     class="flex flex-1 items-stretch rounded-xl h-10 shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
-                    <div class="text-slate-400 flex items-center justify-center pl-3">
+                    <button type="submit"
+                        class="text-slate-400 flex items-center justify-center pl-3 hover:text-primary transition-colors">
                         <span class="material-symbols-outlined text-[20px]">search</span>
-                    </div>
+                    </button>
                     <input name="search" value="{{ request('search') }}"
                         class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
                         placeholder="Cari nama atau NIS..." autocomplete="off" />
