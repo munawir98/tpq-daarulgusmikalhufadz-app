@@ -23,7 +23,7 @@
             <div class="flex flex-col items-center gap-1">
                 <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 leading-tight">{{ $santri->nama_lengkap }}
                 </h2>
-                <p class="text-sm text-gray-500">{{ $santri->nis }}</p>
+                <p class="text-xs text-gray-500">{{ $santri->nis }}</p>
 
                 <!-- Badges -->
                 <div class="flex flex-wrap justify-center gap-2 mt-2">
