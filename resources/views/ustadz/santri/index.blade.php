@@ -77,15 +77,7 @@
     <div
         class="relative flex h-full min-h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
-        <!-- Header Slim Box -->
-        <header
-            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4">
-            <div class="w-full flex items-center justify-center relative">
-                <h2 class="text-white text-base font-bold leading-tight tracking-tight text-center">
-                    Manajemen Daftar Santri
-                </h2>
-            </div>
-        </header>
+
 
         <!-- Stats Card -->
         <div class="px-4 pt-4 pb-2">
