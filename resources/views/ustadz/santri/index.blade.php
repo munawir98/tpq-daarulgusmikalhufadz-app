@@ -131,7 +131,7 @@
                 onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
-                <div class="flex items-center gap-3 overflow-hidden">
+                <div class="flex items-center gap-3 min-w-0">
                     <!-- Avatar -->
                     <div class="relative flex-shrink-0"
                         onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
