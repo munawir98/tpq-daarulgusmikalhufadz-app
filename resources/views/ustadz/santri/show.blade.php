@@ -1,17 +1,14 @@
 @extends('layouts.ustadz')
 
 @section('content')
-<div class="space-y-6 pb-20">
+<div class="space-y-6 pb-20 px-6">
 
 
-    <!-- Profile Card -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm text-center relative overflow-hidden">
-        <div
-            class="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/10">
-        </div>
-
-        <div class="relative z-10">
-            <div class="w-24 h-24 rounded-full bg-white dark:bg-gray-700 p-1 mx-auto shadow-md mb-4">
+    <!-- Profile Card (Refactored) -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm relative overflow-hidden">
+        <div class="flex flex-col items-center justify-center gap-4 relative z-10 text-center">
+            <!-- Avatar -->
+            <div class="w-24 h-24 rounded-full p-1 shadow-md bg-white dark:bg-gray-700">
                 <div
                     class="w-full h-full rounded-full overflow-hidden bg-gray-100 dark:bg-gray-600 flex items-center justify-center">
                     @if($santri->user && $santri->user->foto)
@@ -22,19 +19,27 @@
                 </div>
             </div>
 
-            <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100">{{ $santri->nama_lengkap }}</h2>
-            <p class="text-sm text-gray-500">{{ $santri->nis }}</p>
+            <!-- Info -->
+            <div class="flex flex-col items-center gap-1">
+                <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 leading-tight">{{ $santri->nama_lengkap }}
+                </h2>
+                <p class="text-sm text-gray-500">{{ $santri->nis }}</p>
 
-            <div class="flex justify-center gap-2 mt-3">
-                <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-medium">
-                    {{ $santri->kelas?->nama_kelas ?? 'Tanpa Kelas' }}
-                </span>
-                <span
-                    class="px-3 py-1 rounded-full {{ $santri->status_aktif ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} text-xs font-medium uppercase">
-                    {{ $santri->status_aktif ? 'Aktif' : 'Non-Aktif' }}
-                </span>
+                <!-- Badges -->
+                <div class="flex flex-wrap justify-center gap-2 mt-2">
+                    <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-medium">
+                        {{ $santri->kelas?->nama_kelas ?? 'Tanpa Kelas' }}
+                    </span>
+                    <span
+                        class="px-3 py-1 rounded-full {{ $santri->status_aktif ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} text-xs font-medium uppercase">
+                        {{ $santri->status_aktif ? 'Aktif' : 'Non-Aktif' }}
+                    </span>
+                </div>
             </div>
         </div>
+
+        <!-- Subtle Background Decoration (Optional, keeping it simple inside main container) -->
+        <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-primary/5 to-transparent -z-0"></div>
     </div>
 
     <!-- Stats Grid -->
