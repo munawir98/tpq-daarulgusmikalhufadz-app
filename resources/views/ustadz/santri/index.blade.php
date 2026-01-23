@@ -184,6 +184,21 @@
                                 <span class="material-symbols-outlined text-base">hotel_class</span>
                                 <span>Nilai Akhlak</span>
                             </button>
+                            <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-base">edit</span>
+                                <span>Edit</span>
+                            </button>
+                            <form action="{{ route('ustadz.santri.destroy', $item->id) }}" method="POST"
+                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus santri ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
+                                    <span class="material-symbols-outlined text-base">delete</span>
+                                    <span>Hapus</span>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -37,6 +37,92 @@ class UstadzSantriController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $santri = Santri::with('user')->findOrFail($id);
+        return view('ustadz.santri.edit', compact('santri'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        $santri = Santri::findOrFail($id);
+
+        $request->validate([
+            'nis' => 'required|string|max:50|unique:santri,nis,' . $id,
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'nullable|string|max:50',
+            'jenis_kelamin' => 'required|in:L,P',
+            'tempat_lahir' => 'nullable|string|max:100',
+            'tanggal_lahir' => 'nullable|date',
+            'alamat' => 'nullable|string',
+            'nama_ayah' => 'nullable|string|max:255',
+            'no_hp_orang_tua' => 'nullable|string|max:20',
+            'foto' => 'nullable|image|max:2048', // Max 2MB
+        ]);
+
+        // Update Santri Data
+        $santri->update([
+            'nis' => $request->nis,
+            'nama_lengkap' => $request->nama_lengkap,
+            'nama_panggilan' => $request->nama_panggilan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'nama_ayah' => $request->nama_ayah,
+            'no_hp_orang_tua' => $request->no_hp_orang_tua,
+        ]);
+
+        // Update User Data (Name & Photo)
+        if ($santri->user) {
+            $user = $santri->user;
+            $user->name = $request->nama_lengkap; // Sync name
+
+            if ($request->hasFile('foto')) {
+                // Delete old photo if exists
+                if ($user->foto && \Illuminate\Support\Facades\Storage::exists('public/' . $user->foto)) {
+                    \Illuminate\Support\Facades\Storage::delete('public/' . $user->foto);
+                }
+
+                // Store new photo
+                $path = $request->file('foto')->store('photos', 'public');
+                $user->foto = $path;
+            }
+            $user->save();
+        }
+
+        return redirect()->route('ustadz.santri.index')->with('success', 'Data santri berhasil diperbarui');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $santri = Santri::with('user')->findOrFail($id);
+        $user = $santri->user;
+
+        // Delete Santri Profile (will likely cascade delete related data if set in DB)
+        $santri->delete();
+
+        // Delete User Account
+        if ($user) {
+            // Delete photo if exists
+            if ($user->foto && \Illuminate\Support\Facades\Storage::exists('public/' . $user->foto)) {
+                \Illuminate\Support\Facades\Storage::delete('public/' . $user->foto);
+            }
+            $user->delete();
+        }
+
+        return redirect()->route('ustadz.santri.index')->with('success', 'Data santri dan akun berhasil dihapus');
+    }
+
+    /**
      * Show form to create akhlak record
      */
     public function createAkhlak($id)
