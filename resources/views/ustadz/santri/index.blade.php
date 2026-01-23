@@ -94,99 +94,102 @@
         </div>
 
         <!-- Stats Card -->
-        <div class="p-4">
+        <div class="px-4 pt-4 pb-2">
             <div
-                class="flex items-center justify-between gap-4 rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm border border-primary/10">
-                <div class="flex flex-col gap-1">
-                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Total Santri Saya
+                class="flex items-center justify-between gap-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm border border-primary/10">
+                <div class="flex flex-col">
+                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-normal">Total Santri Saya
                     </p>
-                    <p class="text-[#111817] dark:text-white text-3xl font-bold leading-tight">{{ $santri->total() }}
+                    <p class="text-[#111817] dark:text-white text-2xl font-bold leading-tight mt-0.5">{{
+                        $santri->total() }}
                     </p>
                 </div>
-                <div class="flex items-center justify-center bg-primary/10 rounded-full p-3">
-                    <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+                <div class="flex items-center justify-center bg-primary/10 rounded-full p-2.5">
+                    <span class="material-symbols-outlined text-primary text-2xl">groups</span>
                 </div>
             </div>
         </div>
 
         <!-- Search Bar -->
         <div class="px-4 py-2">
-            <label class="flex flex-col min-w-40 h-12 w-full">
+            <label class="flex flex-col min-w-40 h-10 w-full">
                 <div
-                    class="flex w-full flex-1 items-stretch rounded-2xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
-                    <div class="text-slate-400 flex items-center justify-center pl-4">
-                        <span class="material-symbols-outlined">search</span>
+                    class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
+                    <div class="text-slate-400 flex items-center justify-center pl-3">
+                        <span class="material-symbols-outlined text-[20px]">search</span>
                     </div>
                     <input id="searchInput"
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-4 pl-2 text-base font-normal leading-normal"
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
                         placeholder="Cari nama atau NIS santri..." autocomplete="off" />
                 </div>
             </label>
         </div>
 
         <!-- Santri List -->
-        <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
+        <div class="flex flex-col gap-2 p-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
-            <div class="santri-item group relative flex items-center gap-4 bg-white dark:bg-slate-800 px-4 min-h-[80px] py-3 justify-between rounded-2xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
+            <div class="santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
                 <!-- Main Click Area -->
-                <div class="flex items-center gap-4 flex-1"
+                <div class="flex items-center gap-3 flex-1"
                     onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                     <!-- Avatar -->
                     @if($item->user && $item->user->foto)
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 border-2 border-primary/10"
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
                         style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                     @else
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 border-2 border-primary/10"
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
                         style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
                     </div>
                     @endif
 
                     <div class="flex flex-col justify-center">
-                        <p class="text-[#111817] dark:text-white text-base font-bold leading-normal line-clamp-1">
+                        <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
                             {{ $item->nama ?? $item->nama_lengkap }}
                         </p>
-                        <p class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-normal">
-                            NIS: {{ $item->nis ?? '-' }}
-                        </p>
-                        <!-- Kelas Badge -->
-                        <span
-                            class="inline-flex items-center mt-1 px-2 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary w-fit">
-                            {{ $item->kelas->nama_kelas ?? 'Kelas -' }}
-                        </span>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <p class="text-slate-500 dark:text-slate-400 text-[10px] font-medium leading-normal">
+                                NIS: {{ $item->nis ?? '-' }}
+                            </p>
+                            <!-- Kelas Badge -->
+                            <span
+                                class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium bg-primary/10 text-primary leading-none">
+                                {{ $item->kelas->nama_kelas ?? 'Kelas -' }}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="flex items-center gap-1 relative z-10">
                     <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
-                        class="flex size-9 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
                     </button>
 
                     <!-- Context Menu -->
                     <div class="relative group-menu" tabindex="0">
                         <button
-                            class="flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
-                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                            class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">more_vert</span>
                         </button>
                         <div
-                            class="dropdown-menu absolute right-0 top-10 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5">
+                            class="dropdown-menu absolute right-0 top-9 w-36 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5">
                             <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
-                                <span class="material-symbols-outlined text-base">visibility</span>
+                                class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-sm">visibility</span>
                                 <span>Detail</span>
                             </button>
                             <button
                                 onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
-                                <span class="material-symbols-outlined text-base">hotel_class</span>
+                                class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-sm">hotel_class</span>
                                 <span>Nilai Akhlak</span>
                             </button>
                             <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
-                                <span class="material-symbols-outlined text-base">edit</span>
+                                class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-sm">edit</span>
                                 <span>Edit</span>
                             </button>
                             <form action="{{ route('ustadz.santri.destroy', $item->id) }}" method="POST"
@@ -194,8 +197,8 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
-                                    class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
-                                    <span class="material-symbols-outlined text-base">delete</span>
+                                    class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors text-left">
+                                    <span class="material-symbols-outlined text-sm">delete</span>
                                     <span>Hapus</span>
                                 </button>
                             </form>
