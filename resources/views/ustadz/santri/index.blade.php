@@ -155,7 +155,30 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex items-center gap-2 relative z-10">
+                <div class="flex items-center gap-2 relative z-10 w-auto justify-end">
+                    <!-- Nilai Akhlak -->
+                    <button onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
+                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-amber-500 dark:text-amber-400 hover:bg-amber-500 hover:text-white transition-colors"
+                        title="Nilai Akhlak">
+                        <span class="material-symbols-outlined text-[18px]">hotel_class</span>
+                    </button>
+
+                    <!-- WhatsApp -->
+                    @if($item->no_hp_orang_tua)
+                    @php
+                    $hp = $item->no_hp_orang_tua;
+                    if (Str::startsWith($hp, '0')) {
+                    $hp = '62' . substr($hp, 1);
+                    }
+                    @endphp
+                    <a href="https://wa.me/{{ $hp }}" target="_blank"
+                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-green-600 dark:text-green-500 hover:bg-green-600 hover:text-white transition-colors"
+                        title="Hubungi Wali">
+                        <span class="material-symbols-outlined text-[18px]">chat</span>
+                    </a>
+                    @endif
+
+                    <!-- Edit -->
                     <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
                         class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors"
                         title="Edit">
