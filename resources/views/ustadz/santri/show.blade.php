@@ -6,15 +6,15 @@
 
     <!-- Profile Card (Refactored & Colored) -->
     <div
-        class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-3xl p-6 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
+        class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-4 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
         <!-- Decorative bg pattern -->
         <div class="absolute top-0 right-0 p-8 opacity-10">
             <span class="material-symbols-rounded text-9xl transform rotate-12">person</span>
         </div>
 
-        <div class="flex flex-col items-center justify-center gap-4 relative z-10 text-center">
+        <div class="flex flex-col items-center justify-center gap-3 relative z-10 text-center">
             <!-- Avatar -->
-            <div class="w-24 h-24 rounded-full p-1 shadow-md bg-white/20 backdrop-blur-sm">
+            <div class="w-20 h-20 rounded-full p-1 shadow-md bg-white/20 backdrop-blur-sm">
                 <div
                     class="w-full h-full rounded-full overflow-hidden bg-white/10 flex items-center justify-center border-2 border-white/50">
                     @if($santri->user && $santri->user->foto)
