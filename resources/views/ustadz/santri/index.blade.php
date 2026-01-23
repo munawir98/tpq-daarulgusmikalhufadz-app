@@ -103,25 +103,57 @@
             </div>
         </div>
 
-        <!-- Search Bar -->
+        <!-- Search Bar & Filter -->
         <div class="px-4 py-2">
-            <form method="GET" action="{{ route('ustadz.santri.index') }}" class="flex flex-col min-w-40 h-10 w-full">
+            <form method="GET" action="{{ route('ustadz.santri.index') }}" class="flex gap-2 items-center">
+                <!-- Search Input -->
                 <div
-                    class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
+                    class="flex flex-1 items-stretch rounded-xl h-10 shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
                     <div class="text-slate-400 flex items-center justify-center pl-3">
                         <span class="material-symbols-outlined text-[20px]">search</span>
                     </div>
                     <input name="search" value="{{ request('search') }}"
                         class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
-                        placeholder="Cari nama atau NIS santri..." autocomplete="off" />
+                        placeholder="Cari nama atau NIS..." autocomplete="off" />
                     @if(request('search'))
-                    <a href="{{ route('ustadz.santri.index') }}"
+                    <a href="{{ route('ustadz.santri.index', request('kelas_id') ? ['kelas_id' => request('kelas_id')] : []) }}"
                         class="text-slate-400 flex items-center justify-center pr-3 hover:text-red-500">
                         <span class="material-symbols-outlined text-[18px]">close</span>
                     </a>
                     @endif
                 </div>
+
+                <!-- Kelas Filter Dropdown -->
+                <div class="relative">
+                    <select name="kelas_id" onchange="this.form.submit()"
+                        class="appearance-none h-10 pl-3 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-sm font-medium text-slate-700 dark:text-white cursor-pointer {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
+                        <option value="">Semua Kelas</option>
+                        @foreach($kelasList as $kelas)
+                        <option value="{{ $kelas->id }}" {{ request('kelas_id')==$kelas->id ? 'selected' : '' }}>{{
+                            $kelas->nama }}</option>
+                        @endforeach
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-slate-400">
+                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    </div>
+                </div>
             </form>
+
+            <!-- Active Filters Display -->
+            @if(request('kelas_id') || request('search'))
+            <div class="flex items-center gap-2 mt-2 flex-wrap">
+                @if(request('kelas_id'))
+                <a href="{{ route('ustadz.santri.index', request('search') ? ['search' => request('search')] : []) }}"
+                    class="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full hover:bg-primary/20 transition-colors">
+                    <span>{{ $kelasList->find(request('kelas_id'))->nama ?? 'Kelas' }}</span>
+                    <span class="material-symbols-outlined text-[14px]">close</span>
+                </a>
+                @endif
+                @if(request('search'))
+                <span class="text-xs text-slate-500">Hasil pencarian: "{{ request('search') }}"</span>
+                @endif
+            </div>
+            @endif
         </div>
 
         <!-- Santri List -->

@@ -13,7 +13,7 @@ class UstadzSantriController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Santri::aktif();
+        $query = Santri::aktif()->with('kelas');
 
         // Search by name or NIS
         if ($request->filled('search')) {
@@ -24,9 +24,17 @@ class UstadzSantriController extends Controller
             });
         }
 
+        // Filter by kelas
+        if ($request->filled('kelas_id')) {
+            $query->where('kelas_id', $request->kelas_id);
+        }
+
         $santri = $query->orderBy('nama_lengkap', 'asc')->paginate(10)->withQueryString();
 
-        return view('ustadz.santri.index', compact('santri'));
+        // Get all kelas for filter dropdown
+        $kelasList = \App\Models\Kelas::orderBy('nama')->get();
+
+        return view('ustadz.santri.index', compact('santri', 'kelasList'));
     }
 
     /**
