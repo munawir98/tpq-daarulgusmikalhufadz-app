@@ -72,7 +72,7 @@
         <!-- Catatan -->
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-5 shadow-sm space-y-4">
             <h3 class="font-bold border-b pb-2 dark:border-gray-700">Catatan Tambahan</h3>
-            <textarea name="catatan" rows="4" placeholder="Tulis catatan perkembangan akhlak santri..."
+            <textarea name="catatan" rows="6" placeholder="Tulis catatan perkembangan akhlak santri..."
                 class="w-full rounded-xl border-gray-200 dark:bg-gray-700 dark:border-gray-600 focus:ring-primary focus:border-primary text-sm"></textarea>
         </div>
 

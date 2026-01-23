@@ -166,7 +166,7 @@
                                 <div class="relative z-50">
                                     <input type="text" id="santriSearch"
                                         placeholder="Cari nama santri ({{ count($santriList) }} Data)"
-                                        class="peer flex w-full h-12 rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white placeholder:text-gray-400 p-[15px] pr-12 text-sm font-medium leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow relative z-10"
+                                        class="peer flex w-full h-14 rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white placeholder:text-gray-400 p-[15px] pr-12 text-sm font-medium leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none transition-shadow relative z-10"
                                         onfocus="showSantriDropdown()" onclick="showSantriDropdown()"
                                         oninput="filterSantri(this.value)" autocomplete="off" />
                                     <div id="santriIcon" onclick="clearSantri(event)"
@@ -193,15 +193,42 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Auto-fill Banner -->
-                                <div id="autoFillInfo"
-                                    class="hidden py-1.5 px-3 bg-blue-50/70 dark:bg-blue-900/30 backdrop-blur-md rounded-xl flex items-center gap-2 border border-blue-100/50 dark:border-blue-800/50 overflow-hidden shadow-sm">
-                                    <span class="material-symbols-rounded text-primary flex-shrink-0"
-                                        style="font-size: 14px;">info</span>
-                                    <div class="overflow-hidden w-full relative h-[16px]">
-                                        <span id="autoFillText"
-                                            class="text-[10px] text-primary font-medium whitespace-nowrap absolute"
-                                            style="animation: marquee 20s linear infinite;"></span>
+                                <!-- Auto-fill Banner (Styled Card) -->
+                                <div id="autoFillInfo" class="hidden animate-enter mt-1">
+                                    <div
+                                        class="relative overflow-hidden bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-xl p-4 flex gap-4">
+                                        <!-- Icon -->
+                                        <div class="shrink-0 flex flex-col items-center justify-center gap-1">
+                                            <div
+                                                class="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-800/50 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                                                <span class="material-symbols-rounded text-xl">history_edu</span>
+                                            </div>
+                                            <span
+                                                class="text-[10px] uppercase font-bold text-amber-600/80 dark:text-amber-400/80 tracking-wider">Terakhir</span>
+                                        </div>
+
+                                        <!-- Content -->
+                                        <div class="flex-1 min-w-0 flex flex-col justify-center">
+                                            <div class="flex items-baseline gap-2 mb-1">
+                                                <h4 id="lastSurahName"
+                                                    class="font-bold text-base text-gray-800 dark:text-white truncate">
+                                                    Al-Baqarah</h4>
+                                                <span
+                                                    class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Ayat
+                                                    <span id="lastAyatNum"
+                                                        class="font-mono font-bold text-amber-600 dark:text-amber-400">105</span></span>
+                                            </div>
+                                            <div class="flex items-center gap-2 text-xs">
+                                                <span class="text-gray-500 dark:text-gray-400">Lanjut ke:</span>
+                                                <span id="nextAyatBadge"
+                                                    class="px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-800/40 text-amber-700 dark:text-amber-300 font-bold font-mono">Ayat
+                                                    106</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Decorative BG -->
+                                        <span
+                                            class="material-symbols-rounded absolute -right-2 -bottom-4 text-[64px] text-amber-500/5 pointer-events-none">auto_stories</span>
                                     </div>
                                 </div>
                             </div>
@@ -366,7 +393,7 @@
                             <div class="flex flex-col gap-2">
                                 <label
                                     class="text-[#111813] dark:text-gray-200 text-sm font-bold leading-normal">Catatan</label>
-                                <textarea name="catatan" rows="5"
+                                <textarea name="catatan" rows="7"
                                     class="flex w-full rounded-xl border-none bg-white dark:bg-surface-dark text-[#111813] dark:text-white p-3 text-sm font-normal leading-normal shadow-sm ring-1 ring-inset ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary focus:outline-none resize-none transition-shadow"
                                     placeholder="Tulis catatan untuk santri (opsional)"></textarea>
                             </div>
@@ -602,14 +629,18 @@
                 .then(r => r.ok ? r.json() : { success: false })
                 .then(result => {
                     const info = document.getElementById('autoFillInfo');
-                    const text = document.getElementById('autoFillText');
 
                     if (result.success && result.data) {
                         info.classList.remove('hidden');
-                        let message = 'Lanjutan dari: ' + result.data.surah + ' ayat ' + result.data.ayat_akhir;
-                        text.innerHTML = `<span class="px-4">${message}</span><span class="px-4">${message}</span>`;
+
+                        // Populate New Card Fields
+                        document.getElementById('lastSurahName').textContent = result.data.surah;
+                        document.getElementById('lastAyatNum').textContent = result.data.ayat_akhir;
 
                         const nextAyat = parseInt(result.data.ayat_akhir) + 1;
+                        document.getElementById('nextAyatBadge').textContent = 'Ayat ' + nextAyat;
+
+                        // Auto-fill Inputs
                         document.querySelector('input[name="ayat_awal"]').value = nextAyat;
                         document.querySelector('input[name="ayat_akhir"]').value = nextAyat + 1;
 

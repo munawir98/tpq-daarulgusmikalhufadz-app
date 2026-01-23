@@ -79,37 +79,37 @@
 
 
 
-        <!-- Stats Section (Plain Header, Colored Boxes) -->
+        <!-- Stats Section (Plain Header, Colored Boxes - Compact) -->
         <div class="px-4 pt-4 pb-2">
-            <div class="flex gap-3">
+            <div class="flex gap-2">
                 <!-- Box 1: Avatar/Icon -->
                 <div
-                    class="shrink-0 flex items-center justify-center w-[72px] bg-indigo-500 rounded-2xl shadow-lg shadow-indigo-500/20 text-white relative overflow-hidden">
-                    <span class="material-symbols-outlined text-4xl relative z-10">groups</span>
+                    class="shrink-0 flex items-center justify-center w-[60px] bg-indigo-500 rounded-xl shadow-lg shadow-indigo-500/20 text-white relative overflow-hidden">
+                    <span class="material-symbols-outlined text-3xl relative z-10">groups</span>
                     <span
-                        class="material-symbols-outlined absolute -bottom-2 -right-2 text-6xl text-white/10 pointer-events-none">bubble_chart</span>
+                        class="material-symbols-outlined absolute -bottom-2 -right-2 text-5xl text-white/10 pointer-events-none">bubble_chart</span>
                 </div>
 
                 <!-- Stats Container -->
-                <div class="flex flex-1 gap-3">
+                <div class="flex flex-1 gap-2">
                     <!-- Box 2: Total Aktif -->
                     <div
-                        class="flex-1 bg-blue-600 rounded-2xl p-3 shadow-lg shadow-blue-600/20 text-white flex flex-col justify-center relative overflow-hidden group">
-                        <p class="text-[10px] font-bold opacity-80 uppercase tracking-wider relative z-10">Total Aktif
+                        class="flex-1 bg-blue-600 rounded-xl p-2.5 shadow-lg shadow-blue-600/20 text-white flex flex-col justify-center relative overflow-hidden group">
+                        <p class="text-[9px] font-bold opacity-80 uppercase tracking-wider relative z-10">Total Aktif
                         </p>
-                        <p class="text-2xl font-extrabold leading-tight relative z-10 mt-0.5">{{ $totalSantri }}</p>
+                        <p class="text-xl font-extrabold leading-tight relative z-10 mt-0.5">{{ $totalSantri }}</p>
                         <span
-                            class="material-symbols-outlined absolute -right-3 -bottom-3 text-5xl text-white/10 group-hover:scale-110 transition-transform">person_check</span>
+                            class="material-symbols-outlined absolute -right-3 -bottom-3 text-4xl text-white/10 group-hover:scale-110 transition-transform">person_check</span>
                     </div>
 
                     <!-- Box 3: Tanpa Kelas -->
                     <div
-                        class="flex-1 bg-amber-500 rounded-2xl p-3 shadow-lg shadow-amber-500/20 text-white flex flex-col justify-center relative overflow-hidden group">
-                        <p class="text-[10px] font-bold opacity-80 uppercase tracking-wider relative z-10">Tanpa Kelas
+                        class="flex-1 bg-amber-500 rounded-xl p-2.5 shadow-lg shadow-amber-500/20 text-white flex flex-col justify-center relative overflow-hidden group">
+                        <p class="text-[9px] font-bold opacity-80 uppercase tracking-wider relative z-10">Tanpa Kelas
                         </p>
-                        <p class="text-2xl font-extrabold leading-tight relative z-10 mt-0.5">{{ $totalTanpaKelas }}</p>
+                        <p class="text-xl font-extrabold leading-tight relative z-10 mt-0.5">{{ $totalTanpaKelas }}</p>
                         <span
-                            class="material-symbols-outlined absolute -right-3 -bottom-3 text-5xl text-white/10 group-hover:scale-110 transition-transform">no_meeting_room</span>
+                            class="material-symbols-outlined absolute -right-3 -bottom-3 text-4xl text-white/10 group-hover:scale-110 transition-transform">no_meeting_room</span>
                     </div>
                 </div>
             </div>
