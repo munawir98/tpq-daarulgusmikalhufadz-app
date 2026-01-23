@@ -94,9 +94,10 @@
 
             <!-- Header Slim Box -->
             <header
-                class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4">
+                class="flex items-center bg-white dark:bg-surface-dark h-14 px-4 shadow-sm mx-6 rounded-2xl mt-6 mb-4 border border-gray-100 dark:border-gray-800">
                 <div class="w-full flex items-center justify-center relative">
-                    <h1 class="text-white dark:text-white text-base font-bold leading-tight tracking-tight text-center">
+                    <h1
+                        class="text-gray-800 dark:text-white text-base font-bold leading-tight tracking-tight text-center">
                         Setoran Hafalan</h1>
                 </div>
             </header>
