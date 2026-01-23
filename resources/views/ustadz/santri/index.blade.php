@@ -129,27 +129,31 @@
         <!-- Santri List -->
         <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
+            @php
+            $colors = ['ring-pink-500', 'ring-cyan-500', 'ring-amber-500', 'ring-emerald-500', 'ring-violet-500',
+            'ring-rose-500', 'ring-sky-500', 'ring-lime-500'];
+            $ringColor = $colors[$loop->index % count($colors)];
+            @endphp
             <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
                 style="animation-delay: {{ $loop->index * 100 }}ms"
+                onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
-                <!-- Main Click Area -->
-                <div class="flex items-center gap-4 flex-1">
-                    <!-- Avatar - Click to Profile -->
-                    <div class="cursor-pointer relative"
-                        onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                <div class="flex items-center gap-3 overflow-hidden">
+                    <!-- Avatar -->
+                    <div class="relative flex-shrink-0"
+                        onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-200 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white ring-slate-50 dark:ring-offset-slate-900 dark:ring-slate-700"
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-200 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white ring-slate-50 dark:ring-offset-slate-900 dark:ring-slate-700"
-                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true&font-size=0.35");'>
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
+                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35");'>
                         </div>
                         @endif
                     </div>
 
-                    <div class="flex flex-col justify-center cursor-pointer"
-                        onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                    <div class="flex flex-col justify-center">
                         <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
                             {{ $item->nama ?? $item->nama_lengkap }}
                         </p>
