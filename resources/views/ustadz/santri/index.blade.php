@@ -129,7 +129,7 @@
                         class="appearance-none h-10 pl-3 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-sm font-medium text-slate-700 dark:text-white cursor-pointer {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
                         <option value="">Semua Kelas</option>
                         @foreach($kelasList as $kelas)
-                        <option value="{{ $kelas->id }}" {{ request('kelas_id')==$kelas->id ? 'selected' : '' }}>{{
+                        <option value="{{ $kelas->id }}" @if(request('kelas_id')==$kelas->id) selected @endif>{{
                             $kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
