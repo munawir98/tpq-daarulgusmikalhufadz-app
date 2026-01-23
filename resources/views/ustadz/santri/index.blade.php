@@ -131,30 +131,14 @@
                 <!-- Main Click Area -->
                 <div class="flex items-center gap-3 flex-1"
                     onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
-                    <!-- Avatar -->
-                    @if($item->user && $item->user->foto)
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
-                        style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
-                    @else
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
-                        style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
-                    </div>
-                    @endif
 
                     <div class="flex flex-col justify-center">
                         <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
                             {{ $item->nama ?? $item->nama_lengkap }}
                         </p>
-                        <div class="flex items-center gap-2 mt-0.5">
-                            <p class="text-slate-500 dark:text-slate-400 text-[10px] font-medium leading-normal">
-                                NIS: {{ $item->nis ?? '-' }}
-                            </p>
-                            <!-- Kelas Badge -->
-                            <span
-                                class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium bg-primary/10 text-primary leading-none">
-                                {{ $item->kelas->nama_kelas ?? 'Kelas -' }}
-                            </span>
-                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 text-[10px] font-medium leading-normal mt-0.5">
+                            NIS: {{ $item->nis ?? '-' }}
+                        </p>
                     </div>
                 </div>
 
