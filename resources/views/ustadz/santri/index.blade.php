@@ -261,6 +261,11 @@
         function toggleDropdown(event, id) {
             event.stopPropagation(); // Stop row click
 
+            // Reset all list items z-index first
+            document.querySelectorAll('.santri-item').forEach(item => {
+                item.style.zIndex = '';
+            });
+
             // Close all other dropdowns
             document.querySelectorAll('.dropdown-content').forEach(el => {
                 if (el.id !== `dropdown-menu-${id}`) {
@@ -270,12 +275,21 @@
                 }
             });
 
+            // Reset all buttons
+            document.querySelectorAll('[id^="dropdown-btn-"]').forEach(btn => {
+                btn.classList.remove('bg-primary', 'text-white', 'ring-4', 'ring-primary/20');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300');
+            });
+
             // Toggle active state for current dropdown
             const menu = document.getElementById(`dropdown-menu-${id}`);
             const btn = document.getElementById(`dropdown-btn-${id}`);
+            const parentItem = btn.closest('.santri-item');
 
             if (menu.classList.contains('hidden')) {
-                // OPEN
+                // OPEN - Raise parent z-index
+                parentItem.style.zIndex = '100';
+
                 menu.classList.remove('hidden');
                 // Small delay to allow transition
                 setTimeout(() => {
@@ -287,7 +301,9 @@
                 btn.classList.add('bg-primary', 'text-white', 'ring-4', 'ring-primary/20');
                 btn.classList.remove('bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300');
             } else {
-                // CLOSE
+                // CLOSE - Reset parent z-index
+                parentItem.style.zIndex = '';
+
                 menu.classList.add('opacity-0', 'invisible', 'scale-95');
                 menu.classList.remove('opacity-100', 'visible', 'scale-100');
                 setTimeout(() => {
@@ -302,6 +318,11 @@
 
         // Close dropdown when clicking outside
         document.addEventListener('click', function (event) {
+            // Reset all list items z-index
+            document.querySelectorAll('.santri-item').forEach(item => {
+                item.style.zIndex = '';
+            });
+
             const dropdowns = document.querySelectorAll('.dropdown-content');
             dropdowns.forEach(menu => {
                 if (!menu.classList.contains('hidden')) {
@@ -318,6 +339,7 @@
                     });
                 }
             });
+        });
     </script>
 </body>
 
