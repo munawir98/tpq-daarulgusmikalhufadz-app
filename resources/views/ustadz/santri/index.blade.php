@@ -90,15 +90,21 @@
         <!-- Stats Card -->
         <div class="px-4 pt-4 pb-2">
             <div
-                class="flex items-center justify-between gap-4 rounded-2xl bg-white dark:bg-slate-800 p-4 shadow-sm border border-primary/10">
-                <div class="flex flex-col">
-                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-normal">Total Santri Saya
-                    </p>
-                    <p class="text-[#111817] dark:text-white text-2xl font-bold leading-tight mt-0.5">{{
-                        $santri->total() }}
+                class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between relative overflow-hidden group">
+                <!-- Decorative BG Icon -->
+                <span
+                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-slate-50 dark:text-slate-700/50 rotate-12 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                    groups
+                </span>
+
+                <div class="relative z-10">
+                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">Total Santri Aktif</p>
+                    <p
+                        class="text-[#111817] dark:text-white text-2xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">
+                        {{ $santri->total() }}
                     </p>
                 </div>
-                <div class="flex items-center justify-center bg-primary/10 rounded-full p-2.5">
+                <div class="flex items-center justify-center bg-primary/10 rounded-full p-2.5 relative z-10">
                     <span class="material-symbols-outlined text-primary text-2xl">groups</span>
                 </div>
             </div>
@@ -120,21 +126,22 @@
         </div>
 
         <!-- Santri List -->
-        <div class="flex flex-col gap-2 p-4 min-h-[50vh]" id="santriListContainer">
+        <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
-            <div class="santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
+            <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
+                style="animation-delay: {{ $loop->index * 100 }}ms"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
                 <!-- Main Click Area -->
                 <div class="flex items-center gap-4 flex-1">
                     <!-- Avatar - Click to Profile -->
-                    <div class="cursor-pointer"
+                    <div class="cursor-pointer relative"
                         onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-200 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white ring-slate-50 dark:ring-offset-slate-900 dark:ring-slate-700"
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-slate-200 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white ring-slate-50 dark:ring-offset-slate-900 dark:ring-slate-700"
                             style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
                         </div>
                         @endif
