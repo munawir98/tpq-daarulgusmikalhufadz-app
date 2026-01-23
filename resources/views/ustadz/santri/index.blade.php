@@ -134,10 +134,10 @@
                     <div class="cursor-pointer"
                         onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl h-12 w-12 border border-primary/10"
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-2xl h-12 w-12 border border-primary/10"
                             style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
                         </div>
                         @endif
