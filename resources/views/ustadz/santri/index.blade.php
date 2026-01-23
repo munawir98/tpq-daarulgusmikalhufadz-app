@@ -88,24 +88,26 @@
         </header>
 
         <!-- Stats Card -->
+        <!-- Stats Card -->
         <div class="px-4 pt-4 pb-2">
             <div
-                class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 flex items-center justify-between relative overflow-hidden group">
+                class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-4 shadow-lg shadow-indigo-500/20 border border-indigo-500/20 flex items-center justify-between relative overflow-hidden group">
                 <!-- Decorative BG Icon -->
                 <span
-                    class="material-symbols-outlined absolute -right-4 -bottom-4 text-9xl text-slate-50 dark:text-slate-700/50 rotate-12 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                    class="material-symbols-outlined absolute -right-6 -bottom-6 text-[8rem] text-white/10 rotate-12 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
                     groups
                 </span>
 
-                <div class="relative z-10">
-                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium mb-1">Total Santri Aktif</p>
-                    <p
-                        class="text-[#111817] dark:text-white text-2xl font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-600">
+                <div class="relative z-10 text-white">
+                    <p class="text-indigo-100 text-xs font-medium mb-1">Total Santri Aktif</p>
+                    <p class="text-3xl font-bold leading-tight text-white tracking-tight">
                         {{ $santri->total() }}
+                        <span class="text-sm font-normal text-indigo-200 ml-1">Orang</span>
                     </p>
                 </div>
-                <div class="flex items-center justify-center bg-primary/10 rounded-full p-2.5 relative z-10">
-                    <span class="material-symbols-outlined text-primary text-2xl">groups</span>
+                <div
+                    class="flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-full p-3 relative z-10 border border-white/10">
+                    <span class="material-symbols-outlined text-white text-2xl">groups</span>
                 </div>
             </div>
         </div>
@@ -159,35 +161,16 @@
                 </div>
 
                 <!-- Actions -->
+                <!-- Actions -->
                 <div class="flex items-center gap-2 relative z-10 w-auto justify-end">
-                    <!-- Nilai Akhlak -->
-                    <button onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-amber-500 dark:text-amber-400 hover:bg-amber-500 hover:text-white transition-colors"
-                        title="Nilai Akhlak">
-                        <span class="material-symbols-outlined text-[18px]">hotel_class</span>
-                    </button>
-
-                    <!-- WhatsApp -->
-                    @if($item->no_hp_orang_tua)
-                    @php
-                    $hp = $item->no_hp_orang_tua;
-                    if (Str::startsWith($hp, '0')) {
-                    $hp = '62' . substr($hp, 1);
-                    }
-                    @endphp
-                    <a href="https://wa.me/{{ $hp }}" target="_blank"
-                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-green-600 dark:text-green-500 hover:bg-green-600 hover:text-white transition-colors"
-                        title="Hubungi Wali">
-                        <span class="material-symbols-outlined text-[18px]">chat</span>
-                    </a>
-                    @endif
-
-                    <!-- Edit -->
+                    <!-- Edit (Direct) -->
                     <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
                         class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors"
                         title="Edit">
                         <span class="material-symbols-outlined text-[18px]">edit</span>
                     </button>
+
+                    <!-- Delete (Direct) -->
                     <form action="{{ route('ustadz.santri.destroy', $item->id) }}" method="POST"
                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus santri ini?');"
                         class="flex items-center">
@@ -199,6 +182,42 @@
                             <span class="material-symbols-outlined text-[18px]">delete</span>
                         </button>
                     </form>
+
+                    <!-- More Menu (Dropdown) -->
+                    <div class="relative group/menu" tabindex="0">
+                        <button
+                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+
+                        <div
+                            class="dropdown-menu absolute right-0 top-9 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200 opacity-0 invisible scale-95 group-focus-within/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:scale-100">
+                            <!-- Nilai Akhlak -->
+                            <button
+                                onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left group/item">
+                                <span
+                                    class="material-symbols-outlined text-[18px] text-amber-500 group-hover/item:scale-110 transition-transform">hotel_class</span>
+                                <span class="font-medium">Nilai Akhlak</span>
+                            </button>
+
+                            <!-- WhatsApp -->
+                            @if($item->no_hp_orang_tua)
+                            @php
+                            $hp = $item->no_hp_orang_tua;
+                            if (Str::startsWith($hp, '0')) {
+                            $hp = '62' . substr($hp, 1);
+                            }
+                            @endphp
+                            <a href="https://wa.me/{{ $hp }}" target="_blank"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left group/item border-t border-slate-50 dark:border-slate-700/50">
+                                <span
+                                    class="material-symbols-outlined text-[18px] text-green-600 group-hover/item:scale-110 transition-transform">chat</span>
+                                <span class="font-medium">Hubungi Wali</span>
+                            </a>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
             @empty
