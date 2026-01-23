@@ -186,23 +186,23 @@
                         </button>
 
                         <div id="dropdown-menu-{{ $item->id }}"
-                            class="dropdown-content hidden absolute right-0 top-9 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200">
+                            class="dropdown-content hidden absolute right-0 top-9 w-auto min-w-[180px] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-[9999] overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200">
 
                             <!-- Input Setoran Hafalan -->
                             <button
                                 onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.hafalan.index', ['santri_id' => $item->id]) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left border-b border-slate-50 dark:border-slate-700/50">
+                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left border-b border-slate-50 dark:border-slate-700/50">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-blue-500 transition-transform group-hover:scale-110">menu_book</span>
+                                    class="material-symbols-outlined text-[16px] text-blue-500 transition-transform group-hover:scale-110">menu_book</span>
                                 <span class="font-medium">Input Setoran Hafalan</span>
                             </button>
 
                             <!-- Input Nilai Akhlak -->
                             <button
                                 onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left">
+                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-amber-500 transition-transform group-hover:scale-110">hotel_class</span>
+                                    class="material-symbols-outlined text-[16px] text-amber-500 transition-transform group-hover:scale-110">hotel_class</span>
                                 <span class="font-medium">Input Nilai Akhlak</span>
                             </button>
 
@@ -215,9 +215,9 @@
                             }
                             @endphp
                             <a href="https://wa.me/{{ $hp }}" target="_blank" onclick="event.stopPropagation()"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50">
+                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-green-600 transition-transform group-hover:scale-110">chat</span>
+                                    class="material-symbols-outlined text-[16px] text-green-600 transition-transform group-hover:scale-110">chat</span>
                                 <span class="font-medium">Hubungi Wali</span>
                             </a>
                             @endif
