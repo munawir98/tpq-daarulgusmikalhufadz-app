@@ -2,10 +2,7 @@
 
 @section('content')
 <div class="space-y-6 pb-20">
-    <!-- Header -->
-    <div class="flex items-center justify-center pt-2">
-        <h1 class="text-xl font-bold">Detail Santri</h1>
-    </div>
+
 
     <!-- Profile Card -->
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-sm text-center relative overflow-hidden">
@@ -30,7 +27,7 @@
 
             <div class="flex justify-center gap-2 mt-3">
                 <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-xs font-medium">
-                    {{ $santri->kelas?->nama ?? 'Tanpa Kelas' }}
+                    {{ $santri->kelas?->nama_kelas ?? 'Tanpa Kelas' }}
                 </span>
                 <span
                     class="px-3 py-1 rounded-full {{ $santri->status_aktif ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} text-xs font-medium uppercase">
