@@ -11,11 +11,20 @@ class UstadzSantriController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Get all santri (or filter by class if ustadz is wali kelas - logic to be added later)
-        // For now, list all active santri
-        $santri = Santri::aktif()->orderBy('nama_lengkap', 'asc')->paginate(10);
+        $query = Santri::aktif();
+
+        // Search by name or NIS
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama_lengkap', 'like', "%{$search}%")
+                  ->orWhere('nis', 'like', "%{$search}%");
+            });
+        }
+
+        $santri = $query->orderBy('nama_lengkap', 'asc')->paginate(10)->withQueryString();
 
         return view('ustadz.santri.index', compact('santri'));
     }

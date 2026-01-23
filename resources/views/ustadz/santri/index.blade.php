@@ -105,17 +105,23 @@
 
         <!-- Search Bar -->
         <div class="px-4 py-2">
-            <label class="flex flex-col min-w-40 h-10 w-full">
+            <form method="GET" action="{{ route('ustadz.santri.index') }}" class="flex flex-col min-w-40 h-10 w-full">
                 <div
                     class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
                     <div class="text-slate-400 flex items-center justify-center pl-3">
                         <span class="material-symbols-outlined text-[20px]">search</span>
                     </div>
-                    <input id="searchInput"
+                    <input name="search" value="{{ request('search') }}"
                         class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
                         placeholder="Cari nama atau NIS santri..." autocomplete="off" />
+                    @if(request('search'))
+                    <a href="{{ route('ustadz.santri.index') }}"
+                        class="text-slate-400 flex items-center justify-center pr-3 hover:text-red-500">
+                        <span class="material-symbols-outlined text-[18px]">close</span>
+                    </a>
+                    @endif
                 </div>
-            </label>
+            </form>
         </div>
 
         <!-- Santri List -->
@@ -312,25 +318,6 @@
                     });
                 }
             });
-        });
-
-        // Search Script
-        document.getElementById('searchInput').addEventListener('input', function (e) {
-            const query = e.target.value.toLowerCase();
-            const items = document.querySelectorAll('.santri-item');
-
-            items.forEach(item => {
-                const name = item.dataset.name;
-                const nis = item.dataset.nis;
-                if (name.includes(query) || (nis && nis.includes(query))) {
-                    item.classList.remove('hidden');
-                    item.classList.add('flex');
-                } else {
-                    item.classList.add('hidden');
-                    item.classList.remove('flex');
-                }
-            });
-        });
     </script>
 </body>
 
