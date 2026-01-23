@@ -131,6 +131,15 @@
                 <!-- Main Click Area -->
                 <div class="flex items-center gap-3 flex-1"
                     onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                    <!-- Avatar -->
+                    @if($item->user && $item->user->foto)
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
+                        style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
+                    @else
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
+                        style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
+                    </div>
+                    @endif
 
                     <div class="flex flex-col justify-center">
                         <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
