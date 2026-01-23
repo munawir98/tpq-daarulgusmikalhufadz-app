@@ -124,17 +124,17 @@
                 </div>
 
                 <!-- Kelas Filter Dropdown -->
-                <div class="relative">
+                <div class="relative shrink-0">
                     <select name="kelas_id" onchange="this.form.submit()"
-                        class="appearance-none h-10 pl-3 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-sm font-medium text-slate-700 dark:text-white cursor-pointer {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
-                        <option value="">Semua Kelas</option>
+                        class="appearance-none h-10 pl-3 pr-7 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-xs font-medium text-slate-700 dark:text-white cursor-pointer {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
+                        <option value="">Kelas</option>
                         @foreach($kelasList as $kelas)
                         <option value="{{ $kelas->id }}" @if(request('kelas_id')==$kelas->id) selected @endif>{{
                             $kelas->nama_kelas }}</option>
                         @endforeach
                     </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-slate-400">
-                        <span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-1.5 text-slate-400">
+                        <span class="material-symbols-outlined text-[16px]">expand_more</span>
                     </div>
                 </div>
             </form>
