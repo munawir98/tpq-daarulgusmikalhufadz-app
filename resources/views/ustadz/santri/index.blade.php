@@ -77,18 +77,15 @@
     <div
         class="relative flex h-full min-h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
-        <!-- Header Sticky -->
-        <div class="sticky top-0 z-30 flex items-center bg-primary p-4 pb-4 justify-between shadow-md">
-            <div onclick="window.location.href='{{ route('ustadz.dashboard') }}'"
-                class="text-white flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-white/10 rounded-full transition-colors">
-                <span class="material-symbols-outlined">arrow_back_ios_new</span>
+        <!-- Header Slim Box -->
+        <header
+            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4">
+            <div class="w-full flex items-center justify-center relative">
+                <h2 class="text-white text-base font-bold leading-tight tracking-tight text-center">
+                    Manajemen Daftar Santri
+                </h2>
             </div>
-            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Manajemen
-                Daftar Santri</h2>
-            <div class="flex w-10 items-center justify-end">
-                <!-- Icon removed as requested -->
-            </div>
-        </div>
+        </header>
 
         <!-- Stats Card -->
         <div class="px-4 pt-4 pb-2">
