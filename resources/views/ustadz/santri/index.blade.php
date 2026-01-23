@@ -1,184 +1,233 @@
 <!DOCTYPE html>
-<script>
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-</script>
-<html lang="id">
+<html class="light" lang="id">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Data Santri</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"
+    <title>Manajemen Daftar Santri</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
-    <script>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#0d9488",
-                        "ocean-dark": "#0f766e",
-                        "ocean-light": "#2dd4bf",
-                        "background-light": "#f8fafc",
-                        "background-dark": "#0f172a",
-                        "card-light": "#ffffff",
-                        "card-dark": "#1e293b",
+                        "primary": "#2563eb", // SOLID BLUE (Blue 600)
+                        "primary-dark": "#1d4ed8", // Blue 700
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#0f172a", // Slate 900
                     },
                     fontFamily: {
-                        display: ["Poppins", "sans-serif"],
+                        "display": ["Plus Jakarta Sans"]
                     },
                     borderRadius: {
-                        DEFAULT: "0.5rem",
-                        'xl': '1rem',
-                        '2xl': '1.5rem',
-                        '3xl': '2rem',
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
                     },
-                    backgroundImage: {
-                        'header-pattern': "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.05) 10px, rgba(255,255,255,0.05) 20px)",
-                    }
                 },
             },
-        };
+        }
     </script>
     <style type="text/tailwindcss">
-        :root {
-            --primary-color: #0d9488;
-        }
         body {
-            font-family: 'Poppins', sans-serif;
-            min-height: 100vh;
-        }
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            min-height: max(884px, 100dvh);
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .pagination-container nav {
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Dropdown logic */
+        .dropdown-menu {
+            display: none;
+        }
+        .group-menu:focus-within .dropdown-menu,
+        .dropdown-menu:hover {
+            display: block;
+        }
+        /* Pagination Styling */
+        .pagination {
             display: flex;
             justify-content: center;
             gap: 0.5rem;
+            padding-top: 1rem;
         }
     </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
+    <script>
+        // Dark mode check
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
         }
-    </style>
+    </script>
 </head>
 
-<body
-    class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden flex flex-col font-display text-slate-800 dark:text-slate-100 selection:bg-teal-500 selection:text-white">
-    <div class="bg-gradient-to-br from-teal-600 to-teal-800 dark:from-teal-900 dark:to-slate-950 relative shrink-0">
-        <div class="absolute inset-0 bg-header-pattern pointer-events-none"></div>
-        <div class="relative z-10 pt-12 pb-14 px-6">
-            <div class="flex items-center justify-center mb-4">
-                <div class="text-center text-white">
-                    <h1 class="text-xl font-bold leading-tight">Data Santri</h1>
-                    <p class="text-xs opacity-75 mt-0.5">Daftar santri aktif TPQ</p>
-                </div>
-            </div>
-        </div>
-    </div>
+<body class="bg-background-light dark:bg-background-dark min-h-screen">
     <div
-        class="flex-1 bg-background-light dark:bg-background-dark rounded-t-[2.5rem] -mt-8 relative z-20 overflow-y-auto pb-32 shadow-[0_-4px_20px_rgba(0,0,0,0.1)]">
-        <div class="p-6">
-            <div class="mb-6">
-                <!-- Total Count if available, or just header -->
-                <div
-                    class="bg-white dark:bg-card-dark p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4">
-                    <div
-                        class="w-12 h-12 bg-teal-50 dark:bg-teal-900/30 rounded-xl flex items-center justify-center text-teal-600">
-                        <span class="material-icons-round text-2xl">groups</span>
-                    </div>
-                    <div>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest leading-none mb-1">
-                            Total Santri</p>
-                        <!-- Checking if $santri is Paginated or Collection for count -->
-                        <p class="text-lg font-bold dark:text-white text-teal-600">{{ $santri->total() }} <span
-                                class="text-slate-400 font-medium">Anak</span></p>
-                    </div>
-                </div>
+        class="relative flex h-full min-h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+
+        <!-- Header Sticky -->
+        <div class="sticky top-0 z-30 flex items-center bg-primary p-4 pb-4 justify-between shadow-md">
+            <div onclick="window.location.href='{{ route('ustadz.dashboard') }}'"
+                class="text-white flex size-10 shrink-0 items-center justify-center cursor-pointer hover:bg-white/10 rounded-full transition-colors">
+                <span class="material-symbols-outlined">arrow_back_ios_new</span>
             </div>
-            <div class="flex gap-3 mb-6">
-                <div class="flex-1 relative">
-                    <span
-                        class="material-icons-round absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
-                    <input id="searchInput"
-                        class="w-full pl-12 pr-4 py-3 bg-white dark:bg-card-dark border-none rounded-2xl text-sm shadow-sm focus:ring-2 focus:ring-teal-500 dark:placeholder-slate-500"
-                        placeholder="Cari Nama atau NIS..." type="text" />
-                </div>
-                <button class="bg-white dark:bg-card-dark p-3 rounded-2xl shadow-sm text-slate-500">
-                    <span class="material-icons-round">tune</span>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Manajemen
+                Daftar Santri</h2>
+            <div class="flex w-10 items-center justify-end">
+                <button
+                    class="flex cursor-pointer items-center justify-center rounded-lg h-10 w-10 bg-transparent text-white hover:bg-white/10 transition-colors">
+                    <span class="material-symbols-outlined">filter_list</span>
                 </button>
             </div>
-            <div class="space-y-3" id="santriListContainer">
-                @forelse($santri as $item)
-                <div class="santri-item bg-white dark:bg-card-dark p-4 rounded-2xl shadow-sm border border-slate-50 dark:border-slate-800 flex items-center gap-4 group cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors active:scale-[0.99]"
-                    onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
-                    data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
-                    <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-teal-50 dark:border-slate-700">
-                        @if($item->user && $item->user->foto)
-                        <img alt="Santri" class="w-full h-full object-cover"
-                            src="{{ asset('storage/' . $item->user->foto) }}" />
-                        @else
-                        <img alt="Santri" class="w-full h-full object-cover"
-                            src="https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=0d9488&color=fff" />
-                        @endif
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="font-bold text-slate-800 dark:text-white leading-tight">{{ $item->nama ??
-                            $item->nama_lengkap }}</h3>
-                        <p class="text-[10px] font-medium text-slate-400 mt-0.5">NIS: {{ $item->nis ?? '-' }}</p>
-                        <div
-                            class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 text-[9px] font-bold uppercase tracking-wider">
-                            Kelas {{ $item->kelas->nama_kelas ?? ($item->kelas->nama ?? 'Belum ada') }}
-                        </div>
-                    </div>
-                    <button class="text-slate-300 group-hover:text-teal-500 transition-colors">
-                        <span class="material-icons-round">chevron_right</span>
-                    </button>
-                </div>
-                @empty
-                <div class="text-center p-8 text-gray-500">
-                    <p>Belum ada data santri</p>
-                </div>
-                @endforelse
-            </div>
+        </div>
 
-            <!-- Pagination -->
-            <div class="mt-6 pagination-container">
-                {{ $santri->links() }}
+        <!-- Stats Card -->
+        <div class="p-4">
+            <div
+                class="flex items-center justify-between gap-4 rounded-2xl bg-white dark:bg-slate-800 p-5 shadow-sm border border-primary/10">
+                <div class="flex flex-col gap-1">
+                    <p class="text-slate-500 dark:text-slate-400 text-sm font-medium leading-normal">Total Santri Saya
+                    </p>
+                    <p class="text-[#111817] dark:text-white text-3xl font-bold leading-tight">{{ $santri->total() }}
+                    </p>
+                </div>
+                <div class="flex items-center justify-center bg-primary/10 rounded-full p-3">
+                    <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+                </div>
             </div>
         </div>
+
+        <!-- Search Bar -->
+        <div class="px-4 py-2">
+            <label class="flex flex-col min-w-40 h-12 w-full">
+                <div
+                    class="flex w-full flex-1 items-stretch rounded-2xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
+                    <div class="text-slate-400 flex items-center justify-center pl-4">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input id="searchInput"
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-4 pl-2 text-base font-normal leading-normal"
+                        placeholder="Cari nama atau NIS santri..." autocomplete="off" />
+                </div>
+            </label>
+        </div>
+
+        <!-- Santri List -->
+        <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
+            @forelse($santri as $item)
+            <div class="santri-item group relative flex items-center gap-4 bg-white dark:bg-slate-800 px-4 min-h-[80px] py-3 justify-between rounded-2xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
+                data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
+
+                <!-- Main Click Area -->
+                <div class="flex items-center gap-4 flex-1"
+                    onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                    <!-- Avatar -->
+                    @if($item->user && $item->user->foto)
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 border-2 border-primary/10"
+                        style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
+                    @else
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-14 w-14 border-2 border-primary/10"
+                        style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
+                    </div>
+                    @endif
+
+                    <div class="flex flex-col justify-center">
+                        <p class="text-[#111817] dark:text-white text-base font-bold leading-normal line-clamp-1">
+                            {{ $item->nama ?? $item->nama_lengkap }}
+                        </p>
+                        <p class="text-slate-500 dark:text-slate-400 text-xs font-medium leading-normal">
+                            NIS: {{ $item->nis ?? '-' }}
+                        </p>
+                        <!-- Kelas Badge -->
+                        <span
+                            class="inline-flex items-center mt-1 px-2 py-0.5 rounded text-[10px] font-medium bg-primary/10 text-primary w-fit">
+                            {{ $item->kelas->nama_kelas ?? 'Kelas -' }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-1 relative z-10">
+                    <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
+                        class="flex size-9 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                    </button>
+
+                    <!-- Context Menu -->
+                    <div class="relative group-menu" tabindex="0">
+                        <button
+                            class="flex size-9 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                        </button>
+                        <div
+                            class="dropdown-menu absolute right-0 top-10 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5">
+                            <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-base">visibility</span>
+                                <span>Detail</span>
+                            </button>
+                            <button
+                                onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
+                                <span class="material-symbols-outlined text-base">hotel_class</span>
+                                <span>Nilai Akhlak</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="flex flex-col items-center justify-center py-12 text-center">
+                <div
+                    class="w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-3">
+                    <span class="material-symbols-outlined text-slate-400 text-3xl">person_off</span>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 font-medium">Belum ada data santri</p>
+            </div>
+            @endforelse
+
+            <!-- Pagination -->
+            <div class="pb-[120px]">
+                {{ $santri->links('pagination::tailwind') }}
+            </div>
+        </div>
+
+        <!-- Floating Action Button -->
+        <div class="fixed bottom-6 right-6 z-50">
+            <!-- Example: Add new santri (if allowed) or other action -->
+            <!-- Currently Ustadz usually cannot add santri freely, but we keep the button from design as 'add activity' or similar -->
+            <!-- Or correct it to something useful logic -->
+        </div>
+
     </div>
 
+    <!-- Client Search Script -->
     <script>
-        // Simple client-side filter for visible items (though pagination handles most)
         document.getElementById('searchInput').addEventListener('input', function (e) {
             const query = e.target.value.toLowerCase();
-            document.querySelectorAll('.santri-item').forEach(item => {
+            const items = document.querySelectorAll('.santri-item');
+
+            items.forEach(item => {
                 const name = item.dataset.name;
-                const nis = item.dataset.nis || '';
-                if (name.includes(query) || nis.includes(query)) {
-                    item.style.display = 'flex';
+                const nis = item.dataset.nis;
+                if (name.includes(query) || (nis && nis.includes(query))) {
+                    item.classList.remove('hidden');
+                    item.classList.add('flex');
                 } else {
-                    item.style.display = 'none';
+                    item.classList.add('hidden');
+                    item.classList.remove('flex');
                 }
             });
         });
