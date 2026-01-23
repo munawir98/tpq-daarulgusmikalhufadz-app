@@ -185,7 +185,16 @@
                         </button>
 
                         <div
-                            class="dropdown-menu absolute right-0 top-9 w-40 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200 opacity-0 invisible scale-95 group-focus-within/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:scale-100">
+                            class="dropdown-menu absolute right-0 top-9 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200 opacity-0 invisible scale-95 group-focus-within/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:scale-100">
+
+                            <!-- Input Hafalan -->
+                            <button onclick="window.location.href='{{ route('ustadz.hafalan.index') }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left group/item border-b border-slate-50 dark:border-slate-700/50">
+                                <span
+                                    class="material-symbols-outlined text-[18px] text-blue-500 group-hover/item:scale-110 transition-transform">menu_book</span>
+                                <span class="font-medium">Input Hafalan</span>
+                            </button>
+
                             <!-- Nilai Akhlak -->
                             <button
                                 onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
