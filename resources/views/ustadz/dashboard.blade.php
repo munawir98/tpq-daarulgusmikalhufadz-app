@@ -649,7 +649,8 @@
                                             <span
                                                 class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Pesan</span>
                                         </a>
-                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <a href="{{ route('ustadz.santri.index') }}"
+                                            class="flex flex-col items-center gap-1 group">
                                             <div
                                                 class="w-11 h-11 rounded-2xl bg-cyan-100 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-500 group-hover:bg-cyan-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
                                                 <span class="material-symbols-rounded text-xl">group</span>
