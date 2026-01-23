@@ -129,24 +129,21 @@
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
                 <!-- Main Click Area -->
-                <div class="flex items-center gap-3 flex-1"
+                <div class="flex items-center gap-4 flex-1"
                     onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                     <!-- Avatar -->
                     @if($item->user && $item->user->foto)
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 border border-primary/10"
                         style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                     @else
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-primary/10"
+                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 border border-primary/10"
                         style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
                     </div>
                     @endif
 
                     <div class="flex flex-col justify-center">
-                        <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
+                        <p class="text-[#111817] dark:text-white text-base font-bold leading-tight line-clamp-1">
                             {{ $item->nama ?? $item->nama_lengkap }}
-                        </p>
-                        <p class="text-slate-500 dark:text-slate-400 text-[10px] font-medium leading-normal mt-0.5">
-                            NIS: {{ $item->nis ?? '-' }}
                         </p>
                     </div>
                 </div>
@@ -155,14 +152,14 @@
                 <div class="flex items-center gap-1 relative z-10">
                     <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
                         class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
                     </button>
 
                     <!-- Context Menu -->
                     <div class="relative group-menu" tabindex="0">
                         <button
                             class="flex size-8 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">more_vert</span>
+                            <span class="material-symbols-outlined text-[20px]">more_vert</span>
                         </button>
                         <div
                             class="dropdown-menu absolute right-0 top-9 w-36 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5">
@@ -171,12 +168,7 @@
                                 <span class="material-symbols-outlined text-sm">visibility</span>
                                 <span>Detail</span>
                             </button>
-                            <button
-                                onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                                class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
-                                <span class="material-symbols-outlined text-sm">hotel_class</span>
-                                <span>Nilai Akhlak</span>
-                            </button>
+                            <!-- Nilai Akhlak Removed -->
                             <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
                                 class="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-left">
                                 <span class="material-symbols-outlined text-sm">edit</span>
