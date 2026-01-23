@@ -129,20 +129,23 @@
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
                 <!-- Main Click Area -->
-                <div class="flex items-center gap-4 flex-1"
-                    onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
-                    <!-- Avatar -->
-                    @if($item->user && $item->user->foto)
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 border border-primary/10"
-                        style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
-                    @else
-                    <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16 border border-primary/10"
-                        style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
+                <div class="flex items-center gap-4 flex-1">
+                    <!-- Avatar - Click to Profile -->
+                    <div class="cursor-pointer"
+                        onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                        @if($item->user && $item->user->foto)
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                            style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
+                        @else
+                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-12 w-12 border border-primary/10"
+                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=2563eb&color=fff&bold=true");'>
+                        </div>
+                        @endif
                     </div>
-                    @endif
 
-                    <div class="flex flex-col justify-center">
-                        <p class="text-[#111817] dark:text-white text-base font-bold leading-tight line-clamp-1">
+                    <div class="flex flex-col justify-center cursor-pointer"
+                        onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
+                        <p class="text-[#111817] dark:text-white text-sm font-bold leading-tight line-clamp-1">
                             {{ $item->nama ?? $item->nama_lengkap }}
                         </p>
                     </div>
@@ -150,10 +153,7 @@
 
                 <!-- Actions -->
                 <div class="flex items-center gap-1 relative z-10">
-                    <button onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
-                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
-                        <span class="material-symbols-outlined text-[20px]">chevron_right</span>
-                    </button>
+                    <!-- Chevron removed -->
 
                     <!-- Context Menu -->
                     <div class="relative group-menu" tabindex="0">
