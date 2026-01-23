@@ -21,7 +21,7 @@
 
             <!-- Info -->
             <div class="flex flex-col items-center gap-1">
-                <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 leading-tight">{{ $santri->nama_lengkap }}
+                <h2 class="text-lg font-bold text-gray-800 dark:text-gray-100 leading-tight">{{ $santri->nama_lengkap }}
                 </h2>
                 <p class="text-xs text-gray-500">{{ $santri->nis }}</p>
 
@@ -55,7 +55,7 @@
                 <span class="material-symbols-rounded text-2xl text-white">menu_book</span>
             </div>
             <span class="text-xs text-blue-50 font-medium">Hafalan</span>
-            <span class="text-xl font-bold">0 Juz</span>
+            <span class="text-lg font-bold">0 Juz</span>
         </div>
         <!-- Kehadiran -->
         <div
@@ -68,7 +68,7 @@
                 <span class="material-symbols-rounded text-2xl text-white">how_to_reg</span>
             </div>
             <span class="text-xs text-emerald-50 font-medium">Kehadiran</span>
-            <span class="text-xl font-bold">0%</span>
+            <span class="text-lg font-bold">0%</span>
         </div>
     </div>
 
@@ -117,8 +117,8 @@
                 <span class="material-symbols-rounded text-white text-2xl">mic</span>
             </div>
             <div class="flex-1 text-white">
-                <h4 class="font-bold text-sm">Input Hafalan</h4>
-                <p class="text-xs text-white/80">Tambah setoran hafalan baru</p>
+                <h4 class="font-bold text-xs">Input Hafalan</h4>
+                <p class="text-[10px] text-white/80">Tambah setoran hafalan baru</p>
             </div>
             <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
@@ -131,8 +131,8 @@
                 <span class="material-symbols-rounded text-white text-2xl">psychology</span>
             </div>
             <div class="flex-1 text-white">
-                <h4 class="font-bold text-sm">Catatan Akhlak</h4>
-                <p class="text-xs text-white/80">Input penilaian perilaku</p>
+                <h4 class="font-bold text-xs">Catatan Akhlak</h4>
+                <p class="text-[10px] text-white/80">Input penilaian perilaku</p>
             </div>
             <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
@@ -145,8 +145,8 @@
                 <span class="material-symbols-rounded text-white text-2xl">history</span>
             </div>
             <div class="flex-1 text-white">
-                <h4 class="font-bold text-sm">Riwayat Absensi</h4>
-                <p class="text-xs text-white/80">Lihat kehadiran santri</p>
+                <h4 class="font-bold text-xs">Riwayat Absensi</h4>
+                <p class="text-[10px] text-white/80">Lihat kehadiran santri</p>
             </div>
             <span class="material-symbols-rounded text-white/60">chevron_right</span>
         </a>
