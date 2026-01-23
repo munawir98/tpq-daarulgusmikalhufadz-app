@@ -179,30 +179,30 @@
                     </form>
 
                     <!-- More Menu (Dropdown) -->
-                    <div class="relative group/menu" tabindex="0">
-                        <button
-                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white group-focus-within/menu:bg-primary group-focus-within/menu:text-white group-focus-within/menu:ring-4 group-focus-within/menu:ring-primary/20 transition-all">
+                    <div class="relative" id="dropdown-container-{{ $item->id }}">
+                        <button onclick="toggleDropdown(event, '{{ $item->id }}')" id="dropdown-btn-{{ $item->id }}"
+                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all">
                             <span class="material-symbols-outlined text-[20px]">more_vert</span>
                         </button>
 
-                        <div
-                            class="dropdown-menu absolute right-0 top-9 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200 opacity-0 invisible scale-95 group-focus-within/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:scale-100">
+                        <div id="dropdown-menu-{{ $item->id }}"
+                            class="dropdown-content hidden absolute right-0 top-9 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 z-50 overflow-hidden ring-1 ring-black/5 origin-top-right transition-all duration-200">
 
                             <!-- Input Setoran Hafalan -->
                             <button
-                                onclick="window.location.href='{{ route('ustadz.hafalan.index', ['santri_id' => $item->id]) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left group/item border-b border-slate-50 dark:border-slate-700/50">
+                                onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.hafalan.index', ['santri_id' => $item->id]) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left border-b border-slate-50 dark:border-slate-700/50">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-blue-500 group-hover/item:scale-110 transition-transform">menu_book</span>
+                                    class="material-symbols-outlined text-[18px] text-blue-500 transition-transform group-hover:scale-110">menu_book</span>
                                 <span class="font-medium">Input Setoran Hafalan</span>
                             </button>
 
                             <!-- Input Nilai Akhlak -->
                             <button
-                                onclick="window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left group/item">
+                                onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-amber-500 group-hover/item:scale-110 transition-transform">hotel_class</span>
+                                    class="material-symbols-outlined text-[18px] text-amber-500 transition-transform group-hover:scale-110">hotel_class</span>
                                 <span class="font-medium">Input Nilai Akhlak</span>
                             </button>
 
@@ -214,10 +214,10 @@
                             $hp = '62' . substr($hp, 1);
                             }
                             @endphp
-                            <a href="https://wa.me/{{ $hp }}" target="_blank"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left group/item border-t border-slate-50 dark:border-slate-700/50">
+                            <a href="https://wa.me/{{ $hp }}" target="_blank" onclick="event.stopPropagation()"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50">
                                 <span
-                                    class="material-symbols-outlined text-[18px] text-green-600 group-hover/item:scale-110 transition-transform">chat</span>
+                                    class="material-symbols-outlined text-[18px] text-green-600 transition-transform group-hover:scale-110">chat</span>
                                 <span class="font-medium">Hubungi Wali</span>
                             </a>
                             @endif
@@ -250,8 +250,71 @@
 
     </div>
 
-    <!-- Client Search Script -->
     <script>
+        // Dropdown Toggle Logic
+        function toggleDropdown(event, id) {
+            event.stopPropagation(); // Stop row click
+
+            // Close all other dropdowns
+            document.querySelectorAll('.dropdown-content').forEach(el => {
+                if (el.id !== `dropdown-menu-${id}`) {
+                    el.classList.add('hidden');
+                    el.classList.remove('opacity-100', 'visible', 'scale-100');
+                    el.classList.add('opacity-0', 'invisible', 'scale-95');
+                }
+            });
+
+            // Toggle active state for current dropdown
+            const menu = document.getElementById(`dropdown-menu-${id}`);
+            const btn = document.getElementById(`dropdown-btn-${id}`);
+
+            if (menu.classList.contains('hidden')) {
+                // OPEN
+                menu.classList.remove('hidden');
+                // Small delay to allow transition
+                setTimeout(() => {
+                    menu.classList.remove('opacity-0', 'invisible', 'scale-95');
+                    menu.classList.add('opacity-100', 'visible', 'scale-100');
+                }, 10);
+
+                // Add active style to button
+                btn.classList.add('bg-primary', 'text-white', 'ring-4', 'ring-primary/20');
+                btn.classList.remove('bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300');
+            } else {
+                // CLOSE
+                menu.classList.add('opacity-0', 'invisible', 'scale-95');
+                menu.classList.remove('opacity-100', 'visible', 'scale-100');
+                setTimeout(() => {
+                    menu.classList.add('hidden');
+                }, 200);
+
+                // Remove active style from button
+                btn.classList.remove('bg-primary', 'text-white', 'ring-4', 'ring-primary/20');
+                btn.classList.add('bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(menu => {
+                if (!menu.classList.contains('hidden')) {
+                    menu.classList.add('opacity-0', 'invisible', 'scale-95');
+                    menu.classList.remove('opacity-100', 'visible', 'scale-100');
+                    setTimeout(() => {
+                        menu.classList.add('hidden');
+                    }, 200);
+
+                    // Reset all buttons
+                    document.querySelectorAll('[id^="dropdown-btn-"]').forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white', 'ring-4', 'ring-primary/20');
+                        btn.classList.add('bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300');
+                    });
+                }
+            });
+        });
+
+        // Search Script
         document.getElementById('searchInput').addEventListener('input', function (e) {
             const query = e.target.value.toLowerCase();
             const items = document.querySelectorAll('.santri-item');
