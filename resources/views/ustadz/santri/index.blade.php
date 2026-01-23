@@ -197,7 +197,7 @@
                             <!-- Input Setoran Hafalan -->
                             <button
                                 onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.hafalan.index', ['santri_id' => $item->id]) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left border-b border-slate-50 dark:border-slate-700/50">
+                                class="w-full flex items-center gap-3 px-4 py-2 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/10 transition-colors text-left border-b border-slate-50 dark:border-slate-700/50">
                                 <span
                                     class="material-symbols-outlined text-[16px] text-blue-500 transition-transform group-hover:scale-110">menu_book</span>
                                 <span class="font-medium">Input Setoran Hafalan</span>
@@ -206,7 +206,7 @@
                             <!-- Input Nilai Akhlak -->
                             <button
                                 onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.akhlak.create', $item->id) }}'"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left">
+                                class="w-full flex items-center gap-3 px-4 py-2 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors text-left">
                                 <span
                                     class="material-symbols-outlined text-[16px] text-amber-500 transition-transform group-hover:scale-110">hotel_class</span>
                                 <span class="font-medium">Input Nilai Akhlak</span>
@@ -221,7 +221,7 @@
                             }
                             @endphp
                             <a href="https://wa.me/{{ $hp }}" target="_blank" onclick="event.stopPropagation()"
-                                class="w-full flex items-center gap-3 px-4 py-3 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50">
+                                class="w-full flex items-center gap-3 px-4 py-2 text-xs whitespace-nowrap text-slate-700 dark:text-slate-200 hover:bg-green-50 dark:hover:bg-green-900/10 transition-colors text-left border-t border-slate-50 dark:border-slate-700/50">
                                 <span
                                     class="material-symbols-outlined text-[16px] text-green-600 transition-transform group-hover:scale-110">chat</span>
                                 <span class="font-medium">Hubungi Wali</span>
