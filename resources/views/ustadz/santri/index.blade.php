@@ -91,9 +91,9 @@
 
                 <div class="relative z-10 text-white">
                     <p class="text-indigo-100 text-xs font-medium mb-1">Total Santri Aktif</p>
-                    <p class="text-3xl font-bold leading-tight text-white tracking-tight">
+                    <p class="text-3xl font-bold leading-tight text-white tracking-tight flex items-center gap-2">
                         {{ $santri->total() }}
-                        <span class="text-sm font-normal text-indigo-200 ml-1">Orang</span>
+                        <span class="material-symbols-outlined text-2xl text-indigo-200">person</span>
                     </p>
                 </div>
                 <div
