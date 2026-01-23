@@ -77,52 +77,57 @@
     <div
         class="relative flex h-full min-h-screen w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
-        <!-- Hero Section (Header + Stats) -->
-        <div
-            class="relative bg-gradient-to-br from-[#1A2980] via-[#26D0CE] to-[#26D0CE] pb-12 pt-8 px-6 rounded-b-[40px] shadow-lg overflow-hidden">
-            <!-- Decorative Elements -->
-            <div
-                class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none">
+        <!-- Header Slim Box -->
+        <header
+            class="flex items-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-14 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4">
+            <div class="w-full flex items-center justify-center relative">
+                <h2 class="text-white text-base font-bold leading-tight tracking-tight text-center">
+                    Manajemen Daftar Santri
+                </h2>
             </div>
-            <div
-                class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl -ml-10 -mb-10 pointer-events-none">
-            </div>
-            <span
-                class="material-symbols-outlined absolute top-4 right-4 text-white/20 text-8xl rotate-12 pointer-events-none">groups</span>
+        </header>
 
-            <!-- Title -->
-            <div class="relative z-10 text-center mb-6">
-                <h1 class="text-white text-lg font-bold tracking-wide">Manajemen Santri</h1>
-                <p class="text-blue-50 text-xs font-medium opacity-90">TPQ Daarul Gusmik Al-Hufadz</p>
-            </div>
+        <!-- Stats Card -->
+        <div class="px-4 pt-4 pb-2">
+            <div
+                class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-2xl p-4 shadow-lg shadow-indigo-500/20 border border-indigo-500/20 flex items-center justify-between relative overflow-hidden group">
+                <!-- Decorative BG Icon -->
+                <span
+                    class="material-symbols-outlined absolute -right-6 -bottom-6 text-[8rem] text-white/10 rotate-12 z-0 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                    groups
+                </span>
 
-            <!-- Main Stats (Centered) -->
-            <div class="relative z-10 flex flex-col items-center justify-center text-white mb-2">
-                <p class="text-blue-100 text-sm font-medium mb-1">Total Santri Aktif</p>
-                <div class="flex items-baseline gap-2">
-                    <span class="text-5xl font-extrabold tracking-tight">{{ $santri->total() }}</span>
-                    <span class="text-lg font-medium opacity-80">Santri</span>
+                <div class="relative z-10 text-white">
+                    <p class="text-indigo-100 text-xs font-medium mb-1">Total Santri Aktif</p>
+                    <p class="text-3xl font-bold leading-tight text-white tracking-tight">
+                        {{ $santri->total() }}
+                        <span class="text-sm font-normal text-indigo-200 ml-1">Orang</span>
+                    </p>
+                </div>
+                <div
+                    class="flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-full p-3 relative z-10 border border-white/10">
+                    <span class="material-symbols-outlined text-white text-2xl">groups</span>
                 </div>
             </div>
         </div>
 
-        <!-- Floating Search Bar -->
-        <div class="px-6 -mt-7 relative z-20">
-            <label class="flex flex-col w-full">
+        <!-- Search Bar -->
+        <div class="px-4 py-2">
+            <label class="flex flex-col min-w-40 h-10 w-full">
                 <div
-                    class="flex w-full items-center rounded-2xl h-14 shadow-xl bg-white dark:bg-slate-800 overflow-hidden border border-slate-100 dark:border-slate-700 ring-1 ring-black/5">
-                    <div class="text-primary flex items-center justify-center pl-4">
-                        <span class="material-symbols-outlined text-[24px]">search</span>
+                    class="flex w-full flex-1 items-stretch rounded-xl h-full shadow-sm bg-white dark:bg-slate-800 overflow-hidden border border-transparent focus-within:border-primary/30 transition-colors">
+                    <div class="text-slate-400 flex items-center justify-center pl-3">
+                        <span class="material-symbols-outlined text-[20px]">search</span>
                     </div>
                     <input id="searchInput"
-                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-4 text-base font-medium"
-                        placeholder="Cari nama atau NIS..." autocomplete="off" />
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
+                        placeholder="Cari nama atau NIS santri..." autocomplete="off" />
                 </div>
             </label>
         </div>
 
         <!-- Santri List -->
-        <div class="flex flex-col gap-3 p-4 pt-5 min-h-[50vh]" id="santriListContainer">
+        <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
             <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
                 style="animation-delay: {{ $loop->index * 100 }}ms"
