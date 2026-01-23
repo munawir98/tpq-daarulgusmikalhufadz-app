@@ -136,11 +136,11 @@
                     <div class="relative flex-shrink-0"
                         onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
+                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
-                        <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
-                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35");'>
+                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
+                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35&rounded=true");'>
                         </div>
                         @endif
                     </div>
