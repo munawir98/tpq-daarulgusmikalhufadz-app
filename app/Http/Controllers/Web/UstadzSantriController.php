@@ -58,6 +58,71 @@ class UstadzSantriController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $kelasList = \App\Models\Kelas::with('ustadz')->orderBy('nama_kelas')->get();
+        return view('ustadz.santri.create', compact('kelasList'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'nis' => 'required|string|max:50|unique:santri,nis',
+            'nama_lengkap' => 'required|string|max:255',
+            'nama_panggilan' => 'nullable|string|max:50',
+            'jenis_kelamin' => 'required|in:L,P',
+            'tempat_lahir' => 'nullable|string|max:100',
+            'tanggal_lahir' => 'nullable|date',
+            'alamat' => 'nullable|string',
+            'nama_ayah' => 'nullable|string|max:255',
+            'nama_ibu' => 'nullable|string|max:255',
+            'no_hp_orang_tua' => 'nullable|string|max:20',
+            'kelas_id' => 'nullable|exists:kelas,id',
+            'foto' => 'nullable|image|max:2048',
+        ]);
+
+        // Create User first
+        $user = \App\Models\User::create([
+            'name' => $request->nama_lengkap,
+            'email' => $request->nis . '@santri.tpq', // Dummy email based on NIS
+            'password' => \Illuminate\Support\Facades\Hash::make('12345678'), // Default password
+            'role' => 'santri',
+            'nis' => $request->nis,
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('photos', 'public');
+            $user->foto = $path;
+            $user->save();
+        }
+
+        // Create Santri
+        Santri::create([
+            'user_id' => $user->id,
+            'nis' => $request->nis,
+            'nama_lengkap' => $request->nama_lengkap,
+            'nama_panggilan' => $request->nama_panggilan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'alamat' => $request->alamat,
+            'nama_ayah' => $request->nama_ayah,
+            'nama_ibu' => $request->nama_ibu,
+            'no_hp_orang_tua' => $request->no_hp_orang_tua,
+            'kelas_id' => $request->kelas_id,
+            'status' => 'aktif',
+            'tanggal_masuk' => now(),
+        ]);
+
+        return redirect()->route('ustadz.santri.index')->with('success', 'Santri berhasil ditambahkan');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
