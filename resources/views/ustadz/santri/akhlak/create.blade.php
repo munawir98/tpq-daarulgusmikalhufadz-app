@@ -2,7 +2,7 @@
 {{-- Fix for blade compiler --}}
 
 @section('content')
-<div class="space-y-6 pb-20">
+<div class="space-y-6 pb-20 px-5">
     <!-- Header -->
     <div class="flex items-center justify-center gap-3">
         <div class="text-center">
