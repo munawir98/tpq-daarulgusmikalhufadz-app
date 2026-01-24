@@ -128,7 +128,7 @@
                 <div
                     class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow border border-indigo-100 dark:border-indigo-900/20">
                     <div
-                        class="bg-gradient-to-r from-indigo-50 to-white dark:from-indigo-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-indigo-500 border-b border-indigo-50 dark:border-indigo-900/10">
+                        class="bg-gradient-to-r from-indigo-50 to-white dark:from-indigo-900/20 dark:to-gray-900 px-5 py-4 border-b border-indigo-50 dark:border-indigo-900/10">
                         <h3
                             class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined text-lg">person</span>
@@ -154,13 +154,7 @@
                                 placeholder="Masukkan nama ayah" type="text" name="nama_ayah"
                                 value="{{ old('nama_ayah', $santri->nama_ayah) }}" />
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">NIS</label>
-                            <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
-                                placeholder="Nomor Induk Santri" type="text" name="nis"
-                                value="{{ old('nis', $santri->nis) }}" />
-                        </div>
+                        <!-- NIS Moved to Academic Card -->
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Tempat &amp; Tanggal
                                 Lahir</label>
@@ -198,49 +192,22 @@
                                 </label>
                             </div>
                         </div>
-                    </div>
-                    <div
-                        class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow border border-blue-100 dark:border-blue-900/20">
-                        <div
-                            class="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-blue-500 border-b border-blue-50 dark:border-blue-900/10">
-                            <h3
-                                class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-lg">contacts</span>
-                                Kontak &amp; Alamat
-                            </h3>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Orang Tua /
+                                Wali</label>
+                            <input
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                placeholder="Nama orang tua/wali" type="text" name="nama_ibu"
+                                value="{{ old('nama_ibu', $santri->nama_ibu) }}" />
                         </div>
-                        <div class="p-5 space-y-4">
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Orang Tua /
-                                    Wali</label>
-                                <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
-                                    placeholder="Nama orang tua/wali" type="text" name="nama_ibu"
-                                    value="{{ old('nama_ibu', $santri->nama_ibu) }}" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">No HP
-                                    Ortu</label>
-                                <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
-                                    placeholder="Contoh: 081234567890" type="tel" name="no_hp_orang_tua"
-                                    value="{{ old('no_hp_orang_tua', $santri->no_hp_orang_tua) }}" />
-                            </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">No HP
+                                Ortu</label>
+                            <input
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                placeholder="Contoh: 081234567890" type="tel" name="no_hp_orang_tua"
+                                value="{{ old('no_hp_orang_tua', $santri->no_hp_orang_tua) }}" />
                         </div>
-                    </div> <!-- Close Contact Card Body -->
-                </div> <!-- Close Contact Card -->
-
-                <div
-                    class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow border border-emerald-100 dark:border-emerald-900/20">
-                    <div
-                        class="bg-gradient-to-r from-emerald-50 to-white dark:from-emerald-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-emerald-500 border-b border-emerald-50 dark:border-emerald-900/10">
-                        <h3
-                            class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-2">
-                            <span class="material-symbols-outlined text-lg">location_on</span>
-                            Alamat Domisili
-                        </h3>
-                    </div>
-                    <div class="p-5 space-y-4">
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Alamat
                                 Lengkap</label>
@@ -249,44 +216,51 @@
                                 placeholder="Alamat lengkap tempat tinggal" rows="3"
                                 name="alamat">{{ old('alamat', $santri->alamat) }}</textarea>
                         </div>
-                    </div>
+                        <!-- Cards Merged into Personal Info -->
 
-                    <div
-                        class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow border border-amber-100 dark:border-amber-900/20">
                         <div
-                            class="bg-gradient-to-r from-amber-50 to-white dark:from-amber-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-amber-500 border-b border-amber-50 dark:border-amber-900/10">
-                            <h3
-                                class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center justify-center gap-2">
-                                <span class="material-symbols-outlined text-lg">school</span>
-                                Akademik
-                            </h3>
-                        </div>
-                        <div class="p-5 space-y-4">
-                            <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Pilih
-                                    Kelas</label>
-                                <div class="relative">
-                                    <select
-                                        class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 pr-10 text-sm focus:ring-0 appearance-none outline-none"
-                                        name="kelas_id">
-                                        <option value="">Pilih Kelas</option>
-                                        @foreach($kelasList as $kelas)
-                                        <option value="{{ $kelas->id }}" {{ old('kelas_id', $santri->kelas_id) ==
-                                            $kelas->id
-                                            ?
-                                            'selected' : '' }}>
-                                            {{ $kelas->nama_kelas }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    <div
-                                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
-                                        <span class="material-symbols-outlined">expand_more</span>
+                            class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow border border-amber-100 dark:border-amber-900/20">
+                            <div
+                                class="bg-gradient-to-r from-amber-50 to-white dark:from-amber-900/20 dark:to-gray-900 px-5 py-4 border-b border-amber-50 dark:border-amber-900/10">
+                                <h3
+                                    class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">school</span>
+                                    Akademik
+                                </h3>
+                            </div>
+                            <div class="p-5 space-y-4">
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">NIS</label>
+                                    <input
+                                        class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                        placeholder="Nomor Induk Santri" type="text" name="nis"
+                                        value="{{ old('nis', $santri->nis) }}" />
+                                </div>
+                                <div class="flex flex-col gap-2">
+                                    <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Pilih
+                                        Kelas</label>
+                                    <div class="relative">
+                                        <select
+                                            class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 pr-10 text-sm focus:ring-0 appearance-none outline-none"
+                                            name="kelas_id">
+                                            <option value="">Pilih Kelas</option>
+                                            @foreach($kelasList as $kelas)
+                                            <option value="{{ $kelas->id }}" {{ old('kelas_id', $santri->kelas_id) ==
+                                                $kelas->id
+                                                ?
+                                                'selected' : '' }}>
+                                                {{ $kelas->nama_kelas }}
+                                            </option>
+                                            @endforeach
+                                        </select>
+                                        <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                            <span class="material-symbols-outlined">expand_more</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
         </main>
         <div class="px-4 pb-8 pt-4 flex justify-center w-full">
