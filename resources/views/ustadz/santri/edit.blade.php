@@ -120,7 +120,7 @@
                 </button>
             </div>
             </div>
-            <div class="px-4 space-y-6">
+            <div class="space-y-6">
 
                 @if ($errors->any())
                 <div class="bg-red-50 text-red-600 p-4 rounded-xl text-sm border border-red-100">
