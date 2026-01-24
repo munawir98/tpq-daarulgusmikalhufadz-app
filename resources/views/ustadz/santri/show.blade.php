@@ -1,7 +1,7 @@
 @extends('layouts.ustadz')
 
 @section('content')
-<div class="space-y-5 pb-20 px-5">
+<div class="space-y-5 pb-20 px-5 pt-6">
 
 
     <!-- Profile Card (Refactored & Colored) -->
