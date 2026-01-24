@@ -33,5 +33,28 @@ class UstadzSeeder extends Seeder
                 'status_aktif' => true,
             ]
         );
+
+        // Buat user untuk ustadz kedua
+        $user2 = User::firstOrCreate(
+            ['email' => 'ustadz2@tpq.test'],
+            [
+                'name' => 'Ustadz Budi (MDT)',
+                'password' => Hash::make('password'),
+                'role' => 'ustadz',
+            ]
+        );
+
+        Ustadz::firstOrCreate(
+            ['nama' => 'Ustadz Budi'],
+            [
+                'user_id' => $user2->id,
+                'nik' => '0987654321',
+                'jenis_kelamin' => 'L',
+                'no_hp' => '081298765432',
+                'alamat' => 'Jl. Contoh No. 2',
+                'tanggal_mulai_mengajar' => now()->subYear(1),
+                'status_aktif' => true,
+            ]
+        );
     }
 }

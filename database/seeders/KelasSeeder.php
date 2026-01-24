@@ -10,7 +10,7 @@ class KelasSeeder extends Seeder
 {
     public function run(): void
     {
-        $ustadz = Ustadz::first();
+        $ustadzs = Ustadz::all();
 
         $kelas = [
             [
@@ -33,11 +33,14 @@ class KelasSeeder extends Seeder
             ],
         ];
 
-        foreach ($kelas as $item) {
+        foreach ($kelas as $index => $item) {
+            // Assign teacher if available, rotating if fewer teachers than classes (though rule says one per class, valid seeder should ideally have enough teachers)
+            $teacher = $ustadzs->get($index) ?? null;
+
             Kelas::firstOrCreate(
                 ['kode_kelas' => $item['kode_kelas']],
                 array_merge($item, [
-                    'ustadz_id' => $ustadz?->id,
+                    'ustadz_id' => $teacher?->id,
                     'status'    => 'aktif',
                 ])
             );
