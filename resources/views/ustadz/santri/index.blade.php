@@ -128,12 +128,6 @@
                     <input name="search" value="{{ request('search') }}"
                         class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111817] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-slate-400 px-3 pl-2 text-sm font-normal leading-normal"
                         placeholder="Cari nama atau NIS..." autocomplete="off" />
-                    @if(request('search'))
-                    <a href="{{ route('ustadz.santri.index', request('kelas_id') ? ['kelas_id' => request('kelas_id')] : []) }}"
-                        class="text-slate-400 flex items-center justify-center pr-3 hover:text-red-500">
-                        <span class="material-symbols-outlined text-[18px]">close</span>
-                    </a>
-                    @endif
                 </div>
 
                 <!-- Kelas Filter Dropdown -->
@@ -154,20 +148,6 @@
             </form>
 
             <!-- Active Filters Display -->
-            @if(request('kelas_id') || request('search'))
-            <div class="flex items-center gap-2 mt-2 flex-wrap">
-                @if(request('kelas_id'))
-                <a href="{{ route('ustadz.santri.index', request('search') ? ['search' => request('search')] : []) }}"
-                    class="inline-flex items-center gap-1 px-2 py-1 bg-primary/10 text-primary text-xs rounded-full hover:bg-primary/20 transition-colors">
-                    <span>{{ $kelasList->find(request('kelas_id'))->nama_kelas ?? 'Kelas' }}</span>
-                    <span class="material-symbols-outlined text-[14px]">close</span>
-                </a>
-                @endif
-                @if(request('search'))
-                <span class="text-xs text-slate-500">Hasil pencarian: "{{ request('search') }}"</span>
-                @endif
-            </div>
-            @endif
         </div>
 
         <!-- Santri List -->
@@ -211,7 +191,8 @@
                 <!-- Actions -->
                 <div class="flex items-center gap-2 relative z-10 w-auto justify-end">
                     <!-- Edit (Direct) -->
-                    <button onclick="window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
+                    <button
+                        onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.edit', $item->id) }}'"
                         class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors mx-1"
                         title="Edit">
                         <span class="material-symbols-outlined text-[18px]">edit</span>

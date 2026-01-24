@@ -63,7 +63,8 @@ class UstadzSantriController extends Controller
     public function edit($id)
     {
         $santri = Santri::with('user')->findOrFail($id);
-        return view('ustadz.santri.edit', compact('santri'));
+        $kelasList = \App\Models\Kelas::orderBy('nama_kelas')->get();
+        return view('ustadz.santri.edit', compact('santri', 'kelasList'));
     }
 
     /**
@@ -82,7 +83,9 @@ class UstadzSantriController extends Controller
             'tanggal_lahir' => 'nullable|date',
             'alamat' => 'nullable|string',
             'nama_ayah' => 'nullable|string|max:255',
+            'nama_ibu' => 'nullable|string|max:255', // Used for Nama Orang Tua / Wali
             'no_hp_orang_tua' => 'nullable|string|max:20',
+            'kelas_id' => 'nullable|exists:kelas,id',
             'foto' => 'nullable|image|max:2048', // Max 2MB
         ]);
 
@@ -96,7 +99,9 @@ class UstadzSantriController extends Controller
             'tanggal_lahir' => $request->tanggal_lahir,
             'alamat' => $request->alamat,
             'nama_ayah' => $request->nama_ayah,
+            'nama_ibu' => $request->nama_ibu, // Mapping "Nama Orang Tua / Wali" to nama_ibu
             'no_hp_orang_tua' => $request->no_hp_orang_tua,
+            'kelas_id' => $request->kelas_id,
         ]);
 
         // Update User Data (Name & Photo)
