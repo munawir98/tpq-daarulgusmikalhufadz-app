@@ -166,7 +166,7 @@
             ];
             $gradientRing = $gradients[$loop->index % count($gradients)];
             @endphp
-            <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[72px] py-3 justify-between rounded-2xl shadow-sm border border-transparent hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-pointer active:scale-[0.98]"
+            <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2 justify-between rounded-2xl shadow-sm border border-transparent hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-pointer active:scale-[0.98]"
                 style="animation-delay: {{ $loop->index * 100 }}ms"
                 onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
