@@ -63,16 +63,13 @@
         <header
             class="sticky top-0 z-50 bg-white dark:bg-background-dark border-b border-gray-100 dark:border-gray-800">
             <div class="flex items-center justify-between px-4 py-4">
-                <a href="{{ route('ustadz.santri.index') }}" aria-label="Back"
-                    class="flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-[28px]">chevron_left</span>
-                </a>
+                <div></div>
                 <h1 class="text-[#111817] dark:text-white text-lg font-bold flex-1 text-center pr-8">Edit Data Santri
                 </h1>
             </div>
         </header>
-        <main class="pb-32">
-            <div class="flex flex-col items-center py-6">
+        <main class="pb-32 px-4 pt-4">
+            <div class="bg-white dark:bg-gray-900 rounded-xl p-6 ios-shadow flex flex-col items-center mb-6">
                 <div class="relative group">
                     <div
                         class="size-24 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden ios-shadow bg-gray-200">
@@ -98,6 +95,7 @@
                     class="mt-4 text-sm font-bold text-primary px-4 py-2 bg-primary/10 rounded-lg outline-none focus:ring-2 focus:ring-primary/50">
                     Ubah Foto
                 </button>
+            </div>
             </div>
             <div class="px-4 space-y-6">
 
