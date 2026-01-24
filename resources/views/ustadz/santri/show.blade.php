@@ -6,7 +6,7 @@
 
     <!-- Profile Card (Refactored & Colored) -->
     <div
-        class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-4 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
+        class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-3 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
         <!-- Decorative bg pattern -->
         <div class="absolute top-0 right-0 p-8 opacity-10">
             <span class="material-symbols-rounded text-9xl transform rotate-12">person</span>
@@ -49,7 +49,7 @@
     <div class="grid grid-cols-2 gap-4">
         <!-- Hafalan -->
         <div
-            class="bg-gradient-to-br from-blue-500 to-cyan-500 p-4 rounded-2xl shadow-lg shadow-blue-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
+            class="bg-gradient-to-br from-blue-500 to-cyan-500 p-3 rounded-2xl shadow-lg shadow-blue-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
             <div
                 class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded text-6xl">menu_book</span>
@@ -62,7 +62,7 @@
         </div>
         <!-- Kehadiran -->
         <div
-            class="bg-gradient-to-br from-emerald-500 to-teal-500 p-4 rounded-2xl shadow-lg shadow-emerald-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
+            class="bg-gradient-to-br from-emerald-500 to-teal-500 p-3 rounded-2xl shadow-lg shadow-emerald-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
             <div
                 class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded text-6xl">how_to_reg</span>
@@ -81,7 +81,7 @@
         @if(isset($riwayatHafalan) && $riwayatHafalan->count() > 0)
         @foreach($riwayatHafalan as $hafalan)
         <a href="{{ route('ustadz.hafalan.show', $hafalan->id) }}"
-            class="block bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 p-4 rounded-2xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
+            class="block bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 p-3 rounded-2xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
             <div class="flex justify-between items-start mb-1">
                 <h4 class="font-bold text-gray-800 dark:text-gray-100">{{ $hafalan->surah }}</h4>
                 <span class="text-xs text-blue-600 bg-white/50 dark:bg-gray-700 px-2 py-1 rounded-full">
@@ -114,7 +114,7 @@
 
         <!-- Input Hafalan -->
         <a href="#"
-            class="bg-gradient-to-r from-orange-400 to-pink-500 p-4 rounded-2xl shadow-lg shadow-orange-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            class="bg-gradient-to-r from-orange-400 to-pink-500 p-3 rounded-2xl shadow-lg shadow-orange-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
             <div
                 class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded text-white text-2xl">mic</span>
@@ -128,7 +128,7 @@
 
         <!-- Input Akhlak -->
         <a href="{{ route('ustadz.santri.akhlak.create', $santri->id) }}"
-            class="bg-gradient-to-r from-violet-500 to-purple-600 p-4 rounded-2xl shadow-lg shadow-purple-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            class="bg-gradient-to-r from-violet-500 to-purple-600 p-3 rounded-2xl shadow-lg shadow-purple-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
             <div
                 class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded text-white text-2xl">psychology</span>
@@ -142,7 +142,7 @@
 
         <!-- Riwayat Absensi -->
         <a href="#"
-            class="bg-gradient-to-r from-teal-400 to-emerald-500 p-4 rounded-2xl shadow-lg shadow-teal-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
+            class="bg-gradient-to-r from-teal-400 to-emerald-500 p-3 rounded-2xl shadow-lg shadow-teal-500/20 flex items-center gap-4 active:scale-[0.98] transition-all group">
             <div
                 class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                 <span class="material-symbols-rounded text-white text-2xl">history</span>
@@ -157,7 +157,7 @@
 
     <!-- Biodata Lengkap -->
     <div
-        class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-3xl p-5 shadow-sm space-y-4 border border-indigo-100 dark:border-gray-700">
+        class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-800 rounded-3xl p-4 shadow-sm space-y-4 border border-indigo-100 dark:border-gray-700">
         <h3
             class="font-bold border-b border-indigo-200 dark:border-gray-700 pb-2 text-indigo-900 dark:text-gray-200 flex items-center gap-2">
             <span class="material-symbols-rounded text-indigo-500">badge</span>
