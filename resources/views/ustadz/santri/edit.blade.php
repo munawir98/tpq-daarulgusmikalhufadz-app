@@ -71,15 +71,20 @@
         <main class="pb-32 px-4 pt-4">
             <div class="bg-white dark:bg-gray-900 rounded-xl p-6 ios-shadow flex flex-col items-center mb-6">
                 <div class="relative group">
+                    @php
+                    $colors = ['ring-pink-500', 'ring-cyan-500', 'ring-amber-500', 'ring-emerald-500',
+                    'ring-violet-500',
+                    'ring-rose-500', 'ring-sky-500', 'ring-lime-500'];
+                    $ringColor = $colors[$santri->id % count($colors)];
+                    @endphp
                     <div
-                        class="size-24 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden ios-shadow bg-gray-200">
+                        class="size-24 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden ios-shadow bg-gray-200 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}">
                         @if($santri->user && $santri->user->foto)
                         <img alt="Foto Santri" class="w-full h-full object-cover" id="preview-foto"
                             src="{{ asset('storage/' . $santri->user->foto) }}" />
                         @else
-                        <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-400 text-3xl font-bold"
-                            id="placeholder-foto">
-                            {{ substr($santri->nama_lengkap, 0, 1) }}
+                        <div class="w-full h-full bg-center bg-no-repeat bg-cover" id="placeholder-foto"
+                            style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($santri->nama ?? $santri->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35&rounded=false");'>
                         </div>
                         <img src="" class="w-full h-full object-cover hidden" id="preview-foto">
                         @endif
