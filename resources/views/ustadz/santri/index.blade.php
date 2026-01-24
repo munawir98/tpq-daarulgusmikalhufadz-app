@@ -151,7 +151,7 @@
         </div>
 
         <!-- Santri List -->
-        <div class="flex flex-col gap-3 px-7 py-4 min-h-[50vh]" id="santriListContainer">
+        <div class="flex flex-col gap-3 px-4 py-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
             @php
             $gradients = [
