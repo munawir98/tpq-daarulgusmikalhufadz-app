@@ -73,14 +73,7 @@
         @csrf
         @method('PUT')
 
-        <header
-            class="sticky top-0 z-50 bg-white dark:bg-background-dark border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-between px-4 py-4">
-                <div></div>
-                <h1 class="text-[#111817] dark:text-white text-lg font-bold flex-1 text-center pr-8">Edit Data Santri
-                </h1>
-            </div>
-        </header>
+        <!-- Header Removed -->
         <main class="pb-32 px-4 pt-4">
             <div class="bg-white dark:bg-gray-900 rounded-xl p-6 ios-shadow flex flex-col items-center mb-6">
                 <div class="relative group">
@@ -115,7 +108,7 @@
                         onchange="previewImage(this)">
                 </div>
                 <button type="button" onclick="document.getElementById('foto').click()"
-                    class="mt-4 text-sm font-bold text-primary px-4 py-2 bg-primary/10 rounded-lg outline-none focus:ring-2 focus:ring-primary/50">
+                    class="mt-4 text-xs font-bold text-primary px-4 py-2 bg-primary/10 rounded-lg outline-none focus:ring-2 focus:ring-primary/50">
                     Ubah Foto
                 </button>
             </div>
@@ -143,9 +136,9 @@
                     </div>
                     <div class="p-5 space-y-4">
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Nama Lengkap</label>
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Lengkap</label>
                             <input
-                                class="form-input w-full rounded-xl border-slate-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:scale-[1.01] origin-left placeholder:text-slate-300 dark:placeholder:text-gray-600 placeholder:italic"
+                                class="form-input w-full rounded-xl border-slate-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:scale-[1.01] origin-left placeholder:text-slate-300 dark:placeholder:text-gray-600 placeholder:italic"
                                 placeholder="Masukkan nama lengkap" type="text" name="nama_lengkap"
                                 value="{{ old('nama_lengkap', $santri->nama_lengkap) }}" />
                         </div>
@@ -154,42 +147,42 @@
                             value="{{ old('nama_panggilan', $santri->nama_panggilan) }}">
 
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Nama Ayah</label>
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Ayah</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                 placeholder="Masukkan nama ayah" type="text" name="nama_ayah"
                                 value="{{ old('nama_ayah', $santri->nama_ayah) }}" />
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">NIS</label>
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">NIS</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                 placeholder="Nomor Induk Santri" type="text" name="nis"
                                 value="{{ old('nis', $santri->nis) }}" />
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Tempat &amp; Tanggal
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Tempat &amp; Tanggal
                                 Lahir</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                     placeholder="Kota" type="text" name="tempat_lahir"
                                     value="{{ old('tempat_lahir', $santri->tempat_lahir) }}" />
                                 <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                     type="date" name="tanggal_lahir"
                                     value="{{ old('tanggal_lahir', $santri->tanggal_lahir ? $santri->tanggal_lahir->format('Y-m-d') : '') }}" />
                             </div>
                         </div>
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Jenis Kelamin</label>
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Jenis Kelamin</label>
                             <div class="flex gap-2">
                                 <!-- Laki-laki -->
                                 <label class="flex-1 cursor-pointer">
                                     <input type="radio" name="jenis_kelamin" value="L" class="peer hidden" {{
                                         old('jenis_kelamin', $santri->jenis_kelamin) == 'L' ? 'checked' : '' }}>
                                     <div
-                                        class="py-3 px-4 rounded-lg border border-[#dbe6e4] dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium text-sm text-center peer-checked:border-2 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary peer-checked:font-bold transition-all">
+                                        class="py-2.5 px-4 rounded-lg border border-[#dbe6e4] dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium text-xs text-center peer-checked:border-2 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary peer-checked:font-bold transition-all">
                                         Laki-laki
                                     </div>
                                 </label>
@@ -198,7 +191,7 @@
                                     <input type="radio" name="jenis_kelamin" value="P" class="peer hidden" {{
                                         old('jenis_kelamin', $santri->jenis_kelamin) == 'P' ? 'checked' : '' }}>
                                     <div
-                                        class="py-3 px-4 rounded-lg border border-[#dbe6e4] dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium text-sm text-center peer-checked:border-2 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary peer-checked:font-bold transition-all">
+                                        class="py-2.5 px-4 rounded-lg border border-[#dbe6e4] dark:border-gray-700 text-gray-500 dark:text-gray-400 font-medium text-xs text-center peer-checked:border-2 peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary peer-checked:font-bold transition-all">
                                         Perempuan
                                     </div>
                                 </label>
@@ -216,25 +209,25 @@
                         </div>
                         <div class="p-5 space-y-4">
                             <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Nama Orang Tua /
+                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Orang Tua /
                                     Wali</label>
                                 <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                     placeholder="Nama orang tua/wali" type="text" name="nama_ibu"
                                     value="{{ old('nama_ibu', $santri->nama_ibu) }}" />
                             </div>
                             <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">No HP
+                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">No HP
                                     Ortu</label>
                                 <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 text-base focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
                                     placeholder="Contoh: 081234567890" type="tel" name="no_hp_orang_tua"
                                     value="{{ old('no_hp_orang_tua', $santri->no_hp_orang_tua) }}" />
                             </div>
                             <div class="flex flex-col gap-2">
-                                <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Alamat</label>
+                                <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Alamat</label>
                                 <textarea
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white p-4 text-base focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white p-4 text-sm focus:ring-0"
                                     placeholder="Alamat lengkap tempat tinggal" rows="3"
                                     name="alamat">{{ old('alamat', $santri->alamat) }}</textarea>
                             </div>
@@ -253,10 +246,10 @@
                     </div>
                     <div class="p-5 space-y-4">
                         <div class="flex flex-col gap-2">
-                            <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Pilih Kelas</label>
+                            <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Pilih Kelas</label>
                             <div class="relative">
                                 <select
-                                    class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-12 px-4 pr-10 text-base focus:ring-0 appearance-none outline-none"
+                                    class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 pr-10 text-sm focus:ring-0 appearance-none outline-none"
                                     name="kelas_id">
                                     <option value="">Pilih Kelas</option>
                                     @foreach($kelasList as $kelas)
@@ -280,7 +273,7 @@
         <div
             class="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark p-6 border-t border-gray-100 dark:border-gray-800 flex justify-center z-50">
             <button
-                class="w-full max-w-[480px] bg-primary hover:brightness-95 active:scale-[0.98] transition-all text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-primary/20">
+                class="w-full max-w-[480px] bg-primary hover:brightness-95 active:scale-[0.98] transition-all text-white py-3.5 rounded-xl font-bold text-base shadow-lg shadow-primary/20">
                 Simpan Perubahan
             </button>
         </div>
