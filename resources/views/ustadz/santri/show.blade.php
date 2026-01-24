@@ -2,14 +2,7 @@
 
 @section('content')
 <div class="space-y-5 pb-20 px-5">
-    <!-- Header -->
-    <div class="flex items-center gap-4 pt-2">
-        <a href="{{ route('ustadz.santri.index') }}"
-            class="w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 shadow-sm hover:bg-primary hover:text-white transition-colors">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </a>
-        <h1 class="text-lg font-bold flex-1 text-center pr-10 text-slate-800 dark:text-white">Detail Santri</h1>
-    </div>
+
 
     <!-- Profile Card (Refactored & Colored) -->
     <div
