@@ -58,7 +58,7 @@
             <div class="space-y-1">
                 <label for="nis" class="text-sm font-medium text-slate-700 dark:text-slate-300">NIS</label>
                 <input type="text" name="nis" id="nis" value="{{ old('nis', $santri->nis) }}"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                     placeholder="Nomor Induk Santri">
             </div>
 
@@ -68,7 +68,7 @@
                     Lengkap</label>
                 <input type="text" name="nama_lengkap" id="nama_lengkap"
                     value="{{ old('nama_lengkap', $santri->nama_lengkap) }}"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                     placeholder="Nama Lengkap Santri">
             </div>
 
@@ -78,7 +78,7 @@
                     Panggilan</label>
                 <input type="text" name="nama_panggilan" id="nama_panggilan"
                     value="{{ old('nama_panggilan', $santri->nama_panggilan) }}"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                     placeholder="Nama Panggilan">
             </div>
 
@@ -87,13 +87,13 @@
                 <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Jenis Kelamin</label>
                 <div class="grid grid-cols-2 gap-4">
                     <label
-                        class="flex items-center gap-3 p-3 rounded-xl border {{ old('jenis_kelamin', $santri->jenis_kelamin) == 'L' ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700' }} cursor-pointer">
+                        class="flex items-center gap-3 p-2.5 rounded-xl border {{ old('jenis_kelamin', $santri->jenis_kelamin) == 'L' ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700' }} cursor-pointer">
                         <input type="radio" name="jenis_kelamin" value="L" class="text-primary focus:ring-primary" {{
                             old('jenis_kelamin', $santri->jenis_kelamin) == 'L' ? 'checked' : '' }}>
                         <span class="text-sm text-slate-700 dark:text-slate-300">Laki-laki</span>
                     </label>
                     <label
-                        class="flex items-center gap-3 p-3 rounded-xl border {{ old('jenis_kelamin', $santri->jenis_kelamin) == 'P' ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700' }} cursor-pointer">
+                        class="flex items-center gap-3 p-2.5 rounded-xl border {{ old('jenis_kelamin', $santri->jenis_kelamin) == 'P' ? 'border-primary bg-primary/5' : 'border-slate-200 dark:border-slate-700' }} cursor-pointer">
                         <input type="radio" name="jenis_kelamin" value="P" class="text-primary focus:ring-primary" {{
                             old('jenis_kelamin', $santri->jenis_kelamin) == 'P' ? 'checked' : '' }}>
                         <span class="text-sm text-slate-700 dark:text-slate-300">Perempuan</span>
@@ -108,7 +108,7 @@
                         Lahir</label>
                     <input type="text" name="tempat_lahir" id="tempat_lahir"
                         value="{{ old('tempat_lahir', $santri->tempat_lahir) }}"
-                        class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                        class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                         placeholder="Kota">
                 </div>
                 <div class="space-y-1">
@@ -116,7 +116,7 @@
                         Lahir</label>
                     <input type="date" name="tanggal_lahir" id="tanggal_lahir"
                         value="{{ old('tanggal_lahir', $santri->tanggal_lahir ? $santri->tanggal_lahir->format('Y-m-d') : '') }}"
-                        class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3">
+                        class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2">
                 </div>
             </div>
 
@@ -124,7 +124,7 @@
             <div class="space-y-1">
                 <label for="alamat" class="text-sm font-medium text-slate-700 dark:text-slate-300">Alamat</label>
                 <textarea name="alamat" id="alamat" rows="3"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3 placeholder:text-slate-400"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2 placeholder:text-slate-400"
                     placeholder="Alamat lengkap santri">{{ old('alamat', $santri->alamat) }}</textarea>
             </div>
 
@@ -132,7 +132,7 @@
             <div class="space-y-1">
                 <label for="nama_ayah" class="text-sm font-medium text-slate-700 dark:text-slate-300">Nama Ayah</label>
                 <input type="text" name="nama_ayah" id="nama_ayah" value="{{ old('nama_ayah', $santri->nama_ayah) }}"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                     placeholder="Nama Orang Tua">
             </div>
 
@@ -142,7 +142,7 @@
                     Tua</label>
                 <input type="tel" name="no_hp_orang_tua" id="no_hp_orang_tua"
                     value="{{ old('no_hp_orang_tua', $santri->no_hp_orang_tua) }}"
-                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-4 py-3"
+                    class="w-full rounded-xl border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:border-primary focus:ring-primary px-3 py-2"
                     placeholder="0812...">
             </div>
         </div>

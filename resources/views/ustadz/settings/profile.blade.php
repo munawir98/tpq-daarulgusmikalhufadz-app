@@ -101,7 +101,7 @@
                         </div>
                     </div>
                     <button type="button"
-                        class="absolute bottom-1 right-1 p-2 rounded-full bg-primary text-[#102216] border-4 border-white dark:border-background-dark shadow-lg hover:scale-105 transition-transform">
+                        class="absolute bottom-1 right-1 p-1 rounded-full bg-primary text-[#102216] border-4 border-white dark:border-background-dark shadow-lg hover:scale-105 transition-transform">
                         <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
                     </button>
                 </div>
