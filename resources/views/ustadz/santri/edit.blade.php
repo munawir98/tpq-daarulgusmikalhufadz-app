@@ -270,8 +270,7 @@
                 </div>
 
         </main>
-        <div
-            class="fixed bottom-0 left-0 right-0 bg-white dark:bg-background-dark p-6 border-t border-gray-100 dark:border-gray-800 flex justify-center z-50">
+        <div class="px-4 pb-8 pt-4 flex justify-center w-full">
             <button
                 class="w-full max-w-[480px] bg-primary hover:brightness-95 active:scale-[0.98] transition-all text-white py-3.5 rounded-xl font-bold text-base shadow-lg shadow-primary/20">
                 Simpan Perubahan
