@@ -154,24 +154,32 @@
         <div class="flex flex-col gap-3 p-4 min-h-[50vh]" id="santriListContainer">
             @forelse($santri as $item)
             @php
-            $colors = ['ring-pink-500', 'ring-cyan-500', 'ring-amber-500', 'ring-emerald-500', 'ring-violet-500',
-            'ring-rose-500', 'ring-sky-500', 'ring-lime-500'];
-            $ringColor = $colors[$loop->index % count($colors)];
+            $gradients = [
+            'from-pink-500 to-rose-500',
+            'from-cyan-400 to-blue-500',
+            'from-amber-400 to-orange-500',
+            'from-emerald-400 to-teal-500',
+            'from-violet-500 to-purple-500',
+            'from-blue-400 to-indigo-500',
+            'from-fuchsia-400 to-pink-500',
+            'from-lime-400 to-green-500'
+            ];
+            $gradientRing = $gradients[$loop->index % count($gradients)];
             @endphp
-            <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[64px] py-2.5 justify-between rounded-xl shadow-sm border border-transparent hover:border-primary/20 transition-all cursor-pointer active:scale-[0.98]"
+            <div class="animate-enter santri-item group relative flex items-center gap-3 bg-white dark:bg-slate-800 px-3 min-h-[72px] py-3 justify-between rounded-2xl shadow-sm border border-transparent hover:border-primary/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-pointer active:scale-[0.98]"
                 style="animation-delay: {{ $loop->index * 100 }}ms"
                 onclick="window.location.href='{{ route('ustadz.santri.show', $item->id) }}'"
                 data-name="{{ strtolower($item->nama ?? $item->nama_lengkap) }}" data-nis="{{ $item->nis }}">
 
                 <div class="flex items-center gap-3 min-w-0">
-                    <!-- Avatar -->
-                    <div class="relative flex-shrink-0"
+                    <!-- Avatar with Gradient Ring -->
+                    <div class="relative flex-shrink-0 p-[2px] rounded-full bg-gradient-to-tr {{ $gradientRing }}"
                         onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
-                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
+                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border-2 border-white dark:border-slate-800"
                             style='background-image: url("{{ asset(' storage/' . $item->user->foto) }}");'></div>
                         @else
-                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border border-slate-100 dark:border-slate-700 ring-2 ring-offset-2 ring-offset-white dark:ring-offset-slate-800 {{ $ringColor }}"
+                        <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border-2 border-white dark:border-slate-800"
                             style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35&rounded=true");'>
                         </div>
                         @endif
