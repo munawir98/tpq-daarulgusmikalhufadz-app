@@ -596,6 +596,7 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
             ->name('dashboard');
 
         // Santri Management
+        Route::get('santri/{id}/delete', [\App\Http\Controllers\Web\UstadzSantriController::class, 'confirmDelete'])->name('santri.confirm-delete');
         Route::resource('santri', \App\Http\Controllers\Web\UstadzSantriController::class);
         Route::get('santri/{id}/akhlak/create', [\App\Http\Controllers\Web\UstadzSantriController::class, 'createAkhlak'])->name('santri.akhlak.create');
         Route::post('santri/{id}/akhlak', [\App\Http\Controllers\Web\UstadzSantriController::class, 'storeAkhlak'])->name('santri.akhlak.store');

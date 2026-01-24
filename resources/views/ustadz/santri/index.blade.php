@@ -207,17 +207,13 @@
                     </button>
 
                     <!-- Delete (Direct) -->
-                    <form action="{{ route('ustadz.santri.destroy', $item->id) }}" method="POST"
-                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus santri ini?');"
-                        class="flex items-center">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition-colors"
-                            title="Hapus">
-                            <span class="material-symbols-outlined text-[18px]">delete</span>
-                        </button>
-                    </form>
+                    <!-- Delete (Direct) - Redirect to Confirmation Page -->
+                    <button
+                        onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.confirm-delete', $item->id) }}'"
+                        class="flex size-8 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-700 text-red-500 dark:text-red-400 hover:bg-red-500 hover:text-white transition-colors"
+                        title="Hapus">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
 
                     <!-- More Menu (Dropdown) -->
                     <div class="relative" id="dropdown-container-{{ $item->id }}">

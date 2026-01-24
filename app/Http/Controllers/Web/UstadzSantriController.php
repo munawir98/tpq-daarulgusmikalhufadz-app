@@ -191,6 +191,15 @@ class UstadzSantriController extends Controller
     }
 
     /**
+     * Show the confirmation page for deleting the specified resource.
+     */
+    public function confirmDelete($id)
+    {
+        $santri = Santri::with(['user', 'kelas'])->findOrFail($id);
+        return view('ustadz.santri.confirm_delete', compact('santri'));
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
