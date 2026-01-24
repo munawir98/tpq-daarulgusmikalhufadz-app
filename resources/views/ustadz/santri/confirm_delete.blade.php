@@ -37,7 +37,17 @@
     <style type="text/tailwindcss">
         body {
             font-family: "Plus Jakarta Sans", sans-serif;
-            min-height: max(884px, 100dvh);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
         }
 
         .material-symbols-outlined {
@@ -46,62 +56,58 @@
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen flex items-center justify-center p-4">
+<body class="bg-background-light dark:bg-background-dark h-screen flex items-center justify-center p-4 overflow-hidden">
     <!-- Main Container (Mobile Form Factor) -->
     <div
-        class="relative flex w-full max-w-[375px] flex-col bg-white dark:bg-[#1a0c0c] overflow-hidden rounded-[40px] shadow-2xl border-[8px] border-gray-900 dark:border-black">
+        class="relative flex w-full max-w-[375px] flex-col bg-white dark:bg-[#1a0c0c] overflow-hidden rounded-[40px] shadow-2xl border-[8px] border-gray-900 dark:border-black max-h-full">
 
         <!-- Top App Bar -->
-        <div class="flex items-center bg-white dark:bg-[#1a0c0c] p-4 pb-2 justify-between">
-            <a href="{{ route('ustadz.santri.index') }}"
-                class="text-[#181111] dark:text-white flex size-12 shrink-0 items-center justify-start cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full pl-2 transition-colors">
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
+        <div class="flex items-center bg-white dark:bg-[#1a0c0c] p-4 pb-2 justify-center">
             <h2
-                class="text-[#181111] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
+                class="text-[#181111] dark:text-white text-base font-bold leading-tight tracking-[-0.015em] text-center">
                 Konfirmasi Hapus
             </h2>
         </div>
 
-        <div class="flex flex-col items-center px-6 pt-10 flex-grow">
+        <div class="flex flex-col items-center px-6 pt-6 flex-grow overflow-y-auto no-scrollbar">
             <!-- Warning Icon -->
-            <div class="bg-primary/10 p-5 rounded-full mb-6">
-                <span class="material-symbols-outlined text-primary !text-5xl">warning</span>
+            <div class="bg-primary/10 p-4 rounded-full mb-4">
+                <span class="material-symbols-outlined text-primary !text-4xl">warning</span>
             </div>
 
             <!-- Headline Text -->
-            <h3 class="text-[#181111] dark:text-white tracking-light text-2xl font-bold leading-tight text-center pb-2">
+            <h3 class="text-[#181111] dark:text-white tracking-light text-lg font-bold leading-tight text-center pb-2">
                 Apakah Anda yakin ingin menghapus data santri ini?
             </h3>
 
             <!-- Body Text -->
-            <p class="text-[#181111] dark:text-gray-300 text-base font-normal leading-normal pb-8 pt-1 text-center">
+            <p class="text-[#181111] dark:text-gray-300 text-sm font-normal leading-normal pb-6 pt-1 text-center">
                 Tindakan ini tidak dapat dibatalkan dan semua data terkait akan dihapus secara permanen dari database.
             </p>
 
             <!-- Card: Santri Summary -->
             <div class="w-full">
                 <div
-                    class="p-4 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-[#2a1616] shadow-sm">
-                    <div class="flex items-center gap-4">
+                    class="p-3 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-[#2a1616] shadow-sm">
+                    <div class="flex items-center gap-3">
                         <!-- Profile Image -->
                         @if($santri->user && $santri->user->foto)
-                        <div class="size-16 rounded-full bg-cover bg-center border-2 border-primary/20"
+                        <div class="size-14 rounded-full bg-cover bg-center border-2 border-primary/20"
                             style='background-image: url("{{ asset(' storage/' . $santri->user->foto) }}");'>
                         </div>
                         @else
-                        <div class="size-16 rounded-full bg-cover bg-center border-2 border-primary/20"
+                        <div class="size-14 rounded-full bg-cover bg-center border-2 border-primary/20"
                             style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($santri->nama_lengkap) }}&background=random&color=fff&bold=true");'>
                         </div>
                         @endif
 
                         <div class="flex flex-col gap-0.5">
-                            <p class="text-[#181111] dark:text-white text-lg font-bold leading-tight">{{
+                            <p class="text-[#181111] dark:text-white text-base font-bold leading-tight">{{
                                 $santri->nama_lengkap }}</p>
-                            <p class="text-[#896161] dark:text-gray-400 text-sm font-medium leading-normal">NIS: {{
+                            <p class="text-[#896161] dark:text-gray-400 text-xs font-medium leading-normal">NIS: {{
                                 $santri->nis }}</p>
                             <div
-                                class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-[10px] font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">
+                                class="mt-1 inline-flex items-center px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-[10px] font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider w-fit">
                                 {{ $santri->kelas->nama_kelas ?? 'Belum ada kelas' }}
                             </div>
                         </div>
@@ -109,23 +115,25 @@
                 </div>
             </div>
 
+            <div class="flex-grow"></div>
+
             <!-- Button Group (Action Buttons) -->
-            <div class="bg-white dark:bg-[#1a0c0c] w-full pt-10 pb-6">
+            <div class="bg-white dark:bg-[#1a0c0c] w-full pt-6 pb-4">
                 <div class="flex flex-col gap-3 w-full">
                     <!-- Delete Button Form -->
                     <form action="{{ route('ustadz.santri.destroy', $santri->id) }}" method="POST" class="w-full">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
-                            class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] w-full shadow-lg shadow-primary/20 hover:bg-red-600 active:scale-[0.98] transition-all">
-                            <span class="material-symbols-outlined mr-2">delete</span>
+                            class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] w-full shadow-lg shadow-primary/20 hover:bg-red-600 active:scale-[0.98] transition-all">
+                            <span class="material-symbols-outlined mr-2 !text-lg">delete</span>
                             <span class="truncate">Hapus Data</span>
                         </button>
                     </form>
 
                     <!-- Cancel Button -->
                     <a href="{{ route('ustadz.santri.index') }}"
-                        class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-5 bg-[#f4f0f0] dark:bg-[#331d1d] text-[#181111] dark:text-white text-base font-bold leading-normal tracking-[0.015em] w-full hover:bg-gray-200 dark:hover:bg-gray-800 active:scale-[0.98] transition-all">
+                        class="flex cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-[#f4f0f0] dark:bg-[#331d1d] text-[#181111] dark:text-white text-sm font-bold leading-normal tracking-[0.015em] w-full hover:bg-gray-200 dark:hover:bg-gray-800 active:scale-[0.98] transition-all">
                         <span class="truncate">Batal</span>
                     </a>
                 </div>
@@ -133,7 +141,7 @@
 
             <!-- iOS Indicator -->
             <div class="flex justify-center pb-2">
-                <div class="w-32 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+                <div class="w-24 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
             </div>
 
         </div>
