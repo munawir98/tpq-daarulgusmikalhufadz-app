@@ -139,7 +139,7 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Lengkap</label>
                             <input
-                                class="form-input w-full rounded-xl border-slate-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:scale-[1.01] origin-left placeholder:text-slate-300 dark:placeholder:text-gray-600 placeholder:italic"
+                                class="form-input w-full rounded-xl border-slate-200 dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:scale-[1.01] origin-left placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:italic placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Masukkan nama lengkap" type="text" name="nama_lengkap"
                                 value="{{ old('nama_lengkap', $santri->nama_lengkap) }}" />
                         </div>
@@ -150,7 +150,7 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Ayah</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Masukkan nama ayah" type="text" name="nama_ayah"
                                 value="{{ old('nama_ayah', $santri->nama_ayah) }}" />
                         </div>
@@ -160,7 +160,7 @@
                                 Lahir</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <input
-                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                    class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                     placeholder="Kota" type="text" name="tempat_lahir"
                                     value="{{ old('tempat_lahir', $santri->tempat_lahir) }}" />
                                 <input
@@ -196,7 +196,7 @@
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Nama Orang Tua /
                                 Wali</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Nama orang tua/wali" type="text" name="nama_ibu"
                                 value="{{ old('nama_ibu', $santri->nama_ibu) }}" />
                         </div>
@@ -204,7 +204,7 @@
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">No HP
                                 Ortu</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Contoh: 081234567890" type="tel" name="no_hp_orang_tua"
                                 value="{{ old('no_hp_orang_tua', $santri->no_hp_orang_tua) }}" />
                         </div>
@@ -212,7 +212,7 @@
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Alamat
                                 Lengkap</label>
                             <textarea
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white p-4 text-sm focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white p-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Alamat lengkap tempat tinggal" rows="3"
                                 name="alamat">{{ old('alamat', $santri->alamat) }}</textarea>
                         </div>
@@ -233,7 +233,7 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">NIS</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
                                 placeholder="Nomor Induk Santri" type="text" name="nis"
                                 value="{{ old('nis', $santri->nis) }}" />
                         </div>
