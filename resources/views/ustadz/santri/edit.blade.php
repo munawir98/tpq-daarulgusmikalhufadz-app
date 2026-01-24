@@ -88,7 +88,7 @@
                     <!-- Gradient Avatar Wrapper -->
                     <div class="p-[3px] rounded-full bg-gradient-to-tr {{ $gradientRing }} shadow-lg shadow-primary/20">
                         <div
-                            class="size-24 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-800">
+                            class="size-20 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-800">
                             @if($santri->user && $santri->user->foto)
                             <img alt="Foto Santri" class="w-full h-full object-cover" id="preview-foto"
                                 src="{{ asset('storage/' . $santri->user->foto) }}" />
