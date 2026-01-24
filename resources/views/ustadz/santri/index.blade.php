@@ -133,7 +133,7 @@
                 <!-- Kelas Filter Dropdown -->
                 <div class="relative shrink-0 max-w-[90px]">
                     <select name="kelas_id" onchange="this.form.submit()"
-                        style="-webkit-appearance: none; -moz-appearance: none; background-image: none !important;"
+                        style="-webkit-appearance: none; -moz-appearance: none; appearance: none; background-image: none !important;"
                         class="appearance-none h-10 w-full pl-2 pr-8 rounded-xl shadow-sm bg-white dark:bg-slate-800 border border-transparent focus:border-primary/30 text-xs font-medium text-slate-700 dark:text-white cursor-pointer truncate text-center {{ request('kelas_id') ? 'ring-2 ring-primary/30' : '' }}">
                         <option value="">Kelas</option>
                         @foreach($kelasList as $kelas)
