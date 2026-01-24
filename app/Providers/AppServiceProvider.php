@@ -131,6 +131,9 @@ class AppServiceProvider extends ServiceProvider
             $unreadCount = auth()->check() ? auth()->user()->unreadNotifications()->count() : 0;
             $view->with('unreadNotifications', $unreadCount);
         });
+
+        // Register Observers
+        \App\Models\Ustadz::observe(\App\Observers\UstadzObserver::class);
     }
 
 }
