@@ -102,7 +102,7 @@
         <h3 class="font-bold text-gray-800 dark:text-gray-200 px-1 text-sm">Menu Santri</h3>
 
         <!-- Input Hafalan -->
-        <a href="#"
+        <a href="{{ route('ustadz.hafalan.create', ['santri_id' => $santri->user_id]) }}"
             class="bg-gradient-to-r from-orange-400 to-pink-500 p-2.5 rounded-xl shadow-lg shadow-orange-500/20 flex items-center gap-3 active:scale-[0.98] transition-all group">
             <div
                 class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform">
