@@ -130,7 +130,7 @@
                     <div
                         class="bg-gradient-to-r from-indigo-50 to-white dark:from-indigo-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-indigo-500 border-b border-indigo-50 dark:border-indigo-900/10">
                         <h3
-                            class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                            class="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined text-lg">person</span>
                             Informasi Pribadi
                         </h3>
@@ -204,7 +204,7 @@
                         <div
                             class="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-blue-500 border-b border-blue-50 dark:border-blue-900/10">
                             <h3
-                                class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center gap-2">
+                                class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-lg">contacts</span>
                                 Kontak &amp; Alamat
                             </h3>
@@ -235,7 +235,7 @@
                     <div
                         class="bg-gradient-to-r from-emerald-50 to-white dark:from-emerald-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-emerald-500 border-b border-emerald-50 dark:border-emerald-900/10">
                         <h3
-                            class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                            class="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 flex items-center justify-center gap-2">
                             <span class="material-symbols-outlined text-lg">location_on</span>
                             Alamat Domisili
                         </h3>
@@ -256,7 +256,7 @@
                         <div
                             class="bg-gradient-to-r from-amber-50 to-white dark:from-amber-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-amber-500 border-b border-amber-50 dark:border-amber-900/10">
                             <h3
-                                class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center gap-2">
+                                class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 flex items-center justify-center gap-2">
                                 <span class="material-symbols-outlined text-lg">school</span>
                                 Akademik
                             </h3>
