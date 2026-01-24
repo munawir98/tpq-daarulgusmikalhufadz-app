@@ -8,9 +8,7 @@
     <div
         class="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-2.5 shadow-lg shadow-indigo-500/20 relative overflow-hidden text-white">
         <!-- Decorative bg pattern -->
-        <div class="absolute top-0 right-0 p-8 opacity-10">
-            <span class="material-symbols-rounded text-9xl transform rotate-12">person</span>
-        </div>
+
 
         <div class="flex flex-col items-center justify-center gap-3 relative z-10 text-center">
             <!-- Avatar -->
@@ -50,10 +48,7 @@
         <!-- Hafalan -->
         <div
             class="bg-gradient-to-br from-blue-500 to-cyan-500 p-2.5 rounded-2xl shadow-lg shadow-blue-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
-            <div
-                class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-rounded text-6xl">menu_book</span>
-            </div>
+
             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1 backdrop-blur-sm">
                 <span class="material-symbols-rounded text-xl text-white">menu_book</span>
             </div>
@@ -63,10 +58,7 @@
         <!-- Kehadiran -->
         <div
             class="bg-gradient-to-br from-emerald-500 to-teal-500 p-2.5 rounded-2xl shadow-lg shadow-emerald-500/20 flex flex-col items-center gap-1 text-white relative overflow-hidden group">
-            <div
-                class="absolute top-0 right-0 p-3 opacity-10 transform translate-x-1/4 -translate-y-1/4 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-rounded text-6xl">how_to_reg</span>
-            </div>
+
             <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mb-1 backdrop-blur-sm">
                 <span class="material-symbols-rounded text-xl text-white">how_to_reg</span>
             </div>
