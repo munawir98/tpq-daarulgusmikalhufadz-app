@@ -88,18 +88,18 @@
         @if(isset($riwayatHafalan) && $riwayatHafalan->count() > 0)
         @foreach($riwayatHafalan as $hafalan)
         <a href="{{ route('ustadz.hafalan.show', $hafalan->id) }}"
-            class="block bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 p-2.5 rounded-xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
+            class="block bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 px-4 py-2.5 rounded-xl shadow-sm active:scale-[0.98] transition-all border-l-4 border-blue-500">
             <div class="flex justify-between items-start mb-1">
-                <h4 class="font-bold text-gray-800 dark:text-gray-100 text-sm">{{ $hafalan->surah }}</h4>
+                <h4 class="font-bold text-gray-800 dark:text-gray-100 text-xs">{{ $hafalan->surah }}</h4>
                 <span class="text-[10px] text-blue-600 bg-white/50 dark:bg-gray-700 px-2 py-0.5 rounded-full">
                     {{ \Carbon\Carbon::parse($hafalan->created_at)->format('d M') }}
                 </span>
             </div>
             <div class="flex justify-between items-end">
-                <p class="text-xs text-gray-600 dark:text-gray-400">
+                <p class="text-[10px] text-gray-600 dark:text-gray-400">
                     Ayat {{ $hafalan->ayat_awal }} - {{ $hafalan->ayat_akhir }}
                 </p>
-                <span class="text-[10px] font-medium {{
+                <span class="text-[9px] font-medium {{
                         $hafalan->nilai == 'Sempurna' || $hafalan->nilai == 'Mumtaz' ? 'text-green-600' :
                         ($hafalan->nilai == 'Lancar' || $hafalan->nilai == 'Jayyid Jiddan' ? 'text-blue-600' : 'text-orange-600')
                     }}">
