@@ -72,10 +72,10 @@
             </div>
         </header>
         <main class="pb-32">
-            <div class="flex flex-col items-center py-8">
+            <div class="flex flex-col items-center py-6">
                 <div class="relative group">
                     <div
-                        class="size-32 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden ios-shadow bg-gray-200">
+                        class="size-24 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden ios-shadow bg-gray-200">
                         @if($santri->user && $santri->user->foto)
                         <img alt="Foto Santri" class="w-full h-full object-cover" id="preview-foto"
                             src="{{ asset('storage/' . $santri->user->foto) }}" />
@@ -88,8 +88,8 @@
                         @endif
                     </div>
                     <label for="foto"
-                        class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg flex items-center justify-center border-2 border-white dark:border-gray-800 cursor-pointer hover:bg-emerald-500 transition-colors">
-                        <span class="material-symbols-outlined text-[18px]">photo_camera</span>
+                        class="absolute bottom-0 right-0 bg-primary text-white p-1.5 rounded-full shadow-lg flex items-center justify-center border-2 border-white dark:border-gray-800 cursor-pointer hover:bg-blue-600 transition-colors">
+                        <span class="material-symbols-outlined text-[16px]">photo_camera</span>
                     </label>
                     <input type="file" id="foto" name="foto" class="hidden" accept="image/jpeg,image/png,image/jpg"
                         onchange="previewImage(this)">
