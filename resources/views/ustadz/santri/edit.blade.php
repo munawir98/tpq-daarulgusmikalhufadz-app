@@ -125,7 +125,7 @@
                 </div>
                 @endif
 
-                <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
+                <div class="bg-indigo-50/50 dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
                     <div
                         class="bg-gradient-to-r from-indigo-50 to-white dark:from-indigo-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-indigo-500 border-b border-indigo-50 dark:border-indigo-900/10">
                         <h3
@@ -198,7 +198,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
+                    <div class="bg-blue-50/50 dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
                         <div
                             class="bg-gradient-to-r from-blue-50 to-white dark:from-blue-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-blue-500 border-b border-blue-50 dark:border-blue-900/10">
                             <h3
@@ -235,7 +235,7 @@
                     </div> <!-- Close Contact Card Body -->
                 </div> <!-- Close Contact Card -->
 
-                <div class="bg-white dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
+                <div class="bg-amber-50/50 dark:bg-gray-900 rounded-2xl overflow-hidden ios-shadow">
                     <div
                         class="bg-gradient-to-r from-amber-50 to-white dark:from-amber-900/20 dark:to-gray-900 px-5 py-4 border-l-4 border-amber-500 border-b border-amber-50 dark:border-amber-900/10">
                         <h3
