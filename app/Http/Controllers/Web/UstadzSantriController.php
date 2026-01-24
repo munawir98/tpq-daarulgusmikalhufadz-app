@@ -63,7 +63,7 @@ class UstadzSantriController extends Controller
     public function edit($id)
     {
         $santri = Santri::with('user')->findOrFail($id);
-        $kelasList = \App\Models\Kelas::orderBy('nama_kelas')->get();
+        $kelasList = \App\Models\Kelas::with('ustadz')->orderBy('nama_kelas')->get();
         return view('ustadz.santri.edit', compact('santri', 'kelasList'));
     }
 

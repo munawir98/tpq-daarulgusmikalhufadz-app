@@ -239,7 +239,7 @@
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">Pilih
-                                Kelas</label>
+                                Kelas &amp; Pengajar</label>
                             <div class="relative">
                                 <select
                                     class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-9 px-3 pr-8 text-xs focus:ring-0 appearance-none outline-none"
@@ -250,7 +250,7 @@
                                         $kelas->id
                                         ?
                                         'selected' : '' }}>
-                                        {{ $kelas->nama_kelas }}
+                                        {{ $kelas->nama_kelas }} - {{ $kelas->ustadz->nama ?? 'Belum ada pengajar' }}
                                     </option>
                                     @endforeach
                                 </select>
