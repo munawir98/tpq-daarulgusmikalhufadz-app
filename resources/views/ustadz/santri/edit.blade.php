@@ -233,8 +233,8 @@
                         <div class="flex flex-col gap-2">
                             <label class="text-[#111817] dark:text-gray-200 text-xs font-semibold">NIS</label>
                             <input
-                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 text-sm focus:ring-0 placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-xs placeholder:tracking-tight"
-                                placeholder="Nomor Induk Santri" type="text" name="nis"
+                                class="form-input w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 dark:text-gray-400 text-gray-500 h-9 px-3 text-xs focus:ring-0 cursor-not-allowed select-none placeholder:text-slate-300/50 dark:placeholder:text-gray-600/50 placeholder:text-[10px] placeholder:tracking-tight"
+                                placeholder="Nomor Induk Santri" type="text" name="nis" readonly
                                 value="{{ old('nis', $santri->nis) }}" />
                         </div>
                         <div class="flex flex-col gap-2">
@@ -242,7 +242,7 @@
                                 Kelas</label>
                             <div class="relative">
                                 <select
-                                    class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-10 px-4 pr-10 text-sm focus:ring-0 appearance-none outline-none"
+                                    class="form-select w-full rounded-lg border-[#dbe6e4] dark:border-gray-700 dark:bg-gray-800 dark:text-white h-9 px-3 pr-8 text-xs focus:ring-0 appearance-none outline-none"
                                     name="kelas_id">
                                     <option value="">Pilih Kelas</option>
                                     @foreach($kelasList as $kelas)
