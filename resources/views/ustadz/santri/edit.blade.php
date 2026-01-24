@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Edit Data Santri</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -17,12 +17,12 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#13ecc8",
+                        "primary": "#2563eb", /* Solid Blue to match Index */
                         "background-light": "#f6f8f8",
                         "background-dark": "#10221f",
                     },
                     fontFamily: {
-                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                        "display": ["Poppins", "sans-serif"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -36,7 +36,7 @@
     </script>
     <style type="text/tailwindcss">
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .ios-shadow {
@@ -44,8 +44,8 @@
         }
 
         .form-input:focus {
-            border-color: #13ecc8;
-            box-shadow: 0 0 0 1px #13ecc8;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 1px #2563eb;
         }
     </style>
     <style>
@@ -111,8 +111,8 @@
                 </div>
                 @endif
 
-                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Informasi Pribadi</h3>
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow border-l-4 border-indigo-500">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-500">Informasi Pribadi</h3>
                     <div class="flex flex-col gap-2">
                         <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Nama Lengkap</label>
                         <input
@@ -176,8 +176,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Kontak &amp; Alamat</h3>
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow border-l-4 border-blue-600">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-blue-600">Kontak &amp; Alamat</h3>
                     <div class="flex flex-col gap-2">
                         <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Nama Orang Tua /
                             Wali</label>
@@ -201,8 +201,8 @@
                             name="alamat">{{ old('alamat', $santri->alamat) }}</textarea>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400">Akademik</h3>
+                <div class="bg-white dark:bg-gray-900 rounded-xl p-4 space-y-4 ios-shadow border-l-4 border-amber-500">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-amber-500">Akademik</h3>
                     <div class="flex flex-col gap-2">
                         <label class="text-[#111817] dark:text-gray-200 text-sm font-semibold">Pilih Kelas</label>
                         <div class="relative">

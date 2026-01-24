@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Manajemen Daftar Santri</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -23,7 +23,7 @@
                         "background-dark": "#0f172a", // Slate 900
                     },
                     fontFamily: {
-                        "display": ["Plus Jakarta Sans"]
+                        "display": ["Poppins"]
                     },
                     borderRadius: {
                         "DEFAULT": "0.25rem",
@@ -38,7 +38,7 @@
     </script>
     <style type="text/tailwindcss">
         body {
-            font-family: "Plus Jakarta Sans", sans-serif;
+            font-family: "Poppins", sans-serif;
             min-height: max(884px, 100dvh);
         }
         .material-symbols-outlined {
