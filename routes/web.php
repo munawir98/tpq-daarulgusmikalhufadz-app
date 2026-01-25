@@ -280,6 +280,46 @@ Route::get('/reset-santri-all', function () {
 Route::get('/', fn () => redirect()->route('login'));
 
 // [TEMPORARY FIX] Auto-generate Ustadz Profiles for existing users
+// [TEMPORARY FIX] Fix Storage Link on Production
+Route::get('/fix-storage', function () {
+    $target = storage_path('app/public');
+    $link = public_path('storage');
+
+    $output = "<h2>Storage Fixer</h2>";
+    $output .= "<p>Target: $target</p>";
+    $output .= "<p>Link: $link</p>";
+
+    // 1. Cek Folder Target
+    if (!file_exists($target)) {
+        $output .= "<p>❌ Folder target 'storage/app/public' TIDAK ADA. Membuat folder...</p>";
+        mkdir($target, 0755, true);
+    }
+
+    // 2. Cek Symlink
+    if (file_exists($link)) {
+        $output .= "<p>⚠️ Link 'public/storage' sudah ada.</p>";
+        // Opsional: Hapus jika rusak
+        // unlink($link);
+    } else {
+        try {
+            symlink($target, $link);
+            $output .= "<p>✅ Link berhasil dibuat: public/storage -> storage/app/public</p>";
+        } catch (\Exception $e) {
+            $output .= "<p>❌ Gagal membuat link via PHP symlink(): " . $e->getMessage() . "</p>";
+            // Fallback: coba artisan command
+            try {
+                \Artisan::call('storage:link');
+                $runOutput = \Artisan::output();
+                $output .= "<p>✅ Artisan command dijalankan. Output: $runOutput</p>";
+            } catch (\Exception $ex) {
+                $output .= "<p>❌ Artisan command juga gagal: " . $ex->getMessage() . "</p>";
+            }
+        }
+    }
+
+    return $output . "<br><a href='/'>Kembali ke Home</a>";
+});
+
 // [TEMPORARY FIX] Auto-generate Ustadz Profiles for existing users
 Route::get('/fix-ustadz-data', function () {
     try {
