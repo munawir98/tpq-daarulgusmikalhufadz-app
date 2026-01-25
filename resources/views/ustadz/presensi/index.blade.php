@@ -140,6 +140,7 @@
                     <div>
                         <h1 class="text-xl font-bold leading-tight">Presensi Kehadiran</h1>
                         <p class="text-white/70 text-xs">Ustadz & Pengajar</p>
+                        <p class="text-white/80 text-[10px] mt-1">{{ now()->translatedFormat('l, d F Y') }}</p>
                     </div>
                 </div>
             </div>
