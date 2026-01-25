@@ -244,14 +244,7 @@
         </div>
 
         <!-- Quote -->
-        <div class="px-4 py-8 text-center opacity-60">
-            <div class="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                <span class="material-symbols-outlined text-3xl text-primary">auto_stories</span>
-            </div>
-            <p class="text-xs text-[#61897f]">"Sebaik-baik kalian adalah orang yang belajar Al-Qur'an dan
-                mengajarkannya."</p>
-            <p class="text-[10px] mt-1 text-gray-400">(HR. Bukhari)</p>
-        </div>
+
     </main>
 
     <!-- Floating Action Button -->
