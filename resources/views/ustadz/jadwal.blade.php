@@ -110,7 +110,7 @@
 
                     {{-- Loop Set 1 --}}
                     @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7;
-                        $dayName=$dayNames[$dayIndex]; // Default Style (Inactive)
+                        $dayName=$dayNames[$dayIndex]; // Default Style
                         $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
                         ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
                         $isActive=true;
@@ -130,7 +130,7 @@
 
                 {{-- Loop Set 2 (Duplicate for Seamless Loop) --}}
                 @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7; $dayName=$dayNames[$dayIndex];
-                    // Default Style (Inactive)
+                    // Default Style
                     $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
                     ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
                     $isActive=true;
