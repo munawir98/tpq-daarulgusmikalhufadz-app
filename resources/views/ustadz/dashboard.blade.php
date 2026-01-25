@@ -659,7 +659,8 @@
                                                 class="text-[9px] font-bold text-gray-600 dark:text-gray-400">Santri</span>
                                         </a>
                                         <!-- Row 2 -->
-                                        <a href="#" class="flex flex-col items-center gap-1 group">
+                                        <a href="{{ route('ustadz.jadwal') }}"
+                                            class="flex flex-col items-center gap-1 group">
                                             <div
                                                 class="w-11 h-11 rounded-2xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all active:scale-95 shadow-sm">
                                                 <span class="material-symbols-rounded text-xl">calendar_month</span>
