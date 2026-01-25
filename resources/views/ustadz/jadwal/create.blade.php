@@ -60,133 +60,138 @@ select {
 </head>
 
 <body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111816] dark:text-white pb-32">
-    <div class="sticky top-0 z-50 bg-primary px-4 py-6 flex items-center gap-4 shadow-md">
+    <div
+        class="sticky top-0 z-50 bg-gradient-to-br from-[#0f8b6b] to-primary px-4 py-6 flex items-center gap-4 shadow-lg shadow-primary/20">
         <a href="{{ route('ustadz.jadwal') }}"
-            class="flex items-center justify-center size-10 rounded-full bg-white/20 text-white active:scale-90 transition-transform">
+            class="flex items-center justify-center size-10 rounded-full bg-white/20 text-white active:scale-90 transition-transform hover:bg-white/30">
             <span class="material-symbols-outlined">chevron_left</span>
         </a>
         <h1 class="text-white text-xl font-bold leading-tight tracking-tight">Tambah Jadwal Baru</h1>
     </div>
-    <main class="max-w-md mx-auto px-4 py-6 space-y-6">
-        <div class="bg-white dark:bg-[#1a2e29] rounded-2xl p-5 shadow-sm space-y-6">
-            <div class="space-y-2">
-                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Kelas</label>
-                <div class="relative">
-                    <select
-                        class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200">
-                        <option disabled="" selected="" value="">Pilih Nama Kelas</option>
-                        <option value="1">Kelas Al-Fatihah</option>
-                        <option value="2">Kelas Al-Ikhlas</option>
-                        <option value="3">Kelas An-Naba</option>
-                    </select>
-                </div>
-            </div>
-            <div class="space-y-2">
-                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Ustadz</label>
-                <div class="relative">
-                    <select
-                        class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200">
-                        <option disabled="" selected="" value="">Pilih Pengajar</option>
-                        <option value="1">Ustadz Ahmad Fauzi</option>
-                        <option value="2">Ustadzah Fatimah Azzahra</option>
-                        <option value="3">Ustadz Muhammad Ali</option>
-                    </select>
-                </div>
-            </div>
-            <div class="space-y-3">
-                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Hari</label>
-                <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Sen</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Sel</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-[#1a2e29]"
-                        type="button">
-                        <span class="text-xs font-bold">Rab</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Kam</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Jum</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Sab</span>
-                    </button>
-                    <button
-                        class="min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-colors"
-                        type="button">
-                        <span class="text-xs font-semibold text-gray-500">Min</span>
-                    </button>
-                </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="space-y-2">
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Jam Mulai</label>
-                    <div class="relative">
-                        <input
-                            class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 pl-4 pr-10 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200"
-                            placeholder="16:00" type="text" />
-                        <span
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary text-xl pointer-events-none">schedule</span>
-                    </div>
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Jam Selesai</label>
-                    <div class="relative">
-                        <input
-                            class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 pl-4 pr-10 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200"
-                            placeholder="17:30" type="text" />
-                        <span
-                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary text-xl pointer-events-none">schedule</span>
-                    </div>
-                </div>
-            </div>
-            <div class="space-y-2">
-                <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Materi Pembelajaran</label>
-                <div class="relative">
-                    <textarea
-                        class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200 resize-none"
-                        placeholder="Masukkan detail materi pembelajaran..." rows="3"></textarea>
-                    <span
-                        class="material-symbols-outlined absolute right-3 top-4 text-primary text-xl pointer-events-none">menu_book</span>
-                </div>
-            </div>
-        </div>
-        <div class="px-2">
-            <div class="flex items-start gap-3 p-4 bg-primary/5 border border-primary/20 rounded-xl">
-                <span class="material-symbols-outlined text-primary text-xl">info</span>
-                <p class="text-xs text-[#61897f] leading-relaxed">
-                    Pastikan jadwal yang Anda buat tidak bertabrakan dengan jadwal kelas lain yang menggunakan pengajar
-                    yang sama.
-                </p>
-            </div>
-        </div>
-    </main>
-    <div
-        class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark">
-        <div class="max-w-md mx-auto">
-            <button
-                class="w-full bg-primary text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
-                <span class="material-symbols-outlined">save</span>
-                Simpan Jadwal
-            </button>
-        </div>
-    </div>
 
-</body>
+    <form action="{{ route('ustadz.jadwal.store') }}" method="POST" id="jadwalForm">
+        @csrf
+        <main class="max-w-md mx-auto px-4 py-6 space-y-6">
+            <div class="bg-white dark:bg-[#1a2e29] rounded-2xl p-5 shadow-sm space-y-6">
+                <!-- Kelas -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Kelas</label>
+                    <div class="relative">
+                        <select name="kelas_id" required
+                            class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200">
+                            <option disabled selected value="">Pilih Nama Kelas</option>
+                            @foreach ($kelas as $k)
+                            <option value="{{ $k->id }}">{{ $k->nama_kelas }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Ustadz -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Ustadz</label>
+                    <div class="relative">
+                        <select name="ustadz_id" required
+                            class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200">
+                            <option disabled selected value="">Pilih Pengajar</option>
+                            @foreach ($ustadz as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Hari -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Pilih Hari</label>
+                    <input type="hidden" name="hari" id="selectedHari" required>
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-1" id="dayContainer">
+                        @php $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu']; @endphp
+                        @foreach ($days as $day)
+                        <button type="button" onclick="selectDay('{{ $day }}', this)"
+                            class="day-btn min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-all">
+                            <span class="text-xs font-semibold text-gray-500">{{ substr($day, 0, 3) }}</span>
+                        </button>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Jam Mulai -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Jam Mulai</label>
+                        <div class="relative">
+                            <input type="time" name="waktu_mulai" required
+                                class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 pl-4 pr-10 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200" />
+                            <span
+                                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary text-xl pointer-events-none">schedule</span>
+                        </div>
+                    </div>
+                    <!-- Jam Selesai -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Jam Selesai</label>
+                        <div class="relative">
+                            <input type="time" name="waktu_selesai" required
+                                class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 pl-4 pr-10 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200" />
+                            <span
+                                class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary text-xl pointer-events-none">schedule</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Materi -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 ml-1">Materi
+                        Pembelajaran</label>
+                    <div class="relative">
+                        <textarea name="materi"
+                            class="w-full bg-background-light dark:bg-background-dark border-none rounded-xl py-4 px-4 text-sm focus:ring-2 focus:ring-primary/50 text-gray-600 dark:text-gray-200 resize-none"
+                            placeholder="Masukkan detail materi pembelajaran..." rows="3"></textarea>
+                        <span
+                            class="material-symbols-outlined absolute right-3 top-4 text-primary text-xl pointer-events-none">menu_book</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-2">
+                <div class="flex items-start gap-3 p-4 bg-primary/5 border border-primary/20 rounded-xl">
+                    <span class="material-symbols-outlined text-primary text-xl">info</span>
+                    <p class="text-xs text-[#61897f] leading-relaxed">
+                        Pastikan jadwal yang Anda buat tidak bertabrakan dengan jadwal kelas lain yang menggunakan
+                        pengajar
+                        yang sama.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <div
+            class="fixed bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark z-40">
+            <div class="max-w-md mx-auto">
+                <button type="submit"
+                    class="w-full bg-primary text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 hover:bg-primary/90">
+                    <span class="material-symbols-outlined">save</span>
+                    Simpan Jadwal
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function selectDay(day, btn) {
+            // Update hidden input
+            document.getElementById('selectedHari').value = day;
+
+            // Reset all buttons style
+            document.querySelectorAll('.day-btn').forEach(b => {
+                b.className = 'day-btn min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl border border-gray-100 dark:border-gray-800 bg-background-light dark:bg-background-dark hover:border-primary transition-all';
+                b.querySelector('span').className = 'text-xs font-semibold text-gray-500';
+            });
+
+            // Set active style
+            btn.className = 'day-btn min-w-[50px] aspect-square flex flex-col items-center justify-center rounded-xl bg-primary text-white shadow-lg shadow-primary/20 ring-2 ring-primary ring-offset-2 dark:ring-offset-[#1a2e29] transition-all';
+            btn.querySelector('span').className = 'text-xs font-bold';
+        }
+    </script>
 
 </html>
