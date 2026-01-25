@@ -645,10 +645,12 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         Route::get('/kelas', fn () => view('ustadz.kelas'))
             ->name('kelas');
 
-        Route::get('/jadwal', fn () => view('ustadz.jadwal'))
+        Route::get('/jadwal', [App\Http\Controllers\Web\JadwalWebController::class, 'index'])
             ->name('jadwal');
-        Route::get('/jadwal/create', fn () => view('ustadz.jadwal.create'))
+        Route::get('/jadwal/create', [App\Http\Controllers\Web\JadwalWebController::class, 'create'])
             ->name('jadwal.create');
+        Route::post('/jadwal', [App\Http\Controllers\Web\JadwalWebController::class, 'store'])
+            ->name('jadwal.store');
 
         // Presensi Ustadz
         Route::get('/presensi', [PresensiWebController::class, 'ustadzIndex'])
