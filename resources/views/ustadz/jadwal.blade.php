@@ -233,12 +233,13 @@
                 </div>
             </div>
             @empty
-            <div class="flex flex-col items-center justify-center py-12 text-center opacity-60">
-                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
-                    <span class="material-symbols-outlined text-3xl text-gray-400">event_busy</span>
+            @empty
+            <div class="flex flex-col items-center justify-center py-6 text-center opacity-60">
+                <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-3">
+                    <span class="material-symbols-outlined text-2xl text-gray-400">event_busy</span>
                 </div>
-                <p class="text-gray-500 dark:text-gray-400 font-medium">Belum ada jadwal pelajaran.</p>
-                <p class="text-xs text-gray-400 mt-1">Tekan tombol + untuk menambahkan.</p>
+                <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Belum ada jadwal pelajaran.</p>
+                <p class="text-[10px] text-gray-400 mt-0.5">Tekan tombol + untuk menambahkan.</p>
             </div>
             @endforelse
         </div>
