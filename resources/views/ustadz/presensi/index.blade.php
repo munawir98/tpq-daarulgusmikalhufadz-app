@@ -136,11 +136,7 @@
             <!-- Top Header -->
             <div
                 class="px-6 pt-8 pb-4 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
-                <div class="flex items-center gap-3">
-                    <button onclick="window.location.href='{{ route('ustadz.dashboard') }}'"
-                        class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/30 transition-colors">
-                        <span class="material-symbols-rounded text-white">arrow_back</span>
-                    </button>
+                <div class="flex items-center justify-center text-center w-full">
                     <div>
                         <h1 class="text-xl font-bold leading-tight">Presensi Kehadiran</h1>
                         <p class="text-white/70 text-xs">Ustadz & Pengajar</p>
