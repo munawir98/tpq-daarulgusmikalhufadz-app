@@ -146,16 +146,18 @@
         <!-- Info Card -->
         <div class="px-4 py-4">
             <div class="bg-gradient-to-br from-[#0f8b6b] to-primary rounded-2xl p-4 text-white shadow-lg">
-                <div class="flex items-center gap-2 mb-3">
+                <div class="flex items-center justify-center gap-2 mb-3">
                     <span class="material-symbols-outlined text-xl">info</span>
                     <h4 class="font-bold">Info Jadwal Khusus</h4>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
+                    <div
+                        class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 text-center flex flex-col items-center">
                         <p class="text-[10px] uppercase tracking-wider opacity-80 font-bold mb-1">Rabu &amp; Kamis</p>
                         <p class="text-sm font-semibold">16:00 - 17:30</p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20">
+                    <div
+                        class="bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 text-center flex flex-col items-center">
                         <p class="text-[10px] uppercase tracking-wider opacity-80 font-bold mb-1">Sabtu &amp; Ahad</p>
                         <p class="text-sm font-semibold">06:00 - 08:00</p>
                     </div>
