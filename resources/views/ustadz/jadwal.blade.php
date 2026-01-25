@@ -56,16 +56,17 @@
 
 <body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111816] dark:text-white pb-24 relative">
 
-    <!-- Sticky Header -->
-    <div class="sticky top-0 z-50 bg-primary px-4 py-6 flex items-center gap-4 shadow-md">
-        <a href="{{ route('ustadz.dashboard') }}"
-            class="flex items-center justify-center size-10 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors">
-            <span class="material-symbols-outlined">chevron_left</span>
-        </a>
-        <h1 class="text-white text-xl font-bold leading-tight tracking-tight">Jadwal Tahfidz</h1>
-    </div>
-
-    <main class="max-w-md mx-auto">
+    <main class="max-w-md mx-auto pt-4 relative">
+        <!-- Box Header -->
+        <header
+            class="flex items-center justify-between bg-white dark:bg-[#1a2e29] h-16 px-4 shadow-sm mx-4 rounded-2xl mb-6 border border-gray-100 dark:border-gray-800 relative z-30">
+            <a href="{{ route('ustadz.dashboard') }}"
+                class="flex items-center justify-center size-10 rounded-full bg-gray-50 dark:bg-white/10 text-gray-600 dark:text-white hover:bg-gray-100 transition-colors">
+                <span class="material-symbols-outlined">chevron_left</span>
+            </a>
+            <h1 class="text-[#111816] dark:text-white text-lg font-bold leading-tight flex-1 text-center pr-10">Jadwal
+                Tahfidz</h1>
+        </header>
         <style>
             @keyframes marquee {
                 0% {
