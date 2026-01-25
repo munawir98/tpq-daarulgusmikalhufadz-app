@@ -68,54 +68,123 @@
                 Tahfidz</h1>
         </header>
 
-        <!-- Calendar Strip (Static & Distinct Colors) -->
-        <div class="bg-white dark:bg-[#1a2e29] pt-6 pb-4 shadow-sm">
+        <style>
+            @keyframes marquee {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            .animate-marquee {
+                animation: marquee 15s linear infinite;
+            }
+
+            .animate-marquee:hover {
+                animation-play-state: paused;
+            }
+        </style>
+
+        <!-- Calendar Strip (Marquee & Distinct Colors) -->
+        <div class="bg-white dark:bg-[#1a2e29] pt-6 pb-4 shadow-sm overflow-hidden">
             <div class="px-4 mb-4 flex justify-between items-center text-[#111816] dark:text-white">
                 <h3 class="font-bold text-lg">Oktober 2023</h3>
                 <span class="material-symbols-outlined text-primary">calendar_month</span>
             </div>
-            <div class="flex gap-3 px-4 overflow-x-auto no-scrollbar pb-2">
-                <!-- Senin (Inactive) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                    <p class="text-xs font-medium text-gray-500">Sen</p>
-                    <p class="text-xl font-bold">12</p>
-                </div>
-                <!-- Selasa (Inactive) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                    <p class="text-xs font-medium text-gray-500">Sel</p>
-                    <p class="text-xl font-bold">13</p>
-                </div>
-                <!-- Rabu (Active - Blue) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                    <p class="text-xs font-medium opacity-90">Rab</p>
-                    <p class="text-xl font-bold">14</p>
-                </div>
-                <!-- Kamis (Active - Purple) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                    <p class="text-xs font-medium opacity-90">Kam</p>
-                    <p class="text-xl font-bold">15</p>
-                </div>
-                <!-- Jumat (Inactive) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                    <p class="text-xs font-medium text-gray-500">Jum</p>
-                    <p class="text-xl font-bold">16</p>
-                </div>
-                <!-- Sabtu (Active - Orange) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                    <p class="text-xs font-medium opacity-90">Sab</p>
-                    <p class="text-xl font-bold">17</p>
-                </div>
-                <!-- Minggu (Active - Teal) -->
-                <div
-                    class="flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                    <p class="text-xs font-medium opacity-90">Min</p>
-                    <p class="text-xl font-bold">18</p>
+
+            <!-- Marquee Container -->
+            <div class="relative w-full overflow-hidden">
+                <div class="flex gap-3 px-4 w-max animate-marquee">
+                    <!-- Set 1 -->
+                    <!-- Senin (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Sen</p>
+                        <p class="text-xl font-bold">12</p>
+                    </div>
+                    <!-- Selasa (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Sel</p>
+                        <p class="text-xl font-bold">13</p>
+                    </div>
+                    <!-- Rabu (Active - Blue) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Rab</p>
+                        <p class="text-xl font-bold">14</p>
+                    </div>
+                    <!-- Kamis (Active - Purple) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Kam</p>
+                        <p class="text-xl font-bold">15</p>
+                    </div>
+                    <!-- Jumat (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Jum</p>
+                        <p class="text-xl font-bold">16</p>
+                    </div>
+                    <!-- Sabtu (Active - Orange) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Sab</p>
+                        <p class="text-xl font-bold">17</p>
+                    </div>
+                    <!-- Minggu (Active - Teal) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Min</p>
+                        <p class="text-xl font-bold">18</p>
+                    </div>
+
+                    <!-- Set 2 (Duplicate for Seamless Loop) -->
+                    <!-- Senin (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Sen</p>
+                        <p class="text-xl font-bold">12</p>
+                    </div>
+                    <!-- Selasa (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Sel</p>
+                        <p class="text-xl font-bold">13</p>
+                    </div>
+                    <!-- Rabu (Active - Blue) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Rab</p>
+                        <p class="text-xl font-bold">14</p>
+                    </div>
+                    <!-- Kamis (Active - Purple) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Kam</p>
+                        <p class="text-xl font-bold">15</p>
+                    </div>
+                    <!-- Jumat (Inactive) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
+                        <p class="text-xs font-medium text-gray-500">Jum</p>
+                        <p class="text-xl font-bold">16</p>
+                    </div>
+                    <!-- Sabtu (Active - Orange) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Sab</p>
+                        <p class="text-xl font-bold">17</p>
+                    </div>
+                    <!-- Minggu (Active - Teal) -->
+                    <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
+                        <p class="text-xs font-medium opacity-90">Min</p>
+                        <p class="text-xl font-bold">18</p>
+                    </div>
                 </div>
             </div>
         </div>
