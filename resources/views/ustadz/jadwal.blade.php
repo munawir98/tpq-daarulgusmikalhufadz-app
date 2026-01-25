@@ -169,9 +169,32 @@
 
         <!-- Cards Container -->
         <div class="p-4 space-y-4">
-            <!-- Card 1: Sedang Berlangsung (Colorful Gradient) -->
+            @forelse($jadwals as $jadwal)
+            @php
+            // Color logic based on day
+            $gradient = match($jadwal->hari) {
+            'Senin' => 'from-blue-500 to-indigo-600',
+            'Selasa' => 'from-cyan-500 to-blue-500',
+            'Rabu' => 'from-teal-400 to-emerald-500',
+            'Kamis' => 'from-purple-500 to-fuchsia-500',
+            'Jumat' => 'from-pink-500 to-rose-500',
+            'Sabtu' => 'from-amber-400 to-orange-500',
+            'Minggu' => 'from-red-500 to-orange-600',
+            default => 'from-gray-500 to-slate-600',
+            };
+            $shadow = match($jadwal->hari) {
+            'Senin' => 'blue',
+            'Selasa' => 'cyan',
+            'Rabu' => 'teal',
+            'Kamis' => 'purple',
+            'Jumat' => 'pink',
+            'Sabtu' => 'orange',
+            'Minggu' => 'red',
+            default => 'gray',
+            };
+            @endphp
             <div
-                class="flex flex-col items-stretch justify-start rounded-xl shadow-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white overflow-hidden relative transform transition-all active:scale-[0.98]">
+                class="flex flex-col items-stretch justify-start rounded-xl shadow-lg bg-gradient-to-br {{ $gradient }} text-white overflow-hidden relative transform transition-all active:scale-[0.98]">
                 <!-- Decoration -->
                 <div class="absolute top-0 right-0 p-4 opacity-10">
                     <span class="material-symbols-outlined text-6xl">school</span>
@@ -181,80 +204,43 @@
                     <div class="flex justify-between items-start mb-2">
                         <span
                             class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white border border-white/20 backdrop-blur-sm">
-                            <span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5 animate-pulse"></span>
-                            Sedang Berlangsung
+                            {{ $jadwal->hari }}
                         </span>
                     </div>
-                    <h4 class="text-white text-lg font-bold">Kelas Al-Fatihah</h4>
+                    <h4 class="text-white text-lg font-bold">{{ $jadwal->kelas->nama_kelas ?? 'Kelas Tidak Ditemukan' }}
+                    </h4>
                     <div class="mt-3 space-y-2">
-                        <div class="flex items-center text-blue-100 text-sm">
+                        <div class="flex items-center text-white/90 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">schedule</span>
-                            16:00 - 17:30
+                            {{ \Carbon\Carbon::parse($jadwal->waktu_mulai)->format('H:i') }} - {{
+                            \Carbon\Carbon::parse($jadwal->waktu_selesai)->format('H:i') }}
                         </div>
-                        <div class="flex items-center text-blue-100 text-sm">
+                        <div class="flex items-center text-white/90 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">person</span>
-                            Ustadz Ahmad Fauzi
+                            {{ $jadwal->ustadz->nama ?? '-' }}
                         </div>
+                        @if($jadwal->materi)
                         <div
-                            class="flex items-start text-blue-50 text-sm bg-white/10 p-3 rounded-lg border border-white/10 mt-2 backdrop-blur-sm">
+                            class="flex items-start text-white/90 text-sm bg-white/10 p-3 rounded-lg border border-white/10 mt-2 backdrop-blur-sm">
                             <span class="material-symbols-outlined text-lg mr-2 text-white">menu_book</span>
                             <div>
                                 <p class="font-semibold text-white">Materi:</p>
-                                <p class="opacity-90">Setoran Surah An-Naba Ayat 1-20</p>
+                                <p class="opacity-90">{{ $jadwal->materi }}</p>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-4 flex justify-end">
-                        <button
-                            class="bg-white text-blue-600 font-bold py-2 px-6 rounded-lg text-sm shadow-md active:scale-95 transition-transform hover:bg-blue-50">
-                            Lihat Detail
-                        </button>
+                        @endif
                     </div>
                 </div>
             </div>
-
-            <!-- Card 2: Mendatang (Colorful Gradient) -->
-            <div
-                class="flex flex-col items-stretch justify-start rounded-xl shadow-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white overflow-hidden relative transform transition-all active:scale-[0.98]">
-                <!-- Decoration -->
-                <div class="absolute top-0 right-0 p-4 opacity-10">
-                    <span class="material-symbols-outlined text-6xl">event_upcoming</span>
+            @empty
+            <div class="flex flex-col items-center justify-center py-12 text-center opacity-60">
+                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
+                    <span class="material-symbols-outlined text-3xl text-gray-400">event_busy</span>
                 </div>
-
-                <div class="p-4 relative z-10">
-                    <div class="flex justify-between items-start mb-2">
-                        <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white border border-white/20 backdrop-blur-sm">
-                            Mendatang
-                        </span>
-                    </div>
-                    <h4 class="text-white text-lg font-bold">Kelas Al-Ikhlas</h4>
-                    <div class="mt-3 space-y-2">
-                        <div class="flex items-center text-purple-100 text-sm">
-                            <span class="material-symbols-outlined text-lg mr-2">schedule</span>
-                            16:00 - 17:30
-                        </div>
-                        <div class="flex items-center text-purple-100 text-sm">
-                            <span class="material-symbols-outlined text-lg mr-2">person</span>
-                            Ustadzah Fatimah Azzahra
-                        </div>
-                        <div
-                            class="flex items-start text-purple-50 text-sm bg-white/10 p-3 rounded-lg border border-white/10 mt-2 backdrop-blur-sm">
-                            <span class="material-symbols-outlined text-lg mr-2 text-white">menu_book</span>
-                            <div>
-                                <p class="font-semibold text-white">Materi:</p>
-                                <p class="opacity-90">Muraja'ah Surah Al-Mulk</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex justify-end">
-                        <button
-                            class="bg-white text-purple-600 font-bold py-2 px-6 rounded-lg text-sm shadow-md active:scale-95 transition-transform hover:bg-purple-50">
-                            Lihat Detail
-                        </button>
-                    </div>
-                </div>
+                <p class="text-gray-500 dark:text-gray-400 font-medium">Belum ada jadwal pelajaran.</p>
+                <p class="text-xs text-gray-400 mt-1">Tekan tombol + untuk menambahkan.</p>
             </div>
+            @endforelse
         </div>
 
         <!-- Quote -->
