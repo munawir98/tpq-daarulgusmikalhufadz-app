@@ -270,10 +270,10 @@
 
     <!-- Floating Action Button -->
     <div class="fixed bottom-8 right-6 z-[60]">
-        <button
+        <a href="{{ route('ustadz.jadwal.create') }}"
             class="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-4 focus:ring-primary/30">
             <span class="material-symbols-outlined text-3xl">add</span>
-        </button>
+        </a>
     </div>
 
 </body>

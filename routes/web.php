@@ -647,6 +647,8 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
 
         Route::get('/jadwal', fn () => view('ustadz.jadwal'))
             ->name('jadwal');
+        Route::get('/jadwal/create', fn () => view('ustadz.jadwal.create'))
+            ->name('jadwal.create');
 
         // Presensi Ustadz
         Route::get('/presensi', [PresensiWebController::class, 'ustadzIndex'])
