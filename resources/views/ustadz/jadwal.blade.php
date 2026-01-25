@@ -233,7 +233,6 @@
                 </div>
             </div>
             @empty
-            @empty
             <div class="flex flex-col items-center justify-center py-6 text-center opacity-60">
                 <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-3">
                     <span class="material-symbols-outlined text-2xl text-gray-400">event_busy</span>
