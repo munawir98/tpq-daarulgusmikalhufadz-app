@@ -108,7 +108,7 @@
                     $totalDays = 31;
                     @endphp
 
-                    {{-- Loop Set 1 --}}
+                    {{-- Loop Set 1 (Fixed) --}}
                     @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7;
                         $dayName=$dayNames[$dayIndex]; // Default Style
                         $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
