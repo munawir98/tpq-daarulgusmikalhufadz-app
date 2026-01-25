@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Jadwal Tahfidz - Tambah Jadwal Baru</title>
+    <title>Jadwal Tahfidz</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
         rel="stylesheet" />
@@ -52,14 +52,11 @@
             min-height: max(884px, 100dvh);
         }
     </style>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark min-h-screen text-[#111816] dark:text-white pb-24 relative">
+
+    <!-- Sticky Header -->
     <div class="sticky top-0 z-50 bg-primary px-4 py-6 flex items-center gap-4 shadow-md">
         <a href="{{ route('ustadz.dashboard') }}"
             class="flex items-center justify-center size-10 rounded-full bg-white/20 text-white hover:bg-white/30 transition-colors">
@@ -67,7 +64,9 @@
         </a>
         <h1 class="text-white text-xl font-bold leading-tight tracking-tight">Jadwal Tahfidz</h1>
     </div>
+
     <main class="max-w-md mx-auto">
+        <!-- Calendar Strip -->
         <div class="bg-white dark:bg-[#1a2e29] pt-6 pb-4 shadow-sm">
             <div class="px-4 mb-4 flex justify-between items-center text-[#111816] dark:text-white">
                 <h3 class="font-bold text-lg">Oktober 2023</h3>
@@ -111,6 +110,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- Info Card -->
         <div class="px-4 py-4">
             <div class="bg-gradient-to-br from-[#0f8b6b] to-primary rounded-2xl p-4 text-white shadow-lg">
                 <div class="flex items-center gap-2 mb-3">
@@ -129,84 +130,102 @@
                 </div>
             </div>
         </div>
+
         <div class="px-4 pt-2 pb-2">
             <h3 class="text-[#111816] dark:text-gray-200 text-lg font-bold leading-tight">Rabu, 14 Oktober</h3>
         </div>
+
+        <!-- Cards Container -->
         <div class="p-4 space-y-4">
+            <!-- Card 1: Sedang Berlangsung (Colorful Gradient) -->
             <div
-                class="flex flex-col items-stretch justify-start rounded-xl shadow-sm bg-white dark:bg-[#1a2e29] border-l-4 border-primary overflow-hidden">
-                <div class="p-4">
+                class="flex flex-col items-stretch justify-start rounded-xl shadow-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white overflow-hidden relative transform transition-all active:scale-[0.98]">
+                <!-- Decoration -->
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <span class="material-symbols-outlined text-6xl">school</span>
+                </div>
+
+                <div class="p-4 relative z-10">
                     <div class="flex justify-between items-start mb-2">
                         <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-[#0f8b6b] border border-primary/20">
-                            <span class="w-1.5 h-1.5 rounded-full bg-primary mr-1.5 animate-pulse"></span>
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white border border-white/20 backdrop-blur-sm">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white mr-1.5 animate-pulse"></span>
                             Sedang Berlangsung
                         </span>
                     </div>
-                    <h4 class="text-[#111816] dark:text-white text-lg font-bold">Kelas Al-Fatihah</h4>
+                    <h4 class="text-white text-lg font-bold">Kelas Al-Fatihah</h4>
                     <div class="mt-3 space-y-2">
-                        <div class="flex items-center text-[#61897f] text-sm">
+                        <div class="flex items-center text-blue-100 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">schedule</span>
                             16:00 - 17:30
                         </div>
-                        <div class="flex items-center text-[#61897f] text-sm">
+                        <div class="flex items-center text-blue-100 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">person</span>
                             Ustadz Ahmad Fauzi
                         </div>
                         <div
-                            class="flex items-start text-[#61897f] text-sm bg-primary/5 p-3 rounded-lg border border-primary/10 mt-2">
-                            <span class="material-symbols-outlined text-lg mr-2 text-primary">menu_book</span>
+                            class="flex items-start text-blue-50 text-sm bg-white/10 p-3 rounded-lg border border-white/10 mt-2 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-lg mr-2 text-white">menu_book</span>
                             <div>
-                                <p class="font-semibold text-[#111816] dark:text-primary">Materi:</p>
-                                <p>Setoran Surah An-Naba Ayat 1-20</p>
+                                <p class="font-semibold text-white">Materi:</p>
+                                <p class="opacity-90">Setoran Surah An-Naba Ayat 1-20</p>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 flex justify-end">
                         <button
-                            class="bg-primary text-white font-semibold py-2 px-6 rounded-lg text-sm shadow-md shadow-primary/30 active:scale-95 transition-transform">
+                            class="bg-white text-blue-600 font-bold py-2 px-6 rounded-lg text-sm shadow-md active:scale-95 transition-transform hover:bg-blue-50">
                             Lihat Detail
                         </button>
                     </div>
                 </div>
             </div>
+
+            <!-- Card 2: Mendatang (Colorful Gradient) -->
             <div
-                class="flex flex-col items-stretch justify-start rounded-xl shadow-sm bg-white dark:bg-[#1a2e29] overflow-hidden border border-gray-100 dark:border-gray-800">
-                <div class="p-4">
+                class="flex flex-col items-stretch justify-start rounded-xl shadow-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white overflow-hidden relative transform transition-all active:scale-[0.98]">
+                <!-- Decoration -->
+                <div class="absolute top-0 right-0 p-4 opacity-10">
+                    <span class="material-symbols-outlined text-6xl">event_upcoming</span>
+                </div>
+
+                <div class="p-4 relative z-10">
                     <div class="flex justify-between items-start mb-2">
                         <span
-                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-500">
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/20 text-white border border-white/20 backdrop-blur-sm">
                             Mendatang
                         </span>
                     </div>
-                    <h4 class="text-[#111816] dark:text-white text-lg font-bold">Kelas Al-Ikhlas</h4>
+                    <h4 class="text-white text-lg font-bold">Kelas Al-Ikhlas</h4>
                     <div class="mt-3 space-y-2">
-                        <div class="flex items-center text-[#61897f] text-sm">
+                        <div class="flex items-center text-purple-100 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">schedule</span>
                             16:00 - 17:30
                         </div>
-                        <div class="flex items-center text-[#61897f] text-sm">
+                        <div class="flex items-center text-purple-100 text-sm">
                             <span class="material-symbols-outlined text-lg mr-2">person</span>
                             Ustadzah Fatimah Azzahra
                         </div>
                         <div
-                            class="flex items-start text-[#61897f] text-sm bg-gray-50 dark:bg-gray-800/50 p-3 rounded-lg mt-2">
-                            <span class="material-symbols-outlined text-lg mr-2 text-gray-400">menu_book</span>
+                            class="flex items-start text-purple-50 text-sm bg-white/10 p-3 rounded-lg border border-white/10 mt-2 backdrop-blur-sm">
+                            <span class="material-symbols-outlined text-lg mr-2 text-white">menu_book</span>
                             <div>
-                                <p class="font-semibold text-[#111816] dark:text-gray-300">Materi:</p>
-                                <p>Muraja'ah Surah Al-Mulk</p>
+                                <p class="font-semibold text-white">Materi:</p>
+                                <p class="opacity-90">Muraja'ah Surah Al-Mulk</p>
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 flex justify-end">
                         <button
-                            class="bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 font-semibold py-2 px-6 rounded-lg text-sm active:scale-95 transition-transform">
+                            class="bg-white text-purple-600 font-bold py-2 px-6 rounded-lg text-sm shadow-md active:scale-95 transition-transform hover:bg-purple-50">
                             Lihat Detail
                         </button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Quote -->
         <div class="px-4 py-8 text-center opacity-60">
             <div class="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-4">
                 <span class="material-symbols-outlined text-3xl text-primary">auto_stories</span>
@@ -216,6 +235,8 @@
             <p class="text-[10px] mt-1 text-gray-400">(HR. Bukhari)</p>
         </div>
     </main>
+
+    <!-- Floating Action Button -->
     <div class="fixed bottom-8 right-6 z-[60]">
         <button
             class="flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-105 active:scale-95 transition-all focus:outline-none focus:ring-4 focus:ring-primary/30">
