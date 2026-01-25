@@ -11,13 +11,6 @@
 
 
         <div class="flex flex-col items-center justify-center gap-3 relative z-10 text-center">
-            <!-- Edit Button -->
-            <a href="{{ route('ustadz.santri.edit', $santri->id) }}"
-                class="absolute top-0 right-0 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-all shadow-sm z-20"
-                title="Edit Profil">
-                <span class="material-symbols-rounded text-lg">edit</span>
-            </a>
-
             <!-- Avatar -->
             <div class="w-16 h-16 rounded-full p-1 shadow-md bg-white/20 backdrop-blur-sm">
                 <div
