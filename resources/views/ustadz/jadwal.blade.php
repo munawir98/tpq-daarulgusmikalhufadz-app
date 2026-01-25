@@ -80,7 +80,8 @@
             }
 
             .animate-marquee {
-                animation: marquee 15s linear infinite;
+                animation: marquee 40s linear infinite;
+                /* Slower for 31 days */
             }
 
             .animate-marquee:hover {
@@ -88,7 +89,7 @@
             }
         </style>
 
-        <!-- Calendar Strip (Marquee & Distinct Colors) -->
+        <!-- Calendar Strip (Marquee & Distinct Colors - Full Month) -->
         <div class="bg-white dark:bg-[#1a2e29] pt-6 pb-4 shadow-sm overflow-hidden">
             <div class="px-4 mb-4 flex justify-between items-center text-[#111816] dark:text-white">
                 <h3 class="font-bold text-lg">Oktober 2023</h3>
@@ -98,95 +99,59 @@
             <!-- Marquee Container -->
             <div class="relative w-full overflow-hidden">
                 <div class="flex gap-3 px-4 w-max animate-marquee">
-                    <!-- Set 1 -->
-                    <!-- Senin (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Sen</p>
-                        <p class="text-xl font-bold">12</p>
-                    </div>
-                    <!-- Selasa (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Sel</p>
-                        <p class="text-xl font-bold">13</p>
-                    </div>
-                    <!-- Rabu (Active - Blue) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Rab</p>
-                        <p class="text-xl font-bold">14</p>
-                    </div>
-                    <!-- Kamis (Active - Purple) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Kam</p>
-                        <p class="text-xl font-bold">15</p>
-                    </div>
-                    <!-- Jumat (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Jum</p>
-                        <p class="text-xl font-bold">16</p>
-                    </div>
-                    <!-- Sabtu (Active - Orange) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Sab</p>
-                        <p class="text-xl font-bold">17</p>
-                    </div>
-                    <!-- Minggu (Active - Teal) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Min</p>
-                        <p class="text-xl font-bold">18</p>
-                    </div>
+                    @php
+                    // Mapping 0-6 to Day Names
+                    $dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
-                    <!-- Set 2 (Duplicate for Seamless Loop) -->
-                    <!-- Senin (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Sen</p>
-                        <p class="text-xl font-bold">12</p>
-                    </div>
-                    <!-- Selasa (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Sel</p>
-                        <p class="text-xl font-bold">13</p>
-                    </div>
-                    <!-- Rabu (Active - Blue) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Rab</p>
-                        <p class="text-xl font-bold">14</p>
-                    </div>
-                    <!-- Kamis (Active - Purple) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Kam</p>
-                        <p class="text-xl font-bold">15</p>
-                    </div>
-                    <!-- Jumat (Inactive) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800">
-                        <p class="text-xs font-medium text-gray-500">Jum</p>
-                        <p class="text-xl font-bold">16</p>
-                    </div>
-                    <!-- Sabtu (Active - Orange) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Sab</p>
-                        <p class="text-xl font-bold">17</p>
-                    </div>
-                    <!-- Minggu (Active - Teal) -->
-                    <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]">
-                        <p class="text-xs font-medium opacity-90">Min</p>
-                        <p class="text-xl font-bold">18</p>
-                    </div>
+                    // Config: Day 1 matches Kamis (Index 4)
+                    // Formula: Index = ($i + 3) % 7
+                    // (1+3)%7 = 4 (Kam), (2+3)%7 = 5 (Jum)... (12+3)%7 = 1 (Sen) -> Correct logic based on previous
+                    data
+                    $offset = 3;
+                    $totalDays = 31;
+                    @endphp
+
+                    {{-- Loop Set 1 --}}
+                    @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7;
+                        $dayName=$dayNames[$dayIndex]; // Default Style (Inactive)
+                        $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
+                        ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
+                        $isActive=true;
+                        $colorClass="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                        ; $textClass="opacity-90" ; } elseif ($dayName=='Kam' ) { $isActive=true;
+                        $colorClass="bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                        ; $textClass="opacity-90" ; } elseif ($dayName=='Sab' ) { $isActive=true;
+                        $colorClass="bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                        ; $textClass="opacity-90" ; } elseif ($dayName=='Min' ) { $isActive=true;
+                        $colorClass="bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                        ; $textClass="opacity-90" ; } @endphp <div
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl {{ $colorClass }}">
+                        <p class="text-xs font-medium {{ $textClass }}">{{ $dayName }}</p>
+                        <p class="text-xl font-bold">{{ $i }}</p>
                 </div>
+                @endfor
+
+                {{-- Loop Set 2 (Duplicate for Seamless Loop) --}}
+                @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7; $dayName=$dayNames[$dayIndex];
+                    // Default Style (Inactive)
+                    $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
+                    ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
+                    $isActive=true;
+                    $colorClass="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                    ; $textClass="opacity-90" ; } elseif ($dayName=='Kam' ) { $isActive=true;
+                    $colorClass="bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                    ; $textClass="opacity-90" ; } elseif ($dayName=='Sab' ) { $isActive=true;
+                    $colorClass="bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-orange-500/20 ring-2 ring-orange-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                    ; $textClass="opacity-90" ; } elseif ($dayName=='Min' ) { $isActive=true;
+                    $colorClass="bg-gradient-to-br from-teal-400 to-emerald-500 text-white shadow-lg shadow-teal-500/20 ring-2 ring-teal-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
+                    ; $textClass="opacity-90" ; } @endphp <div
+                    class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl {{ $colorClass }}">
+                    <p class="text-xs font-medium {{ $textClass }}">{{ $dayName }}</p>
+                    <p class="text-xl font-bold">{{ $i }}</p>
             </div>
+            @endfor
+        </div>
+        </div>
         </div>
 
         <!-- Info Card -->
