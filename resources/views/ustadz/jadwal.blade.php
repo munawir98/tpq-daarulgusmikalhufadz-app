@@ -87,7 +87,7 @@
         <!-- Calendar Strip (Marquee & Distinct Colors - Full Month) -->
         <div class="bg-white dark:bg-[#1a2e29] pt-6 pb-4 shadow-sm overflow-hidden">
             <div class="px-4 mb-4 flex justify-between items-center text-[#111816] dark:text-white">
-                <h3 class="font-bold text-lg">Oktober 2023</h3>
+                <h3 class="font-bold text-sm">{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('F Y') }}</h3>
                 <span class="material-symbols-outlined text-primary">calendar_month</span>
             </div>
 
@@ -164,7 +164,8 @@
         </div>
 
         <div class="px-4 pt-2 pb-2">
-            <h3 class="text-[#111816] dark:text-gray-200 text-lg font-bold leading-tight">Rabu, 14 Oktober</h3>
+            <h3 class="text-[#111816] dark:text-gray-200 text-sm font-bold leading-tight">{{
+                \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F') }}</h3>
         </div>
 
         <!-- Cards Container -->
