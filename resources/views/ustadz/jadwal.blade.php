@@ -104,9 +104,6 @@
                     $dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
 
                     // Config: Day 1 matches Kamis (Index 4)
-                    // Formula: Index = ($i + 3) % 7
-                    // (1+3)%7 = 4 (Kam), (2+3)%7 = 5 (Jum)... (12+3)%7 = 1 (Sen) -> Correct logic based on previous
-                    data
                     $offset = 3;
                     $totalDays = 31;
                     @endphp
