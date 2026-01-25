@@ -140,7 +140,6 @@
                     <div>
                         <h1 class="text-xl font-bold leading-tight">Presensi Kehadiran</h1>
                         <p class="text-white/70 text-xs">Ustadz & Pengajar</p>
-                        <p class="text-white/80 text-[10px] mt-1">{{ now()->translatedFormat('l, d F Y') }}</p>
                     </div>
                 </div>
             </div>
@@ -318,6 +317,73 @@
                             <span
                                 class="material-symbols-rounded text-gray-400 text-xs animate-bounce-x">compare_arrows</span>
                             <span class="text-[7px] text-gray-400 font-medium">Geser untuk melihat riwayat</span>
+                        </div>
+
+                        <!-- Calendar Section (New) -->
+                        <div class="border-t border-slate-100 dark:border-slate-800 mt-6 pt-2">
+                            <!-- Toggle Header -->
+                            <button onclick="toggleKehadiran()"
+                                class="w-full p-4 bg-slate-50/50 dark:bg-slate-800/20 rounded-xl flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="text-xs font-bold uppercase text-slate-500">Tanggal Kehadiran</h4>
+                                    <span
+                                        class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">{{
+                                        $presensiCount ?? 0 }} Hari Hadir</span>
+                                </div>
+                                <span id="toggleIcon"
+                                    class="material-symbols-rounded text-slate-400 transition-transform duration-300">expand_more</span>
+                            </button>
+
+                            <!-- Collapsible Content -->
+                            <div id="kehadiranContent"
+                                class="hidden p-4 pt-4 bg-slate-50/50 dark:bg-slate-800/20 rounded-b-xl mt-1">
+                                @php
+                                $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
+                                $attendanceMap = [];
+                                if(isset($presensiDetails)) {
+                                foreach($presensiDetails as $detail) {
+                                $d = \Carbon\Carbon::parse($detail->tanggal)->day;
+                                if (!isset($attendanceMap[$d])) $attendanceMap[$d] = [];
+                                $attendanceMap[$d][] = [
+                                'jam' => $detail->jam,
+                                'status' => $detail->status_presensi
+                                ];
+                                }
+                                }
+                                @endphp
+
+                                <div class="rounded-lg">
+                                    <div class="grid grid-cols-7 gap-1.5 text-center">
+                                        <span class="text-[10px] font-bold text-slate-400">Sn</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Sl</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Rb</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Km</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Jm</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Sb</span>
+                                        <span class="text-[10px] font-bold text-slate-400">Mg</span>
+
+                                        {{-- Empty slots for start of month --}}
+                                        @php
+                                        $firstDayOfWeek = \Carbon\Carbon::createFromDate($year, $month,
+                                        1)->dayOfWeekIso;
+                                        @endphp
+                                        @for($i = 1; $i < $firstDayOfWeek; $i++) <span></span> @endfor
+
+                                            {{-- Days --}}
+                                            @for($day = 1; $day <= $daysInMonth; $day++) @php
+                                                $hasData=isset($attendanceMap[$day]); $events=$hasData ?
+                                                $attendanceMap[$day] : []; $dataAttr=$hasData ?
+                                                htmlspecialchars(json_encode($events), ENT_QUOTES, 'UTF-8' ) : '' ;
+                                                @endphp <button
+                                                onclick="showAttendanceDetail('{{ $day }} {{ $fullPeriodName }}', this.getAttribute('data-events'))"
+                                                data-events="{{ $dataAttr }}"
+                                                class="aspect-square flex flex-col items-center justify-center rounded-lg text-[10px] font-medium transition-all {{ $hasData ? 'bg-green-500 text-white shadow-sm hover:bg-green-600 active:scale-95' : 'text-slate-400 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700' }}">
+                                                {{ $day }}
+                                                </button>
+                                                @endfor
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -548,6 +614,35 @@
         function goToSlide(index) {
             const container = document.getElementById('slideContainer');
             container.scrollTo({ left: index * container.offsetWidth, behavior: 'smooth' });
+        }
+
+        // CALENDAR LOGIC
+        function toggleKehadiran() {
+            const content = document.getElementById('kehadiranContent');
+            const icon = document.getElementById('toggleIcon');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function showAttendanceDetail(dateStr, eventsJson) {
+            if (!eventsJson) return;
+
+            try {
+                const events = JSON.parse(eventsJson);
+                let message = "Detail Kehadiran " + dateStr + ":\n";
+                events.forEach(e => {
+                    message += "- " + e.status + " pada jam " + e.jam + "\n";
+                });
+                alert(message);
+            } catch (e) {
+                console.error("Error parsing events", e);
+            }
         }
     </script>
 </body>

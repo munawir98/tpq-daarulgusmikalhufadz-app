@@ -388,13 +388,29 @@ class PresensiWebController extends Controller
         $tanggalLengkap = array_intersect($tanggalMasuk, $tanggalPulang);
         $totalHadirCount = count(array_unique($tanggalLengkap));
 
+        // Data for Calendar (Month View)
+        $year = now()->year;
+        $month = now()->month;
+        $fullPeriodName = now()->translatedFormat('F Y');
+
+        $presensiDetails = \App\Models\Presensi::where('user_id', $userId)
+            ->whereYear('tanggal', $year)
+            ->whereMonth('tanggal', $month)
+            ->get();
+
         return view('ustadz.presensi.index', [
             'riwayat' => $riwayat,
             'jamMasuk' => $jamMasuk,
             'jamPulang' => $jamPulang,
             'filterStart' => $startDate,
             'filterEnd' => $endDate,
-            'totalHadir' => $totalHadirCount
+            'totalHadir' => $totalHadirCount,
+            // Calendar Data
+            'presensiDetails' => $presensiDetails,
+            'year' => $year,
+            'month' => $month,
+            'fullPeriodName' => $fullPeriodName,
+            'presensiCount' => $totalHadirCount // Reusing totalHadirCount for simplicity for now, or calculate specifically for month if needed
         ]);
     }
 
