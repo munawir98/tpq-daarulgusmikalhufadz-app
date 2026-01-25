@@ -98,49 +98,49 @@
                 <div class="flex gap-3 px-4 w-max animate-marquee">
                     <!-- Set 1 -->
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20">
                         <p class="text-xs font-medium opacity-90">Sen</p>
                         <p class="text-xl font-bold">12</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20">
                         <p class="text-xs font-medium opacity-90">Sel</p>
                         <p class="text-xl font-bold">13</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 text-white shadow-lg shadow-cyan-500/20 ring-2 ring-white/50">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 text-white shadow-lg shadow-cyan-500/20 ring-2 ring-white/50">
                         <p class="text-xs font-medium opacity-90">Rab</p>
                         <p class="text-xl font-bold">14</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-500/20">
                         <p class="text-xs font-medium opacity-90">Kam</p>
                         <p class="text-xl font-bold">15</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-amber-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-amber-500/20">
                         <p class="text-xs font-medium opacity-90">Jum</p>
                         <p class="text-xl font-bold">16</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-lime-400 to-green-500 text-white shadow-lg shadow-lime-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-lime-400 to-green-500 text-white shadow-lg shadow-lime-500/20">
                         <p class="text-xs font-medium opacity-90">Sab</p>
                         <p class="text-xl font-bold">17</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-600 text-white shadow-lg shadow-fuchsia-500/20">
                         <p class="text-xs font-medium opacity-90">Min</p>
                         <p class="text-xl font-bold">18</p>
                     </div>
 
                     <!-- Set 2 (Duplicate for Seamless Loop) -->
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/20">
                         <p class="text-xs font-medium opacity-90">Sen</p>
                         <p class="text-xl font-bold">12</p>
                     </div>
                     <div
-                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20">
+                        class="flex flex-col items-center justify-center min-w-[60px] h-20 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/20">
                         <p class="text-xs font-medium opacity-90">Sel</p>
                         <p class="text-xl font-bold">13</p>
                     </div>
