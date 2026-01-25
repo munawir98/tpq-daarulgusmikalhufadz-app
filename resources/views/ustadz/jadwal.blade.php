@@ -108,12 +108,11 @@
                     $totalDays = 31;
                     @endphp
 
-                    {{-- Loop Set 1 (Fixed) --}}
+                    {{-- Loop Set 1 --}}
                     @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7;
-                        $dayName=$dayNames[$dayIndex]; // Default Style
+                        $dayName=$dayNames[$dayIndex];
                         $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
-                        ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
-                        $isActive=true;
+                        ; $textClass="text-gray-500" ; $isActive=false; if ($dayName=='Rab' ) { $isActive=true;
                         $colorClass="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
                         ; $textClass="opacity-90" ; } elseif ($dayName=='Kam' ) { $isActive=true;
                         $colorClass="bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
@@ -130,10 +129,8 @@
 
                 {{-- Loop Set 2 (Duplicate for Seamless Loop) --}}
                 @for ($i = 1; $i <= $totalDays; $i++) @php $dayIndex=($i + $offset) % 7; $dayName=$dayNames[$dayIndex];
-                    // Default Style
                     $colorClass="bg-background-light dark:bg-background-dark border border-gray-100 dark:border-gray-800"
-                    ; $textClass="text-gray-500" ; $isActive=false; // Color Logic if ($dayName=='Rab' ) {
-                    $isActive=true;
+                    ; $textClass="text-gray-500" ; $isActive=false; if ($dayName=='Rab' ) { $isActive=true;
                     $colorClass="bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20 ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
                     ; $textClass="opacity-90" ; } elseif ($dayName=='Kam' ) { $isActive=true;
                     $colorClass="bg-gradient-to-br from-purple-500 to-fuchsia-500 text-white shadow-lg shadow-purple-500/20 ring-2 ring-purple-500 ring-offset-2 dark:ring-offset-[#1a2e29]"
