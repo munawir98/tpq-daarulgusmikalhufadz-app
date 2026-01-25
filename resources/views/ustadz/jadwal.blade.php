@@ -59,13 +59,8 @@
     <main class="max-w-md mx-auto pt-4 relative">
         <!-- Box Header -->
         <header
-            class="flex items-center justify-between bg-white dark:bg-[#1a2e29] h-16 px-4 shadow-sm mx-4 rounded-2xl mb-6 border border-gray-100 dark:border-gray-800 relative z-30">
-            <a href="{{ route('ustadz.dashboard') }}"
-                class="flex items-center justify-center size-10 rounded-full bg-gray-50 dark:bg-white/10 text-gray-600 dark:text-white hover:bg-gray-100 transition-colors">
-                <span class="material-symbols-outlined">chevron_left</span>
-            </a>
-            <h1 class="text-[#111816] dark:text-white text-lg font-bold leading-tight flex-1 text-center pr-10">Jadwal
-                Tahfidz</h1>
+            class="flex items-center justify-center bg-gradient-to-br from-[#0f8b6b] to-primary h-16 px-4 shadow-lg shadow-primary/20 mx-4 rounded-2xl mb-6 relative z-30">
+            <h1 class="text-white text-lg font-bold leading-tight text-center">Jadwal Tahfidz</h1>
         </header>
 
         <style>
