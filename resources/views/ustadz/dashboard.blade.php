@@ -477,7 +477,7 @@
 
             <!-- White Container Wrapper -->
             <div id="whiteContainer"
-                class="w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-5 relative z-20 flex-grow min-h-0 pb-[calc(10px+env(safe-area-inset-bottom))] transition-all duration-300">
+                class="w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-5 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
 
                 <!-- Main Attendance Card (Expandable) -->
                 <div id="mainCard"
@@ -907,7 +907,7 @@
                 </div>
 
                 <!-- Bottom Navigation -->
-                @include('layouts.partials.bottom-nav')
+
 
                 <!-- Scripts -->
                 <script src="{{ asset('js/islamic-quotes.js') }}"></script>
@@ -2413,6 +2413,13 @@
                     window.goToSlide = goToSlide;
                 </script>
                 <div id="debugConsole">DEBUG CONSOLE STARTED...<br></div>
+            </div> <!-- End WhiteContainer -->
+        </div> <!-- End ScrollableContent -->
+
+        <!-- Bottom Navigation (Absolute for mobile wrapper) -->
+        @include('layouts.partials.bottom-nav', ['position' => 'absolute'])
+
+    </div> <!-- End MainWrapper -->
 </body>
 
 </html>
