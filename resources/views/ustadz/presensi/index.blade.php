@@ -115,9 +115,9 @@
     </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-gray-900 font-display min-h-screen p-0 block">
+<body class="bg-gray-100 dark:bg-gray-900 font-display flex justify-center items-center min-h-screen p-0 sm:p-4">
     <div
-        class="relative w-full h-[100dvh] bg-background-light dark:bg-background-dark rounded-none overflow-hidden shadow-none flex flex-col">
+        class="relative w-full max-w-[434px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
 
         <!-- Header Background -->
         <div
@@ -320,10 +320,10 @@
                         </div>
 
                         <!-- Calendar Section (New) -->
-                        <div class="border-t border-slate-100 dark:border-slate-800 mt-6 pt-2">
+                        <div class="mt-6 -mx-5 -mb-5">
                             <!-- Toggle Header -->
                             <button onclick="toggleKehadiran()"
-                                class="w-full p-4 bg-slate-50/50 dark:bg-slate-800/20 rounded-xl flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors">
+                                class="w-full p-4 bg-slate-50/50 dark:bg-slate-800/20 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-colors border-t border-slate-100 dark:border-slate-800">
                                 <div class="flex items-center gap-2">
                                     <h4 class="text-xs font-bold uppercase text-slate-500">Tanggal Kehadiran</h4>
                                     <span
@@ -335,8 +335,7 @@
                             </button>
 
                             <!-- Collapsible Content -->
-                            <div id="kehadiranContent"
-                                class="hidden p-4 pt-4 bg-slate-50/50 dark:bg-slate-800/20 rounded-b-xl mt-1">
+                            <div id="kehadiranContent" class="hidden p-4 pt-4 bg-slate-50/50 dark:bg-slate-800/20 mt-0">
                                 @php
                                 $daysInMonth = \Carbon\Carbon::createFromDate($year, $month, 1)->daysInMonth;
                                 $attendanceMap = [];
