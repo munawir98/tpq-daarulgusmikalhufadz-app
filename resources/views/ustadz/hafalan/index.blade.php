@@ -67,9 +67,9 @@
     </script>
 </head>
 
-<body class="bg-white dark:bg-gray-900 font-display flex justify-center items-center min-h-screen p-0 sm:p-4">
+<body class="bg-white dark:bg-gray-900 font-display flex justify-center items-start min-h-screen p-0 sm:pt-4">
     <div
-        class="relative w-full max-w-[400px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] shadow-none sm:shadow-2xl flex flex-col">
+        class="relative w-full max-w-[434px] min-h-[100dvh] sm:min-h-0 sm:h-[622px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] shadow-none sm:shadow-2xl flex flex-col">
         <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar pb-6">
             <header
                 class="flex items-center bg-white dark:bg-surface-dark h-14 px-4 shadow-sm mx-6 rounded-2xl mt-6 mb-4 border border-gray-100 dark:border-gray-800">
@@ -161,7 +161,8 @@
                                         <div class="shrink-0 flex flex-col items-center justify-center gap-1">
                                             <div
                                                 class="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-800/50 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                                                <span class="material-symbols-rounded text-xl">history_edu</span></div>
+                                                <span class="material-symbols-rounded text-xl">history_edu</span>
+                                            </div>
                                             <span
                                                 class="text-[10px] uppercase font-bold text-amber-600/80 dark:text-amber-400/80 tracking-wider">Terakhir</span>
                                         </div>
@@ -203,7 +204,8 @@
                                     <div id="surahIcon" onclick="clearSurah(event)"
                                         class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 flex items-center justify-center cursor-pointer transition-colors hover:text-red-500">
                                         <span class="material-symbols-rounded"
-                                            style="font-size: 24px;">keyboard_arrow_down</span></div>
+                                            style="font-size: 24px;">keyboard_arrow_down</span>
+                                    </div>
                                     <div id="surahDropdown"
                                         class="hidden absolute left-0 right-0 top-full mt-2 bg-white dark:bg-surface-dark rounded-xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 max-h-60 overflow-y-auto z-40">
                                         <div id="surahListContainer"></div>
@@ -273,7 +275,8 @@
                                     <div
                                         class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                                         <span class="material-symbols-rounded animate-pulse"
-                                            style="font-size: 20px;">mic</span></div>
+                                            style="font-size: 20px;">mic</span>
+                                    </div>
                                     <div class="flex flex-col flex-1"><span
                                             class="text-sm font-semibold text-[#111813] dark:text-white">Rekam
                                             Suara</span><span class="text-xs text-gray-500 dark:text-gray-400">Ketuk
@@ -286,7 +289,8 @@
                                         <span
                                             class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span><span
                                             class="material-symbols-rounded text-red-600 dark:text-red-400 relative z-10"
-                                            style="font-size: 20px;">mic_off</span></div>
+                                            style="font-size: 20px;">mic_off</span>
+                                    </div>
                                     <div class="flex flex-col flex-1"><span
                                             class="text-sm font-bold text-red-600 dark:text-red-400">Merekam...</span><span
                                             id="recordingTimer"
