@@ -67,9 +67,11 @@
     </script>
 </head>
 
-<body class="bg-white dark:bg-gray-900 font-display flex justify-center items-start min-h-screen p-0 sm:pt-4">
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-start p-0 sm:py-4">
+
+    <!-- Mobile Wrapper -->
     <div
-        class="relative w-full max-w-[434px] min-h-[100dvh] sm:min-h-0 sm:h-[622px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] shadow-none sm:shadow-2xl flex flex-col">
+        class="relative flex h-full min-h-screen sm:min-h-0 sm:h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
         <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar pb-6">
             <header
                 class="flex items-center bg-white dark:bg-surface-dark h-14 px-4 shadow-sm mx-6 rounded-2xl mt-6 mb-4 border border-gray-100 dark:border-gray-800">

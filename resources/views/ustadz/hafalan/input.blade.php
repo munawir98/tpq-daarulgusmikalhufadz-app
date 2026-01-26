@@ -48,9 +48,9 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark font-display antialiased text-[#111813] dark:text-white flex justify-center items-start min-h-screen p-0 sm:pt-4">
+    class="bg-background-light dark:bg-background-dark font-display antialiased text-[#111813] dark:text-white flex justify-center items-start min-h-screen p-0 sm:py-4">
     <div
-        class="relative flex h-full min-h-screen sm:min-h-0 sm:h-[622px] sm:rounded-[40px] w-full flex-col overflow-x-hidden max-w-[434px] mx-auto bg-background-light dark:bg-background-dark shadow-xl">
+        class="relative flex h-full min-h-screen sm:min-h-0 sm:h-[850px] sm:rounded-[40px] w-full flex-col overflow-x-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark shadow-xl">
 
         <!-- Header -->
         <div

@@ -104,9 +104,9 @@
 </head>
 
 <body
-    class="bg-background-light dark:bg-background-dark font-display antialiased text-[#111813] dark:text-white transition-colors duration-200 flex justify-center items-start min-h-screen p-0 sm:pt-4">
+    class="bg-background-light dark:bg-background-dark font-display antialiased text-[#111813] dark:text-white transition-colors duration-200 flex justify-center items-start min-h-screen p-0 sm:py-4">
     <div
-        class="relative w-full max-w-[434px] min-h-[100dvh] sm:min-h-0 sm:h-[622px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
+        class="relative w-full max-w-[480px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
 
         <!-- Header Background -->
         <div
