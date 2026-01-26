@@ -66,7 +66,7 @@
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-full min-h-screen sm:min-h-0 sm:h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        class="relative flex h-[100dvh] sm:h-auto sm:min-h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
         {{-- Header --}}
         @hasSection('header')

@@ -347,7 +347,7 @@
 
 <body class="bg-gray-100 dark:bg-gray-900 font-display flex justify-center items-start min-h-screen p-0 sm:py-4">
     <div
-        class="relative w-full max-w-[480px] min-h-[100dvh] sm:min-h-0 sm:h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
+        class="relative w-full max-w-[480px] h-[100dvh] sm:h-auto sm:min-h-[850px] bg-background-light dark:bg-background-dark rounded-none sm:rounded-[40px] overflow-hidden shadow-none sm:shadow-2xl flex flex-col">
 
         <!-- Header Background - Blue Gradient -->
         <div
