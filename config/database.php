@@ -64,7 +64,8 @@ return [
                 PDO::ATTR_EMULATE_PREPARES => true,
                 PDO::ATTR_PERSISTENT => false,
                 // Add timeouts to handle "server has gone away" on public proxy
-                PDO::ATTR_TIMEOUT => 5,
+                PDO::ATTR_TIMEOUT => 30,
+                PDO::MYSQL_ATTR_COMPRESS => true, // Compress data for remote connections
             ]) : [],
         ],
 
