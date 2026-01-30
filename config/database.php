@@ -63,6 +63,8 @@ return [
                 PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
                 PDO::ATTR_EMULATE_PREPARES => true,
                 PDO::ATTR_PERSISTENT => false,
+                // Add timeouts to handle "server has gone away" on public proxy
+                PDO::ATTR_TIMEOUT => 5,
             ]) : [],
         ],
 
