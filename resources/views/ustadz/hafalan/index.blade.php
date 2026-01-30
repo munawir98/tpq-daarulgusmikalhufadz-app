@@ -61,17 +61,22 @@
             appearance: none;
             display: none;
         }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
     </style>
     <script>
         if (localStorage.getItem('theme') === 'dark') { document.documentElement.classList.add('dark'); } else { document.documentElement.classList.remove('dark'); }
     </script>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-start p-0 sm:py-4">
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-start p-0 sm:py-4 transition-colors duration-200">
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-[100dvh] sm:h-auto sm:min-h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
         <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar pb-6">
             <header
                 class="flex items-center bg-white dark:bg-surface-dark h-14 px-4 shadow-sm mx-6 rounded-2xl mt-6 mb-4 border border-gray-100 dark:border-gray-800">

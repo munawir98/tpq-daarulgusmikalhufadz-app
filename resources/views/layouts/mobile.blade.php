@@ -57,6 +57,10 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
     </style>
 
     @stack('styles')
@@ -66,7 +70,7 @@
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-[100dvh] sm:h-auto sm:min-h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
 
         {{-- Header --}}
         @hasSection('header')

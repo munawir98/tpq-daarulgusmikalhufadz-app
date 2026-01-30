@@ -30,12 +30,17 @@
             },
         };
     </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
 </head>
 
 <body
     class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-white transition-colors duration-200">
     <div
-        class="max-w-md mx-auto min-h-screen bg-white dark:bg-gray-900 shadow-xl overflow-hidden flex flex-col relative w-full">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl pb-24">
 
         <!-- Header -->
         <header

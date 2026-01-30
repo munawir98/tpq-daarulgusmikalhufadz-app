@@ -73,9 +73,10 @@
     </script>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark flex justify-center items-start min-h-screen p-0 sm:py-4">
+<body
+    class="bg-background-light dark:bg-background-dark flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-[100dvh] sm:h-auto sm:min-h-[850px] sm:rounded-[40px] w-full flex-col max-w-[480px] mx-auto bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
 
 
 
