@@ -15,8 +15,17 @@ class ProfileWebController extends Controller
             return redirect()->route('login.form');
         }
 
+        $role = strtoupper($user['role']);
+        $dashboardUrl = match($role) {
+            'ADMIN' => '/admin/dashboard',
+            'USTADZ' => '/ustadz/dashboard',
+            'SANTRI' => '/santri/dashboard',
+            default => '/dashboard',
+        };
+
         return view('profile.index', [
             'user' => (object) $user,
+            'dashboardUrl' => $dashboardUrl,
         ]);
     }
 
@@ -203,8 +212,17 @@ class ProfileWebController extends Controller
             ];
         });
 
+        $role = strtoupper($user->role);
+        $dashboardUrl = match($role) {
+            'ADMIN' => '/admin/dashboard',
+            'USTADZ' => '/ustadz/dashboard',
+            'SANTRI' => '/santri/dashboard',
+            default => '/dashboard',
+        };
+
         return view('profile.notifications', [
             'notifications' => $notifications,
+            'dashboardUrl' => $dashboardUrl,
         ]);
     }
 

@@ -348,7 +348,7 @@
             class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pb-5 pt-3 px-6 z-50">
             <div class="flex justify-between items-center">
                 <a class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                    href="/santri/dashboard">
+                    href="{{ $dashboardUrl }}">
                     <span class="material-symbols-outlined">home</span>
                     <span class="text-[10px] font-medium">Beranda</span>
                 </a>
