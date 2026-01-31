@@ -2417,8 +2417,8 @@
             </div> <!-- End WhiteContainer -->
         </div> <!-- End ScrollableContent -->
 
-        <!-- Bottom Navigation (Absolute for mobile wrapper) -->
-        @include('layouts.partials.bottom-nav', ['position' => 'absolute'])
+        <!-- Bottom Navigation (Fixed for view) -->
+        @include('layouts.partials.bottom-nav', ['position' => 'fixed'])
 
     </div> <!-- End MainWrapper -->
 </body>
