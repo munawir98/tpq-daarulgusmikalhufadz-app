@@ -39,7 +39,8 @@
     <style type="text/tailwindcss">
         body {
             font-family: "Poppins", sans-serif;
-            min-height: max(884px, 100dvh);
+            min-height: 100vh;
+            overflow-y: auto;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -76,7 +77,7 @@
 <body
     class="bg-background-light dark:bg-background-dark flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
 
 
 

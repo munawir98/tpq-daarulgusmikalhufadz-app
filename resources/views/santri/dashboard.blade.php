@@ -32,7 +32,8 @@
     </script>
     <style>
         body {
-            min-height: max(884px, 100dvh);
+            min-height: 100vh;
+            /* overflow: hidden; Removed for desktop scroll */
         }
     </style>
 </head>
@@ -40,7 +41,7 @@
 <body
     class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-white transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
 
         <!-- Header -->
         <header
@@ -80,7 +81,7 @@
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto w-full px-5 py-6 flex flex-col gap-6 pb-24">
+        <main class="flex-1 w-full px-5 py-6 flex flex-col gap-6 pb-24">
 
             <!-- Statistik Card -->
             <div class="grid grid-cols-2 gap-3">

@@ -339,8 +339,8 @@
         body {
             /* Prevent pull-to-refresh on mobile used as app */
             overscroll-behavior-y: none;
-            min-height: max(884px, 100dvh);
-            overflow: hidden;
+            min-height: 100vh;
+            /* overflow: hidden; Removed for desktop scroll */
         }
     </style>
 </head>
@@ -348,7 +348,7 @@
 <body
     class="bg-gray-100 dark:bg-gray-900 font-display flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl pb-24 rounded-none sm:rounded-2xl">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl md:text-lg">
 
         <!-- Header Background - Blue Gradient -->
         <div
@@ -364,7 +364,7 @@
         </div>
 
         <!-- Scrollable Content -->
-        <div class="relative z-10 flex-1 overflow-y-auto no-scrollbar flex flex-col">
+        <div class="relative z-10 flex-1 flex flex-col">
 
             <!-- Top Header -->
             <div

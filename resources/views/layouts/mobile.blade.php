@@ -59,7 +59,9 @@
         }
 
         body {
-            min-height: max(884px, 100dvh);
+            min-height: 100vh;
+            overflow-y: auto;
+            /* Enable native scroll */
         }
     </style>
 
@@ -70,7 +72,7 @@
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
 
         {{-- Header --}}
         @hasSection('header')

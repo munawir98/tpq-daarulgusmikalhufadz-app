@@ -48,7 +48,8 @@
         }
 
         body {
-            min-height: max(884px, 100dvh);
+            min-height: 100vh;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -56,7 +57,7 @@
 <body
     class="bg-background-light dark:bg-background-dark font-display text-[#111813] dark:text-white transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
 
         <!-- Header -->
         <header
@@ -235,7 +236,7 @@
 
         <!-- Bottom Navigation -->
         <nav
-            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pb-5 pt-3 px-6 z-50">
+            class="fixed bottom-0 left-0 right-0 w-full max-w-md md:max-w-2xl mx-auto bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pb-5 pt-3 px-6 z-50">
             <div class="flex justify-between items-center">
                 <a class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
                     href="{{ $dashboardUrl }}">
