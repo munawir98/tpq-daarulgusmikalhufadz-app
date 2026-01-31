@@ -41,7 +41,7 @@
 <body
     class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-white transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24">
 
         <!-- Header -->
         <header

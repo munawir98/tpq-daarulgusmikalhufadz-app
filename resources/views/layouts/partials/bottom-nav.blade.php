@@ -46,7 +46,7 @@ $position = $position ?? 'fixed';
 $positionClass = $position === 'absolute' ? 'absolute bottom-0' : 'fixed bottom-0';
 @endphp
 
-<nav class="{{ $positionClass }} left-0 right-0 w-full max-w-md md:max-w-2xl mx-auto z-50">
+<nav class="{{ $positionClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
         class="relative bg-white dark:bg-gray-900 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-2 pb-0.5 px-2">

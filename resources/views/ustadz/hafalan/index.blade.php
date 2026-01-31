@@ -77,7 +77,7 @@
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24">
         <div class="relative z-10 flex-1 pb-6 h-full flex flex-col">
             <header
                 class="flex items-center bg-white dark:bg-surface-dark h-14 px-4 shadow-sm mx-6 rounded-2xl mt-6 mb-4 border border-gray-100 dark:border-gray-800">
