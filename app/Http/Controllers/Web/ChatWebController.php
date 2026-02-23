@@ -3,37 +3,57 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class ChatWebController extends Controller
 {
-    protected function apiUrl($path = '')
-    {
-        return config('app.api_url', 'http://localhost:8000/api') . $path;
-    }
-
-    protected function getToken()
-    {
-        return session('api_token');
-    }
-
     /**
      * Display chat list / conversations
      */
     public function index()
     {
-        try {
-            $response = Http::withToken($this->getToken())
-                ->get($this->apiUrl('/chat/conversations'));
+        $userId = auth()->id();
 
-            $conversations = $response->successful()
-                ? collect($response->json('data', []))
-                : collect();
+        // Get all chats involving the current user
+        $allChats = Chat::where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        } catch (\Exception $e) {
-            $conversations = collect();
-        }
+        // Group by the other user (conversation partner)
+        $grouped = $allChats->groupBy(function ($chat) use ($userId) {
+            return $chat->sender_id == $userId ? $chat->receiver_id : $chat->sender_id;
+        });
+
+        // Build conversation list
+        $conversations = $grouped->map(function ($chats, $otherUserId) use ($userId) {
+            $lastChat = $chats->first(); // already sorted desc
+            $otherUser = User::find($otherUserId);
+
+            if (!$otherUser) return null;
+
+            $unreadCount = $chats->where('sender_id', $otherUserId)
+                ->where('is_read', false)
+                ->count();
+
+            return (object) [
+                'id' => $otherUserId,
+                'is_group' => false,
+                'unread_count' => $unreadCount,
+                'last_message' => $lastChat->message,
+                'last_message_at' => $lastChat->created_at,
+                'recipient' => (object) [
+                    'name' => $otherUser->name,
+                    'foto' => $otherUser->foto,
+                    'is_online' => false,
+                ],
+            ];
+        })->filter()->sortByDesc(function ($conv) {
+            return $conv->last_message_at;
+        })->values();
 
         return view('chat.index', [
             'conversations' => $conversations,
@@ -45,17 +65,21 @@ class ChatWebController extends Controller
      */
     public function create()
     {
-        try {
-            $response = Http::withToken($this->getToken())
-                ->get($this->apiUrl('/chat/contacts'));
+        $userId = auth()->id();
 
-            $contacts = $response->successful()
-                ? collect($response->json('data', []))
-                : collect();
-
-        } catch (\Exception $e) {
-            $contacts = collect();
-        }
+        // Get all users except the current user
+        $contacts = User::where('id', '!=', $userId)
+            ->orderBy('name', 'asc')
+            ->get()
+            ->map(function ($user) {
+                return (object) [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'role' => $user->role,
+                    'foto' => $user->foto,
+                    'is_online' => false,
+                ];
+            });
 
         return view('chat.new', [
             'contacts' => $contacts,
@@ -67,27 +91,39 @@ class ChatWebController extends Controller
      */
     public function room($id)
     {
-        try {
-            $response = Http::withToken($this->getToken())
-                ->get($this->apiUrl("/chat/{$id}"));
+        $userId = auth()->id();
+        $otherUser = User::find($id);
 
-            if (!$response->successful()) {
-                return redirect()->route('chat.index')
-                    ->with('error', 'Chat tidak ditemukan');
-            }
-
-            $data = $response->json('data');
-
-            return view('chat.room', [
-                'recipient' => (object) $data['recipient'],
-                'messages' => collect($data['messages'] ?? []),
-                'isGroup' => $data['is_group'] ?? false,
-            ]);
-
-        } catch (\Exception $e) {
+        if (!$otherUser) {
             return redirect()->route('chat.index')
-                ->with('error', 'Gagal memuat chat');
+                ->with('error', 'User tidak ditemukan');
         }
+
+        // Get all messages between the two users
+        $messages = Chat::where(function ($q) use ($userId, $id) {
+                $q->where('sender_id', $userId)->where('receiver_id', $id);
+            })
+            ->orWhere(function ($q) use ($userId, $id) {
+                $q->where('sender_id', $id)->where('receiver_id', $userId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Mark unread messages from the other user as read
+        Chat::where('sender_id', $id)
+            ->where('receiver_id', $userId)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
+        return view('chat.room', [
+            'recipient' => (object) [
+                'id' => $otherUser->id,
+                'name' => $otherUser->name,
+                'foto' => $otherUser->foto,
+            ],
+            'messages' => $messages,
+            'isGroup' => false,
+        ]);
     }
 
     /**
@@ -99,30 +135,18 @@ class ChatWebController extends Controller
             'message' => 'required|string|max:1000',
         ]);
 
-        try {
-            $response = Http::withToken($this->getToken())
-                ->post($this->apiUrl("/chat/{$id}/send"), [
-                    'message' => $request->message,
-                ]);
+        $chat = Chat::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $id,
+            'message' => $request->message,
+            'type' => 'text',
+            'is_read' => false,
+        ]);
 
-            if ($response->successful()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => $response->json('data'),
-                ]);
-            }
-
-            return response()->json([
-                'success' => false,
-                'error' => 'Gagal mengirim pesan',
-            ], 422);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Terjadi kesalahan',
-            ], 500);
-        }
+        return response()->json([
+            'success' => true,
+            'message' => $chat,
+        ]);
     }
 
     /**
@@ -147,22 +171,23 @@ class ChatWebController extends Controller
         ]);
 
         try {
-            $data = $request->only(['name', 'phone', 'role', 'email']);
+            $data = [
+                'name' => $request->name,
+                'email' => $request->email ?? $request->name . '@tpq.local',
+                'password' => bcrypt('password123'),
+                'role' => strtoupper($request->role ?? 'SANTRI'),
+                'no_hp' => $request->phone,
+                'status' => 'AKTIF',
+            ];
 
             if ($request->hasFile('foto')) {
                 $data['foto'] = $request->file('foto')->store('contacts', 'public');
             }
 
-            $response = Http::withToken($this->getToken())
-                ->post($this->apiUrl('/chat/contacts'), $data);
+            User::create($data);
 
-            if ($response->successful()) {
-                return redirect()->route('chat.new')
-                    ->with('success', 'Kontak berhasil disimpan!');
-            }
-
-            return back()->withInput()
-                ->with('error', 'Gagal menyimpan kontak.');
+            return redirect()->route('chat.new')
+                ->with('success', 'Kontak berhasil disimpan!');
 
         } catch (\Exception $e) {
             return back()->withInput()

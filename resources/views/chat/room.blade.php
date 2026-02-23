@@ -79,10 +79,10 @@
             {{-- Sent Message --}}
             <div class="flex justify-end">
                 <div class="max-w-[75%] bg-primary text-[#102216] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
-                    <p class="text-sm">{{ $message->content }}</p>
+                    <p class="text-sm">{{ $message->message }}</p>
                     <div class="flex items-center justify-end gap-1 mt-1">
                         <span class="text-[10px] opacity-70">{{ $message->created_at->format('H:i') }}</span>
-                        <span class="material-symbols-outlined text-[12px] opacity-70">{{ $message->read_at ? 'done_all'
+                        <span class="material-symbols-outlined text-[12px] opacity-70">{{ $message->is_read ? 'done_all'
                             : 'done' }}</span>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     @if($isGroup)
                     <p class="text-xs font-bold text-primary mb-1">{{ $message->sender->name }}</p>
                     @endif
-                    <p class="text-sm text-[#111813] dark:text-white">{{ $message->content }}</p>
+                    <p class="text-sm text-[#111813] dark:text-white">{{ $message->message }}</p>
                     <span class="text-[10px] text-gray-400 mt-1 block">{{ $message->created_at->format('H:i') }}</span>
                 </div>
             </div>

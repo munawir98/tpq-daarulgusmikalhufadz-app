@@ -146,6 +146,21 @@
     .pb-24 {
         padding-bottom: 0 !important;
     }
+
+    /* Make main content fill remaining height */
+    main {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding-bottom: 0 !important;
+    }
+
+    /* Contact list fills remaining space */
+    #contactList {
+        flex: 1;
+        overflow-y: auto;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
 </style>
 @endpush
 
