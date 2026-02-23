@@ -130,9 +130,6 @@
                 style="font-size: 48px;">contacts</span>
         </div>
         <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">Belum Ada Kontak</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">
-            Kontak akan muncul setelah data tersedia
-        </p>
     </div>
     @endforelse
 </div>
