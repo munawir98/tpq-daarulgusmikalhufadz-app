@@ -103,7 +103,7 @@
             $avatarColor = $avatarColors[abs($colorIndex)];
             @endphp
             <a href="{{ route('chat.room', $contactId) }}"
-                class="contact-item flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+                class="contact-item flex items-center gap-4 px-3 py-3 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
                 data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
                 <div class="relative">
                     @if($foto)
@@ -122,7 +122,7 @@
                     </div>
                     @endif
                 </div>
-                <div class="flex-1 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div class="flex-1">
                     <h4 class="font-bold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
                     @if($role)
                     <p
