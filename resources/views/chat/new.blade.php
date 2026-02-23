@@ -140,6 +140,15 @@
 <div class="hidden"></div>
 @endsection
 
+@push('styles')
+<style>
+    /* Remove bottom padding since no nav on this page */
+    .pb-24 {
+        padding-bottom: 0 !important;
+    }
+</style>
+@endpush
+
 @push('scripts')
 <script>
     function filterContacts() {
