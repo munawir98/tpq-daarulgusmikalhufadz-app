@@ -103,15 +103,15 @@
             $avatarColor = $avatarColors[abs($colorIndex)];
             @endphp
             <a href="{{ route('chat.room', $contactId) }}"
-                class="contact-item flex items-center gap-4 px-3 py-3 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+                class="contact-item flex items-center gap-3 px-3 py-2 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
                 data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
                 <div class="relative">
                     @if($foto)
-                    <img alt="{{ $name }}" class="h-12 w-12 rounded-full object-cover"
+                    <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover"
                         src="{{ asset('storage/' . $foto) }}" />
                     @else
-                    <div class="h-12 w-12 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
-                        <span class="text-lg font-bold {{ $avatarColor['text'] }}">
+                    <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
+                        <span class="text-sm font-bold {{ $avatarColor['text'] }}">
                             {{ mb_substr($name, 0, 1) }}
                         </span>
                     </div>
@@ -123,7 +123,7 @@
                     @endif
                 </div>
                 <div class="flex-1">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
+                    <h4 class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
                     @if($role)
                     <p
                         class="text-xs font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
