@@ -39,14 +39,14 @@
         </div>
         <span class="text-base font-semibold">Grup Baru</span>
     </button>
-    <button
+    <a href="{{ route('chat.contact.new') }}"
         class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
             class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
             <span class="material-symbols-outlined">person_add</span>
         </div>
         <span class="text-base font-semibold">Kontak Baru</span>
-    </button>
+    </a>
     <button
         class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div

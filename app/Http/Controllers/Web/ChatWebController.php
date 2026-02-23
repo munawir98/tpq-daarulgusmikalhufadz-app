@@ -124,4 +124,49 @@ class ChatWebController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Show new contact form
+     */
+    public function contactNew()
+    {
+        return view('chat.contact-new');
+    }
+
+    /**
+     * Store new contact
+     */
+    public function contactStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'role' => 'nullable|string|in:santri,ustadz,wali',
+            'email' => 'nullable|email|max:255',
+            'foto' => 'nullable|image|max:2048',
+        ]);
+
+        try {
+            $data = $request->only(['name', 'phone', 'role', 'email']);
+
+            if ($request->hasFile('foto')) {
+                $data['foto'] = $request->file('foto')->store('contacts', 'public');
+            }
+
+            $response = Http::withToken($this->getToken())
+                ->post($this->apiUrl('/chat/contacts'), $data);
+
+            if ($response->successful()) {
+                return redirect()->route('chat.new')
+                    ->with('success', 'Kontak berhasil disimpan!');
+            }
+
+            return back()->withInput()
+                ->with('error', 'Gagal menyimpan kontak.');
+
+        } catch (\Exception $e) {
+            return back()->withInput()
+                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+        }
+    }
 }

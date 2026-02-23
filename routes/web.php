@@ -528,6 +528,8 @@ Route::middleware('web.auth')->group(function () {
     Route::prefix('chat')->name('chat.')->group(function () {
         Route::get('/', [ChatWebController::class, 'index'])->name('index');
         Route::get('/new', [ChatWebController::class, 'create'])->name('new');
+        Route::get('/contact/new', [ChatWebController::class, 'contactNew'])->name('contact.new');
+        Route::post('/contact', [ChatWebController::class, 'contactStore'])->name('contact.store');
         Route::get('/{id}', [ChatWebController::class, 'room'])->name('room');
         Route::post('/{id}/send', [ChatWebController::class, 'send'])->name('send');
     });
