@@ -140,7 +140,7 @@
 @endsection
 
 @section('bottom-nav')
-{{-- No bottom nav on this page --}}
+<div class="hidden"></div>
 @endsection
 
 @push('scripts')
