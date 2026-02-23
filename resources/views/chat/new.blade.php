@@ -85,6 +85,22 @@
             $isUstadz = str_contains(strtolower($role), 'ustadz') || str_contains(strtolower($role), 'ustadzah');
             $isOnline = $c->is_online ?? false;
             $contactId = $c->id ?? 0;
+
+            // Generate unique color per contact
+            $avatarColors = [
+            ['bg' => 'bg-blue-100 dark:bg-blue-900/30', 'text' => 'text-blue-600'],
+            ['bg' => 'bg-emerald-100 dark:bg-emerald-900/30', 'text' => 'text-emerald-600'],
+            ['bg' => 'bg-purple-100 dark:bg-purple-900/30', 'text' => 'text-purple-600'],
+            ['bg' => 'bg-rose-100 dark:bg-rose-900/30', 'text' => 'text-rose-600'],
+            ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600'],
+            ['bg' => 'bg-cyan-100 dark:bg-cyan-900/30', 'text' => 'text-cyan-600'],
+            ['bg' => 'bg-pink-100 dark:bg-pink-900/30', 'text' => 'text-pink-600'],
+            ['bg' => 'bg-indigo-100 dark:bg-indigo-900/30', 'text' => 'text-indigo-600'],
+            ['bg' => 'bg-teal-100 dark:bg-teal-900/30', 'text' => 'text-teal-600'],
+            ['bg' => 'bg-orange-100 dark:bg-orange-900/30', 'text' => 'text-orange-600'],
+            ];
+            $colorIndex = crc32($name) % count($avatarColors);
+            $avatarColor = $avatarColors[abs($colorIndex)];
             @endphp
             <a href="{{ route('chat.room', $contactId) }}"
                 class="contact-item flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
@@ -94,10 +110,8 @@
                     <img alt="{{ $name }}" class="h-12 w-12 rounded-full object-cover"
                         src="{{ asset('storage/' . $foto) }}" />
                     @else
-                    <div
-                        class="h-12 w-12 rounded-full flex items-center justify-center
-                                    {{ $isUstadz ? 'bg-blue-100 dark:bg-blue-900/30' : 'bg-slate-100 dark:bg-slate-800' }}">
-                        <span class="text-lg font-bold {{ $isUstadz ? 'text-blue-600' : 'text-slate-500' }}">
+                    <div class="h-12 w-12 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
+                        <span class="text-lg font-bold {{ $avatarColor['text'] }}">
                             {{ mb_substr($name, 0, 1) }}
                         </span>
                     </div>

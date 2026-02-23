@@ -43,6 +43,22 @@
     $hasUnread = $unreadCount > 0;
     $lastMessage = $chatObj->last_message ?? 'Belum ada pesan';
     $chatName = $isGroup ? ($chatObj->name ?? 'Grup') : ($recipient->name ?? 'Tanpa Nama');
+
+    // Generate unique color per contact
+    $avatarColors = [
+    ['bg' => 'bg-blue-100 dark:bg-blue-900/30', 'text' => 'text-blue-600'],
+    ['bg' => 'bg-emerald-100 dark:bg-emerald-900/30', 'text' => 'text-emerald-600'],
+    ['bg' => 'bg-purple-100 dark:bg-purple-900/30', 'text' => 'text-purple-600'],
+    ['bg' => 'bg-rose-100 dark:bg-rose-900/30', 'text' => 'text-rose-600'],
+    ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600'],
+    ['bg' => 'bg-cyan-100 dark:bg-cyan-900/30', 'text' => 'text-cyan-600'],
+    ['bg' => 'bg-pink-100 dark:bg-pink-900/30', 'text' => 'text-pink-600'],
+    ['bg' => 'bg-indigo-100 dark:bg-indigo-900/30', 'text' => 'text-indigo-600'],
+    ['bg' => 'bg-teal-100 dark:bg-teal-900/30', 'text' => 'text-teal-600'],
+    ['bg' => 'bg-orange-100 dark:bg-orange-900/30', 'text' => 'text-orange-600'],
+    ];
+    $colorIndex = crc32($chatName) % count($avatarColors);
+    $avatarColor = $avatarColors[abs($colorIndex)];
     @endphp
     <a href="{{ route('chat.room', $chatObj->id) }}"
         class="chat-item bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm hover:shadow-md flex items-center gap-4 relative transition-all duration-200 active:scale-[0.98] border border-gray-100 dark:border-gray-700"
@@ -50,16 +66,15 @@
 
         {{-- Avatar --}}
         <div class="relative shrink-0">
-            <div
-                class="size-14 rounded-full flex items-center justify-center overflow-hidden
-                {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : 'bg-blue-100 dark:bg-blue-900/30' }}">
+            <div class="size-14 rounded-full flex items-center justify-center overflow-hidden
+                {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : $avatarColor['bg'] }}">
                 @if($isGroup)
                 <span class="material-symbols-outlined text-yellow-700 text-2xl">group</span>
                 @elseif($recipient && ($recipient->foto ?? null))
                 <img alt="{{ $chatName }}" class="w-full h-full object-cover"
                     src="{{ asset('storage/' . $recipient->foto) }}" />
                 @else
-                <span class="text-xl font-bold text-blue-600">{{ mb_substr($chatName, 0, 1) }}</span>
+                <span class="text-xl font-bold {{ $avatarColor['text'] }}">{{ mb_substr($chatName, 0, 1) }}</span>
                 @endif
             </div>
             @if(!$isGroup && ($recipient->is_online ?? false))
