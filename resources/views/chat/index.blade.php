@@ -3,8 +3,7 @@
 @section('title', 'Pesan')
 
 @section('header')
-<header
-    class="bg-gradient-to-r from-[#1A2980] to-[#26D0CE] px-6 pt-12 pb-6 rounded-b-2xl shadow-lg relative overflow-hidden">
+<header class="bg-blue-600 px-6 pt-12 pb-6 rounded-b-2xl shadow-lg relative overflow-hidden">
     {{-- Decorative blobs --}}
     <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
@@ -58,14 +57,14 @@
         <div class="relative shrink-0">
             <div
                 class="size-14 rounded-full flex items-center justify-center overflow-hidden
-                {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : 'bg-gradient-to-br from-primary/20 to-primary/30' }}">
+                {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : 'bg-blue-100 dark:bg-blue-900/30' }}">
                 @if($isGroup)
                 <span class="material-symbols-outlined text-yellow-700 text-2xl">group</span>
                 @elseif($recipient && ($recipient->foto ?? null))
                 <img alt="{{ $chatName }}" class="w-full h-full object-cover"
                     src="{{ asset('storage/' . $recipient->foto) }}" />
                 @else
-                <span class="text-xl font-bold text-primary">{{ mb_substr($chatName, 0, 1) }}</span>
+                <span class="text-xl font-bold text-blue-600">{{ mb_substr($chatName, 0, 1) }}</span>
                 @endif
             </div>
             @if(!$isGroup && ($recipient->is_online ?? false))
@@ -82,7 +81,7 @@
                     class="truncate {{ $hasUnread ? 'font-bold text-gray-900 dark:text-white' : 'font-semibold text-gray-700 dark:text-gray-200' }}">
                     {{ $chatName }}
                 </h3>
-                <span class="text-xs shrink-0 {{ $hasUnread ? 'text-primary font-semibold' : 'text-gray-400' }}">
+                <span class="text-xs shrink-0 {{ $hasUnread ? 'text-blue-600 font-semibold' : 'text-gray-400' }}">
                     @if($chatObj->last_message_at ?? null)
                     @php
                     $lastAt = $chatObj->last_message_at;
@@ -101,7 +100,7 @@
                 </p>
                 @if($hasUnread)
                 <div
-                    class="shrink-0 min-w-[20px] h-5 px-1.5 bg-primary text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+                    class="shrink-0 min-w-[20px] h-5 px-1.5 bg-blue-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
                     {{ $unreadCount > 99 ? '99+' : $unreadCount }}
                 </div>
                 @endif
@@ -120,7 +119,7 @@
         <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">Mulai chat baru dengan ustadz,
             santri, atau wali santri</p>
         <a href="{{ route('chat.new') }}"
-            class="mt-6 px-6 py-2.5 bg-gradient-to-r from-[#1A2980] to-[#26D0CE] text-white rounded-xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2">
+            class="mt-6 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2">
             <span class="material-symbols-outlined text-lg">add</span>
             Mulai Chat Baru
         </a>
@@ -131,7 +130,7 @@
 {{-- FAB --}}
 @if(count($conversations) > 0)
 <a href="{{ route('chat.new') }}"
-    class="fixed bottom-24 right-6 size-14 bg-gradient-to-br from-[#1A2980] to-[#26D0CE] text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/25 hover:shadow-xl transition-all active:scale-95 z-40">
+    class="fixed bottom-24 right-6 size-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 hover:shadow-xl hover:bg-blue-700 transition-all active:scale-95 z-40">
     <span class="material-symbols-outlined text-[28px]">chat_add_on</span>
 </a>
 @endif
