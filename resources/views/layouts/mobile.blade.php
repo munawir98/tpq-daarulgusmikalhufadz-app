@@ -87,7 +87,11 @@
         </main>
 
         {{-- Bottom Navigation --}}
+        @hasSection('bottom-nav')
+        @yield('bottom-nav')
+        @else
         @include('layouts.partials.bottom-nav')
+        @endif
 
     </div>
 
