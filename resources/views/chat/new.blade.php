@@ -146,37 +146,6 @@
     .pb-24 {
         padding-bottom: 0 !important;
     }
-
-    /* Force wrapper to fill full viewport */
-    .pb-24,
-    .min-h-screen {
-        min-height: 100vh !important;
-        height: 100vh !important;
-    }
-
-    /* Make main content fill remaining height */
-    main {
-        flex: 1 1 0% !important;
-        display: flex !important;
-        flex-direction: column !important;
-        padding-bottom: 0 !important;
-        min-height: 0 !important;
-    }
-
-    /* Contact list fills remaining space */
-    #contactList {
-        flex: 1 1 0%;
-        min-height: 300px;
-        overflow-y: auto;
-        background: white;
-        padding-bottom: env(safe-area-inset-bottom, 16px);
-    }
-
-    @media (prefers-color-scheme: dark) {
-        #contactList {
-            background: #102216;
-        }
-    }
 </style>
 @endpush
 
