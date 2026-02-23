@@ -9,17 +9,12 @@
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
 
     <div class="relative z-10">
-        <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-3">
-                <a href="{{ route('ustadz.dashboard') }}" class="text-white/80 hover:text-white transition">
-                    <span class="material-symbols-outlined text-2xl">arrow_back</span>
-                </a>
-                <h1 class="text-2xl font-bold text-white">Pesan</h1>
-            </div>
-            <div class="flex gap-2">
+        <div class="flex items-center justify-center mb-4 relative">
+            <h1 class="text-lg font-bold text-white">Pesan</h1>
+            <div class="absolute right-0 flex gap-2">
                 <a href="{{ route('chat.new') }}"
                     class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition">
-                    <span class="material-symbols-outlined">edit_square</span>
+                    <span class="material-symbols-outlined text-lg">edit_square</span>
                 </a>
             </div>
         </div>
