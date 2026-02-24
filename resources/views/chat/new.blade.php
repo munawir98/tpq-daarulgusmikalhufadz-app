@@ -75,65 +75,64 @@
             class="bg-slate-50/50 dark:bg-slate-900/20 px-4 py-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest sticky top-0 z-10 backdrop-blur-sm">
             {{ $letter }}
         </div>
-        <div class="px-2">
-            @foreach($group as $contact)
-            @php
-            $c = is_array($contact) ? (object) $contact : $contact;
-            $name = $c->name ?? $c->nama_lengkap ?? 'Tanpa Nama';
-            $role = $c->role ?? $c->peran ?? '';
-            $foto = $c->foto ?? $c->avatar ?? null;
-            $isUstadz = str_contains(strtolower($role), 'ustadz') || str_contains(strtolower($role), 'ustadzah');
-            $isOnline = $c->is_online ?? false;
-            $contactId = $c->id ?? 0;
 
-            // Generate unique color per contact
-            $avatarColors = [
-            ['bg' => 'bg-blue-100 dark:bg-blue-900/30', 'text' => 'text-blue-600'],
-            ['bg' => 'bg-emerald-100 dark:bg-emerald-900/30', 'text' => 'text-emerald-600'],
-            ['bg' => 'bg-purple-100 dark:bg-purple-900/30', 'text' => 'text-purple-600'],
-            ['bg' => 'bg-rose-100 dark:bg-rose-900/30', 'text' => 'text-rose-600'],
-            ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600'],
-            ['bg' => 'bg-cyan-100 dark:bg-cyan-900/30', 'text' => 'text-cyan-600'],
-            ['bg' => 'bg-pink-100 dark:bg-pink-900/30', 'text' => 'text-pink-600'],
-            ['bg' => 'bg-indigo-100 dark:bg-indigo-900/30', 'text' => 'text-indigo-600'],
-            ['bg' => 'bg-teal-100 dark:bg-teal-900/30', 'text' => 'text-teal-600'],
-            ['bg' => 'bg-orange-100 dark:bg-orange-900/30', 'text' => 'text-orange-600'],
-            ];
-            $colorIndex = crc32($name) % count($avatarColors);
-            $avatarColor = $avatarColors[abs($colorIndex)];
-            @endphp
-            <a href="{{ route('chat.room', $contactId) }}"
-                class="contact-item flex items-center gap-3 px-3 py-2 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
-                data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
-                <div class="relative">
-                    @if($foto)
-                    <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover"
-                        src="{{ asset('storage/' . $foto) }}" />
-                    @else
-                    <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
-                        <span class="text-sm font-bold {{ $avatarColor['text'] }}">
-                            {{ mb_substr($name, 0, 1) }}
-                        </span>
-                    </div>
-                    @endif
-                    @if($isOnline)
-                    <div
-                        class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-background-dark">
-                    </div>
-                    @endif
+        @foreach($group as $contact)
+        @php
+        $c = is_array($contact) ? (object) $contact : $contact;
+        $name = $c->name ?? $c->nama_lengkap ?? 'Tanpa Nama';
+        $role = $c->role ?? $c->peran ?? '';
+        $foto = $c->foto ?? $c->avatar ?? null;
+        $isUstadz = str_contains(strtolower($role), 'ustadz') || str_contains(strtolower($role), 'ustadzah');
+        $isOnline = $c->is_online ?? false;
+        $contactId = $c->id ?? 0;
+
+        // Generate unique color per contact
+        $avatarColors = [
+        ['bg' => 'bg-blue-100 dark:bg-blue-900/30', 'text' => 'text-blue-600'],
+        ['bg' => 'bg-emerald-100 dark:bg-emerald-900/30', 'text' => 'text-emerald-600'],
+        ['bg' => 'bg-purple-100 dark:bg-purple-900/30', 'text' => 'text-purple-600'],
+        ['bg' => 'bg-rose-100 dark:bg-rose-900/30', 'text' => 'text-rose-600'],
+        ['bg' => 'bg-amber-100 dark:bg-amber-900/30', 'text' => 'text-amber-600'],
+        ['bg' => 'bg-cyan-100 dark:bg-cyan-900/30', 'text' => 'text-cyan-600'],
+        ['bg' => 'bg-pink-100 dark:bg-pink-900/30', 'text' => 'text-pink-600'],
+        ['bg' => 'bg-indigo-100 dark:bg-indigo-900/30', 'text' => 'text-indigo-600'],
+        ['bg' => 'bg-teal-100 dark:bg-teal-900/30', 'text' => 'text-teal-600'],
+        ['bg' => 'bg-orange-100 dark:bg-orange-900/30', 'text' => 'text-orange-600'],
+        ];
+        $colorIndex = crc32($name) % count($avatarColors);
+        $avatarColor = $avatarColors[abs($colorIndex)];
+        @endphp
+        <a href="{{ route('chat.room', $contactId) }}"
+            class="contact-item flex items-center gap-3 px-4 py-2 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+            data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
+            <div class="relative">
+                @if($foto)
+                <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover"
+                    src="{{ asset('storage/' . $foto) }}" />
+                @else
+                <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
+                    <span class="text-sm font-bold {{ $avatarColor['text'] }}">
+                        {{ mb_substr($name, 0, 1) }}
+                    </span>
                 </div>
-                <div class="flex-1">
-                    <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
-                    @if($role)
-                    <p
-                        class="text-[11px] font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
-                        {{ $role }}
-                    </p>
-                    @endif
+                @endif
+                @if($isOnline)
+                <div
+                    class="absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500 border-2 border-white dark:border-background-dark">
                 </div>
-            </a>
-            @endforeach
-        </div>
+                @endif
+            </div>
+            <div class="flex-1">
+                <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
+                @if($role)
+                <p
+                    class="text-[11px] font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
+                    {{ $role }}
+                </p>
+                @endif
+            </div>
+        </a>
+        @endforeach
     </div>
     @empty
     {{-- Empty State --}}
