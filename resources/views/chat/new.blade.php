@@ -106,10 +106,8 @@
                 <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover"
                     src="{{ asset('storage/' . $foto) }}" />
                 @else
-                <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
-                    <span class="text-sm font-bold {{ $avatarColor['text'] }}">
-                        {{ mb_substr($name, 0, 1) }}
-                    </span>
+                <div class="h-10 w-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-700">
+                    <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-xl">person</span>
                 </div>
                 @endif
                 @if($isOnline)
