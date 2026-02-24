@@ -3,11 +3,7 @@
 @section('title', 'Mulai Chat Baru')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-12 pb-3 flex items-center gap-3 text-white shadow-md">
-    <a href="{{ route('chat.index') }}"
-        class="flex items-center justify-center p-1 rounded-full hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined text-xl">arrow_back_ios_new</span>
-    </a>
+<header class="bg-blue-600 px-4 pt-12 pb-3 flex items-center justify-center text-white shadow-md">
     <h1 class="text-base font-bold tracking-tight">Mulai Chat Baru</h1>
 </header>
 @endsection
