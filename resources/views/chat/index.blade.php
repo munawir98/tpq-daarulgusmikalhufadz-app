@@ -177,10 +177,7 @@
                 <span class="text-[10px] font-medium">Panggilan</span>
             </a>
         </div>
-        {{-- Home Indicator --}}
-        <div class="flex justify-center pt-2 pb-1">
-            <div class="w-32 h-1 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
-        </div>
+
     </div>
 </nav>
 @endsection
