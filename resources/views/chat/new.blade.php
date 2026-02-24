@@ -3,25 +3,24 @@
 @section('title', 'Mulai Chat Baru')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-4 pb-3 text-white shadow-md">
+<header class="sticky top-0 z-20 bg-blue-600 px-4 pt-4 pb-3 text-white shadow-md">
     <h1 class="text-base font-bold tracking-tight text-center">Mulai Chat Baru</h1>
+    {{-- Search Bar --}}
+    <div class="mt-3">
+        <label class="flex flex-col w-full">
+            <div
+                class="flex w-full items-center rounded-xl bg-white/20 h-10 px-3 border border-transparent focus-within:border-white/50 transition-all">
+                <span class="material-symbols-outlined text-white/70">search</span>
+                <input id="searchInput" onkeyup="filterContacts()"
+                    class="w-full border-none bg-transparent focus:ring-0 text-white placeholder:text-white/60 text-sm font-medium"
+                    placeholder="Cari nama atau peran (Santri/Ustadz)..." type="text" />
+            </div>
+        </label>
+    </div>
 </header>
 @endsection
 
 @section('content')
-
-{{-- Search Bar --}}
-<div class="-mx-5 -mt-4 px-4 py-4 bg-white dark:bg-background-dark">
-    <label class="flex flex-col w-full">
-        <div
-            class="flex w-full items-center rounded-xl bg-slate-100 dark:bg-slate-800/50 h-10 px-3 border border-transparent focus-within:border-blue-500/50 transition-all">
-            <span class="material-symbols-outlined text-slate-500 dark:text-slate-400">search</span>
-            <input id="searchInput" onkeyup="filterContacts()"
-                class="w-full border-none bg-transparent focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 text-sm font-medium"
-                placeholder="Cari nama atau peran (Santri/Ustadz)..." type="text" />
-        </div>
-    </label>
-</div>
 
 {{-- Quick Actions --}}
 <div class="-mx-5 px-2 py-2">
