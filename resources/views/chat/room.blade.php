@@ -130,51 +130,99 @@
     </div>
 
     <script>
-        // Scroll to bottom on load
-        const messages = document.getElementById('messages');
-        messages.scrollTop = messages.scrollHeight;
+        document.addEventListener("DOMContentLoaded", function () {
+            const messages = document.getElementById("messages");
+            const form = document.getElementById("messageForm");
+            const textarea = document.getElementById("messageInput");
+            const submitBtn = form.querySelector('button[type="submit"]');
 
-        // Auto-resize textarea
-        const textarea = document.getElementById('messageInput');
-        textarea.addEventListener('input', function () {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
-        });
+            // Scroll to bottom on load
+            messages.scrollTop = messages.scrollHeight;
 
-        // Send message
-        document.getElementById('messageForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const message = textarea.value.trim();
-            if (!message) return;
+            // Auto resize textarea
+            textarea.addEventListener("input", function () {
+                this.style.height = "auto";
+                this.style.height = Math.min(this.scrollHeight, 120) + "px";
+            });
 
-            fetch('{{ route("chat.send", $recipient->id) }}', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                },
-                body: JSON.stringify({ message })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // Add message to UI
-                    const html = `
-                    <div class="flex justify-end">
-                        <div class="max-w-[75%] bg-primary text-[#102216] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
-                            <p class="text-sm">${message}</p>
-                            <div class="flex items-center justify-end gap-1 mt-1">
-                                <span class="text-[10px] opacity-70">Baru saja</span>
-                                <span class="material-symbols-outlined text-[12px] opacity-70">done</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                    messages.insertAdjacentHTML('beforeend', html);
-                    messages.scrollTop = messages.scrollHeight;
-                    textarea.value = '';
-                    textarea.style.height = 'auto';
-                })
-                .catch(console.error);
+            // Helper: Create message bubble safely (NO XSS)
+            function appendMessage(messageText) {
+                const wrapper = document.createElement("div");
+                wrapper.className = "flex justify-end";
+
+                const bubble = document.createElement("div");
+                bubble.className = "max-w-[75%] bg-primary text-[#102216] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm";
+
+                const text = document.createElement("p");
+                text.className = "text-sm";
+                text.textContent = messageText;
+
+                const meta = document.createElement("div");
+                meta.className = "flex items-center justify-end gap-1 mt-1";
+
+                const time = document.createElement("span");
+                time.className = "text-[10px] opacity-70";
+                time.textContent = "Baru saja";
+
+                const icon = document.createElement("span");
+                icon.className = "material-symbols-outlined text-[12px] opacity-70";
+                icon.textContent = "done";
+
+                meta.appendChild(time);
+                meta.appendChild(icon);
+                bubble.appendChild(text);
+                bubble.appendChild(meta);
+                wrapper.appendChild(bubble);
+                messages.appendChild(wrapper);
+
+                messages.scrollTop = messages.scrollHeight;
+            }
+
+            // Form submit
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const message = textarea.value.trim();
+                if (!message) return;
+
+                try {
+                    // Loading state
+                    submitBtn.disabled = true;
+                    submitBtn.classList.add("opacity-50");
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+
+                    const response = await fetch("{{ route('chat.send', $recipient->id) }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({ message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Server error");
+                    }
+
+                    const data = await response.json();
+
+                    // Append message only if success
+                    appendMessage(message);
+
+                    // Reset input
+                    textarea.value = "";
+                    textarea.style.height = "auto";
+
+                } catch (error) {
+                    console.error(error);
+                    alert("Gagal mengirim pesan. Silakan coba lagi.");
+                } finally {
+                    // Restore button
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove("opacity-50");
+                    submitBtn.innerHTML = '<span class="material-symbols-outlined">send</span>';
+                }
+            });
         });
     </script>
 
