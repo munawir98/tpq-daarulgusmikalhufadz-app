@@ -3,12 +3,12 @@
 @section('title', 'Mulai Chat Baru')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-12 pb-4 flex items-center gap-4 text-white shadow-md">
+<header class="bg-blue-600 px-4 pt-12 pb-3 flex items-center gap-3 text-white shadow-md">
     <a href="{{ route('chat.index') }}"
         class="flex items-center justify-center p-1 rounded-full hover:bg-white/10 transition-colors">
-        <span class="material-symbols-outlined text-2xl">arrow_back_ios_new</span>
+        <span class="material-symbols-outlined text-xl">arrow_back_ios_new</span>
     </a>
-    <h1 class="text-xl font-bold tracking-tight">Mulai Chat Baru</h1>
+    <h1 class="text-base font-bold tracking-tight">Mulai Chat Baru</h1>
 </header>
 @endsection
 
@@ -18,7 +18,7 @@
 <div class="-mx-5 -mt-4 px-4 py-4 bg-white dark:bg-background-dark">
     <label class="flex flex-col w-full">
         <div
-            class="flex w-full items-center rounded-xl bg-slate-100 dark:bg-slate-800/50 h-12 px-4 border border-transparent focus-within:border-blue-500/50 transition-all">
+            class="flex w-full items-center rounded-xl bg-slate-100 dark:bg-slate-800/50 h-10 px-3 border border-transparent focus-within:border-blue-500/50 transition-all">
             <span class="material-symbols-outlined text-slate-500 dark:text-slate-400">search</span>
             <input id="searchInput" onkeyup="filterContacts()"
                 class="w-full border-none bg-transparent focus:ring-0 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 text-sm font-medium"
@@ -30,28 +30,28 @@
 {{-- Quick Actions --}}
 <div class="-mx-5 px-2 py-2">
     <button
-        class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+        class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
-            class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
             <span class="material-symbols-outlined">group_add</span>
         </div>
-        <span class="text-base font-semibold">Grup Baru</span>
+        <span class="text-sm font-semibold">Grup Baru</span>
     </button>
     <a href="{{ route('chat.contact.new') }}"
-        class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+        class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
-            class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
             <span class="material-symbols-outlined">person_add</span>
         </div>
-        <span class="text-base font-semibold">Kontak Baru</span>
+        <span class="text-sm font-semibold">Kontak Baru</span>
     </a>
     <button
-        class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+        class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
-            class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
             <span class="material-symbols-outlined">hub</span>
         </div>
-        <span class="text-base font-semibold">Komunitas Baru</span>
+        <span class="text-sm font-semibold">Komunitas Baru</span>
     </button>
 </div>
 
@@ -72,7 +72,7 @@
     @forelse($grouped as $letter => $group)
     <div class="contact-section" data-letter="{{ $letter }}">
         <div
-            class="bg-slate-50/50 dark:bg-slate-900/20 px-4 py-2 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest sticky top-0 z-10 backdrop-blur-sm">
+            class="bg-slate-50/50 dark:bg-slate-900/20 px-4 py-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest sticky top-0 z-10 backdrop-blur-sm">
             {{ $letter }}
         </div>
         <div class="px-2">
@@ -123,10 +123,10 @@
                     @endif
                 </div>
                 <div class="flex-1">
-                    <h4 class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
+                    <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
                     @if($role)
                     <p
-                        class="text-xs font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
+                        class="text-[11px] font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
                         {{ $role }}
                     </p>
                     @endif
