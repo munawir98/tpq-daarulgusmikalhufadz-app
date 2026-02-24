@@ -66,15 +66,15 @@
 
         {{-- Avatar --}}
         <div class="relative shrink-0">
-            <div class="size-14 rounded-full flex items-center justify-center overflow-hidden
+            <div class="size-10 rounded-full flex items-center justify-center overflow-hidden
                 {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : $avatarColor['bg'] }}">
                 @if($isGroup)
-                <span class="material-symbols-outlined text-yellow-700 text-2xl">group</span>
+                <span class="material-symbols-outlined text-yellow-700 text-lg">group</span>
                 @elseif($recipient && ($recipient->foto ?? null))
                 <img alt="{{ $chatName }}" class="w-full h-full object-cover"
                     src="{{ asset('storage/' . $recipient->foto) }}" />
                 @else
-                <span class="text-xl font-bold {{ $avatarColor['text'] }}">{{ mb_substr($chatName, 0, 1) }}</span>
+                <span class="text-sm font-bold {{ $avatarColor['text'] }}">{{ mb_substr($chatName, 0, 1) }}</span>
                 @endif
             </div>
             @if(!$isGroup && ($recipient->is_online ?? false))
@@ -119,17 +119,17 @@
     </a>
     @empty
     {{-- Empty State --}}
-    <div class="flex flex-col items-center justify-center py-20 text-center">
+    <div class="flex flex-col items-center justify-center py-14 text-center">
         <div
-            class="size-24 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center mb-5 shadow-inner">
+            class="size-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center mb-4 shadow-inner">
             <span class="material-symbols-outlined text-gray-400 dark:text-gray-500"
-                style="font-size: 48px;">chat_bubble_outline</span>
+                style="font-size: 32px;">chat_bubble_outline</span>
         </div>
-        <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">Belum Ada Percakapan</h3>
-        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-[240px] leading-relaxed">Mulai chat baru dengan ustadz,
+        <h3 class="text-sm font-bold text-gray-800 dark:text-white mb-1">Belum Ada Percakapan</h3>
+        <p class="text-xs text-gray-500 dark:text-gray-400 max-w-[200px] leading-relaxed">Mulai chat baru dengan ustadz,
             santri, atau wali santri</p>
         <a href="{{ route('chat.new') }}"
-            class="mt-6 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-2">
+            class="mt-4 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-1.5">
             <span class="material-symbols-outlined text-lg">add</span>
             Mulai Chat Baru
         </a>
@@ -140,8 +140,8 @@
 {{-- FAB --}}
 @if(count($conversations) > 0)
 <a href="{{ route('chat.new') }}"
-    class="fixed bottom-24 right-6 size-14 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 hover:shadow-xl hover:bg-blue-700 transition-all active:scale-95 z-40">
-    <span class="material-symbols-outlined text-[28px]">chat_add_on</span>
+    class="fixed bottom-24 right-6 size-11 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 hover:shadow-xl hover:bg-blue-700 transition-all active:scale-95 z-40">
+    <span class="material-symbols-outlined text-xl">chat_add_on</span>
 </a>
 @endif
 
