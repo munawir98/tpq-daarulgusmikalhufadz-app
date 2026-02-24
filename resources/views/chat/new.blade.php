@@ -3,8 +3,8 @@
 @section('title', 'Mulai Chat Baru')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-12 pb-3 flex items-center justify-center text-white shadow-md">
-    <h1 class="text-base font-bold tracking-tight">Mulai Chat Baru</h1>
+<header class="bg-blue-600 px-4 pt-12 pb-3 text-white shadow-md">
+    <h1 class="text-base font-bold tracking-tight text-center">Mulai Chat Baru</h1>
 </header>
 @endsection
 
