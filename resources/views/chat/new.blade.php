@@ -158,9 +158,9 @@
         padding-bottom: 0 !important;
     }
 
-    /* Connect content directly to header - no gap */
+    /* Minimal gap between header and content */
     main {
-        padding-top: 0 !important;
+        padding-top: 0.25rem !important;
         gap: 0 !important;
     }
 </style>
