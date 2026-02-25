@@ -3,8 +3,7 @@
 @section('title', 'Mulai Chat Baru')
 
 @section('header')
-<header id="chatHeader" class="fixed top-0 left-0 right-0 z-20 bg-blue-600 px-4 pt-4 pb-3 text-white shadow-md"
-    style="max-width: inherit; margin: 0 auto;">
+<header class="sticky top-0 z-20 bg-blue-600 px-4 pt-4 pb-3 text-white shadow-md">
     <h1 class="text-base font-bold tracking-tight text-center">Mulai Chat Baru</h1>
     {{-- Search Bar --}}
     <div class="mt-3">
@@ -55,7 +54,7 @@
 <div class="-mx-5 h-2 bg-slate-50 dark:bg-slate-900/50 border-y border-slate-100 dark:border-slate-800"></div>
 
 {{-- Contact List --}}
-<div id="contactList" class="-mx-5">
+<div id="contactList" class="-mx-5 flex-1 bg-white dark:bg-background-dark">
     @php
     // Group contacts by first letter
     $grouped = $contacts->groupBy(function ($contact) {
@@ -159,46 +158,25 @@
         padding-bottom: 0 !important;
     }
 
-    /* Content fills the screen */
+    /* Main content fills remaining screen height */
     main {
         padding-top: 0 !important;
+        padding-bottom: 0 !important;
         gap: 0 !important;
-        flex: 1;
-        min-height: 0;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
     }
 
-    /* Header stays within the mobile wrapper */
-    #chatHeader {
-        max-width: 28rem;
-        /* max-w-md */
-    }
-
-    @media (min-width: 768px) {
-        #chatHeader {
-            max-width: 42rem;
-            /* md:max-w-2xl */
-        }
+    /* Contact list stretches to fill remaining space */
+    #contactList {
+        flex: 1 1 auto;
     }
 </style>
 @endpush
 
 @push('scripts')
 <script>
-    // Adjust main padding to account for fixed header
-    (function () {
-        const header = document.getElementById('chatHeader');
-        const main = document.querySelector('main');
-        if (header && main) {
-            const headerHeight = header.offsetHeight;
-            main.style.paddingTop = headerHeight + 'px';
-        }
-        window.addEventListener('resize', function () {
-            if (header && main) {
-                main.style.paddingTop = header.offsetHeight + 'px';
-            }
-        });
-    })();
-
     function filterContacts() {
         const query = document.getElementById('searchInput').value.toLowerCase();
         const items = document.querySelectorAll('.contact-item');
