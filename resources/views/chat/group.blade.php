@@ -3,28 +3,30 @@
 @section('title', 'Grup Chat')
 
 @section('header')
-<header class="bg-white dark:bg-background-dark border-b border-slate-100 dark:border-slate-800 px-4 py-3">
-    <div class="flex items-center gap-3">
-        <a href="{{ route('chat.index') }}" class="text-slate-900 dark:text-slate-100 p-1">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </a>
-        <div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-            <span class="material-symbols-outlined text-blue-600">group</span>
+<header
+    class="flex items-center bg-white dark:bg-background-dark p-4 border-b border-slate-100 dark:border-slate-800 sticky top-0 z-10">
+    <a href="{{ route('chat.index') }}" class="text-slate-900 dark:text-slate-100 p-1">
+        <span class="material-symbols-outlined">arrow_back_ios</span>
+    </a>
+    <div class="flex flex-1 items-center gap-3 ml-2">
+        <div
+            class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center overflow-hidden border border-blue-200 dark:border-blue-800">
+            <span class="material-symbols-outlined text-blue-600 text-xl">groups</span>
         </div>
-        <div class="flex-1 min-w-0">
-            <h2 class="text-slate-900 dark:text-slate-100 text-sm font-bold leading-tight truncate">{{ $groupName }}
-            </h2>
+        <div class="flex flex-col">
+            <h2 class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">{{ $groupName }}</h2>
             <p class="text-slate-500 dark:text-slate-400 text-xs font-medium">{{ count($members) }} Anggota</p>
         </div>
-        <button class="text-slate-900 dark:text-slate-100 p-1">
-            <span class="material-symbols-outlined">more_vert</span>
-        </button>
     </div>
+    <button class="text-slate-900 dark:text-slate-100 p-1">
+        <span class="material-symbols-outlined">more_vert</span>
+    </button>
 </header>
 @endsection
 
 @section('content')
-<div id="messages" class="-mx-5 -mt-4 flex-1 overflow-y-auto px-4 py-4 space-y-4"
+{{-- Chat Area --}}
+<div id="messages" class="-mx-5 -mt-4 flex-1 overflow-y-auto p-4 space-y-6"
     style="max-height: calc(100vh - 180px); overflow-y: auto;">
 
     @php
@@ -59,8 +61,9 @@
     {{-- Outgoing Message --}}
     <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
         <div class="flex flex-col gap-1 items-end">
+            <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold mr-1">Saya</span>
             <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
-                <p class="text-sm leading-relaxed">{{ $message->message }}</p>
+                <p class="text-sm leading-relaxed font-medium">{{ $message->message }}</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
                     <p class="text-[10px] opacity-70">{{ $message->created_at->format('H:i') }}</p>
                     <span class="material-symbols-outlined text-[14px] opacity-70">done_all</span>
@@ -123,7 +126,8 @@
         <div class="flex flex-col gap-1 items-end">
             <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold mr-1">Saya</span>
             <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
-                <p class="text-sm leading-relaxed">Waalaikumussalam Ustadz, baik siap! Sedang dalam proses murajaah.</p>
+                <p class="text-sm leading-relaxed font-medium">Waalaikumussalam Ustadz, baik siap! Sedang dalam proses
+                    murajaah.</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
                     <p class="text-[10px] opacity-70">08:05</p>
                     <span class="material-symbols-outlined text-[14px] opacity-70">done_all</span>
@@ -161,7 +165,7 @@
     <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
         <div class="flex flex-col gap-1 items-end">
             <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
-                <p class="text-sm leading-relaxed">Ustadz, apakah ada kelas tambahan sore ini?</p>
+                <p class="text-sm leading-relaxed font-medium">Ustadz, apakah ada kelas tambahan sore ini?</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
                     <p class="text-[10px] opacity-70">08:45</p>
                     <span class="material-symbols-outlined text-[14px] opacity-70">done_all</span>
@@ -175,18 +179,30 @@
 
 @section('bottom-nav')
 {{-- Message Input Bar --}}
-<div class="bg-white dark:bg-background-dark px-4 py-3 border-t border-slate-100 dark:border-slate-800">
+<div class="bg-white dark:bg-background-dark p-4 pb-6 border-t border-slate-100 dark:border-slate-800">
     <form id="messageForm" class="flex items-center gap-3">
         @csrf
         <div class="flex-1 flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-4 py-2">
+            <button type="button" class="text-slate-500 dark:text-slate-400 mr-2">
+                <span class="material-symbols-outlined">sentiment_satisfied</span>
+            </button>
             <input id="messageInput" name="message"
                 class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-500 py-1"
                 placeholder="Ketik pesan..." type="text" autocomplete="off" />
+            <button type="button" class="text-slate-500 dark:text-slate-400 ml-2">
+                <span class="material-symbols-outlined transform rotate-45">attach_file</span>
+            </button>
         </div>
-        <button type="submit" id="sendBtn"
-            class="size-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 hover:scale-105 transition-transform active:scale-95">
-            <span class="material-symbols-outlined text-[22px]">send</span>
-        </button>
+        <div class="flex gap-2">
+            <button type="button"
+                class="size-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 transition-colors">
+                <span class="material-symbols-outlined">mic</span>
+            </button>
+            <button type="submit" id="sendBtn"
+                class="size-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 hover:scale-105 transition-transform active:scale-95">
+                <span class="material-symbols-outlined text-[24px]">send</span>
+            </button>
+        </div>
     </form>
 </div>
 @endsection
@@ -223,17 +239,25 @@
 
         // Helper: Create message bubble
         function appendMessage(messageText) {
+            // Remove sample messages if this is the first real message
+            const emptyIndicator = messagesDiv.querySelector('.sample-messages');
+            if (emptyIndicator) emptyIndicator.remove();
+
             const wrapper = document.createElement("div");
             wrapper.className = "flex items-end gap-2 justify-end ml-auto max-w-[85%]";
 
             const inner = document.createElement("div");
             inner.className = "flex flex-col gap-1 items-end";
 
+            const label = document.createElement("span");
+            label.className = "text-slate-500 text-[11px] font-semibold mr-1";
+            label.textContent = "Saya";
+
             const bubble = document.createElement("div");
             bubble.className = "bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm";
 
             const text = document.createElement("p");
-            text.className = "text-sm leading-relaxed";
+            text.className = "text-sm leading-relaxed font-medium";
             text.textContent = messageText;
 
             const meta = document.createElement("div");
@@ -252,6 +276,7 @@
             meta.appendChild(icon);
             bubble.appendChild(text);
             bubble.appendChild(meta);
+            inner.appendChild(label);
             inner.appendChild(bubble);
             wrapper.appendChild(inner);
             messagesDiv.appendChild(wrapper);
