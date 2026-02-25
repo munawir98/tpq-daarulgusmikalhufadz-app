@@ -67,7 +67,7 @@
     @forelse($grouped as $letter => $group)
     <div class="contact-section" data-letter="{{ $letter }}">
         <div
-            class="bg-slate-50/50 dark:bg-slate-900/20 px-4 py-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest sticky top-0 z-10 backdrop-blur-sm border-t border-slate-200 dark:border-slate-700">
+            class="bg-slate-50/50 dark:bg-slate-900/20 px-4 py-1.5 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest border-t border-slate-200 dark:border-slate-700">
             {{ $letter }}
         </div>
 
@@ -75,9 +75,10 @@
         @php
         $c = is_array($contact) ? (object) $contact : $contact;
         $name = $c->name ?? $c->nama_lengkap ?? 'Tanpa Nama';
-        $role = $c->role ?? $c->peran ?? '';
+        $role = strtoupper($c->role ?? $c->peran ?? '');
         $foto = $c->foto ?? $c->avatar ?? null;
         $isUstadz = str_contains(strtolower($role), 'ustadz') || str_contains(strtolower($role), 'ustadzah');
+        $isSantri = str_contains(strtolower($role), 'santri');
         $isOnline = $c->is_online ?? false;
         $contactId = $c->id ?? 0;
 
@@ -123,7 +124,7 @@
                 <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
                 @if($role)
                 <p
-                    class="text-[11px] font-medium {{ $isUstadz ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400' }}">
+                    class="text-[11px] font-semibold {{ $isUstadz ? 'text-red-500' : ($isSantri ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400') }}">
                     {{ $role }}
                 </p>
                 @endif

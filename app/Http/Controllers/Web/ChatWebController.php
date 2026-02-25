@@ -67,15 +67,16 @@ class ChatWebController extends Controller
     {
         $userId = auth()->id();
 
-        // Get all users except the current user
+        // Get all users except the current user and admins
         $contacts = User::where('id', '!=', $userId)
+            ->whereNotIn('role', ['ADMIN', 'admin'])
             ->orderBy('name', 'asc')
             ->get()
             ->map(function ($user) {
                 return (object) [
                     'id' => $user->id,
                     'name' => $user->name,
-                    'role' => $user->role,
+                    'role' => strtoupper($user->role),
                     'foto' => $user->foto,
                     'is_online' => false,
                 ];
