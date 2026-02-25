@@ -10,6 +10,9 @@ use Carbon\Carbon;
 
 class ChatWebController extends Controller
 {
+    const GROUP_ID = 'grup-utama';
+    const GROUP_NAME = 'Grup TPQ Daarul Gusmikalhufadz';
+
     /**
      * Display chat list / conversations
      */
@@ -17,9 +20,12 @@ class ChatWebController extends Controller
     {
         $userId = auth()->id();
 
-        // Get all chats involving the current user
-        $allChats = Chat::where('sender_id', $userId)
-            ->orWhere('receiver_id', $userId)
+        // Get all 1-to-1 chats involving the current user
+        $allChats = Chat::whereNull('group_id')
+            ->where(function ($q) use ($userId) {
+                $q->where('sender_id', $userId)
+                    ->orWhere('receiver_id', $userId);
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -30,7 +36,7 @@ class ChatWebController extends Controller
 
         // Build conversation list
         $conversations = $grouped->map(function ($chats, $otherUserId) use ($userId) {
-            $lastChat = $chats->first(); // already sorted desc
+            $lastChat = $chats->first();
             $otherUser = User::find($otherUserId);
 
             if (!$otherUser) return null;
@@ -51,9 +57,31 @@ class ChatWebController extends Controller
                     'is_online' => false,
                 ],
             ];
-        })->filter()->sortByDesc(function ($conv) {
-            return $conv->last_message_at;
-        })->values();
+        })->filter()->values();
+
+        // Add group chat to the top
+        $lastGroupMsg = Chat::where('group_id', self::GROUP_ID)
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+        $memberCount = User::whereNotIn('role', ['ADMIN', 'admin'])->count();
+
+        $groupConversation = (object) [
+            'id' => 'group',
+            'is_group' => true,
+            'name' => self::GROUP_NAME,
+            'unread_count' => 0,
+            'last_message' => $lastGroupMsg ? $lastGroupMsg->message : 'Belum ada pesan',
+            'last_message_at' => $lastGroupMsg ? $lastGroupMsg->created_at : now(),
+            'recipient' => (object) [
+                'name' => self::GROUP_NAME,
+                'foto' => null,
+                'is_online' => false,
+                'member_count' => $memberCount,
+            ],
+        ];
+
+        $conversations = collect([$groupConversation])->merge($conversations);
 
         return view('chat.index', [
             'conversations' => $conversations,
@@ -67,7 +95,6 @@ class ChatWebController extends Controller
     {
         $userId = auth()->id();
 
-        // Get all users except the current user and admins
         $contacts = User::where('id', '!=', $userId)
             ->whereNotIn('role', ['ADMIN', 'admin'])
             ->orderBy('name', 'asc')
@@ -88,7 +115,7 @@ class ChatWebController extends Controller
     }
 
     /**
-     * Show chat room
+     * Show chat room (1-to-1)
      */
     public function room($id)
     {
@@ -100,17 +127,18 @@ class ChatWebController extends Controller
                 ->with('error', 'User tidak ditemukan');
         }
 
-        // Get all messages between the two users
-        $messages = Chat::where(function ($q) use ($userId, $id) {
+        $messages = Chat::whereNull('group_id')
+            ->where(function ($q) use ($userId, $id) {
                 $q->where('sender_id', $userId)->where('receiver_id', $id);
             })
             ->orWhere(function ($q) use ($userId, $id) {
-                $q->where('sender_id', $id)->where('receiver_id', $userId);
+                $q->whereNull('group_id')
+                    ->where('sender_id', $id)
+                    ->where('receiver_id', $userId);
             })
             ->orderBy('created_at', 'asc')
             ->get();
 
-        // Mark unread messages from the other user as read
         Chat::where('sender_id', $id)
             ->where('receiver_id', $userId)
             ->where('is_read', false)
@@ -128,7 +156,7 @@ class ChatWebController extends Controller
     }
 
     /**
-     * Send message
+     * Send message (1-to-1)
      */
     public function send(Request $request, $id)
     {
@@ -147,6 +175,51 @@ class ChatWebController extends Controller
         return response()->json([
             'success' => true,
             'message' => $chat,
+        ]);
+    }
+
+    /**
+     * Show group chat room
+     */
+    public function groupRoom()
+    {
+        $messages = Chat::where('group_id', self::GROUP_ID)
+            ->with('sender')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $members = User::whereNotIn('role', ['ADMIN', 'admin'])
+            ->orderBy('name')
+            ->get();
+
+        return view('chat.group', [
+            'groupName' => self::GROUP_NAME,
+            'members' => $members,
+            'messages' => $messages,
+        ]);
+    }
+
+    /**
+     * Send group message
+     */
+    public function groupSend(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+
+        $chat = Chat::create([
+            'sender_id' => auth()->id(),
+            'group_id' => self::GROUP_ID,
+            'receiver_id' => null,
+            'message' => $request->message,
+            'type' => 'text',
+            'is_read' => false,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => $chat->load('sender'),
         ]);
     }
 

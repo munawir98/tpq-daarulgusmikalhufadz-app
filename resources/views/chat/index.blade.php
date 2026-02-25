@@ -59,8 +59,10 @@
     ];
     $colorIndex = crc32($chatName) % count($avatarColors);
     $avatarColor = $avatarColors[abs($colorIndex)];
+
+    $chatUrl = $isGroup ? route('chat.group') : route('chat.room', $chatObj->id);
     @endphp
-    <a href="{{ route('chat.room', $chatObj->id) }}"
+    <a href="{{ $chatUrl }}"
         class="chat-item bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm hover:shadow-md flex items-center gap-4 relative transition-all duration-200 active:scale-[0.98] border border-gray-100 dark:border-gray-700"
         data-name="{{ strtolower($chatName) }}">
 
