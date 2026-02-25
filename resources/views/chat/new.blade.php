@@ -157,6 +157,12 @@
     .pb-24 {
         padding-bottom: 0 !important;
     }
+
+    /* Connect content directly to header - no gap */
+    main {
+        padding-top: 0 !important;
+        gap: 0 !important;
+    }
 </style>
 @endpush
 
