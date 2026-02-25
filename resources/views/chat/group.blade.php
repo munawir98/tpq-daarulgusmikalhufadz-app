@@ -92,12 +92,82 @@
     </div>
     @endif
     @empty
-    <div class="flex flex-col items-center justify-center py-16 text-center">
-        <div class="size-16 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined text-slate-400" style="font-size: 32px;">forum</span>
+    {{-- Sample messages when no real messages exist --}}
+    {{-- Date Separator --}}
+    <div class="flex justify-center">
+        <span
+            class="bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+            Hari Ini
+        </span>
+    </div>
+
+    {{-- Incoming Message 1 --}}
+    <div class="flex items-end gap-2 max-w-[85%]">
+        <div
+            class="size-8 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
+            <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-sm">person</span>
         </div>
-        <h3 class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-1">Belum Ada Pesan</h3>
-        <p class="text-xs text-slate-500">Mulai percakapan di grup ini</p>
+        <div class="flex flex-col gap-1">
+            <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold ml-1">Ustadz Ahmad</span>
+            <div
+                class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded-2xl rounded-bl-none shadow-sm border border-slate-100 dark:border-slate-700">
+                <p class="text-sm leading-relaxed">Assalamualaikum, jangan lupa hafalan hari ini ya anak-anak. Target
+                    kita sampai Surah Al-Mulk ayat 10.</p>
+                <p class="text-[10px] text-slate-400 mt-1 text-right">08:00</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- Outgoing Message 1 --}}
+    <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
+        <div class="flex flex-col gap-1 items-end">
+            <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold mr-1">Saya</span>
+            <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
+                <p class="text-sm leading-relaxed">Waalaikumussalam Ustadz, baik siap! Sedang dalam proses murajaah.</p>
+                <div class="flex items-center justify-end gap-1 mt-1">
+                    <p class="text-[10px] opacity-70">08:05</p>
+                    <span class="material-symbols-outlined text-[14px] opacity-70">done_all</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Incoming Message 2 --}}
+    <div class="flex items-end gap-2 max-w-[85%]">
+        <div
+            class="size-8 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
+            <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-sm">person</span>
+        </div>
+        <div class="flex flex-col gap-1">
+            <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold ml-1">Budi</span>
+            <div
+                class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 p-3 rounded-2xl rounded-bl-none shadow-sm border border-slate-100 dark:border-slate-700">
+                <p class="text-sm leading-relaxed">Saya sudah hafal Surat Al-Mulk ayat 1-5 ustadz. Izin nanti setoran
+                    via VN ya.</p>
+                <p class="text-[10px] text-slate-400 mt-1 text-right">08:12</p>
+            </div>
+        </div>
+    </div>
+
+    {{-- System Info --}}
+    <div class="flex justify-center my-2">
+        <p
+            class="text-slate-400 dark:text-slate-500 text-[11px] font-medium bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-lg">
+            Semua anggota TPQ otomatis tergabung
+        </p>
+    </div>
+
+    {{-- Outgoing Message 2 --}}
+    <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
+        <div class="flex flex-col gap-1 items-end">
+            <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
+                <p class="text-sm leading-relaxed">Ustadz, apakah ada kelas tambahan sore ini?</p>
+                <div class="flex items-center justify-end gap-1 mt-1">
+                    <p class="text-[10px] opacity-70">08:45</p>
+                    <span class="material-symbols-outlined text-[14px] opacity-70">done_all</span>
+                </div>
+            </div>
+        </div>
     </div>
     @endforelse
 </div>
