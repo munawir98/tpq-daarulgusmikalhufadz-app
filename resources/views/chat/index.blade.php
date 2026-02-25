@@ -150,7 +150,7 @@
 @section('bottom-nav')
 <nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-50">
     <div
-        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-3 pb-1 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-3 pb-3 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
         <div class="flex justify-around items-center">
             {{-- Chat (Active) --}}
             <a class="flex flex-col items-center gap-1 py-1 px-3 text-blue-600 transition-all"
