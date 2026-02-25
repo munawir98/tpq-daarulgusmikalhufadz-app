@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
 
 class ChatWebController extends Controller
@@ -14,15 +15,27 @@ class ChatWebController extends Controller
     const GROUP_NAME = 'Grup TPQ Daarul Gusmikalhufadz';
 
     /**
+     * Check if group_id column exists
+     */
+    private function hasGroupColumn(): bool
+    {
+        return Schema::hasColumn('chats', 'group_id');
+    }
+
+    /**
      * Display chat list / conversations
      */
     public function index()
     {
         $userId = auth()->id();
+        $hasGroup = $this->hasGroupColumn();
 
         // Get all 1-to-1 chats involving the current user
-        $allChats = Chat::whereNull('group_id')
-            ->where(function ($q) use ($userId) {
+        $query = Chat::query();
+        if ($hasGroup) {
+            $query->whereNull('group_id');
+        }
+        $allChats = $query->where(function ($q) use ($userId) {
                 $q->where('sender_id', $userId)
                     ->orWhere('receiver_id', $userId);
             })
@@ -59,29 +72,31 @@ class ChatWebController extends Controller
             ];
         })->filter()->values();
 
-        // Add group chat to the top
-        $lastGroupMsg = Chat::where('group_id', self::GROUP_ID)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        // Add group chat to the top (only if migration has been run)
+        if ($hasGroup) {
+            $lastGroupMsg = Chat::where('group_id', self::GROUP_ID)
+                ->orderBy('created_at', 'desc')
+                ->first();
 
-        $memberCount = User::whereNotIn('role', ['ADMIN', 'admin'])->count();
+            $memberCount = User::whereNotIn('role', ['ADMIN', 'admin'])->count();
 
-        $groupConversation = (object) [
-            'id' => 'group',
-            'is_group' => true,
-            'name' => self::GROUP_NAME,
-            'unread_count' => 0,
-            'last_message' => $lastGroupMsg ? $lastGroupMsg->message : 'Belum ada pesan',
-            'last_message_at' => $lastGroupMsg ? $lastGroupMsg->created_at : now(),
-            'recipient' => (object) [
+            $groupConversation = (object) [
+                'id' => 'group',
+                'is_group' => true,
                 'name' => self::GROUP_NAME,
-                'foto' => null,
-                'is_online' => false,
-                'member_count' => $memberCount,
-            ],
-        ];
+                'unread_count' => 0,
+                'last_message' => $lastGroupMsg ? $lastGroupMsg->message : 'Belum ada pesan',
+                'last_message_at' => $lastGroupMsg ? $lastGroupMsg->created_at : now(),
+                'recipient' => (object) [
+                    'name' => self::GROUP_NAME,
+                    'foto' => null,
+                    'is_online' => false,
+                    'member_count' => $memberCount,
+                ],
+            ];
 
-        $conversations = collect([$groupConversation])->merge($conversations);
+            $conversations = collect([$groupConversation])->merge($conversations);
+        }
 
         return view('chat.index', [
             'conversations' => $conversations,
@@ -127,13 +142,20 @@ class ChatWebController extends Controller
                 ->with('error', 'User tidak ditemukan');
         }
 
-        $messages = Chat::whereNull('group_id')
-            ->where(function ($q) use ($userId, $id) {
+        $hasGroup = $this->hasGroupColumn();
+
+        $query = Chat::query();
+        if ($hasGroup) {
+            $query->whereNull('group_id');
+        }
+        $messages = $query->where(function ($q) use ($userId, $id) {
                 $q->where('sender_id', $userId)->where('receiver_id', $id);
             })
-            ->orWhere(function ($q) use ($userId, $id) {
-                $q->whereNull('group_id')
-                    ->where('sender_id', $id)
+            ->orWhere(function ($q) use ($userId, $id, $hasGroup) {
+                if ($hasGroup) {
+                    $q->whereNull('group_id');
+                }
+                $q->where('sender_id', $id)
                     ->where('receiver_id', $userId);
             })
             ->orderBy('created_at', 'asc')
@@ -183,6 +205,11 @@ class ChatWebController extends Controller
      */
     public function groupRoom()
     {
+        if (!$this->hasGroupColumn()) {
+            return redirect()->route('chat.index')
+                ->with('error', 'Fitur grup belum tersedia. Jalankan migration terlebih dahulu.');
+        }
+
         $messages = Chat::where('group_id', self::GROUP_ID)
             ->with('sender')
             ->orderBy('created_at', 'asc')
