@@ -77,6 +77,28 @@ Route::get('/run-migrate', function () {
     }
 });
 
+// [TEMPORARY] Fix chat group - add group_id column directly
+Route::get('/fix-chat-group', function () {
+    $results = [];
+    try {
+        // Add group_id column if not exists
+        if (!\Schema::hasColumn('chats', 'group_id')) {
+            \DB::statement('ALTER TABLE chats ADD COLUMN group_id VARCHAR(255) NULL AFTER id');
+            $results[] = "✅ Added column 'group_id' to chats table";
+        } else {
+            $results[] = "⏭️ Column 'group_id' already exists";
+        }
+
+        // Make receiver_id nullable
+        \DB::statement('ALTER TABLE chats MODIFY receiver_id BIGINT UNSIGNED NULL');
+        $results[] = "✅ Made 'receiver_id' nullable";
+
+        return "<h2>✅ Fix berhasil!</h2><pre>" . implode("\n", $results) . "</pre><br><a href='/chat'>Buka Chat</a>";
+    } catch (\Exception $e) {
+        return "<h2>❌ Fix gagal</h2><pre>" . $e->getMessage() . "</pre><pre>" . implode("\n", $results) . "</pre>";
+    }
+});
+
 // [TEMPORARY] Fix jurnal_harian and kegiatan_ekskul tables
 Route::get('/fix-kegiatan-tables', function () {
     $results = [];
