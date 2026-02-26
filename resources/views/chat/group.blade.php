@@ -203,17 +203,28 @@
 
 @push('styles')
 <style>
-    /* Make wrapper full-width on mobile for chat experience */
+    /* Body: no padding, no scroll, full screen */
+    body:has(.group-chat-messages) {
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        height: 100dvh !important;
+    }
+
+    /* Wrapper: full width, full height, no bottom padding */
     div:has(> main:has(.group-chat-messages)) {
         max-width: 100% !important;
         width: 100% !important;
-        padding-bottom: 0 !important;
         height: 100dvh !important;
         min-height: 100dvh !important;
+        max-height: 100dvh !important;
+        padding-bottom: 0 !important;
         overflow: hidden !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
     }
 
-    /* Remove default main padding */
+    /* Main: no padding, flex fill */
     main:has(.group-chat-messages) {
         padding: 0 !important;
         margin: 0 !important;
@@ -225,30 +236,21 @@
         overflow: hidden;
     }
 
-    /* Messages area fills available space */
+    /* Messages: scrollable, fill space */
     .group-chat-messages {
         flex: 1 1 0;
         min-height: 0;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-    }
-
-    /* Input bar stick to bottom */
-    .group-chat-input {
-        flex-shrink: 0;
-        padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
-    }
-
-    /* Subtle chat background */
-    .group-chat-messages {
         background-image:
             radial-gradient(circle at 20% 80%, rgba(19, 236, 91, 0.03) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(19, 236, 91, 0.02) 0%, transparent 50%);
     }
 
-    /* Body no scroll when in chat */
-    body:has(.group-chat-messages) {
-        overflow: hidden !important;
+    /* Input bar: stick to very bottom */
+    .group-chat-input {
+        flex-shrink: 0;
+        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
     }
 </style>
 @endpush
