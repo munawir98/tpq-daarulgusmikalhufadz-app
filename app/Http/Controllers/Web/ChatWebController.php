@@ -205,15 +205,16 @@ class ChatWebController extends Controller
      */
     public function groupRoom()
     {
-        if (!$this->hasGroupColumn()) {
-            return redirect()->route('chat.index')
-                ->with('error', 'Fitur grup belum tersedia. Jalankan migration terlebih dahulu.');
-        }
+        $hasGroup = $this->hasGroupColumn();
 
-        $messages = Chat::where('group_id', self::GROUP_ID)
-            ->with('sender')
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if ($hasGroup) {
+            $messages = Chat::where('group_id', self::GROUP_ID)
+                ->with('sender')
+                ->orderBy('created_at', 'asc')
+                ->get();
+        } else {
+            $messages = collect(); // Empty collection — show sample messages
+        }
 
         $members = User::whereNotIn('role', ['ADMIN', 'admin'])
             ->orderBy('name')
