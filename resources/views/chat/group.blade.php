@@ -10,8 +10,9 @@
     </a>
     <div class="flex flex-1 items-center gap-3 ml-2">
         <div
-            class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center overflow-hidden border border-blue-200 dark:border-blue-800">
-            <span class="material-symbols-outlined text-blue-600 text-xl">groups</span>
+            class="size-10 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden border border-primary/30">
+            <span class="material-symbols-outlined text-primary text-xl"
+                style="font-variation-settings: 'FILL' 1;">groups</span>
         </div>
         <div class="flex flex-col">
             <h2 class="text-slate-900 dark:text-slate-100 text-base font-bold leading-tight">{{ $groupName }}</h2>
@@ -62,7 +63,7 @@
     <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
         <div class="flex flex-col gap-1 items-end">
             <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold mr-1">Saya</span>
-            <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
+            <div class="bg-primary text-slate-900 p-3 rounded-2xl rounded-br-none shadow-sm">
                 <p class="text-sm leading-relaxed font-medium">{{ $message->message }}</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
                     <p class="text-[10px] opacity-70">{{ $message->created_at->format('H:i') }}</p>
@@ -125,7 +126,7 @@
     <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
         <div class="flex flex-col gap-1 items-end">
             <span class="text-slate-500 dark:text-slate-400 text-[11px] font-semibold mr-1">Saya</span>
-            <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
+            <div class="bg-primary text-slate-900 p-3 rounded-2xl rounded-br-none shadow-sm">
                 <p class="text-sm leading-relaxed font-medium">Waalaikumussalam Ustadz, baik siap! Sedang dalam proses
                     murajaah.</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
@@ -157,14 +158,14 @@
     <div class="flex justify-center my-2">
         <p
             class="text-slate-400 dark:text-slate-500 text-[11px] font-medium bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-lg">
-            Semua anggota TPQ otomatis tergabung
+            Lani ditambahkan oleh Ustadz Ahmad
         </p>
     </div>
 
     {{-- Outgoing Message 2 --}}
     <div class="flex items-end gap-2 justify-end ml-auto max-w-[85%]">
         <div class="flex flex-col gap-1 items-end">
-            <div class="bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm">
+            <div class="bg-primary text-slate-900 p-3 rounded-2xl rounded-br-none shadow-sm">
                 <p class="text-sm leading-relaxed font-medium">Ustadz, apakah ada kelas tambahan sore ini?</p>
                 <div class="flex items-center justify-end gap-1 mt-1">
                     <p class="text-[10px] opacity-70">08:45</p>
@@ -199,7 +200,7 @@
                 <span class="material-symbols-outlined">mic</span>
             </button>
             <button type="submit" id="sendBtn"
-                class="size-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/20 hover:scale-105 transition-transform active:scale-95">
+                class="size-11 rounded-full bg-primary flex items-center justify-center text-slate-900 shadow-lg shadow-primary/20 hover:scale-105 transition-transform active:scale-95">
                 <span class="material-symbols-outlined text-[24px]">send</span>
             </button>
         </div>
@@ -254,7 +255,7 @@
             label.textContent = "Saya";
 
             const bubble = document.createElement("div");
-            bubble.className = "bg-blue-600 text-white p-3 rounded-2xl rounded-br-none shadow-sm";
+            bubble.className = "bg-primary text-slate-900 p-3 rounded-2xl rounded-br-none shadow-sm";
 
             const text = document.createElement("p");
             text.className = "text-sm leading-relaxed font-medium";
