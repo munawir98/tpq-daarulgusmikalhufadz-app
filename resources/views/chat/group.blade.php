@@ -203,19 +203,20 @@
 
 @push('styles')
 <style>
-    /* Override mobile layout for chat screen */
-    .group-chat-messages {
-        margin: -1rem -1.25rem;
-        padding: 0.75rem;
-        flex: 1 1 0;
-        min-height: 0;
-        overflow-y: auto;
-        max-height: calc(100dvh - 130px);
+    /* Make wrapper full-width on mobile for chat experience */
+    div:has(> main:has(.group-chat-messages)) {
+        max-width: 100% !important;
+        width: 100% !important;
+        padding-bottom: 0 !important;
+        height: 100dvh !important;
+        min-height: 100dvh !important;
+        overflow: hidden !important;
     }
 
     /* Remove default main padding */
     main:has(.group-chat-messages) {
         padding: 0 !important;
+        margin: 0 !important;
         gap: 0 !important;
         flex: 1 1 0;
         display: flex;
@@ -224,12 +225,12 @@
         overflow: hidden;
     }
 
-    /* Remove default bottom padding from wrapper */
-    div:has(> main:has(.group-chat-messages)) {
-        padding-bottom: 0 !important;
-        height: 100dvh !important;
-        min-height: 100dvh !important;
-        overflow: hidden !important;
+    /* Messages area fills available space */
+    .group-chat-messages {
+        flex: 1 1 0;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     /* Input bar stick to bottom */
@@ -238,11 +239,16 @@
         padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
     }
 
-    /* Smooth chat background */
+    /* Subtle chat background */
     .group-chat-messages {
         background-image:
             radial-gradient(circle at 20% 80%, rgba(19, 236, 91, 0.03) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(19, 236, 91, 0.02) 0%, transparent 50%);
+    }
+
+    /* Body no scroll when in chat */
+    body:has(.group-chat-messages) {
+        overflow: hidden !important;
     }
 </style>
 @endpush
