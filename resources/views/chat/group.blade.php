@@ -179,7 +179,7 @@
 @section('bottom-nav')
 {{-- Message Input Bar --}}
 <div
-    class="group-chat-input bg-white dark:bg-background-dark px-3 py-2.5 border-t border-slate-100 dark:border-slate-800">
+    class="group-chat-input bg-white dark:bg-background-dark px-3 py-1.5 border-t border-slate-100 dark:border-slate-800">
     <form id="messageForm" class="flex items-end gap-2">
         @csrf
         <div class="flex-1 flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1.5 min-h-[44px]">
@@ -236,7 +236,7 @@
     /* Input bar stick to bottom */
     .group-chat-input {
         flex-shrink: 0;
-        padding-bottom: max(0.625rem, env(safe-area-inset-bottom));
+        padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
     }
 
     /* Subtle chat background */
