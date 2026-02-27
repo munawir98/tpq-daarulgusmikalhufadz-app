@@ -181,7 +181,7 @@
 @section('bottom-nav')
 {{-- Message Input Bar --}}
 <div
-    class="group-chat-input bg-[#f0f2f5] dark:bg-background-dark px-2 py-2 border-t border-slate-200 dark:border-slate-800 flex items-end gap-2">
+    class="group-chat-input fixed bottom-0 left-0 right-0 w-full max-w-md md:max-w-2xl mx-auto z-50 bg-[#f0f2f5] dark:bg-background-dark px-2 py-2 border-t border-slate-200 dark:border-slate-800 flex items-end gap-2">
     <form id="messageForm" class="flex-1 flex items-end gap-2 w-full">
         @csrf
         {{-- Input Pill --}}
@@ -254,6 +254,7 @@
         min-height: 0;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        padding-bottom: 80px !important;
         background-image:
             radial-gradient(circle at 20% 80%, rgba(19, 236, 91, 0.03) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(19, 236, 91, 0.02) 0%, transparent 50%);
@@ -262,7 +263,7 @@
     /* Input bar: stick to very bottom */
     .group-chat-input {
         flex-shrink: 0;
-        padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
+        padding-bottom: env(safe-area-inset-bottom);
     }
 </style>
 @endpush
