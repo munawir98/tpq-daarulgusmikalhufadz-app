@@ -183,14 +183,38 @@ class ChatWebController extends Controller
     public function send(Request $request, $id)
     {
         $request->validate([
-            'message' => 'required|string|max:1000',
+            'message' => 'nullable|string|max:1000',
+            'attachment' => 'nullable|file|max:5120', // Max 5MB file
         ]);
+
+        if (!$request->message && !$request->hasFile('attachment')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pesan atau file tidak boleh kosong',
+            ], 422);
+        }
+
+        $filePath = null;
+        $type = 'text';
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filePath = $file->store('chat_attachments', 'public');
+
+            $mimeType = $file->getClientMimeType();
+            if (str_starts_with($mimeType, 'image/')) {
+                $type = 'image';
+            } else {
+                $type = 'file';
+            }
+        }
 
         $chat = Chat::create([
             'sender_id' => auth()->id(),
             'receiver_id' => $id,
-            'message' => $request->message,
-            'type' => 'text',
+            'message' => $request->message ?: null,
+            'file_path' => $filePath,
+            'type' => $type,
             'is_read' => false,
         ]);
 
@@ -233,15 +257,39 @@ class ChatWebController extends Controller
     public function groupSend(Request $request)
     {
         $request->validate([
-            'message' => 'required|string|max:1000',
+            'message' => 'nullable|string|max:1000',
+            'attachment' => 'nullable|file|max:5120', // Max 5MB file
         ]);
+
+        if (!$request->message && !$request->hasFile('attachment')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pesan atau file tidak boleh kosong',
+            ], 422);
+        }
+
+        $filePath = null;
+        $type = 'text';
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $filePath = $file->store('chat_attachments', 'public');
+
+            $mimeType = $file->getClientMimeType();
+            if (str_starts_with($mimeType, 'image/')) {
+                $type = 'image';
+            } else {
+                $type = 'file';
+            }
+        }
 
         $chat = Chat::create([
             'sender_id' => auth()->id(),
             'group_id' => self::GROUP_ID,
             'receiver_id' => null,
-            'message' => $request->message,
-            'type' => 'text',
+            'message' => $request->message ?: null,
+            'file_path' => $filePath,
+            'type' => $type,
             'is_read' => false,
         ]);
 

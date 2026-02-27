@@ -16,6 +16,7 @@ class Chat extends Model
         'receiver_id',
         'group_id',
         'message',
+        'file_path',
         'type',
         'is_read',
     ];
