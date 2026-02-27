@@ -262,7 +262,7 @@
     /* Input bar: stick to very bottom */
     .group-chat-input {
         flex-shrink: 0;
-        padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom)) !important;
     }
 </style>
 @endpush
