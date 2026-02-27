@@ -96,83 +96,12 @@
     @endif
 
     @empty
-    {{-- ====== SAMPLE MESSAGES ====== --}}
-
-    {{-- Date Separator --}}
-    <div class="flex justify-center my-2">
-        <span
-            class="bg-slate-200/80 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
-            Hari Ini
-        </span>
-    </div>
-
-    {{-- Incoming 1 --}}
-    <div class="flex items-end gap-2">
-        <div
-            class="size-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
-            <span class="material-symbols-outlined text-slate-400 text-[14px]">person</span>
-        </div>
-        <div class="max-w-[80%]">
-            <span class="text-primary text-[11px] font-semibold ml-1 block mb-0.5">Ustadz Ahmad</span>
-            <div
-                class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 rounded-2xl rounded-bl-sm shadow-sm border border-slate-100 dark:border-slate-700">
-                <p class="text-[13px] leading-relaxed">Assalamualaikum, jangan lupa hafalan hari ini ya anak-anak.
-                    Target kita sampai Surah Al-Mulk ayat 10.</p>
-                <p class="text-[10px] text-slate-400 mt-0.5 text-right">08:00</p>
-            </div>
-        </div>
-    </div>
-
-    {{-- Outgoing 1 --}}
-    <div class="flex justify-end">
-        <div class="max-w-[80%]">
-            <div class="bg-primary text-slate-900 px-3 py-2 rounded-2xl rounded-br-sm shadow-sm">
-                <p class="text-[13px] leading-relaxed font-medium">Waalaikumussalam Ustadz, baik siap! Sedang dalam
-                    proses murajaah.</p>
-                <div class="flex items-center justify-end gap-1 mt-0.5">
-                    <p class="text-[10px] opacity-60">08:05</p>
-                    <span class="material-symbols-outlined text-[13px] opacity-60">done_all</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Incoming 2 --}}
-    <div class="flex items-end gap-2">
-        <div
-            class="size-7 shrink-0 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center overflow-hidden">
-            <span class="material-symbols-outlined text-slate-400 text-[14px]">person</span>
-        </div>
-        <div class="max-w-[80%]">
-            <span class="text-primary text-[11px] font-semibold ml-1 block mb-0.5">Budi</span>
-            <div
-                class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-3 py-2 rounded-2xl rounded-bl-sm shadow-sm border border-slate-100 dark:border-slate-700">
-                <p class="text-[13px] leading-relaxed">Saya sudah hafal Surat Al-Mulk ayat 1-5 ustadz. Izin nanti
-                    setoran via VN ya.</p>
-                <p class="text-[10px] text-slate-400 mt-0.5 text-right">08:12</p>
-            </div>
-        </div>
-    </div>
-
-    {{-- System Info --}}
-    <div class="flex justify-center my-1">
-        <p
-            class="text-slate-400 dark:text-slate-500 text-[11px] font-medium bg-slate-100 dark:bg-slate-800/50 px-3 py-1 rounded-lg">
-            Lani ditambahkan oleh Ustadz Ahmad
+    {{-- ====== EMPTY STATE ====== --}}
+    <div class="flex flex-col items-center justify-center py-10 opacity-60">
+        <span class="material-symbols-outlined text-[48px] text-slate-400 mb-2">forum</span>
+        <p class="text-sm text-slate-500 font-medium">Belum ada pesan di grup ini</p>
+        <p class="text-[11px] text-slate-400 mt-1 mt-1 text-center px-4">Kirim pesan pertama untuk memulai percakapan
         </p>
-    </div>
-
-    {{-- Outgoing 2 --}}
-    <div class="flex justify-end">
-        <div class="max-w-[80%]">
-            <div class="bg-primary text-slate-900 px-3 py-2 rounded-2xl rounded-br-sm shadow-sm">
-                <p class="text-[13px] leading-relaxed font-medium">Ustadz, apakah ada kelas tambahan sore ini?</p>
-                <div class="flex items-center justify-end gap-1 mt-0.5">
-                    <p class="text-[10px] opacity-60">08:45</p>
-                    <span class="material-symbols-outlined text-[13px] opacity-60">done_all</span>
-                </div>
-            </div>
-        </div>
     </div>
     @endforelse
 </div>
