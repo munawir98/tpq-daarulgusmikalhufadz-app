@@ -181,23 +181,33 @@
 @section('bottom-nav')
 {{-- Message Input Bar --}}
 <div
-    class="group-chat-input bg-white dark:bg-background-dark px-3 py-2.5 border-t border-slate-100 dark:border-slate-800">
-    <form id="messageForm" class="flex items-end gap-2">
+    class="group-chat-input bg-[#f0f2f5] dark:bg-background-dark px-2 py-2 border-t border-slate-200 dark:border-slate-800 flex items-end gap-2">
+    <form id="messageForm" class="flex-1 flex items-end gap-2 w-full">
         @csrf
-        <div class="flex-1 flex items-center bg-slate-100 dark:bg-slate-800 rounded-full px-3 py-1.5 min-h-[44px]">
-            <button type="button" class="text-slate-400 dark:text-slate-500 shrink-0">
-                <span class="material-symbols-outlined text-[22px]">sentiment_satisfied</span>
+        {{-- Input Pill --}}
+        <div class="flex-1 flex items-center bg-white dark:bg-slate-800 rounded-3xl px-1.5 py-1 min-h-[44px] shadow-sm">
+            <button type="button"
+                class="text-slate-500 hover:text-slate-600 dark:text-slate-400 p-2 shrink-0 transition-colors">
+                <span class="material-symbols-outlined text-[24px]">sentiment_satisfied</span>
             </button>
             <input id="messageInput" name="message"
-                class="flex-1 bg-transparent border-none focus:ring-0 text-[13px] text-slate-900 dark:text-slate-100 placeholder:text-slate-400 py-1 px-2"
-                placeholder="Ketik pesan..." type="text" autocomplete="off" />
-            <button type="button" class="text-slate-400 dark:text-slate-500 shrink-0">
-                <span class="material-symbols-outlined transform rotate-45 text-[22px]">attach_file</span>
+                class="flex-1 bg-transparent border-none focus:ring-0 text-[15px] text-slate-900 dark:text-slate-100 placeholder:text-slate-500 py-2 px-1 leading-tight"
+                placeholder="Ketik pesan" type="text" autocomplete="off" />
+            <button type="button"
+                class="text-slate-500 hover:text-slate-600 dark:text-slate-400 p-2 shrink-0 transition-colors transform -rotate-45">
+                <span class="material-symbols-outlined text-[22px]">attach_file</span>
+            </button>
+            <button type="button"
+                class="text-slate-500 hover:text-slate-600 dark:text-slate-400 p-2 shrink-0 transition-colors hidden sm:block">
+                <span class="material-symbols-outlined text-[22px]">photo_camera</span>
             </button>
         </div>
+
+        {{-- Send/Mic Button --}}
         <button type="submit" id="sendBtn"
-            class="size-[44px] shrink-0 rounded-full bg-primary flex items-center justify-center text-slate-900 shadow-md shadow-primary/25 active:scale-95 transition-transform">
-            <span class="material-symbols-outlined text-[22px]">send</span>
+            class="size-[44px] shrink-0 rounded-full bg-[#00a884] hover:bg-[#008f6f] flex items-center justify-center text-white shadow-sm transition-all active:scale-95">
+            <span class="material-symbols-outlined text-[20px] ml-0.5"
+                style="font-variation-settings: 'FILL' 1;">send</span>
         </button>
     </form>
 </div>
