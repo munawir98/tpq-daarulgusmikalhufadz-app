@@ -1,5 +1,7 @@
 @extends('layouts.mobile')
 
+@section('no-pb', 'true')
+
 @section('title', 'Grup Chat')
 
 @section('header')

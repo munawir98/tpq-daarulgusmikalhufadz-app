@@ -68,11 +68,12 @@
     @stack('styles')
 </head>
 
-<body class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-start p-0 sm:py-4">
+<body
+    class="bg-background-light dark:bg-background-dark min-h-screen flex justify-center items-start @hasSection('no-pb') p-0 sm:pt-4 sm:pb-0 @else p-0 sm:py-4 @endif">
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 md:text-lg">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl md:text-lg @hasSection('no-pb') pb-0 @else pb-24 @endif">
 
         {{-- Header --}}
         @hasSection('header')
