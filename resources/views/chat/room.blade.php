@@ -113,34 +113,47 @@
 
         {{-- Input --}}
         <div
-            class="sticky bottom-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-t border-gray-200 dark:border-gray-800 p-4">
-            <form id="messageForm" class="flex items-end gap-3" enctype="multipart/form-data"
+            class="sticky bottom-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-t border-gray-200 dark:border-gray-800 p-3">
+            <form id="messageForm" class="flex flex-col gap-2" enctype="multipart/form-data"
                 data-is-group="{{ $isGroup ? 'true' : 'false' }}" data-url-group="{{ route('chat.group.send') }}"
                 data-url-private="{{ route('chat.send', $recipient->id ?? 0) }}">
                 @csrf
                 <input type="file" id="attachmentInput" name="attachment" class="hidden"
                     accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
-                <button type="button" id="attachBtn"
-                    class="shrink-0 p-3 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
-                    <span class="material-symbols-outlined">attach_file</span>
-                </button>
+
                 <div id="attachmentPreview"
-                    class="hidden absolute bottom-20 left-4 bg-white dark:bg-gray-800 p-2 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 flex items-center gap-2">
+                    class="hidden bg-white dark:bg-gray-800 p-2 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex items-center gap-2 w-fit">
                     <span class="material-symbols-outlined text-gray-500">description</span>
-                    <span id="attachmentName" class="text-sm truncate max-w-[150px]"></span>
-                    <button type="button" id="removeAttachmentBtn" class="text-red-500 hover:bg-red-50 p-1 rounded-lg">
+                    <span id="attachmentName" class="text-sm truncate max-w-[200px]"></span>
+                    <button type="button" id="removeAttachmentBtn"
+                        class="text-red-500 hover:bg-red-50 p-1 rounded-lg ml-auto">
                         <span class="material-symbols-outlined text-sm">close</span>
                     </button>
                 </div>
-                <div class="flex-1 relative">
+
+                <div
+                    class="relative bg-gray-100 dark:bg-gray-800 rounded-2xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all overflow-hidden flex flex-col">
                     <textarea id="messageInput" name="message" rows="1"
-                        class="w-full resize-none bg-gray-100 dark:bg-gray-800 rounded-2xl px-4 py-3 pr-12 text-sm focus:ring-2 focus:ring-primary/40 focus:outline-none transition"
+                        class="w-full resize-none bg-transparent border-none px-4 py-3 text-[14px] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 focus:ring-0 focus:outline-none"
                         placeholder="Ketik pesan..."></textarea>
 
-                    <button type="button" id="emojiBtn"
-                        class="absolute right-3 bottom-3 text-gray-400 hover:text-primary transition">
-                        <span class="material-symbols-outlined">mood</span>
-                    </button>
+                    <div class="flex items-center justify-between px-2 pb-2">
+                        <div class="flex items-center gap-1">
+                            <button type="button" id="emojiBtn"
+                                class="p-2 text-gray-500 hover:text-primary transition rounded-full hover:bg-gray-200/50 dark:hover:bg-gray-700/50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[22px]">mood</span>
+                            </button>
+                            <button type="button" id="attachBtn"
+                                class="p-2 text-gray-500 hover:text-primary transition rounded-full hover:bg-gray-200/50 dark:hover:bg-gray-700/50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[22px]">attach_file</span>
+                            </button>
+                        </div>
+
+                        <button type="submit"
+                            class="size-10 rounded-full bg-primary text-[#102216] flex items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition active:scale-95 shrink-0 mr-1">
+                            <span class="material-symbols-outlined text-[18px]">send</span>
+                        </button>
+                    </div>
 
                     {{-- Emoji Picker Container --}}
                     <div id="emojiPickerContainer"
@@ -148,10 +161,6 @@
                         <emoji-picker class="light"></emoji-picker>
                     </div>
                 </div>
-                <button type="submit"
-                    class="shrink-0 size-12 rounded-full bg-primary text-[#102216] flex items-center justify-center shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition active:scale-95">
-                    <span class="material-symbols-outlined">send</span>
-                </button>
             </form>
         </div>
 
