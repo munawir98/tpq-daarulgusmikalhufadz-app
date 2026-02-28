@@ -40,6 +40,8 @@
         html,
         body {
             height: 100%;
+            overflow: hidden;
+            touch-action: pan-y;
         }
 
         /* Custom scrollbar for webkit */
@@ -72,15 +74,15 @@
     </style>
 </head>
 
-<body class="bg-gray-100 dark:bg-black font-display text-[#111b21] dark:text-[#e9edef]">
+<body class="bg-gray-100 dark:bg-black font-display text-[#111b21] dark:text-[#e9edef] overflow-hidden">
 
     <div
-        class="flex flex-col h-screen max-w-md mx-auto bg-[#efeae2] dark:bg-[#0b141a] shadow-xl relative overflow-hidden">
+        class="flex flex-col h-[100dvh] max-w-md mx-auto bg-[#efeae2] dark:bg-[#0b141a] shadow-xl relative overflow-hidden">
         {{-- Chat Background overlay for pattern --}}
         <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
 
         {{-- Header --}}
-        <header class="sticky top-0 z-10 bg-[#f0f2f5] dark:bg-[#202c33] px-3 py-2 flex items-center gap-3">
+        <header class="shrink-0 sticky top-0 z-20 bg-[#f0f2f5] dark:bg-[#202c33] px-3 py-2 flex items-center gap-3">
             <a href="javascript:history.back()"
                 class="flex items-center text-[#54656f] dark:text-[#aebac1] hover:bg-black/5 p-1 rounded-full transition">
                 <span class="material-symbols-outlined">arrow_back</span>
@@ -233,7 +235,7 @@
         </div>
 
         {{-- Input --}}
-        <div class="bg-[#f0f2f5] dark:bg-[#202c33] px-2 py-2 flex items-end gap-2 z-10 w-full relative">
+        <div class="shrink-0 bg-[#f0f2f5] dark:bg-[#202c33] px-2 py-2 flex items-end gap-2 z-20 w-full relative">
 
             {{-- Attachment Preview --}}
             <div id="attachmentPreview"
