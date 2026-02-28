@@ -76,8 +76,8 @@
 
 <body class="bg-gray-100 dark:bg-black font-display text-[#111b21] dark:text-[#e9edef] overflow-hidden">
 
-    <div
-        class="flex flex-col h-[100dvh] max-w-md mx-auto bg-[#efeae2] dark:bg-[#0b141a] shadow-xl relative overflow-hidden">
+    <div id="appContainer"
+        class="flex flex-col fixed inset-0 mx-auto w-full max-w-md bg-[#efeae2] dark:bg-[#0b141a] shadow-xl overflow-hidden">
         {{-- Chat Background overlay for pattern --}}
         <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
 
@@ -357,6 +357,18 @@
                 attachmentInput.value = "";
                 attachmentPreview.classList.add("hidden");
             });
+
+            // Fix for mobile keyboard pushing the header up
+            const appContainer = document.getElementById('appContainer');
+            if (window.visualViewport) {
+                const resizeHandler = () => {
+                    appContainer.style.height = window.visualViewport.height + 'px';
+                    messages.scrollTop = messages.scrollHeight;
+                };
+                window.visualViewport.addEventListener('resize', resizeHandler);
+                window.visualViewport.addEventListener('scroll', resizeHandler);
+                resizeHandler(); // init
+            }
 
             // Scroll to bottom on load
             messages.scrollTop = messages.scrollHeight;
