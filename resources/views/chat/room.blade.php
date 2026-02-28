@@ -59,17 +59,15 @@
         }
 
         .chat-bg {
-            background-color: #efeae2;
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-color: #e5ddd5;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
             background-repeat: repeat;
-            background-size: contain;
-            background-blend-mode: overlay;
         }
 
         .dark .chat-bg {
             background-color: #0b141a;
-            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-            opacity: 0.9;
+            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            opacity: 0.15;
         }
     </style>
 </head>
@@ -82,14 +80,11 @@
         <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
 
         {{-- Header --}}
-        <header class="shrink-0 sticky top-0 z-20 bg-[#f0f2f5] dark:bg-[#202c33] px-3 py-2 flex items-center gap-3">
-            <a href="javascript:history.back()"
-                class="flex items-center text-[#54656f] dark:text-[#aebac1] hover:bg-black/5 p-1 rounded-full transition">
-                <span class="material-symbols-outlined">arrow_back</span>
-            </a>
+        <header
+            class="shrink-0 sticky top-0 z-20 bg-[#005c4b] dark:bg-[#202c33] px-4 py-3 flex items-center gap-3 shadow-md">
             <div class="flex items-center flex-1 gap-3 cursor-pointer">
                 <div
-                    class="size-10 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 font-bold text-lg overflow-hidden">
+                    class="size-10 rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden">
                     @if($isGroup)
                     <span class="material-symbols-outlined">group</span>
                     @else
@@ -97,8 +92,8 @@
                     @endif
                 </div>
                 <div class="flex flex-col flex-1">
-                    <h2 class="font-semibold text-base leading-tight">{{ $recipient->name }}</h2>
-                    <p class="text-xs text-[#54656f] dark:text-[#8696a0] truncate max-w-[200px]">
+                    <h2 class="font-semibold text-base leading-tight text-white">{{ $recipient->name }}</h2>
+                    <p class="text-xs text-white/80 dark:text-[#8696a0] truncate max-w-[200px]">
                         @if($isGroup)
                         @foreach($recipient->members as $idx => $member)
                         {{ $member->user->name ?? 'User' }}{{ !$loop->last ? ',' : '' }}
@@ -109,14 +104,14 @@
                     </p>
                 </div>
             </div>
-            <div class="flex items-center gap-1 text-[#54656f] dark:text-[#aebac1]">
-                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+            <div class="flex items-center gap-1 text-white dark:text-[#aebac1]">
+                <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">videocam</span>
                 </button>
-                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+                <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">call</span>
                 </button>
-                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+                <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
             </div>
@@ -133,13 +128,13 @@
             @if($message->sender_id == auth()->id())
             {{-- Sent Message --}}
             <div class="flex justify-end relative {{ $showTail ? 'mt-2' : '' }}">
-                <div class="max-w-[85%] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
+                <div class="max-w-[85%] bg-[#005c4b] dark:bg-[#005c4b] text-white dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
                     {{ $showTail ? 'rounded-tr-none' : '' }}">
 
                     @if($showTail)
                     {{-- Tail SVGs --}}
                     <svg viewBox="0 0 8 13" width="8" height="13"
-                        class="absolute top-0 -right-[7px] text-[#d9fdd3] dark:text-[#005c4b] fill-current">
+                        class="absolute top-0 -right-[7px] text-[#005c4b] dark:text-[#005c4b] fill-current">
                         <path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z">
                         </path>
                         <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z">
@@ -171,10 +166,10 @@
                     </div>
 
                     <div class="absolute bottom-1 right-2 flex items-center gap-1">
-                        <span class="text-[11px] text-[#667781] dark:text-[#8696a0] leading-none">{{
+                        <span class="text-[11px] text-white/70 dark:text-[#8696a0] leading-none">{{
                             $message->created_at->format('H:i') }}</span>
                         <span
-                            class="material-symbols-outlined text-[14px] leading-none {{ $message->is_read ? 'text-[#53bdeb]' : 'text-[#8696a0]' }}">{{
+                            class="material-symbols-outlined text-[14px] leading-none {{ $message->is_read ? 'text-[#53bdeb]' : 'text-white/70' }}">{{
                             $message->is_read ? 'done_all' : 'done' }}</span>
                     </div>
                 </div>
@@ -392,14 +387,14 @@
                 wrapper.className = "flex justify-end relative mt-2";
 
                 const bubble = document.createElement("div");
-                bubble.className = "max-w-[85%] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words rounded-tr-none";
+                bubble.className = "max-w-[85%] bg-[#005c4b] dark:bg-[#005c4b] text-white dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words rounded-tr-none";
 
                 // Tail
                 const tailSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 tailSvg.setAttribute("viewBox", "0 0 8 13");
                 tailSvg.setAttribute("width", "8");
                 tailSvg.setAttribute("height", "13");
-                tailSvg.setAttribute("class", "absolute top-0 -right-[7px] text-[#d9fdd3] dark:text-[#005c4b] fill-current");
+                tailSvg.setAttribute("class", "absolute top-0 -right-[7px] text-[#005c4b] dark:text-[#005c4b] fill-current");
                 tailSvg.innerHTML = `<path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>
                     <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z"></path>
                     <path d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>`;
@@ -446,12 +441,12 @@
                 meta.className = "absolute bottom-1 right-2 flex items-center gap-1";
 
                 const time = document.createElement("span");
-                time.className = "text-[11px] text-[#667781] dark:text-[#8696a0] leading-none";
+                time.className = "text-[11px] text-white/70 dark:text-[#8696a0] leading-none";
                 const d = new Date();
                 time.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
 
                 const icon = document.createElement("span");
-                icon.className = "material-symbols-outlined text-[14px] leading-none text-[#8696a0]";
+                icon.className = "material-symbols-outlined text-[14px] leading-none text-white/70";
                 icon.textContent = "done";
 
                 meta.appendChild(time);
