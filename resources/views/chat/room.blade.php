@@ -41,70 +41,191 @@
         body {
             height: 100%;
         }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .chat-bg {
+            background-color: #efeae2;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-repeat: repeat;
+            background-size: contain;
+            background-blend-mode: overlay;
+        }
+
+        .dark .chat-bg {
+            background-color: #0b141a;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            opacity: 0.9;
+        }
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display text-[#111813] dark:text-white">
+<body class="bg-gray-100 dark:bg-black font-display text-[#111b21] dark:text-[#e9edef]">
 
-    <div class="flex flex-col h-screen max-w-md mx-auto bg-white dark:bg-gray-900 shadow-xl">
+    <div
+        class="flex flex-col h-screen max-w-md mx-auto bg-[#efeae2] dark:bg-[#0b141a] shadow-xl relative overflow-hidden">
+        {{-- Chat Background overlay for pattern --}}
+        <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
 
         {{-- Header --}}
-        <header
-            class="sticky top-0 z-10 backdrop-blur bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-800 px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div
-                        class="size-11 rounded-full bg-primary/15 flex items-center justify-center text-primary font-bold text-lg shadow-sm">
-                        @if($isGroup)
-                        <span class="material-symbols-outlined text-primary">group</span>
-                        @else
-                        {{ substr($recipient->name, 0, 1) }}
-                        @endif
-                    </div>
-                    <div>
-                        <h2 class="font-semibold text-base">{{ $recipient->name }}</h2>
-                        <p class="text-xs text-green-500 flex items-center gap-1">
-                            @if($isGroup)
-                            <span class="text-gray-500">{{ count($recipient->members) }} anggota</span>
-                            @else
-                            <span class="size-2 bg-green-500 rounded-full"></span>
-                            Online
-                            @endif
-                        </p>
-                    </div>
+        <header class="sticky top-0 z-10 bg-[#f0f2f5] dark:bg-[#202c33] px-3 py-2 flex items-center gap-3">
+            <a href="javascript:history.back()"
+                class="flex items-center text-[#54656f] dark:text-[#aebac1] hover:bg-black/5 p-1 rounded-full transition">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </a>
+            <div class="flex items-center flex-1 gap-3 cursor-pointer">
+                <div
+                    class="size-10 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300 font-bold text-lg overflow-hidden">
+                    @if($isGroup)
+                    <span class="material-symbols-outlined">group</span>
+                    @else
+                    {{ substr($recipient->name, 0, 1) }}
+                    @endif
                 </div>
-                <button class="p-2 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition">
-                    <span class="material-symbols-outlined text-gray-500">more_vert</span>
+                <div class="flex flex-col flex-1">
+                    <h2 class="font-semibold text-base leading-tight">{{ $recipient->name }}</h2>
+                    <p class="text-xs text-[#54656f] dark:text-[#8696a0] truncate max-w-[200px]">
+                        @if($isGroup)
+                        @foreach($recipient->members as $idx => $member)
+                        {{ $member->user->name ?? 'User' }}{{ !$loop->last ? ',' : '' }}
+                        @endforeach
+                        @else
+                        online
+                        @endif
+                    </p>
+                </div>
+            </div>
+            <div class="flex items-center gap-1 text-[#54656f] dark:text-[#aebac1]">
+                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+                    <span class="material-symbols-outlined text-[20px]">videocam</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+                    <span class="material-symbols-outlined text-[20px]">call</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition">
+                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
             </div>
         </header>
 
         {{-- Messages --}}
-        <div id="messages" class="flex-1 overflow-y-auto px-4 py-6 space-y-4 scroll-smooth">
-            @foreach($messages as $message)
+        <div id="messages" class="flex-1 overflow-y-auto px-4 py-4 space-y-1 z-10 scroll-smooth">
+            @foreach($messages as $index => $message)
+            @php
+            $prevMessage = $index > 0 ? $messages[$index - 1] : null;
+            $showTail = !$prevMessage || $prevMessage->sender_id !== $message->sender_id;
+            @endphp
+
             @if($message->sender_id == auth()->id())
             {{-- Sent Message --}}
-            <div class="flex justify-end">
-                <div
-                    class="max-w-[75%] bg-primary text-[#102216] rounded-2xl rounded-br-sm px-4 py-3 shadow-md transition-all duration-300">
-                    <p class="text-sm leading-relaxed">{{ $message->message }}</p>
-                    <div class="flex items-center justify-end gap-1 mt-2">
-                        <span class="text-[10px] opacity-70">{{ $message->created_at->format('H:i') }}</span>
-                        <span class="material-symbols-outlined text-[12px] opacity-70">{{ $message->is_read ? 'done_all'
-                            : 'done' }}</span>
+            <div class="flex justify-end relative {{ $showTail ? 'mt-2' : '' }}">
+                <div class="max-w-[85%] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
+                    {{ $showTail ? 'rounded-tr-none' : '' }}">
+
+                    @if($showTail)
+                    {{-- Tail SVGs --}}
+                    <svg viewBox="0 0 8 13" width="8" height="13"
+                        class="absolute top-0 -right-[7px] text-[#d9fdd3] dark:text-[#005c4b] fill-current">
+                        <path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z">
+                        </path>
+                        <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z">
+                        </path>
+                        <path d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>
+                    </svg>
+                    @endif
+
+                    <div class="flex flex-col">
+                        @if($message->type === 'file' && $message->file_path)
+                        <div
+                            class="flex items-center gap-3 bg-black/5 dark:bg-white/5 p-3 rounded-lg mb-1 w-64 border border-black/5 dark:border-white/5">
+                            <span class="material-symbols-outlined text-red-500 text-4xl">picture_as_pdf</span>
+                            <div class="flex flex-col overflow-hidden">
+                                <span class="font-medium text-[15px] truncate text-[#111b21] dark:text-[#e9edef]">{{
+                                    basename($message->file_path) }}</span>
+                                <span class="text-[12px] text-[#667781] dark:text-[#8696a0] uppercase">{{
+                                    pathinfo($message->file_path, PATHINFO_EXTENSION) }}</span>
+                            </div>
+                        </div>
+                        @elseif($message->type === 'image' && $message->file_path)
+                        <img src="{{ asset('storage/' . $message->file_path) }}" alt="Image"
+                            class="max-w-full rounded-lg mb-1 cursor-pointer">
+                        @endif
+
+                        <div class="flex items-end content-end pr-14 relative">
+                            <span class="leading-relaxed whitespace-pre-wrap">{!! nl2br(e($message->message)) !!}</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-1 right-2 flex items-center gap-1">
+                        <span class="text-[11px] text-[#667781] dark:text-[#8696a0] leading-none">{{
+                            $message->created_at->format('H:i') }}</span>
+                        <span
+                            class="material-symbols-outlined text-[14px] leading-none {{ $message->is_read ? 'text-[#53bdeb]' : 'text-[#8696a0]' }}">{{
+                            $message->is_read ? 'done_all' : 'done' }}</span>
                     </div>
                 </div>
             </div>
             @else
             {{-- Received Message --}}
-            <div class="flex justify-start">
-                <div
-                    class="max-w-[75%] bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl rounded-bl-sm px-4 py-3 shadow-md transition-all duration-300">
-                    @if($isGroup)
-                    <p class="text-xs font-bold text-primary mb-1">{{ $message->sender->name }}</p>
+            <div class="flex justify-start relative {{ $showTail ? 'mt-2' : '' }}">
+                <div class="max-w-[85%] bg-white dark:bg-[#202c33] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
+                    {{ $showTail ? 'rounded-tl-none' : '' }}">
+
+                    @if($showTail)
+                    {{-- Tail SVGs --}}
+                    <svg viewBox="0 0 8 13" width="8" height="13"
+                        class="absolute top-0 -left-[7px] text-white dark:text-[#202c33] fill-current transform scale-x-[-1]">
+                        <path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z">
+                        </path>
+                        <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z">
+                        </path>
+                        <path d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>
+                    </svg>
                     @endif
-                    <p class="text-sm leading-relaxed text-[#111813] dark:text-white">{{ $message->message }}</p>
-                    <span class="text-[10px] text-gray-400 mt-2 block">{{ $message->created_at->format('H:i') }}</span>
+
+                    <div class="flex flex-col">
+                        @if($isGroup && $showTail)
+                        <span class="text-[13px] font-bold text-[#eb6b32] mb-1 leading-none">{{ $message->sender->name
+                            }}</span>
+                        @endif
+
+                        @if($message->type === 'file' && $message->file_path)
+                        <div
+                            class="flex items-center gap-3 bg-black/5 dark:bg-white/5 p-3 rounded-lg mb-1 w-64 border border-black/5 dark:border-white/5">
+                            <span class="material-symbols-outlined text-red-500 text-4xl">picture_as_pdf</span>
+                            <div class="flex flex-col overflow-hidden">
+                                <span class="font-medium text-[15px] truncate text-[#111b21] dark:text-[#e9edef]">{{
+                                    basename($message->file_path) }}</span>
+                                <span class="text-[12px] text-[#667781] dark:text-[#8696a0] uppercase">{{
+                                    pathinfo($message->file_path, PATHINFO_EXTENSION) }}</span>
+                            </div>
+                        </div>
+                        @elseif($message->type === 'image' && $message->file_path)
+                        <img src="{{ asset('storage/' . $message->file_path) }}" alt="Image"
+                            class="max-w-full rounded-lg mb-1 cursor-pointer">
+                        @endif
+
+                        <div class="flex items-end content-end pr-10 relative">
+                            <span class="leading-relaxed whitespace-pre-wrap">{!! nl2br(e($message->message)) !!}</span>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-1 right-2 inline-flex gap-1 items-center">
+                        <span class="text-[11px] text-[#667781] dark:text-[#8696a0] leading-none">{{
+                            $message->created_at->format('H:i') }}</span>
+                    </div>
                 </div>
             </div>
             @endif
@@ -112,55 +233,62 @@
         </div>
 
         {{-- Input --}}
-        <div
-            class="sticky bottom-0 bg-white/90 dark:bg-gray-900/90 backdrop-blur border-t border-gray-200 dark:border-gray-800 p-3">
-            <form id="messageForm" class="flex flex-col gap-2" enctype="multipart/form-data"
+        <div class="bg-[#f0f2f5] dark:bg-[#202c33] px-2 py-2 flex items-end gap-2 z-10 w-full relative">
+
+            {{-- Attachment Preview --}}
+            <div id="attachmentPreview"
+                class="hidden absolute bottom-full mb-2 left-2 bg-white dark:bg-[#2a3942] p-3 rounded-xl shadow-lg border border-gray-200 dark:border-[#202c33] flex items-center gap-3 min-w-[200px] z-20">
+                <div class="bg-black/5 dark:bg-white/5 p-2 rounded-lg">
+                    <span class="material-symbols-outlined text-red-500 text-2xl">picture_as_pdf</span>
+                </div>
+                <div class="flex flex-col flex-1 overflow-hidden">
+                    <span id="attachmentName" class="text-sm truncate font-medium dark:text-[#e9edef]"></span>
+                    <span class="text-xs text-[#667781] dark:text-[#8696a0]">Lampiran siap dikirim</span>
+                </div>
+                <button type="button" id="removeAttachmentBtn"
+                    class="text-[#54656f] dark:text-[#aebac1] hover:text-red-500 p-1 rounded-full transition hover:bg-black/5 dark:hover:bg-white/5">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+
+            <form id="messageForm" class="flex items-end gap-2 w-full" enctype="multipart/form-data"
                 data-is-group="{{ $isGroup ? 'true' : 'false' }}" data-url-group="{{ route('chat.group.send') }}"
                 data-url-private="{{ route('chat.send', $recipient->id ?? 0) }}">
                 @csrf
                 <input type="file" id="attachmentInput" name="attachment" class="hidden"
                     accept="image/*,.pdf,.doc,.docx,.xls,.xlsx">
 
-                <div id="attachmentPreview"
-                    class="hidden bg-white dark:bg-gray-800 p-2 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex items-center gap-2 w-fit">
-                    <span class="material-symbols-outlined text-gray-500">description</span>
-                    <span id="attachmentName" class="text-sm truncate max-w-[200px]"></span>
-                    <button type="button" id="removeAttachmentBtn"
-                        class="text-red-500 hover:bg-red-50 p-1 rounded-lg ml-auto">
-                        <span class="material-symbols-outlined text-sm">close</span>
+                <div
+                    class="flex-1 bg-white dark:bg-[#2a3942] rounded-3xl flex items-end overflow-hidden px-1 min-h-[44px]">
+                    <button type="button" id="emojiBtn"
+                        class="p-2.5 text-[#54656f] dark:text-[#8696a0] hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition flex-shrink-0 self-end mb-[1px]">
+                        <span class="material-symbols-outlined text-[24px]">sentiment_satisfied</span>
+                    </button>
+
+                    <textarea id="messageInput" name="message" rows="1"
+                        class="flex-1 max-h-[100px] bg-transparent border-0 focus:ring-0 resize-none py-3 px-1 text-[15px] dark:text-[#e9edef] placeholder-[#667781] dark:placeholder-[#8696a0] self-center my-auto leading-tight"
+                        placeholder="Ketik pesan"></textarea>
+
+                    <button type="button" id="attachBtn"
+                        class="p-2.5 text-[#54656f] dark:text-[#8696a0] hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition flex-shrink-0 self-end mb-[1px]">
+                        <span class="material-symbols-outlined text-[24px] transform -rotate-45">attach_file</span>
+                    </button>
+                    <button type="button"
+                        class="p-2.5 text-[#54656f] dark:text-[#8696a0] hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition flex-shrink-0 self-end mb-[1px] mr-1">
+                        <span class="material-symbols-outlined text-[24px]">camera_alt</span>
                     </button>
                 </div>
 
-                <div
-                    class="relative bg-gray-100 dark:bg-gray-800 rounded-2xl border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/20 transition-all overflow-hidden flex flex-col">
-                    <textarea id="messageInput" name="message" rows="1"
-                        class="w-full resize-none bg-transparent border-none px-4 py-3 text-[14px] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 focus:ring-0 focus:outline-none"
-                        placeholder="Ketik pesan..."></textarea>
-
-                    <div class="flex items-center justify-between px-2 pb-2">
-                        <div class="flex items-center gap-1">
-                            <button type="button" id="emojiBtn"
-                                class="p-2 text-gray-500 hover:text-primary transition rounded-full hover:bg-gray-200/50 dark:hover:bg-gray-700/50 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[22px]">mood</span>
-                            </button>
-                            <button type="button" id="attachBtn"
-                                class="p-2 text-gray-500 hover:text-primary transition rounded-full hover:bg-gray-200/50 dark:hover:bg-gray-700/50 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[22px]">attach_file</span>
-                            </button>
-                        </div>
-
-                        <button type="submit"
-                            class="size-10 rounded-full bg-primary text-[#102216] flex items-center justify-center shadow-md hover:shadow-lg hover:scale-105 transition active:scale-95 shrink-0 mr-1">
-                            <span class="material-symbols-outlined text-[18px]">send</span>
-                        </button>
-                    </div>
-
-                    {{-- Emoji Picker Container --}}
-                    <div id="emojiPickerContainer"
-                        class="hidden absolute bottom-full mb-2 right-0 z-50 shadow-2xl rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800">
-                        <emoji-picker class="light"></emoji-picker>
-                    </div>
+                {{-- Emoji Picker Container --}}
+                <div id="emojiPickerContainer"
+                    class="hidden absolute bottom-[50px] mb-2 left-2 z-[60] shadow-2xl rounded-xl overflow-hidden border border-gray-200 dark:border-[#202c33]">
+                    <emoji-picker class="light"></emoji-picker>
                 </div>
+
+                <button type="submit" id="submitBtn"
+                    class="flex-shrink-0 size-[48px] rounded-full bg-[#00a884] hover:bg-[#008f6f] text-white flex items-center justify-center shadow-sm transition active:scale-95 self-end">
+                    <span class="material-symbols-outlined text-[24px]" id="submitBtnIcon">mic</span>
+                </button>
             </form>
         </div>
 
@@ -231,55 +359,91 @@
             // Scroll to bottom on load
             messages.scrollTop = messages.scrollHeight;
 
-            // Auto resize textarea
+            // Auto resize textarea & switch icon
+            const submitBtnIcon = document.getElementById("submitBtnIcon");
             textarea.addEventListener("input", function () {
                 this.style.height = "auto";
-                this.style.height = Math.min(this.scrollHeight, 120) + "px";
+                this.style.height = Math.min(this.scrollHeight, 100) + "px";
+
+                if (this.value.trim() !== "" || attachmentInput.value !== "") {
+                    submitBtnIcon.textContent = "send";
+                } else {
+                    submitBtnIcon.textContent = "mic";
+                }
             });
 
             // Helper: Create message bubble safely (NO XSS)
             function appendMessage(chat) {
                 const wrapper = document.createElement("div");
-                wrapper.className = "flex justify-end";
+                wrapper.className = "flex justify-end relative mt-2";
 
                 const bubble = document.createElement("div");
-                bubble.className = "max-w-[75%] bg-primary text-[#102216] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm";
+                bubble.className = "max-w-[85%] bg-[#d9fdd3] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words rounded-tr-none";
+
+                // Tail
+                const tailSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                tailSvg.setAttribute("viewBox", "0 0 8 13");
+                tailSvg.setAttribute("width", "8");
+                tailSvg.setAttribute("height", "13");
+                tailSvg.setAttribute("class", "absolute top-0 -right-[7px] text-[#d9fdd3] dark:text-[#005c4b] fill-current");
+                tailSvg.innerHTML = `<path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>
+                    <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z"></path>
+                    <path d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>`;
+                bubble.appendChild(tailSvg);
+
+                const flexCol = document.createElement("div");
+                flexCol.className = "flex flex-col";
 
                 if (chat.type === 'image' && chat.file_path) {
                     const img = document.createElement("img");
                     img.src = '/storage/' + chat.file_path;
-                    img.className = "max-w-full rounded-lg mb-2";
-                    bubble.appendChild(img);
+                    img.className = "max-w-full rounded-lg mb-1";
+                    flexCol.appendChild(img);
                 } else if (chat.type === 'file' && chat.file_path) {
-                    const fileLink = document.createElement("a");
-                    fileLink.href = '/storage/' + chat.file_path;
-                    fileLink.className = "flex items-center gap-2 text-sm bg-black/10 p-2 rounded-lg mb-2";
-                    fileLink.target = "_blank";
-                    fileLink.innerHTML = `<span class="material-symbols-outlined">description</span> <span>Lampiran File</span>`;
-                    bubble.appendChild(fileLink);
+                    const fileBox = document.createElement("div");
+                    fileBox.className = "flex items-center gap-3 bg-black/5 dark:bg-white/5 p-3 rounded-lg mb-1 w-64 border border-black/5 dark:border-white/5";
+
+                    const fileNameObj = chat.file_path.split('/').pop();
+                    const fileExtObj = fileNameObj.split('.').pop().toUpperCase();
+
+                    fileBox.innerHTML = `
+                        <span class="material-symbols-outlined text-red-500 text-4xl">picture_as_pdf</span>
+                        <div class="flex flex-col overflow-hidden">
+                            <span class="font-medium text-[15px] truncate text-[#111b21] dark:text-[#e9edef]">${fileNameObj}</span>
+                            <span class="text-[12px] text-[#667781] dark:text-[#8696a0]">${fileExtObj}</span>
+                        </div>
+                    `;
+                    flexCol.appendChild(fileBox);
                 }
 
                 if (chat.message) {
-                    const text = document.createElement("p");
-                    text.className = "text-sm";
+                    const textWrap = document.createElement("div");
+                    textWrap.className = "flex items-end content-end pr-14 relative";
+                    const text = document.createElement("span");
+                    text.className = "leading-relaxed whitespace-pre-wrap";
                     text.textContent = chat.message;
-                    bubble.appendChild(text);
+                    textWrap.appendChild(text);
+                    flexCol.appendChild(textWrap);
                 }
 
+                bubble.appendChild(flexCol);
+
                 const meta = document.createElement("div");
-                meta.className = "flex items-center justify-end gap-1 mt-1";
+                meta.className = "absolute bottom-1 right-2 flex items-center gap-1";
 
                 const time = document.createElement("span");
-                time.className = "text-[10px] opacity-70";
-                time.textContent = "Baru saja";
+                time.className = "text-[11px] text-[#667781] dark:text-[#8696a0] leading-none";
+                const d = new Date();
+                time.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
 
                 const icon = document.createElement("span");
-                icon.className = "material-symbols-outlined text-[12px] opacity-70";
+                icon.className = "material-symbols-outlined text-[14px] leading-none text-[#8696a0]";
                 icon.textContent = "done";
 
                 meta.appendChild(time);
                 meta.appendChild(icon);
                 bubble.appendChild(meta);
+
                 wrapper.appendChild(bubble);
                 messages.appendChild(wrapper);
 
@@ -330,6 +494,7 @@
                     textarea.style.height = "auto";
                     attachmentInput.value = "";
                     attachmentPreview.classList.add("hidden");
+                    submitBtnIcon.textContent = "mic";
 
                 } catch (error) {
                     console.error(error);
