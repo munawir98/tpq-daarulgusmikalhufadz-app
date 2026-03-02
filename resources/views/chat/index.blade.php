@@ -32,26 +32,11 @@
 
 @section('content')
 
-@push('styles')
-<style>
-    .chat-bg {
-        background-color: #efeae2;
-        background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-        background-repeat: repeat;
-        background-size: 350px;
-    }
 
-    .dark .chat-bg {
-        background-color: #0b141a;
-        background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-    }
-</style>
-@endpush
 
 {{-- Chat List wrapper with background --}}
 <div class="relative min-h-screen">
-    {{-- Chat Background overlay for pattern --}}
-    <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
+
 
     <div id="chatList" class="flex flex-col gap-3 pb-24 relative z-10 px-4 pt-2">
         @forelse($conversations as $chat)
