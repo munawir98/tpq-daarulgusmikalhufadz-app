@@ -554,6 +554,7 @@ Route::middleware('web.auth')->group(function () {
         Route::post('/contact', [ChatWebController::class, 'contactStore'])->name('contact.store');
         Route::get('/group', [ChatWebController::class, 'groupRoom'])->name('group');
         Route::post('/group/send', [ChatWebController::class, 'groupSend'])->name('group.send');
+        Route::get('/calls', [ChatWebController::class, 'calls'])->name('calls');
         Route::get('/{id}', [ChatWebController::class, 'room'])->name('room');
         Route::post('/{id}/send', [ChatWebController::class, 'send'])->name('send');
     });

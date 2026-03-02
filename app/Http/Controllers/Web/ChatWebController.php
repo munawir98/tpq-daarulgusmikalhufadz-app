@@ -300,6 +300,15 @@ class ChatWebController extends Controller
     }
 
     /**
+     * Show call history
+     */
+    public function calls()
+    {
+        // Currently there's no calls table so we'll just mock it or show an empty state.
+        return view('chat.calls');
+    }
+
+    /**
      * Show new contact form
      */
     public function contactNew()
