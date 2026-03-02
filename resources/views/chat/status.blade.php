@@ -3,14 +3,22 @@
 @section('title', 'Status')
 
 @section('header')
-<header class="bg-[#13ecb6] pt-12 pb-6 px-6 text-white shadow-md rounded-b-[2rem]">
-    <div class="flex items-center justify-between">
-        <h1 class="text-2xl font-bold tracking-tight">Status</h1>
-        <div class="flex gap-4">
-            <button
-                class="material-symbols-outlined hover:bg-white/20 p-2 rounded-full transition-colors">search</button>
-            <button
-                class="material-symbols-outlined hover:bg-white/20 p-2 rounded-full transition-colors">more_vert</button>
+<header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
+    {{-- Decorative blobs --}}
+    <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+
+    <div class="relative z-10">
+        <div class="flex items-center justify-between mb-2.5 relative">
+            <h1 class="text-base font-bold text-white">Status</h1>
+            <div class="flex gap-2">
+                <button class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <span class="material-symbols-outlined text-[20px]">search</span>
+                </button>
+                <button class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                </button>
+            </div>
         </div>
     </div>
 </header>
@@ -30,86 +38,91 @@
 </style>
 
 <!-- Main Content -->
-<div class="flex-1 overflow-y-auto pb-24 -mt-4">
+<div class="relative flex-1 overflow-y-auto pb-24">
     <!-- My Status Section -->
-    <div class="p-4 bg-white dark:bg-[#1a2e28] border-b border-slate-100 dark:border-slate-800">
-        <div class="flex items-center gap-4 cursor-pointer">
+    <div class="px-5 py-4 bg-white dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
+        <div class="flex items-center gap-3.5 cursor-pointer">
             <div class="relative">
-                <div class="h-16 w-16 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center"
+                <div class="h-12 w-12 rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                     data-alt="User profile picture for status update"
                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_JAQ8paJ_bDoyrDwH40AyK9eTz8G55aeKjywkNuN_Lom33COQOpVVV78S7F3XQto1ysl6vsBvxmjO4XhaY-9xByTJ2ENex0b63MQJEoD06zfHIr1RYyK5ZjkRPMve7LFpgB3prKHmrJujfhMFvT_ozq6cbm0G_crTbtD2jYYWagisxQUNIlB8OorobQmmn4XEUtrYnFeYaRAlSnJej5jfiWjy2jsNsVd9dNDjQ0X3h02YzMUZFvXQy08zrMUFla2eKeoP_aXfeBEj')">
                 </div>
                 <div
-                    class="absolute bottom-0 right-0 bg-[#13ecb6] border-2 border-white dark:border-[#1a2e28] rounded-full h-6 w-6 flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined text-sm font-bold">add</span>
+                    class="absolute bottom-0 right-0 bg-blue-600 border-2 border-white dark:border-gray-800 rounded-full h-5 w-5 flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-[12px] font-bold mt-[1px]">add</span>
                 </div>
             </div>
             <div class="flex flex-col">
-                <h2 class="font-bold text-slate-900 dark:text-slate-100">Status Saya</h2>
-                <p class="text-sm text-slate-500 dark:text-slate-400">Ketuk untuk menambahkan pembaruan status</p>
+                <h2 class="font-bold text-[13px] text-gray-900 dark:text-gray-100">Status Saya</h2>
+                <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5">Ketuk untuk menambahkan pembaruan status
+                </p>
             </div>
         </div>
     </div>
 
     <!-- Recent Updates Section -->
-    <div class="mt-4 px-4">
-        <h3 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Pembaruan
+    <div class="mt-2">
+        <h3 class="text-[11px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-5">Pembaruan
             Terbaru</h3>
-        <div class="space-y-4">
+
+        <div class="flex flex-col">
             <!-- Status Item 1 -->
             <div
-                class="flex items-center gap-4 bg-white dark:bg-[#1a2e28] p-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                <div class="status-ring rounded-full p-[2px]">
-                    <div class="h-14 w-14 rounded-full border-2 border-white dark:border-[#1a2e28] bg-slate-200 dark:bg-slate-700 bg-cover bg-center"
+                class="flex items-center gap-3.5 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
+                <div class="status-ring rounded-full p-[2px] shrink-0">
+                    <div class="h-[46px] w-[46px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                         data-alt="Ustadz Ahmad profile picture with status rings"
                         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVwl14uHtBoVkaNZdO9JU_JVuTpK_PAtPiVRErBguEEbxypa53OTqsO5RvvLmzBbOyRvlMneFDUkA_JLRvhfVeyxKtAc3HMCe7nTcZTRoUa-t1DlwhyQxMwd4EnUhiGEvvEsxg1D1_2ucTYx0Aej3TkOQ6i_xmSdlhMT1xdDY49KgRO2JgNKdiytdDh-FUhvjgnD3wR7--m9v3ZJFidKqIYLEDl7ccdlJb09jY1sRVK8aztUTqxjPKOn3V0kRjNBCOFdRWGx4Z8qzk')">
                     </div>
                 </div>
-                <div class="flex flex-col flex-1">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100">Ustadz Ahmad</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Baru saja</p>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <h4 class="font-bold text-[13px] text-gray-900 dark:text-gray-100 truncate">Ustadz Ahmad</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">Baru saja</p>
                 </div>
             </div>
+
             <!-- Status Item 2 -->
             <div
-                class="flex items-center gap-4 bg-white dark:bg-[#1a2e28] p-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                <div class="status-ring-single rounded-full p-[2px]">
-                    <div class="h-14 w-14 rounded-full border-2 border-white dark:border-[#1a2e28] bg-slate-200 dark:bg-slate-700 bg-cover bg-center"
+                class="flex items-center gap-3.5 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
+                <div class="status-ring-single rounded-full p-[2px] shrink-0">
+                    <div class="h-[46px] w-[46px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                         data-alt="Ustadzah Siti profile picture with status ring"
                         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAfXEiQrArkqfTzbuKbjAmvZTuuW6QrjmF0QmnHYIRltMmM7eOW8dL22-qZpRQK1RV6eWZEo9eidb3wyJR2P1rqkaLIr5xAd-t_lRTJbk7b78t9jRILpbyLwLbVceveAMUIHGDpzvm4zwxG_kMBExKf2M31yA1nkttYHGNAE78iyLaziTUfQsu8PEDwhLZKqE8hwtc0gF6BMNDSe755x3cBs6rfN65v4mFkc1z0MQa5M0pU8mXhyqDc0NWMMwV-22-4vCU0ATWciEE')">
                     </div>
                 </div>
-                <div class="flex flex-col flex-1">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100">Ustadzah Siti</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">15 menit yang lalu</p>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <h4 class="font-bold text-[13px] text-gray-900 dark:text-gray-100 truncate">Ustadzah Siti</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">15 menit yang lalu</p>
                 </div>
             </div>
+
             <!-- Status Item 3 -->
             <div
-                class="flex items-center gap-4 bg-white dark:bg-[#1a2e28] p-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                <div class="status-ring rounded-full p-[2px]">
-                    <div class="h-14 w-14 rounded-full border-2 border-white dark:border-[#1a2e28] bg-slate-200 dark:bg-slate-700 bg-cover bg-center"
+                class="flex items-center gap-3.5 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
+                <div class="status-ring rounded-full p-[2px] shrink-0">
+                    <div class="h-[46px] w-[46px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                         data-alt="Santri Raihan profile picture with status rings"
                         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjLXAcgHXEBhmE4eTK8sh8bo8rWe7pX_6Nrsl658hjiCYaUOqbDqmuwfnu4Uy6amiEmHaNnbuVYFFzVDgs9nqbDfC3sbd1KSAwsly6UFtG_L_rR_gKlBDwWQELkGjXwYRq_SVCdm-cYYjM1UpEFi64nlZRQJngGfSFlzsvP3EBdcX6xORHe_u49by8GwFk76bF0YAI37OZrNkcDc8VA55L4ogwWa5sLarquIznu4EJr6BCbM9P5B7AmPep49MH_t2PBJnon_cUhlCm')">
                     </div>
                 </div>
-                <div class="flex flex-col flex-1">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100">Raihan (Santri)</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">1 jam yang lalu</p>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <h4 class="font-bold text-[13px] text-gray-900 dark:text-gray-100 truncate">Raihan (Santri)</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">1 jam yang lalu</p>
                 </div>
             </div>
+
             <!-- Status Item 4 -->
             <div
-                class="flex items-center gap-4 bg-white dark:bg-[#1a2e28] p-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer">
-                <div class="status-ring-single rounded-full p-[2px]">
-                    <div class="h-14 w-14 rounded-full border-2 border-white dark:border-[#1a2e28] bg-slate-200 dark:bg-slate-700 bg-cover bg-center"
+                class="flex items-center gap-3.5 px-5 py-3 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
+                <div class="status-ring-single rounded-full p-[2px] shrink-0">
+                    <div class="h-[46px] w-[46px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                         data-alt="Walid Santri profile picture with status ring"
                         style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLb9Wr1gepdhRq-2jeJ21CqP03ZqC6Twq6C6Xe4nYNAvGXhgWarv9HSppoXvGVScaJBdeRelRelJVbs7S9Z5ORmcmXYceRzhyM2XkKusTf_K-GdcTxpP8LM2q3u92HUpiRHXbd64vhdarD_bb9qOos28DRYat0eoaepdpJES4rUxUV7VtSVdLnRT32myGGlJFJAa2xfPobETm5DPlo_bGIKQE8KVVo-_KNBdJkoFAdUS2w93AM-J8DgRYdSSEw8yHq0LF8Gvr0gcjg')">
                     </div>
                 </div>
-                <div class="flex flex-col flex-1">
-                    <h4 class="font-bold text-slate-900 dark:text-slate-100">Bapak Furqon</h4>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">2 jam yang lalu</p>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <h4 class="font-bold text-[13px] text-gray-900 dark:text-gray-100 truncate">Bapak Furqon</h4>
+                    <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">2 jam yang lalu</p>
                 </div>
             </div>
         </div>
