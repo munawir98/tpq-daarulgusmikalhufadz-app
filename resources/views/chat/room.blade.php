@@ -59,15 +59,14 @@
         }
 
         .chat-bg {
-            background-color: #e5ddd5;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+            background-color: #efeae2;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
             background-repeat: repeat;
         }
 
         .dark .chat-bg {
             background-color: #0b141a;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.15;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
         }
     </style>
 </head>
