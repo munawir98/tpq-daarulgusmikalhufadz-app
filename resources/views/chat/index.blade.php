@@ -35,10 +35,9 @@
 
 
 {{-- Chat List wrapper without background --}}
-<div class="relative">
+<div class="relative -mx-5 -mt-2">
 
-
-    <div id="chatList" class="flex flex-col gap-3 pb-24 relative z-10 px-4 pt-2">
+    <div id="chatList" class="flex flex-col gap-0 pb-24 relative z-10">
         @forelse($conversations as $chat)
         @php
         $chatObj = is_array($chat) ? (object) $chat : $chat;
@@ -69,7 +68,7 @@
         $chatUrl = $isGroup ? route('chat.group') : route('chat.room', $chatObj->id);
         @endphp
         <a href="{{ $chatUrl }}"
-            class="chat-item p-2.5 flex items-center gap-3 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50"
+            class="chat-item px-4 py-3 flex items-center gap-3.5 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800 last:border-0"
             data-name="{{ strtolower($chatName) }}">
 
             {{-- Avatar --}}
