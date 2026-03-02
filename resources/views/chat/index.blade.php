@@ -18,8 +18,8 @@
                 </a>
             </div>
         </div>
-        <div class="relative w-full mt-1.5">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-white/70">
+        <div class="relative w-full mt-1.5 px-2">
+            <div class="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none text-white/70">
                 <span class="material-symbols-outlined text-[18px]">search</span>
             </div>
             <input id="searchInput" onkeyup="filterChats()"
