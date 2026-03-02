@@ -3,26 +3,26 @@
 @section('title', 'Panggilan')
 
 @section('header')
-<header class="bg-blue-600 px-6 pt-6 pb-6 shadow-lg relative overflow-hidden">
+<header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
     {{-- Decorative blobs --}}
     <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
 
     <div class="relative z-10">
-        <div class="flex items-center justify-center mb-4 relative">
-            <h1 class="text-lg font-bold text-white">Riwayat Panggilan</h1>
+        <div class="flex items-center justify-center mb-2.5 relative">
+            <h1 class="text-base font-bold text-white">Riwayat Panggilan</h1>
             <div class="absolute right-0 flex gap-2">
-                <button class="text-white/80 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition">
-                    <span class="material-symbols-outlined text-lg">add_call</span>
+                <button class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
+                    <span class="material-symbols-outlined text-base">add_call</span>
                 </button>
             </div>
         </div>
-        <div class="relative w-full mt-2">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-white/70">
-                <span class="material-symbols-outlined text-xl">search</span>
+        <div class="relative w-full mt-1.5 px-2">
+            <div class="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none text-white/70">
+                <span class="material-symbols-outlined text-[18px]">search</span>
             </div>
             <input id="searchInput" onkeyup="filterCalls()"
-                class="block w-full pl-10 pr-4 py-3 bg-white/15 backdrop-blur-sm border-none rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/30 text-sm font-medium"
+                class="block w-full pl-9 pr-3 py-2 bg-white/15 backdrop-blur-sm border-none rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/30 text-[13px] font-medium"
                 placeholder="Cari Riwayat Panggilan..." type="text" />
         </div>
     </div>
