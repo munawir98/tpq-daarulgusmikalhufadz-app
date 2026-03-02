@@ -81,19 +81,23 @@
 
         {{-- Header --}}
         <header
-            class="shrink-0 sticky top-0 z-20 bg-[#005c4b] dark:bg-[#202c33] px-4 py-3 flex items-center gap-3 shadow-md">
-            <div class="flex items-center flex-1 gap-3 cursor-pointer">
+            class="shrink-0 sticky top-0 z-20 bg-[#005c4b] dark:bg-[#202c33] px-2 py-3 flex items-center gap-2 shadow-md">
+            <a href="{{ route('chat.index') }}"
+                class="text-white dark:text-[#aebac1] p-1 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+            </a>
+            <div class="flex items-center flex-1 gap-3 cursor-pointer overflow-hidden">
                 <div
-                    class="size-10 rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden">
+                    class="size-10 rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden shrink-0">
                     @if($isGroup)
                     <span class="material-symbols-outlined">group</span>
                     @else
                     {{ substr($recipient->name, 0, 1) }}
                     @endif
                 </div>
-                <div class="flex flex-col flex-1">
-                    <h2 class="font-semibold text-base leading-tight text-white">{{ $recipient->name }}</h2>
-                    <p class="text-xs text-white/80 dark:text-[#8696a0] truncate max-w-[200px]">
+                <div class="flex flex-col flex-1 overflow-hidden">
+                    <h2 class="font-semibold text-base leading-tight text-white truncate">{{ $recipient->name }}</h2>
+                    <p class="text-xs text-white/80 dark:text-[#8696a0] truncate w-full">
                         @if($isGroup)
                         @foreach($recipient->members as $idx => $member)
                         {{ $member->user->name ?? 'User' }}{{ !$loop->last ? ',' : '' }}
