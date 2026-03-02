@@ -11,19 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai_santri', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('santri_id')->constrained('santri')->onDelete('cascade');
-            $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
-            $table->string('tahun_ajaran');
-            $table->string('kategori'); // Monthly, UTS, UAS
-            $table->integer('tilawah')->default(0);
-            $table->integer('hafalan')->default(0);
-            $table->integer('adab')->default(0);
-            $table->integer('tajwid')->default(0);
-            $table->text('catatan')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('nilai_santri')) {
+            Schema::create('nilai_santri', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('santri_id')->constrained('santri')->onDelete('cascade');
+                $table->foreignId('ustadz_id')->constrained('ustadz')->onDelete('cascade');
+                $table->string('tahun_ajaran');
+                $table->string('kategori'); // Monthly, UTS, UAS
+                $table->integer('tilawah')->default(0);
+                $table->integer('hafalan')->default(0);
+                $table->integer('adab')->default(0);
+                $table->integer('tajwid')->default(0);
+                $table->text('catatan')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
