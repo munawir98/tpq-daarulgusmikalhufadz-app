@@ -3,7 +3,7 @@
 @section('title', 'Pesan')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
+<header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden shrink-0">
     {{-- Decorative blobs --}}
     <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
@@ -34,8 +34,8 @@
 
 
 
-{{-- Chat List wrapper with background --}}
-<div class="relative min-h-screen">
+{{-- Chat List wrapper without background --}}
+<div class="relative">
 
 
     <div id="chatList" class="flex flex-col gap-3 pb-24 relative z-10 px-4 pt-2">
