@@ -34,107 +34,67 @@
 {{-- Calls List --}}
 <div id="callsList" class="flex flex-col gap-2 -mt-2 pb-24">
 
-    <!-- Call Item: Incoming (Ustadz) -->
+    @forelse($callLogs as $log)
+    @php
+    $isCaller = $log->caller_id == auth()->id();
+    $otherUser = $isCaller ? $log->receiver : $log->caller;
+    $avatarUrl = $otherUser->foto ? Storage::url($otherUser->foto) :
+    'https://ui-avatars.com/api/?name='.urlencode($otherUser->name).'&background=E2E8F0&color=475569';
+
+    // Determine call direction and icon
+    if ($log->status === 'missed') {
+    $statusIcon = 'call_missed';
+    $statusColor = 'text-red-500';
+    $statusText = 'Tak terjawab';
+    } elseif ($isCaller) {
+    $statusIcon = 'call_made';
+    $statusColor = 'text-green-500';
+    $statusText = 'Keluar';
+    } else {
+    $statusIcon = 'call_received';
+    $statusColor = 'text-blue-500';
+    $statusText = 'Masuk';
+    }
+    @endphp
+
     <div
         class="bg-white dark:bg-slate-800 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-slate-100 dark:border-slate-700 transition-transform active:scale-[0.98]">
         <div class="flex items-center gap-2.5">
             <div class="relative">
-                <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center shrink-0"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBlD4LRfLm_c3zhjI2cCkFJaOUu7Usz8rxG39e5d4wUJqkqqFmqyZvXFI4qNTFLgux-dWZrbbGsQJ27jA-LGjaudkhtPoZydgg5cNnDBtb679kABVRKos-igW1ePJwR6L2SdOhTfWGj_8nHbALC6cyEbzIy56u_-91EkSx1dKRq05o2bQK6-lSMtPQP-z4AtrOzCZtUxscwL-HsHtiacK5-Z0Epxa5i5Que-JeQ_tgfavCCnapAWwXa_nm2Vxl3t1FYbMnK8B3Pvf2_')">
+                <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center shrink-0 {{ $log->status === 'missed' ? 'border-2 border-red-100' : '' }}"
+                    style="background-image: url('{{ $avatarUrl }}')">
                 </div>
             </div>
             <div>
-                <h3 class="font-bold text-slate-900 dark:text-slate-100 text-[13px]">Ustadz Ahmad</h3>
+                <h3
+                    class="font-bold {{ $log->status === 'missed' ? 'text-red-500' : 'text-slate-900 dark:text-slate-100' }} text-[13px]">
+                    {{ $otherUser->name }}</h3>
                 <div class="flex items-center gap-1 mt-0.5">
-                    <span class="material-symbols-outlined text-green-500 text-[12px] font-bold">call_received</span>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400">Masuk, 10:30 • Hari ini</p>
+                    <span class="material-symbols-outlined {{ $statusColor }} text-[12px] font-bold">{{ $statusIcon
+                        }}</span>
+                    <p
+                        class="text-[10px] {{ $log->status === 'missed' ? 'text-red-400' : 'text-slate-500 dark:text-slate-400' }}">
+                        {{ $statusText }}, {{ $log->created_at->diffForHumans() }}
+                    </p>
                 </div>
             </div>
         </div>
         <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
-            <span class="material-symbols-outlined text-[18px]">call</span>
+            <span class="material-symbols-outlined text-[18px]">{{ $log->type === 'video' ? 'videocam' : 'call'
+                }}</span>
         </button>
     </div>
 
-    <!-- Call Item: Missed (Santri) -->
-    <div
-        class="bg-white dark:bg-slate-800 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-slate-100 dark:border-slate-700 transition-transform active:scale-[0.98]">
-        <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center border-2 border-red-100 shrink-0"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQKOXdnZXDPivGqfrTmihikua1MiumFezs0S6nRS4s5QajPGUv78gBrXdmwLYV7vtxwiNu7Q2IsB9f3w3-nMyEyuidZbLMZ-6mZZxjsaeNzC0FCd-ACOtjG5wpfgO96AtgJEumFs8VSmYntlcAwfQthB88OnpuS_dxttypW8bTk8AkFDWPb7zDpBMO9Sz-42TcMP_8pGmtxxuoycpNcjF7fQCDTaRiaSdu8OBtzjDALnAOzDgIM0sPpoyxyPS14MG1LC4f_Hmel6H0')">
-            </div>
-            <div>
-                <h3 class="font-bold text-red-500 text-[13px]">Siti Aminah</h3>
-                <div class="flex items-center gap-1 mt-0.5">
-                    <span class="material-symbols-outlined text-red-500 text-[12px] font-bold">call_missed</span>
-                    <p class="text-[10px] text-red-400">Tak terjawab, 08:45</p>
-                </div>
-            </div>
+    @empty
+    <div class="flex flex-col items-center justify-center py-10 text-center">
+        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-3">
+            <span class="material-symbols-outlined text-3xl text-blue-500">history</span>
         </div>
-        <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
-            <span class="material-symbols-outlined text-[18px]">videocam</span>
-        </button>
+        <h3 class="text-slate-700 dark:text-slate-300 font-medium text-sm">Belum ada riwayat panggilan</h3>
+        <p class="text-slate-500 dark:text-slate-400 text-[11px] mt-1">Panggilan masuk dan keluar akan muncul di sini
+        </p>
     </div>
-
-    <!-- Call Item: Outgoing -->
-    <div
-        class="bg-white dark:bg-slate-800 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-slate-100 dark:border-slate-700 transition-transform active:scale-[0.98]">
-        <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center shrink-0"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPTP_qmxOlwW5YgSq85pGDFcxxCZUdbsyS4aLcJxz8EsMqxjsj_d4uRTGUdNxWAiYp1vxqDLd5c8KfvFMeIkanHfX4IARFXfwpWXC5msL5kPvc8aDFTzeHQ-IhGwXSSbG3KYpjAiDp6j3sOFOhuF2KvBmERGw3_g6OeVAdofSFnn4CiEYPphrf8pt-YFaTqcjEOyO5BwpLpW5voGoMDopzSYdPJLpGMs0p0pAXK2F5wKdxwozfPaBr1qdp3u38f_38AmIAHJq7dAFI')">
-            </div>
-            <div>
-                <h3 class="font-bold text-slate-900 dark:text-slate-100 text-[13px]">Ustadzah Fatimah</h3>
-                <div class="flex items-center gap-1 mt-0.5">
-                    <span class="material-symbols-outlined text-slate-400 text-[12px] font-bold">call_made</span>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400">Keluar, Kemarin 19:20</p>
-                </div>
-            </div>
-        </div>
-        <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
-            <span class="material-symbols-outlined text-[18px]">call</span>
-        </button>
-    </div>
-
-    <!-- Call Item: Video Incoming -->
-    <div
-        class="bg-white dark:bg-slate-800 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-slate-100 dark:border-slate-700 transition-transform active:scale-[0.98]">
-        <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center shrink-0"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIS6-sje8efdRQhPbFTcdDHT5rL1g7ujSCP5B3rAfpULwVvPtt5hkCz25hTizACwX-R4B7BNrinXqhBcGoDmdTGmq3DxHaSswFON3BAlmwiVlquntoXGPtAXli1nowXbUVtIo7spg0VOt5kPJhsX54V2iddGGXtMeNKtdG-1y0R5JXwKuiE_stsQ3_VWz1NO_7GmwP4ZCnH-34syc8KR3AELA2OCeoBZmLD7N1roYTayTKFXsxzQGoeWBVjaoTqKhSAiPBomRe0X4v')">
-            </div>
-            <div>
-                <h3 class="font-bold text-slate-900 dark:text-slate-100 text-[13px]">Muhammad Rizky</h3>
-                <div class="flex items-center gap-1 mt-0.5">
-                    <span class="material-symbols-outlined text-green-500 text-[12px] font-bold">videocam</span>
-                    <p class="text-[10px] text-slate-500 dark:text-slate-400">Masuk, Kemarin 14:15</p>
-                </div>
-            </div>
-        </div>
-        <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
-            <span class="material-symbols-outlined text-[18px]">videocam</span>
-        </button>
-    </div>
-
-    <!-- Call Item: Missed -->
-    <div
-        class="bg-white dark:bg-slate-800 p-2.5 rounded-xl flex items-center justify-between shadow-sm border border-slate-100 dark:border-slate-700 transition-transform active:scale-[0.98]">
-        <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center border-2 border-red-100 shrink-0"
-                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuARkmCsUqE_BAL2sj7qc20st4ltU5XvMc__vxC41EuZ-u-RSGIynYVnCYJWrdluh_MOSG_NQGhXmdcoXLOvpaBsSD0ElsueKDXmwE1eMrMfVOEL_GTaOWErWu3KVA5XqzSo_9YEYEG_MMiGoQ7E9vqnxyC2QorgPlAn0nIgGAUv-4dBX-DKYOitgUhEs3lgrm_Blb1OLwH24lneSjH-pjy-3HjFjF3elxPnx2-j-_OPuEG3WOY_Mw6dNW1IVDrNW3SmcCph8QN2OkGp')">
-            </div>
-            <div>
-                <h3 class="font-bold text-red-500 text-[13px]">Zahra Az-Zahra</h3>
-                <div class="flex items-center gap-1 mt-0.5">
-                    <span class="material-symbols-outlined text-red-500 text-[12px] font-bold">call_missed</span>
-                    <p class="text-[10px] text-red-400">Tak terjawab, 2 hari yang lalu</p>
-                </div>
-            </div>
-        </div>
-        <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
-            <span class="material-symbols-outlined text-[18px]">call</span>
-        </button>
-    </div>
+    @endforelse
 
 </div>
 

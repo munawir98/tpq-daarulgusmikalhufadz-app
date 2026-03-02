@@ -304,8 +304,17 @@ class ChatWebController extends Controller
      */
     public function calls()
     {
-        // Currently there's no calls table so we'll just mock it or show an empty state.
-        return view('chat.calls');
+        $userId = auth()->id();
+
+        $callLogs = \App\Models\CallLog::with(['caller', 'receiver'])
+            ->where('caller_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('chat.calls', [
+            'callLogs' => $callLogs
+        ]);
     }
 
     /**
