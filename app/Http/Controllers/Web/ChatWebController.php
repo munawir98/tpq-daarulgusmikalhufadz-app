@@ -225,6 +225,14 @@ class ChatWebController extends Controller
     }
 
     /**
+     * Show Status UI
+     */
+    public function status()
+    {
+        return view('chat.status');
+    }
+
+    /**
      * Show group chat room
      */
     public function groupRoom()

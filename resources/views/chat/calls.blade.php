@@ -119,7 +119,7 @@
             </a>
             {{-- Status --}}
             <a class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
-                href="#">
+                href="{{ route('chat.status') }}">
                 <span class="material-symbols-outlined">track_changes</span>
                 <span class="text-[10px] font-medium">Status</span>
             </a>
