@@ -63,7 +63,7 @@
     $chatUrl = $isGroup ? route('chat.group') : route('chat.room', $chatObj->id);
     @endphp
     <a href="{{ $chatUrl }}"
-        class="chat-item bg-white dark:bg-gray-800 p-2.5 rounded-xl shadow-sm hover:shadow-md flex items-center gap-2.5 relative transition-all duration-200 active:scale-[0.98] border border-gray-100 dark:border-gray-700"
+        class="chat-item p-2.5 flex items-center gap-3 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50"
         data-name="{{ strtolower($chatName) }}">
 
         {{-- Avatar --}}
