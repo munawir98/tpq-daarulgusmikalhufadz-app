@@ -133,7 +133,7 @@
 <!-- Floating Action Button -->
 <div class="fixed bottom-24 right-6 flex flex-col gap-4 items-center z-40">
     <button
-        class="bg-white dark:bg-[#1a2e28] text-slate-600 dark:text-slate-300 shadow-md p-2 rounded-full hover:scale-105 active:scale-95 transition-transform">
+        class="bg-white dark:bg-[#1a2e28] text-slate-600 dark:text-slate-300 shadow-md h-[36px] w-[36px] flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[20px]">edit</span>
     </button>
     <button
