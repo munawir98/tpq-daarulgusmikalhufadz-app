@@ -11,12 +11,6 @@
     <div class="relative z-10">
         <div class="flex items-center justify-center mb-2.5 relative">
             <h1 class="text-base font-bold text-white">Pesan</h1>
-            <div class="absolute right-0 flex gap-2">
-                <a href="{{ route('chat.new') }}"
-                    class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
-                    <span class="material-symbols-outlined text-base">edit_square</span>
-                </a>
-            </div>
         </div>
         <div class="relative w-full mt-1.5 px-2">
             <div class="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none text-white/70">
