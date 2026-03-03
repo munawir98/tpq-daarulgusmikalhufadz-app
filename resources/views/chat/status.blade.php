@@ -48,7 +48,7 @@
             <div class="relative">
                 <div class="h-[42px] w-[42px] rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                     data-alt="User profile picture for status update"
-                    style="background-image: url('{{ auth()->user()->foto ? asset(" storage/" . auth()->user()->foto) :
+                    style="background-image: url('{{ auth()->user()?->foto ? asset(" storage/" . auth()->user()->foto) :
                     asset("assets/images/default-avatar.png") }}')">
                 </div>
                 <div
@@ -79,7 +79,7 @@
                 <div
                     class="{{ $update->statuses->count() > 1 ? 'status-ring' : 'status-ring-single' }} rounded-full p-[1.5px] shrink-0">
                     <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        style="background-image: url('{{ $update->user->foto ? asset(" storage/" . $update->user->foto)
+                        style="background-image: url('{{ $update->user?->foto ? asset(" storage/" . $update->user->foto)
                         : asset("assets/images/default-avatar.png") }}')">
                     </div>
                 </div>

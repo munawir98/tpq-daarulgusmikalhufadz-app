@@ -240,6 +240,7 @@ class ChatWebController extends Controller
 
         // Get contacts' active statuses
         $statuses = UserStatus::with('user')
+            ->whereHas('user')
             ->where('user_id', '!=', $userId)
             ->where('expires_at', '>', now())
             ->orderBy('created_at', 'desc')
