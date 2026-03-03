@@ -386,6 +386,15 @@ class ChatWebController extends Controller
     }
 
     /**
+     * Show Active Call Screen
+     */
+    public function activeCall($id)
+    {
+        $user = User::findOrFail($id);
+        return view('chat.active_call', compact('user'));
+    }
+
+    /**
      * Show new contact form
      */
     public function contactNew()

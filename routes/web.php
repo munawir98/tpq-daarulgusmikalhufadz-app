@@ -555,6 +555,7 @@ Route::middleware('web.auth')->group(function () {
         Route::get('/group', [ChatWebController::class, 'groupRoom'])->name('group');
         Route::post('/group/send', [ChatWebController::class, 'groupSend'])->name('group.send');
         Route::get('/calls', [ChatWebController::class, 'calls'])->name('calls');
+        Route::get('/calls/{id}/active', [ChatWebController::class, 'activeCall'])->name('calls.active');
         Route::get('/status', [ChatWebController::class, 'status'])->name('status');
         Route::post('/status', [ChatWebController::class, 'storeStatus'])->name('status.store');
         Route::get('/{id}', [ChatWebController::class, 'room'])->name('room');

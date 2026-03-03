@@ -74,10 +74,11 @@
                 </div>
             </div>
         </div>
-        <button class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
+        <a href="{{ route('chat.calls.active', $otherUser->id) }}"
+            class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
             <span class="material-symbols-outlined text-[18px]">{{ $log->type === 'video' ? 'videocam' : 'call'
                 }}</span>
-        </button>
+        </a>
     </div>
 
     @empty

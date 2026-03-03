@@ -109,12 +109,14 @@
                 </div>
             </div>
             <div class="flex items-center gap-1 text-white dark:text-[#aebac1]">
-                <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
+                <a href="{{ route('chat.calls.active', $recipient->id ?? 0) }}"
+                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">videocam</span>
-                </button>
-                <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
+                </a>
+                <a href="{{ route('chat.calls.active', $recipient->id ?? 0) }}"
+                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">call</span>
-                </button>
+                </a>
                 <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
                     <span class="material-symbols-outlined text-[20px]">more_vert</span>
                 </button>
