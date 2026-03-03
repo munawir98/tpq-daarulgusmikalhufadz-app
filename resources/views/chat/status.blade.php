@@ -9,14 +9,16 @@
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
 
     <div class="relative z-10">
-        <div class="flex items-center justify-between relative">
-            <h1 class="text-base font-bold text-white">Status</h1>
-            <div class="flex gap-2">
-                <button class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
-                    <span class="material-symbols-outlined text-[20px]">search</span>
+        <div class="flex items-center justify-between relative pl-3 pr-1">
+            <h1 class="text-[17px] font-bold text-white tracking-wide">Status</h1>
+            <div class="flex gap-1.5 items-center">
+                <button
+                    class="text-white/80 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">search</span>
                 </button>
-                <button class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition">
-                    <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                <button
+                    class="text-white/80 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">more_vert</span>
                 </button>
             </div>
         </div>
