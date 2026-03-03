@@ -95,7 +95,7 @@
 </div>
 
 {{-- FAB --}}
-<a href="{{ route('chat.calls.active', auth()->id()) }}"
+<a href="{{ route('chat.calls.active', ['id' => auth()->id() ?? 0]) }}"
     class="fixed bottom-24 right-6 size-11 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 hover:shadow-xl hover:bg-blue-700 transition-all active:scale-95 z-40">
     <span class="material-symbols-outlined text-xl">add_ic_call</span>
 </a>
