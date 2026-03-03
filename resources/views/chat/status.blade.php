@@ -30,12 +30,12 @@
 <style>
     .status-ring {
         padding: 2px;
-        background: conic-gradient(from 0deg, #13ecb6 0% 25%, transparent 25% 30%, #13ecb6 30% 60%, transparent 60% 65%, #13ecb6 65% 100%);
+        background: conic-gradient(from 0deg, #2563eb 0% 25%, transparent 25% 30%, #2563eb 30% 60%, transparent 60% 65%, #2563eb 65% 100%);
     }
 
     .status-ring-single {
         padding: 2px;
-        background: #13ecb6;
+        background: #2563eb;
     }
 </style>
 
@@ -106,7 +106,7 @@
         <span class="material-symbols-outlined text-[24px]">edit</span>
     </button>
     <button onclick="document.getElementById('imageStatusModal').classList.remove('hidden')"
-        class="bg-[#13ecb6] text-white shadow-lg p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
+        class="bg-blue-600 dark:bg-blue-600 text-white shadow-lg p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[24px]">photo_camera</span>
     </button>
 </div>
@@ -149,7 +149,7 @@
                 class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Tambahkan keterangan...">
             <button type="submit"
-                class="mt-4 w-full bg-[#13ecb6] hover:bg-[#0fdc9f] text-white font-medium py-2.5 rounded-xl transition-colors">
+                class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition-colors">
                 Kirim
             </button>
         </form>
@@ -169,11 +169,11 @@
                 <span class="text-[10px] font-medium">Chat</span>
             </a>
             {{-- Status (Active) --}}
-            <a class="flex flex-col items-center gap-0.5 py-1 px-3 text-[#13ecb6] transition-all relative"
+            <a class="flex flex-col items-center gap-0.5 py-1 px-3 text-blue-600 dark:text-blue-500 transition-all relative"
                 href="{{ route('chat.status') }}">
                 <span class="material-symbols-outlined fill-1 text-[22px]">donut_large</span>
                 <span class="text-[10px] font-bold">Status</span>
-                <div class="absolute -top-0.5 w-1 h-1 bg-[#13ecb6] rounded-full"></div>
+                <div class="absolute -top-0.5 w-1 h-1 bg-blue-600 dark:bg-blue-500 rounded-full"></div>
             </a>
             {{-- Komunitas --}}
             <a class="flex flex-col items-center gap-0.5 py-1 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
