@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Chat;
 use App\Models\User;
+use App\Models\UserStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
@@ -229,7 +230,65 @@ class ChatWebController extends Controller
      */
     public function status()
     {
-        return view('chat.status');
+        $userId = auth()->id();
+
+        // Get my active statuses
+        $myStatuses = UserStatus::where('user_id', $userId)
+            ->where('expires_at', '>', now())
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        // Get contacts' active statuses
+        $statuses = UserStatus::with('user')
+            ->where('user_id', '!=', $userId)
+            ->where('expires_at', '>', now())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Group by user
+        $groupedStatuses = $statuses->groupBy('user_id')->map(function ($items) {
+            return (object) [
+                'user' => $items->first()->user,
+                'last_updated' => $items->first()->created_at,
+                'statuses' => $items->reverse()->values() // Chronological order for viewing
+            ];
+        })->sortByDesc('last_updated')->values();
+
+        return view('chat.status', [
+            'myStatuses' => $myStatuses,
+            'recentUpdates' => $groupedStatuses,
+        ]);
+    }
+
+    /**
+     * Store new status
+     */
+    public function storeStatus(Request $request)
+    {
+        $request->validate([
+            'type' => 'required|in:text,image,video',
+            'content' => 'nullable|string',
+            'caption' => 'nullable|string|max:255',
+            'media' => 'nullable|file|max:10240', // 10MB max
+        ]);
+
+        $statusData = [
+            'user_id' => auth()->id(),
+            'type' => $request->type,
+            'caption' => $request->caption,
+            'expires_at' => now()->addHours(24),
+        ];
+
+        if ($request->type === 'text') {
+            $statusData['content'] = $request->content;
+        } else if ($request->hasFile('media')) {
+            $file = $request->file('media');
+            $statusData['content'] = $file->store('status_media', 'public');
+        }
+
+        UserStatus::create($statusData);
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui');
     }
 
     /**

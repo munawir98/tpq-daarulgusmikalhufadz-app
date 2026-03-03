@@ -43,11 +43,13 @@
 <div class="relative flex-1 overflow-y-auto pb-24">
     <!-- My Status Section -->
     <div class="px-5 py-3.5 bg-white dark:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800">
-        <div class="flex items-center gap-3 cursor-pointer">
+        <div class="flex items-center gap-3 cursor-pointer"
+            onclick="document.getElementById('textStatusModal').classList.remove('hidden')">
             <div class="relative">
                 <div class="h-[42px] w-[42px] rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
                     data-alt="User profile picture for status update"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA_JAQ8paJ_bDoyrDwH40AyK9eTz8G55aeKjywkNuN_Lom33COQOpVVV78S7F3XQto1ysl6vsBvxmjO4XhaY-9xByTJ2ENex0b63MQJEoD06zfHIr1RYyK5ZjkRPMve7LFpgB3prKHmrJujfhMFvT_ozq6cbm0G_crTbtD2jYYWagisxQUNIlB8OorobQmmn4XEUtrYnFeYaRAlSnJej5jfiWjy2jsNsVd9dNDjQ0X3h02YzMUZFvXQy08zrMUFla2eKeoP_aXfeBEj')">
+                    style="background-image: url('{{ auth()->user()->foto ? asset(" storage/" . auth()->user()->foto) :
+                    asset("assets/images/default-avatar.png") }}')">
                 </div>
                 <div
                     class="absolute bottom-0 right-[-2px] bg-blue-600 border-[1.5px] border-white dark:border-gray-800 rounded-full h-[18px] w-[18px] flex items-center justify-center text-white">
@@ -56,8 +58,9 @@
             </div>
             <div class="flex flex-col">
                 <h2 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100">Status Saya</h2>
-                <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5">Ketuk untuk menambahkan pembaruan
-                    status
+                <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5">
+                    {{ $myStatuses->count() > 0 ? $myStatuses->count() . ' pembaruan aktif' : 'Ketuk untuk menambahkan
+                    pembaruan status' }}
                 </p>
             </div>
         </div>
@@ -69,79 +72,88 @@
             Terbaru</h3>
 
         <div class="flex flex-col">
-            <!-- Status Item 1 -->
+            @forelse($recentUpdates as $update)
+            <!-- Status Item -->
             <div
                 class="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
-                <div class="status-ring rounded-full p-[1.5px] shrink-0">
+                <div
+                    class="{{ $update->statuses->count() > 1 ? 'status-ring' : 'status-ring-single' }} rounded-full p-[1.5px] shrink-0">
                     <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        data-alt="Ustadz Ahmad profile picture with status rings"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVwl14uHtBoVkaNZdO9JU_JVuTpK_PAtPiVRErBguEEbxypa53OTqsO5RvvLmzBbOyRvlMneFDUkA_JLRvhfVeyxKtAc3HMCe7nTcZTRoUa-t1DlwhyQxMwd4EnUhiGEvvEsxg1D1_2ucTYx0Aej3TkOQ6i_xmSdlhMT1xdDY49KgRO2JgNKdiytdDh-FUhvjgnD3wR7--m9v3ZJFidKqIYLEDl7ccdlJb09jY1sRVK8aztUTqxjPKOn3V0kRjNBCOFdRWGx4Z8qzk')">
+                        style="background-image: url('{{ $update->user->foto ? asset(" storage/" . $update->user->foto)
+                        : asset("assets/images/default-avatar.png") }}')">
                     </div>
                 </div>
                 <div class="flex flex-col flex-1 min-w-0">
-                    <h4 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100 truncate">Ustadz Ahmad</h4>
-                    <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">Baru saja</p>
+                    <h4 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100 truncate">{{ $update->user->name
+                        }}</h4>
+                    <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">{{
+                        $update->last_updated->diffForHumans() }}</p>
                 </div>
             </div>
-
-            <!-- Status Item 2 -->
-            <div
-                class="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
-                <div class="status-ring-single rounded-full p-[1.5px] shrink-0">
-                    <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        data-alt="Ustadzah Siti profile picture with status ring"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAAfXEiQrArkqfTzbuKbjAmvZTuuW6QrjmF0QmnHYIRltMmM7eOW8dL22-qZpRQK1RV6eWZEo9eidb3wyJR2P1rqkaLIr5xAd-t_lRTJbk7b78t9jRILpbyLwLbVceveAMUIHGDpzvm4zwxG_kMBExKf2M31yA1nkttYHGNAE78iyLaziTUfQsu8PEDwhLZKqE8hwtc0gF6BMNDSe755x3cBs6rfN65v4mFkc1z0MQa5M0pU8mXhyqDc0NWMMwV-22-4vCU0ATWciEE')">
-                    </div>
-                </div>
-                <div class="flex flex-col flex-1 min-w-0">
-                    <h4 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100 truncate">Ustadzah Siti</h4>
-                    <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">15 menit yang lalu</p>
-                </div>
+            @empty
+            <div class="px-5 py-4 text-center">
+                <p class="text-[12px] text-gray-500 dark:text-gray-400">Belum ada pembaruan status dari kontak Anda.</p>
             </div>
-
-            <!-- Status Item 3 -->
-            <div
-                class="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
-                <div class="status-ring rounded-full p-[1.5px] shrink-0">
-                    <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        data-alt="Santri Raihan profile picture with status rings"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBjLXAcgHXEBhmE4eTK8sh8bo8rWe7pX_6Nrsl658hjiCYaUOqbDqmuwfnu4Uy6amiEmHaNnbuVYFFzVDgs9nqbDfC3sbd1KSAwsly6UFtG_L_rR_gKlBDwWQELkGjXwYRq_SVCdm-cYYjM1UpEFi64nlZRQJngGfSFlzsvP3EBdcX6xORHe_u49by8GwFk76bF0YAI37OZrNkcDc8VA55L4ogwWa5sLarquIznu4EJr6BCbM9P5B7AmPep49MH_t2PBJnon_cUhlCm')">
-                    </div>
-                </div>
-                <div class="flex flex-col flex-1 min-w-0">
-                    <h4 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100 truncate">Raihan (Santri)</h4>
-                    <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">1 jam yang lalu</p>
-                </div>
-            </div>
-
-            <!-- Status Item 4 -->
-            <div
-                class="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer border-b border-gray-100 dark:border-gray-800">
-                <div class="status-ring-single rounded-full p-[1.5px] shrink-0">
-                    <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        data-alt="Walid Santri profile picture with status ring"
-                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDLb9Wr1gepdhRq-2jeJ21CqP03ZqC6Twq6C6Xe4nYNAvGXhgWarv9HSppoXvGVScaJBdeRelRelJVbs7S9Z5ORmcmXYceRzhyM2XkKusTf_K-GdcTxpP8LM2q3u92HUpiRHXbd64vhdarD_bb9qOos28DRYat0eoaepdpJES4rUxUV7VtSVdLnRT32myGGlJFJAa2xfPobETm5DPlo_bGIKQE8KVVo-_KNBdJkoFAdUS2w93AM-J8DgRYdSSEw8yHq0LF8Gvr0gcjg')">
-                    </div>
-                </div>
-                <div class="flex flex-col flex-1 min-w-0">
-                    <h4 class="font-bold text-[12.5px] text-gray-900 dark:text-gray-100 truncate">Bapak Furqon</h4>
-                    <p class="text-[10.5px] text-gray-500 dark:text-gray-400 mt-0.5 truncate">2 jam yang lalu</p>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </div>
 
 <!-- Floating Action Button -->
 <div class="fixed bottom-24 right-6 flex flex-col gap-4 items-center z-40">
-    <button
+    <button onclick="document.getElementById('textStatusModal').classList.remove('hidden')"
         class="bg-white dark:bg-[#1a2e28] text-slate-600 dark:text-slate-300 shadow-md p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[24px]">edit</span>
     </button>
-    <button
+    <button onclick="document.getElementById('imageStatusModal').classList.remove('hidden')"
         class="bg-[#13ecb6] text-white shadow-lg p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[24px]">photo_camera</span>
     </button>
+</div>
+
+<!-- Modals for Status Creation -->
+<div id="textStatusModal" class="hidden fixed inset-0 z-[60] bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-sm p-5 relative">
+        <button type="button" onclick="document.getElementById('textStatusModal').classList.add('hidden')"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Buat Status Teks</h3>
+        <form action="{{ route('chat.status.store') }}" method="POST">
+            @csrf
+            <input type="hidden" name="type" value="text">
+            <textarea name="content" rows="4"
+                class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Ketik status Anda..."></textarea>
+            <button type="submit"
+                class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-xl transition-colors">
+                Kirim Status
+            </button>
+        </form>
+    </div>
+</div>
+
+<div id="imageStatusModal" class="hidden fixed inset-0 z-[60] bg-black/80 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl w-full max-w-sm p-5 relative">
+        <button type="button" onclick="document.getElementById('imageStatusModal').classList.add('hidden')"
+            class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Kirim Foto/Video</h3>
+        <form action="{{ route('chat.status.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="type" value="image">
+            <input type="file" name="media" accept="image/*,video/*"
+                class="w-full mb-3 text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:text-gray-400 dark:file:bg-gray-700 dark:file:text-white">
+            <input type="text" name="caption"
+                class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-3 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Tambahkan keterangan...">
+            <button type="submit"
+                class="mt-4 w-full bg-[#13ecb6] hover:bg-[#0fdc9f] text-white font-medium py-2.5 rounded-xl transition-colors">
+                Kirim
+            </button>
+        </form>
+    </div>
 </div>
 @endsection
 
