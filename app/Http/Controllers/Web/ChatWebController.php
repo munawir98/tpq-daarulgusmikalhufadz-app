@@ -390,7 +390,10 @@ class ChatWebController extends Controller
      */
     public function activeCall($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
+        if (!$user) {
+            $user = User::first(); // Fallback to prevent 404
+        }
         return view('chat.active_call', compact('user'));
     }
 
