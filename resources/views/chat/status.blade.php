@@ -133,11 +133,11 @@
 <!-- Floating Action Button -->
 <div class="fixed bottom-24 right-6 flex flex-col gap-4 items-center z-40">
     <button
-        class="bg-white dark:bg-[#1a2e28] text-slate-600 dark:text-slate-300 shadow-md h-[36px] w-[36px] flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
-        <span class="material-symbols-outlined text-[20px]">edit</span>
+        class="bg-white dark:bg-[#1a2e28] text-slate-600 dark:text-slate-300 shadow-md p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
+        <span class="material-symbols-outlined text-[24px]">edit</span>
     </button>
     <button
-        class="bg-[#13ecb6] text-white shadow-lg p-3.5 rounded-full hover:scale-105 active:scale-95 transition-transform flex items-center justify-center">
+        class="bg-[#13ecb6] text-white shadow-lg p-3.5 flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-transform">
         <span class="material-symbols-outlined text-[24px]">photo_camera</span>
     </button>
 </div>
