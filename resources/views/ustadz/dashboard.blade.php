@@ -350,17 +350,8 @@
     <div
         class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl">
 
-        <!-- Header Background - Blue Gradient -->
-        <div
-            class="absolute top-0 left-0 w-full h-[260px] bg-gradient-to-r from-[#1A2980] to-[#26D0CE] z-0 rounded-b-[40px] overflow-hidden">
-            <div class="absolute top-[-50px] right-[-50px] w-64 h-64 bg-[#5BA3CC] rounded-full blur-3xl opacity-60">
-            </div>
-            <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-[#2A5A78] rounded-full blur-2xl opacity-50">
-            </div>
-            <div class="absolute top-[100px] left-[50%] w-32 h-32 bg-[#6BB8DE] rounded-full blur-2xl opacity-30">
-            </div>
-            <div class="absolute inset-0 highlight-overlay"></div>
-            <div class="absolute inset-0 islamic-pattern"></div>
+        <!-- Header Background - Solid Blue -->
+        <div class="absolute top-0 left-0 w-full h-[260px] bg-blue-600 z-0 rounded-b-[40px] overflow-hidden">
         </div>
 
         <!-- Scrollable Content -->
