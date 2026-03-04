@@ -75,7 +75,7 @@
                     <img alt="{{ $chatName }}" class="w-full h-full object-cover"
                         src="{{ asset('storage/' . $recipient->foto) }}" />
                     @else
-                    <span class="text-sm font-bold {{ $avatarColor['text'] }}">{{ mb_substr($chatName, 0, 1) }}</span>
+                    <span class="material-symbols-outlined text-[24px] {{ $avatarColor['text'] }}">person</span>
                     @endif
                 </div>
                 @if(!$isGroup && ($recipient->is_online ?? false))
