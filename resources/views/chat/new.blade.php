@@ -98,8 +98,13 @@
         $colorIndex = crc32($name) % count($avatarColors);
         $avatarColor = $avatarColors[abs($colorIndex)];
         @endphp
-        <a href="{{ route('chat.room', $contactId) }}"
-            class="contact-item flex items-center gap-3 px-4 py-2 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer transition-colors"
+        @php
+        $hasPhone = !empty($c->no_hp);
+        $chatLink = $hasPhone ? route('chat.room', $contactId) : 'javascript:void(0)';
+        $onClick = $hasPhone ? '' : 'onclick="alert(\'Tidak bisa terhubung\')"';
+        @endphp
+        <a href="{{ $chatLink }}" {!! $onClick !!}
+            class="contact-item flex items-center gap-3 px-4 py-2 border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors {{ !$hasPhone ? 'opacity-70 cursor-not-allowed' : 'cursor-pointer' }}"
             data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
             <div class="relative">
                 @if($foto)

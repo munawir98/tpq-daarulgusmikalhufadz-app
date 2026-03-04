@@ -59,10 +59,13 @@
         $colorIndex = crc32($chatName) % count($avatarColors);
         $avatarColor = $avatarColors[abs($colorIndex)];
 
-        $chatUrl = $isGroup ? route('chat.group') : route('chat.room', $chatObj->id);
+        $hasPhone = $isGroup || !empty($recipient->no_hp);
+        $chatUrl = $isGroup ? route('chat.group') : ($hasPhone ? route('chat.room', $chatObj->id) :
+        'javascript:void(0)');
+        $onClick = $hasPhone ? '' : 'onclick="alert(\'Tidak bisa terhubung\')"';
         @endphp
-        <a href="{{ $chatUrl }}"
-            class="chat-item px-4 py-3 flex items-center gap-3.5 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800 last:border-0"
+        <a href="{{ $chatUrl }}" {!! $onClick !!}
+            class="chat-item px-4 py-3 flex items-center gap-3.5 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800 last:border-0 {{ !$hasPhone ? 'opacity-70 cursor-not-allowed' : '' }}"
             data-name="{{ strtolower($chatName) }}">
 
             {{-- Avatar --}}
