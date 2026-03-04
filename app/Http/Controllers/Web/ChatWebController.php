@@ -394,7 +394,14 @@ class ChatWebController extends Controller
         if (!$user) {
             $user = User::first(); // Fallback to prevent 404
         }
-        return view('chat.active_call', compact('user'));
+
+        $appID = (int) env('ZEGO_APP_ID');
+        $serverSecret = env('ZEGO_SERVER_SECRET');
+        $myUserId = auth()->check() ? (string) auth()->id() : 'guest_' . rand(1000, 9999);
+        $myName = auth()->check() ? auth()->user()->name : 'Guest';
+        $roomID = 'call_room_' . min(auth()->id() ?? 0, $id) . '_' . max(auth()->id() ?? 0, $id);
+
+        return view('chat.active_call', compact('user', 'appID', 'serverSecret', 'myUserId', 'myName', 'roomID'));
     }
 
     /**
