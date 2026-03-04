@@ -426,6 +426,8 @@ class ChatWebController extends Controller
         ]);
 
         try {
+            \Illuminate\Support\Facades\DB::beginTransaction();
+
             $data = [
                 'name' => $request->name,
                 'email' => $request->email ?? $request->name . '@tpq.local',
@@ -439,12 +441,46 @@ class ChatWebController extends Controller
                 $data['foto'] = $request->file('foto')->store('contacts', 'public');
             }
 
-            User::create($data);
+            $user = User::create($data);
+
+            if ($user->role === 'SANTRI') {
+                $baseNis = 'NIS-' . date('Y') . '-' . str_pad($user->id, 4, '0', STR_PAD_LEFT);
+                $nis = $baseNis;
+                $suffix = 1;
+
+                while (\App\Models\Santri::where('nis', $nis)->exists()) {
+                    $nis = $baseNis . '-' . $suffix;
+                    $suffix++;
+                }
+
+                \App\Models\Santri::create([
+                    'user_id' => $user->id,
+                    'nis' => $nis,
+                    'nama_lengkap' => $user->name,
+                    'nama_panggilan' => explode(' ', $user->name)[0],
+                    'jenis_kelamin' => 'L', // default
+                    'no_hp_orang_tua' => $request->phone,
+                    'status_aktif' => true,
+                ]);
+            } elseif ($user->role === 'USTADZ') {
+                \App\Models\Ustadz::create([
+                    'user_id' => $user->id,
+                    'nama' => $user->name,
+                    'nik' => date('ym') . rand(1000, 9999),
+                    'jenis_kelamin' => 'L', // default
+                    'no_hp' => $request->phone,
+                    'alamat' => '-',
+                    'status_aktif' => true,
+                ]);
+            }
+
+            \Illuminate\Support\Facades\DB::commit();
 
             return redirect()->route('chat.new')
                 ->with('success', 'Kontak berhasil disimpan!');
 
         } catch (\Exception $e) {
+            \Illuminate\Support\Facades\DB::rollBack();
             return back()->withInput()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }

@@ -112,7 +112,8 @@
                 @php
                 $hasPhone = !empty($recipient->no_hp);
                 $callLink = $hasPhone ? route('chat.calls.active', $recipient->id ?? 0) : 'javascript:void(0)';
-                $onClick = $hasPhone ? '' : 'onclick="alert(\'Pengguna ini belum mendaftarkan nomor telepon.\')"';
+                $onClick = $hasPhone ? '' : 'onclick="alert(\'Tidak bisa menghubungkan panggilan, belum ada nomor
+                telepon.\')"';
                 @endphp
                 <a href="{{ $callLink }}" {!! $onClick !!}
                     class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition {{ !$hasPhone ? 'opacity-50 cursor-not-allowed' : '' }}">
