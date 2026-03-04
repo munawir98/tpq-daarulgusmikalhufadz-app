@@ -150,8 +150,27 @@
 @endsection
 
 @section('bottom-nav')
-{{-- No bottom nav on this form page --}}
+<div class="hidden"></div>
 @endsection
+
+@push('styles')
+<style>
+    /* Remove bottom padding since no nav on this page */
+    .pb-24 {
+        padding-bottom: 0 !important;
+    }
+
+    /* Main content fills remaining screen height */
+    main {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        gap: 0 !important;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+@endpush
 
 @push('scripts')
 <script>
