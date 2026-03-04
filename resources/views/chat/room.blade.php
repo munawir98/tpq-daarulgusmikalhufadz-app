@@ -109,12 +109,17 @@
                 </div>
             </div>
             <div class="flex items-center gap-1 text-white dark:text-[#aebac1]">
-                <a href="{{ route('chat.calls.active', $recipient->id ?? 0) }}"
-                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
+                @php
+                $hasPhone = !empty($recipient->no_hp);
+                $callLink = $hasPhone ? route('chat.calls.active', $recipient->id ?? 0) : 'javascript:void(0)';
+                $onClick = $hasPhone ? '' : 'onclick="alert(\'Pengguna ini belum mendaftarkan nomor telepon.\')"';
+                @endphp
+                <a href="{{ $callLink }}" {!! $onClick !!}
+                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition {{ !$hasPhone ? 'opacity-50 cursor-not-allowed' : '' }}">
                     <span class="material-symbols-outlined text-[20px]">videocam</span>
                 </a>
-                <a href="{{ route('chat.calls.active', $recipient->id ?? 0) }}"
-                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">
+                <a href="{{ $callLink }}" {!! $onClick !!}
+                    class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition {{ !$hasPhone ? 'opacity-50 cursor-not-allowed' : '' }}">
                     <span class="material-symbols-outlined text-[20px]">call</span>
                 </a>
                 <button class="p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition">

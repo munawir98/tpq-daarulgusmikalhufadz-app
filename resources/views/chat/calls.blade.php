@@ -74,8 +74,13 @@
                 </div>
             </div>
         </div>
-        <a href="{{ route('chat.calls.active', $otherUser->id) }}"
-            class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0">
+        @php
+        $hasPhone = !empty($otherUser->no_hp);
+        $callLink = $hasPhone ? route('chat.calls.active', $otherUser->id) : 'javascript:void(0)';
+        $onClick = $hasPhone ? '' : 'onclick="alert(\'Pengguna ini belum mendaftarkan nomor telepon.\')"';
+        @endphp
+        <a href="{{ $callLink }}" {!! $onClick !!}
+            class="p-1 text-blue-600 hover:bg-blue-600/10 rounded-full transition-colors shrink-0 {{ !$hasPhone ? 'opacity-50 cursor-not-allowed text-slate-400' : '' }}">
             <span class="material-symbols-outlined text-[18px]">{{ $log->type === 'video' ? 'videocam' : 'call'
                 }}</span>
         </a>
