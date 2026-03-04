@@ -123,10 +123,15 @@
             <div class="flex-1">
                 <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
                 @if($role)
-                <p
-                    class="text-[11px] font-semibold {{ $isUstadz ? 'text-red-500' : ($isSantri ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400') }}">
-                    {{ $role }}
-                </p>
+                <div class="flex items-center gap-1">
+                    <p
+                        class="text-[11px] font-semibold {{ $isUstadz ? 'text-red-500' : ($isSantri ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400') }}">
+                        {{ $role }}
+                    </p>
+                    @if(empty($c->no_hp))
+                    <span class="text-[10px] text-slate-400 dark:text-slate-500">• Belum ada nomor telepon</span>
+                    @endif
+                </div>
                 @endif
             </div>
         </a>
