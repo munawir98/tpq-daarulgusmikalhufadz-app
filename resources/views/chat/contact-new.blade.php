@@ -3,7 +3,7 @@
 @section('title', 'Kontak Baru')
 
 @section('header')
-<header class="bg-blue-600 px-6 pt-12 pb-4 shadow-lg relative overflow-hidden">
+<header class="sticky top-0 z-20 bg-blue-600 px-4 pt-4 pb-3 shadow-md overflow-hidden">
     {{-- Decorative blobs --}}
     <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
     <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
@@ -13,7 +13,7 @@
             <a href="{{ route('chat.new') }}" class="absolute left-0 text-white/80 hover:text-white transition">
                 <span class="material-symbols-outlined text-lg">arrow_back</span>
             </a>
-            <h1 class="text-lg font-bold text-white">Kontak Baru</h1>
+            <h1 class="text-base font-bold text-white tracking-tight">Kontak Baru</h1>
         </div>
     </div>
 </header>
@@ -22,21 +22,21 @@
 @section('content')
 
 {{-- Avatar Section --}}
-<div class="flex flex-col items-center mb-8 mt-2">
+<div class="flex flex-col items-center mb-6 mt-4">
     <div class="relative group">
         <div
-            class="w-28 h-28 rounded-full bg-blue-50 dark:bg-slate-800 border-4 border-white dark:border-slate-700 overflow-hidden shadow-lg flex items-center justify-center">
+            class="w-20 h-20 rounded-full bg-blue-50 dark:bg-slate-800 border-[3px] border-white dark:border-slate-700 overflow-hidden shadow-md flex items-center justify-center">
             <img id="avatarPreview" src="" alt="Avatar" class="w-full h-full object-cover hidden" />
             <span id="avatarPlaceholder"
-                class="material-symbols-outlined text-blue-300 dark:text-slate-600 text-5xl">person</span>
+                class="material-symbols-outlined text-blue-300 dark:text-slate-600 text-4xl">person</span>
         </div>
         <label for="avatarInput"
-            class="absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full border-2 border-white dark:border-slate-700 shadow-md hover:scale-105 transition-transform cursor-pointer">
-            <span class="material-symbols-outlined text-lg">photo_camera</span>
+            class="absolute bottom-0 right-0 bg-blue-600 text-white p-1.5 rounded-full border-2 border-white dark:border-slate-700 shadow flex items-center justify-center hover:scale-105 transition-transform cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">photo_camera</span>
         </label>
         <input type="file" id="avatarInput" accept="image/*" class="hidden" onchange="previewAvatar(event)" />
     </div>
-    <p class="mt-3 text-slate-500 dark:text-slate-400 text-xs font-medium">Tambah Foto Profil</p>
+    <p class="mt-2 text-slate-500 dark:text-slate-400 text-[11px] font-medium">Tambah Foto Profil</p>
 </div>
 
 {{-- Form Card --}}
