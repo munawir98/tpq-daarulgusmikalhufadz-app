@@ -87,9 +87,9 @@
         </div>
 
         <!-- Bottom Controls Container (WhatsApp Style) -->
-        <div class="relative z-20 w-full px-6 pb-12 flex flex-col items-center gap-6">
+        <div class="relative z-20 w-full px-6 pb-24 flex flex-col items-center gap-6">
             <div
-                class="w-full max-w-[260px] bg-background-dark/60 backdrop-blur-xl rounded-[2rem] py-3 px-5 border border-white/5 mx-auto">
+                class="w-full max-w-[320px] bg-background-dark/60 backdrop-blur-xl rounded-[2.5rem] py-4 px-6 border border-white/5 mx-auto">
                 <div class="flex justify-between items-center w-full">
                     <!-- Speaker -->
                     <button class="flex flex-col items-center gap-1.5 group">
@@ -116,7 +116,7 @@
                     </button>
 
                     <!-- End Call (Red, prominent) -->
-                    <a href="javascript:history.back()" class="flex flex-col items-center gap-1.5 group ml-2">
+                    <a href="javascript:history.back()" class="flex flex-col items-center gap-1.5 group">
                         <div
                             class="size-12 rounded-full bg-[#ff3b30] text-white flex items-center justify-center shadow-lg group-active:scale-95 transition-all">
                             <span class="material-symbols-outlined text-[24px] rotate-[135deg]">call</span>
