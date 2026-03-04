@@ -46,75 +46,79 @@
             </div>
         </div>
         <!-- Top Bar -->
-        <div class="relative z-20 w-full flex items-center justify-between px-6 pt-12 pb-4">
+        <div class="relative z-20 w-full flex items-center justify-between px-5 pt-10 pb-2">
             <a href="javascript:history.back()"
-                class="flex items-center justify-center size-10 rounded-full bg-white/10 text-slate-100 backdrop-blur-md">
-                <span class="material-symbols-outlined">expand_more</span>
+                class="flex items-center justify-center size-8 rounded-full bg-white/10 text-slate-100 backdrop-blur-md">
+                <span class="material-symbols-outlined text-[20px]">expand_more</span>
             </a>
             <div class="flex flex-col items-center">
-                <span class="text-xs font-semibold uppercase tracking-widest text-primary/80">Panggilan Aktif</span>
                 <div class="flex items-center gap-1.5 mt-1">
-                    <div class="size-2 rounded-full bg-primary animate-pulse"></div>
-                    <span class="text-sm font-medium text-slate-300">Enkripsi End-to-End</span>
+                    <span class="material-symbols-outlined text-slate-300 text-[12px]">lock</span>
+                    <span class="text-[11px] font-medium text-slate-300">Enkripsi End-to-End</span>
                 </div>
             </div>
             <button
-                class="flex items-center justify-center size-10 rounded-full bg-white/10 text-slate-100 backdrop-blur-md">
-                <span class="material-symbols-outlined">person_add</span>
+                class="flex items-center justify-center size-8 rounded-full bg-white/10 text-slate-100 backdrop-blur-md">
+                <span class="material-symbols-outlined text-[18px]">person_add</span>
             </button>
         </div>
+
         <!-- Center Profile Info -->
-        <div class="relative z-20 flex flex-col items-center gap-6 mt-10">
+        <div class="relative z-20 flex flex-col items-center gap-4 mt-8 flex-1">
             <div class="relative">
                 <!-- Pulse Effect Rings -->
-                <div class="absolute inset-0 rounded-full bg-primary/20 scale-125"></div>
-                <div class="absolute inset-0 rounded-full bg-primary/10 scale-150"></div>
+                <div class="absolute inset-0 rounded-full bg-primary/20 scale-110"></div>
                 <!-- Main Avatar -->
                 <div
-                    class="relative size-48 rounded-full border-4 border-primary/30 p-1 bg-background-dark overflow-hidden">
+                    class="relative size-32 rounded-full border-2 border-primary/30 p-1 bg-background-dark overflow-hidden">
                     <img alt="{{ $user->name }} Profile" class="h-full w-full object-cover rounded-full"
                         src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('assets/images/default-avatar.png') }}" />
                 </div>
             </div>
             <div class="text-center">
-                <h1 class="text-3xl font-bold text-white tracking-tight">{{ $user->name }}</h1>
-                <p class="mt-2 text-lg font-medium text-primary tracking-widest uppercase" id="callDuration">00:00</p>
+                <h1 class="text-2xl font-semibold text-white tracking-tight">{{ $user->name }}</h1>
+                <p class="mt-1 text-sm font-medium text-slate-300" id="callDuration">00:00</p>
             </div>
         </div>
-        <!-- Bottom Controls Container -->
-        <div class="relative z-20 w-full px-8 pb-16 flex flex-col items-center gap-10">
-            <!-- Auxiliary Controls -->
-            <div class="grid grid-cols-3 w-full max-w-sm gap-4">
-                <div class="flex flex-col items-center gap-3">
-                    <button
-                        class="size-16 rounded-full bg-white/10 text-white backdrop-blur-xl flex items-center justify-center hover:bg-white/20 transition-all active:scale-95 border border-white/10">
-                        <span class="material-symbols-outlined text-2xl">mic_off</span>
+
+        <!-- Bottom Controls Container (WhatsApp Style) -->
+        <div class="relative z-20 w-full px-6 pb-12 flex flex-col items-center gap-6">
+            <div
+                class="w-full max-w-[280px] bg-background-dark/60 backdrop-blur-xl rounded-[2rem] p-4 border border-white/5 mx-auto">
+                <div class="flex justify-between items-center px-2">
+                    <!-- Speaker -->
+                    <button class="flex flex-col items-center gap-1.5 group">
+                        <div
+                            class="size-12 rounded-full bg-white/10 text-white flex items-center justify-center group-active:scale-95 transition-all">
+                            <span class="material-symbols-outlined text-[22px]">volume_up</span>
+                        </div>
                     </button>
-                    <span class="text-xs font-medium text-slate-300">Mute</span>
-                </div>
-                <div class="flex flex-col items-center gap-3">
-                    <button
-                        class="size-16 rounded-full bg-primary/20 text-primary backdrop-blur-xl flex items-center justify-center hover:bg-primary/30 transition-all active:scale-95 border border-primary/20">
-                        <span class="material-symbols-outlined text-2xl">volume_up</span>
+
+                    <!-- Video (Disabled state usually) -->
+                    <button class="flex flex-col items-center gap-1.5 group opacity-50">
+                        <div
+                            class="size-12 rounded-full bg-white/10 text-white flex items-center justify-center group-active:scale-95 transition-all">
+                            <span class="material-symbols-outlined text-[22px]">videocam</span>
+                        </div>
                     </button>
-                    <span class="text-xs font-medium text-primary">Speaker</span>
-                </div>
-                <div class="flex flex-col items-center gap-3">
-                    <button
-                        class="size-16 rounded-full bg-white/10 text-white backdrop-blur-xl flex items-center justify-center hover:bg-white/20 transition-all active:scale-95 border border-white/10">
-                        <span class="material-symbols-outlined text-2xl">videocam</span>
+
+                    <!-- Mute -->
+                    <button class="flex flex-col items-center gap-1.5 group">
+                        <div
+                            class="size-12 rounded-full bg-white/10 text-white flex items-center justify-center group-active:scale-95 transition-all">
+                            <span class="material-symbols-outlined text-[22px]">mic_off</span>
+                        </div>
                     </button>
-                    <span class="text-xs font-medium text-slate-300">Video</span>
+
+                    <!-- End Call (Red, prominent) -->
+                    <a href="javascript:history.back()" class="flex flex-col items-center gap-1.5 group">
+                        <div
+                            class="size-14 rounded-full bg-[#ff3b30] text-white flex items-center justify-center shadow-lg group-active:scale-95 transition-all">
+                            <span class="material-symbols-outlined text-[28px] rotate-[135deg]">call</span>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <!-- Primary Action: End Call -->
-            <a href="javascript:history.back()" class="group flex flex-col items-center gap-3">
-                <div
-                    class="size-20 rounded-full bg-red-500 text-white shadow-2xl shadow-red-500/30 flex items-center justify-center hover:bg-red-600 transition-all active:scale-90 ring-4 ring-red-500/20">
-                    <span class="material-symbols-outlined text-4xl rotate-[135deg]">call</span>
-                </div>
-                <span class="text-sm font-bold text-red-400 uppercase tracking-widest">Akhiri Panggilan</span>
-            </a>
         </div>
         <!-- iOS Home Indicator -->
         <div class="relative z-20 w-32 h-1.5 bg-white/20 rounded-full mb-2"></div>
