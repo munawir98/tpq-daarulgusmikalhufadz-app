@@ -76,7 +76,14 @@
                     <img alt="{{ $user->name }} Profile" class="h-full w-full object-cover rounded-full"
                         src="{{ asset('storage/' . $user->foto) }}" />
                     @else
-                    <span class="material-symbols-outlined text-[50px] text-slate-400">person</span>
+                    <div
+                        class="h-full w-full rounded-full bg-slate-200 dark:bg-slate-700 flex items-end justify-center overflow-hidden">
+                        <svg class="w-full h-full text-slate-400 dark:text-slate-500 mt-4 scale-[1.2]"
+                            fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                    </div>
                     @endif
                 </div>
             </div>
