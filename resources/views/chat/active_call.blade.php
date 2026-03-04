@@ -68,11 +68,14 @@
             <div class="relative">
                 <!-- Pulse Effect Rings -->
                 <div class="absolute inset-0 rounded-full bg-primary/20 scale-110"></div>
-                <!-- Main Avatar -->
                 <div
-                    class="relative size-32 rounded-full border-2 border-primary/30 p-1 bg-background-dark overflow-hidden">
+                    class="relative size-32 rounded-full border-2 border-primary/30 p-1 bg-background-dark overflow-hidden flex items-center justify-center">
+                    @if($user->foto)
                     <img alt="{{ $user->name }} Profile" class="h-full w-full object-cover rounded-full"
-                        src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('assets/images/default-avatar.png') }}" />
+                        src="{{ asset('storage/' . $user->foto) }}" />
+                    @else
+                    <span class="material-symbols-outlined text-[60px] text-slate-400">person</span>
+                    @endif
                 </div>
             </div>
             <div class="text-center">
