@@ -126,11 +126,10 @@
                 @endif
             </div>
             <div class="flex-1">
-                <h4 class="text-xs font-semibold text-slate-900 dark:text-slate-100">{{ $name }}</h4>
+                <h4 class="text-xs font-bold text-black dark:text-white">{{ $name }}</h4>
                 @if($role)
                 <div class="flex items-center gap-1">
-                    <p
-                        class="text-[11px] font-semibold {{ $isUstadz ? 'text-red-500' : ($isSantri ? 'text-blue-600' : 'text-slate-500 dark:text-slate-400') }}">
+                    <p class="text-[10px] font-bold text-black dark:text-white">
                         {{ $role }}
                     </p>
                     @if(empty($c->no_hp))
