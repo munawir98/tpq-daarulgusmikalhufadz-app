@@ -139,32 +139,32 @@
 
             <div class="relative z-10 text-center max-w-md">
                 <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
-                    class="w-40 h-40 object-contain mx-auto mb-8 drop-shadow-2xl">
-                <h1 class="text-4xl font-bold text-white mb-4">TPQ Daarul Gusmik<br>Al-Hufadz</h1>
-                <p class="text-lg text-white/80 leading-relaxed">Platform Digital untuk Manajemen TPQ Modern. Kelola
+                    class="w-32 h-32 object-contain mx-auto mb-8 drop-shadow-2xl">
+                <h1 class="text-3xl font-bold text-white mb-4">TPQ Daarul Gusmik<br>Al-Hufadz</h1>
+                <p class="text-base text-white/80 leading-relaxed">Platform Digital untuk Manajemen TPQ Modern. Kelola
                     presensi, hafalan, dan perkembangan santri dengan mudah.</p>
 
                 {{-- Features List --}}
                 <div class="mt-10 space-y-4 text-left">
                     <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                        <span class="material-symbols-rounded text-white text-2xl">fact_check</span>
+                        <span class="material-symbols-rounded text-white text-xl">fact_check</span>
                         <div>
-                            <h3 class="text-white font-semibold">Presensi Digital</h3>
-                            <p class="text-white/70 text-sm">Pencatatan kehadiran otomatis & akurat</p>
+                            <h3 class="text-white text-sm font-semibold">Presensi Digital</h3>
+                            <p class="text-white/70 text-xs">Pencatatan kehadiran otomatis & akurat</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                        <span class="material-symbols-rounded text-white text-2xl">menu_book</span>
+                        <span class="material-symbols-rounded text-white text-xl">menu_book</span>
                         <div>
-                            <h3 class="text-white font-semibold">Tracking Hafalan</h3>
-                            <p class="text-white/70 text-sm">Pantau progress hafalan secara real-time</p>
+                            <h3 class="text-white text-sm font-semibold">Tracking Hafalan</h3>
+                            <p class="text-white/70 text-xs">Pantau progress hafalan secara real-time</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                        <span class="material-symbols-rounded text-white text-2xl">analytics</span>
+                        <span class="material-symbols-rounded text-white text-xl">analytics</span>
                         <div>
-                            <h3 class="text-white font-semibold">Laporan Lengkap</h3>
-                            <p class="text-white/70 text-sm">Statistik & laporan komprehensif</p>
+                            <h3 class="text-white text-sm font-semibold">Laporan Lengkap</h3>
+                            <p class="text-white/70 text-xs">Statistik & laporan komprehensif</p>
                         </div>
                     </div>
                 </div>
@@ -192,15 +192,15 @@
                         {{-- LOGO (Mobile Only) --}}
                         <div class="lg:hidden flex justify-center -mb-4 mt-6">
                             <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
-                                class="w-28 h-28 object-contain drop-shadow-lg">
+                                class="w-20 h-20 object-contain drop-shadow-lg">
                         </div>
 
                         {{-- TITLE --}}
                         <div class="text-center mb-6">
                             <h1
-                                class="text-2xl lg:text-3xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
+                                class="text-lg lg:text-xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
                                 Selamat Datang</h1>
-                            <p class="text-sm text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">Silahkan
+                            <p class="text-xs text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">Silahkan
                                 masuk untuk
                                 melanjutkan</p>
                         </div>
@@ -234,32 +234,32 @@
                                 {{-- NIS/EMAIL --}}
                                 <div class="group">
                                     <label
-                                        class="block text-[11px] font-bold text-white/80 lg:text-gray-600 dark:lg:text-gray-400 uppercase tracking-wider mb-1.5 ml-1">NIS
+                                        class="block text-[10px] font-bold text-white/80 lg:text-gray-600 dark:lg:text-gray-400 uppercase tracking-wider mb-1.5 ml-1">NIS
                                         atau Email</label>
                                     <div class="relative">
                                         <span
                                             class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors">person</span>
                                         <input id="nis" name="nis" type="text" value="{{ old('nis') }}" required
                                             autofocus placeholder="Masukkan NIS / Email"
-                                            class="w-full h-[50px] lg:h-[52px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-12 pr-4 text-sm font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
+                                            class="w-full h-[42px] lg:h-[44px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-11 pr-4 text-xs font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
                                     </div>
                                 </div>
 
                                 {{-- PASSWORD --}}
                                 <div class="group">
                                     <label
-                                        class="block text-[11px] font-bold text-white/80 lg:text-gray-600 dark:lg:text-gray-400 uppercase tracking-wider mb-1.5 ml-1">Kata
+                                        class="block text-[10px] font-bold text-white/80 lg:text-gray-600 dark:lg:text-gray-400 uppercase tracking-wider mb-1.5 ml-1">Kata
                                         Sandi</label>
                                     <div class="relative">
                                         <span
                                             class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors">lock</span>
                                         <input id="password" name="password" type="password" required
                                             placeholder="Masukkan kata sandi"
-                                            class="w-full h-[50px] lg:h-[52px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-12 pr-12 text-sm font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
+                                            class="w-full h-[42px] lg:h-[44px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-11 pr-11 text-xs font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
                                         <button type="button" onclick="togglePassword()"
                                             class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 lg:text-gray-400 hover:text-white lg:hover:text-primary transition-colors">
                                             <span id="passwordIcon"
-                                                class="material-symbols-rounded text-[20px]">visibility_off</span>
+                                                class="material-symbols-rounded text-[18px]">visibility_off</span>
                                         </button>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                                 <div class="flex items-center justify-between text-xs mt-2">
                                     <label class="flex items-center gap-2 cursor-pointer group">
                                         <input type="checkbox" name="remember"
-                                            class="rounded border-white/30 lg:border-gray-300 bg-white/10 lg:bg-white text-white lg:text-primary focus:ring-white/30 lg:focus:ring-primary/30 w-4 h-4 cursor-pointer">
+                                            class="rounded border-white/30 lg:border-gray-300 bg-white/10 lg:bg-white text-white lg:text-primary focus:ring-white/30 lg:focus:ring-primary/30 w-3.5 h-3.5 cursor-pointer">
                                         <span
                                             class="text-white/80 lg:text-gray-600 dark:lg:text-gray-400 group-hover:text-white lg:group-hover:text-gray-800 transition-colors">Ingat
                                             Saya</span>
@@ -280,7 +280,7 @@
 
                                 {{-- BUTTON --}}
                                 <button id="loginButton" type="submit"
-                                    class="mt-8 w-full h-[56px] bg-white lg:bg-gradient-to-r lg:from-primary lg:to-primary-dark text-primary lg:text-white hover:bg-white/90 lg:hover:shadow-lg lg:hover:shadow-primary/30 rounded-2xl font-bold text-sm shadow-lg shadow-black/10 transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
+                                    class="mt-8 w-full h-[44px] bg-white lg:bg-gradient-to-r lg:from-primary lg:to-primary-dark text-primary lg:text-white hover:bg-white/90 lg:hover:shadow-lg lg:hover:shadow-primary/30 rounded-2xl font-bold text-xs shadow-lg shadow-black/10 transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
                                     <span id="btnText">Masuk Aplikasi</span>
                                     <span
                                         class="material-symbols-rounded group-hover:translate-x-1 transition-transform">login</span>
@@ -297,7 +297,7 @@
 
                             {{-- FOOTER --}}
                             <div class="mt-6 text-center">
-                                <p class="text-sm text-white/80 lg:text-gray-600 dark:lg:text-gray-400">
+                                <p class="text-xs text-white/80 lg:text-gray-600 dark:lg:text-gray-400">
                                     Belum memiliki akun?
                                     <a href="{{ route('register') }}"
                                         class="font-bold text-white lg:text-primary hover:underline transition-colors">Daftar
