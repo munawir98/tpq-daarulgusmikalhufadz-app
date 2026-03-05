@@ -207,7 +207,7 @@
 
                         {{-- CARD CONTAINER FOR FORM --}}
                         <div
-                            class="bg-white/10 lg:bg-white dark:lg:bg-surface-dark backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-gray-200 dark:lg:border-gray-700 rounded-3xl px-6 py-10 lg:p-8 shadow-xl lg:shadow-2xl">
+                            class="bg-white/10 lg:bg-white dark:lg:bg-surface-dark backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-gray-200 dark:lg:border-gray-700 rounded-3xl p-5 lg:p-8 shadow-xl lg:shadow-2xl">
 
                             {{-- SUCCESS ALERT --}}
                             @if (session('success'))
