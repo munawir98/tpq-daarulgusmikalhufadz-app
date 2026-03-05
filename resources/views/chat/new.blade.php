@@ -110,13 +110,15 @@
                 @if($foto)
                 <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $foto) }}"
                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                <div class="h-10 w-10 rounded-full items-center justify-center bg-slate-200 dark:bg-slate-700"
+                <div class="h-10 w-10 rounded-full items-center justify-center {{ $avatarColor['bg'] }}"
                     style="display:none;">
-                    <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-xl">person</span>
+                    <span class="text-sm font-bold {{ $avatarColor['text'] }}">{{ mb_strtoupper(mb_substr($name, 0, 1))
+                        }}</span>
                 </div>
                 @else
-                <div class="h-10 w-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-slate-700">
-                    <span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-xl">person</span>
+                <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}">
+                    <span class="text-sm font-bold {{ $avatarColor['text'] }}">{{ mb_strtoupper(mb_substr($name, 0, 1))
+                        }}</span>
                 </div>
                 @endif
                 @if($isOnline)
