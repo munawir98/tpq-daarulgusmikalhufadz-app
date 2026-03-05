@@ -128,8 +128,8 @@
             <div class="flex-1">
                 <h4 class="text-xs font-bold text-black dark:text-white">{{ $name }}</h4>
                 @if($role)
-                <div class="flex items-center gap-1">
-                    <p class="text-[10px] font-bold text-black dark:text-white">
+                <div class="flex items-center gap-1 mt-0.5">
+                    <p class="text-[9px] font-bold text-slate-500 dark:text-slate-400">
                         {{ $role }}
                     </p>
                     @if(empty($c->no_hp))
