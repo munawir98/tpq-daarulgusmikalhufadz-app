@@ -6,7 +6,7 @@
 <header class="sticky top-0 z-20 bg-blue-600 px-4 pt-4 pb-3 text-white shadow-md">
     <h1 class="text-base font-bold tracking-tight text-center">Mulai Chat Baru</h1>
     {{-- Search Bar --}}
-    <div class="mt-3">
+    <div class="mt-3 px-2">
         <label class="flex flex-col w-full">
             <div
                 class="flex w-full items-center rounded-xl bg-white/20 h-10 px-3 border border-transparent focus-within:border-white/50 transition-all">
@@ -30,23 +30,23 @@
             class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
             <span class="material-symbols-outlined">group_add</span>
         </div>
-        <span class="text-sm font-semibold">Grup Baru</span>
+        <span class="text-sm font-bold">Grup Baru</span>
     </button>
     <a href="{{ route('chat.contact.new') }}"
         class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600">
             <span class="material-symbols-outlined">person_add</span>
         </div>
-        <span class="text-sm font-semibold">Kontak Baru</span>
+        <span class="text-sm font-bold">Kontak Baru</span>
     </a>
     <button
         class="w-full flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
         <div
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600">
             <span class="material-symbols-outlined">hub</span>
         </div>
-        <span class="text-sm font-semibold">Komunitas Baru</span>
+        <span class="text-sm font-bold">Komunitas Baru</span>
     </button>
 </div>
 
