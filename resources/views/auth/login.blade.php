@@ -192,7 +192,7 @@
                         {{-- LOGO (Mobile Only) --}}
                         <div class="lg:hidden flex justify-center -mb-4 mt-6">
                             <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
-                                class="w-20 h-20 object-contain drop-shadow-lg">
+                                class="w-28 h-28 object-contain drop-shadow-lg">
                         </div>
 
                         {{-- TITLE --}}
