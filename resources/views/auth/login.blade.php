@@ -198,7 +198,7 @@
                         {{-- TITLE --}}
                         <div class="text-center mb-6">
                             <h1
-                                class="text-2xl lg:text-3xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
+                                class="text-xl lg:text-2xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
                                 Selamat Datang</h1>
                             <p class="text-sm text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">Silahkan
                                 masuk untuk
