@@ -170,13 +170,15 @@
                         </div>
 
                         {{-- TITLE --}}
-                        <h1
-                            class="text-xl lg:text-3xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
-                            Buat Akun Baru
-                        </h1>
-                        <p class="text-xs text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">
-                            Bergabung bersama keluarga besar Yayasan
-                        </p>
+                        <div class="text-center mb-6">
+                            <h1
+                                class="text-xl lg:text-3xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
+                                Buat Akun Baru
+                            </h1>
+                            <p class="text-xs text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">
+                                Bergabung bersama keluarga besar Yayasan
+                            </p>
+                        </div>
 
                         {{-- CARD CONTAINER FOR FORM --}}
                         <div
