@@ -190,7 +190,7 @@
                     <div class="w-full max-w-md relative">
 
                         {{-- LOGO (Mobile Only) --}}
-                        <div class="lg:hidden flex justify-center -mb-4 mt-6">
+                        <div class="lg:hidden flex justify-center -mb-4 mt-2">
                             <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
                                 class="w-28 h-28 object-contain drop-shadow-lg">
                         </div>
@@ -238,7 +238,7 @@
                                         atau Email</label>
                                     <div class="relative">
                                         <span
-                                            class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors">person</span>
+                                            class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors text-[18px]">person</span>
                                         <input id="nis" name="nis" type="text" value="{{ old('nis') }}" required
                                             autofocus placeholder="Masukkan NIS / Email"
                                             class="w-full h-[42px] lg:h-[44px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-11 pr-4 text-xs font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
@@ -252,7 +252,7 @@
                                         Sandi</label>
                                     <div class="relative">
                                         <span
-                                            class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors">lock</span>
+                                            class="material-symbols-rounded absolute left-4 top-1/2 -translate-y-1/2 text-white/80 lg:text-gray-400 group-focus-within:text-white lg:group-focus-within:text-primary transition-colors text-[18px]">lock</span>
                                         <input id="password" name="password" type="password" required
                                             placeholder="Masukkan kata sandi"
                                             class="w-full h-[42px] lg:h-[44px] rounded-2xl bg-white/10 lg:bg-gray-50 dark:lg:bg-gray-800 border border-white/20 lg:border-gray-300 dark:lg:border-gray-600 pl-11 pr-11 text-xs font-medium text-white lg:text-gray-800 dark:lg:text-white placeholder-white/50 lg:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 lg:focus:ring-primary/30 focus:border-white/50 lg:focus:border-primary transition-all shadow-sm" />
