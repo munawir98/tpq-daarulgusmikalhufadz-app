@@ -189,25 +189,25 @@
                     {{-- Form Card --}}
                     <div class="w-full max-w-md relative">
 
-                        {{-- LOGO (Mobile Only) --}}
-                        <div class="lg:hidden flex justify-center -mb-4 mt-2">
-                            <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
-                                class="w-28 h-28 object-contain drop-shadow-lg">
-                        </div>
-
-                        {{-- TITLE --}}
-                        <div class="text-center mb-6">
-                            <h1
-                                class="text-lg lg:text-xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
-                                Selamat Datang</h1>
-                            <p class="text-xs text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">Silahkan
-                                masuk untuk
-                                melanjutkan</p>
-                        </div>
-
                         {{-- CARD CONTAINER FOR FORM --}}
                         <div
-                            class="bg-white/10 lg:bg-white dark:lg:bg-surface-dark backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-gray-200 dark:lg:border-gray-700 rounded-3xl px-6 py-10 lg:p-8 shadow-xl lg:shadow-2xl">
+                            class="bg-white/10 lg:bg-white dark:lg:bg-surface-dark backdrop-blur-md lg:backdrop-blur-none border border-white/20 lg:border-gray-200 dark:lg:border-gray-700 rounded-3xl px-6 py-8 lg:p-8 shadow-xl lg:shadow-2xl">
+
+                            {{-- LOGO (Mobile Only) --}}
+                            <div class="flex justify-center mb-4">
+                                <img src="{{ asset('logo-tpq.png') }}" alt="Logo"
+                                    class="w-20 h-20 lg:w-24 lg:h-24 object-contain drop-shadow-lg">
+                            </div>
+
+                            {{-- TITLE --}}
+                            <div class="text-center mb-6">
+                                <h1
+                                    class="text-lg lg:text-xl font-bold text-white lg:text-gray-800 dark:lg:text-white tracking-tight">
+                                    Selamat Datang</h1>
+                                <p class="text-xs text-white/80 lg:text-gray-500 dark:lg:text-gray-400 mt-1">Silahkan
+                                    masuk untuk
+                                    melanjutkan</p>
+                            </div>
 
                             {{-- SUCCESS ALERT --}}
                             @if (session('success'))
