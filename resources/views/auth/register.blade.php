@@ -322,7 +322,7 @@
 
                                     {{-- BUTTON --}}
                                     <button id="registerButton" type="submit"
-                                        class="mt-10 w-full h-[42px] bg-white lg:bg-gradient-to-r lg:from-primary lg:to-primary-dark text-primary lg:text-white hover:bg-white/90 lg:hover:shadow-lg lg:hover:shadow-primary/30 rounded-xl font-bold text-xs shadow-lg shadow-black/10 transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
+                                        class="mt-4 w-full h-[42px] bg-white lg:bg-gradient-to-r lg:from-primary lg:to-primary-dark text-primary lg:text-white hover:bg-white/90 lg:hover:shadow-lg lg:hover:shadow-primary/30 rounded-xl font-bold text-xs shadow-lg shadow-black/10 transform active:scale-[0.98] transition-all flex items-center justify-center gap-2 group">
                                         <span id="btnText">Buat Akun</span>
                                         <span id="arrowIcon"
                                             class="material-symbols-rounded text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
