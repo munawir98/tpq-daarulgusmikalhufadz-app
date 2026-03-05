@@ -301,7 +301,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <div class="group pb-6">
+                                        <div class="group pb-2">
                                             <label
                                                 class="block text-[10px] font-bold text-white/80 lg:text-gray-600 dark:lg:text-gray-400 uppercase tracking-wider mb-1 ml-1">Ulangi
                                                 Sandi</label>
