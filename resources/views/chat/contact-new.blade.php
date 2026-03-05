@@ -87,15 +87,12 @@
                     <span class="material-symbols-outlined text-xl">badge</span>
                 </div>
                 <select name="role"
-                    class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-3 pl-10 pr-10 text-slate-900 dark:text-slate-100 appearance-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 outline-none transition-all cursor-pointer text-sm">
+                    class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg py-3 pl-10 pr-10 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 outline-none transition-all cursor-pointer text-sm">
                     <option disabled selected value="">Pilih Peran</option>
                     <option value="santri" {{ old('role')=='santri' ? 'selected' : '' }}>Santri</option>
                     <option value="ustadz" {{ old('role')=='ustadz' ? 'selected' : '' }}>Ustadz</option>
                     <option value="wali" {{ old('role')=='wali' ? 'selected' : '' }}>Wali Santri</option>
                 </select>
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
-                    <span class="material-symbols-outlined">expand_more</span>
-                </div>
             </div>
             @error('role')
             <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
