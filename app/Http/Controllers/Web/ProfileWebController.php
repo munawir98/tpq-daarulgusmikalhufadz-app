@@ -51,56 +51,79 @@ class ProfileWebController extends Controller
             'foto'  => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $userId = session('user.id');
-        $user = \App\Models\User::find($userId);
+        try {
+            $userId = session('user.id');
+            $user = \App\Models\User::find($userId);
 
-        if (!$user) {
-            return redirect('/login');
-        }
-
-        $data = [
-            'name'   => $request->name,
-            'email'  => $request->email,
-            'no_hp'  => $request->no_hp,
-            'alamat' => $request->alamat,
-        ];
-
-        // Handle photo upload
-        if ($request->hasFile('foto')) {
-            // Delete old photo if exists
-            if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
+            if (!$user) {
+                return redirect('/login');
             }
 
-            // Store new photo
-            $path = $request->file('foto')->store('profile-photos', 'public');
-            $data['foto'] = $path;
+            $data = [
+                'name'   => $request->name,
+                'email'  => $request->email,
+                'no_hp'  => $request->no_hp,
+                'alamat' => $request->alamat,
+            ];
+
+            // Handle photo upload
+            if ($request->hasFile('foto')) {
+                \Illuminate\Support\Facades\Log::info('Photo upload detected', [
+                    'user_id' => $userId,
+                    'file_name' => $request->file('foto')->getClientOriginalName(),
+                    'file_size' => $request->file('foto')->getSize(),
+                ]);
+
+                // Delete old photo if exists
+                if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
+                }
+
+                // Ensure directory exists
+                $disk = \Illuminate\Support\Facades\Storage::disk('public');
+                if (!$disk->exists('profile-photos')) {
+                    $disk->makeDirectory('profile-photos');
+                }
+
+                // Store new photo
+                $path = $request->file('foto')->store('profile-photos', 'public');
+                $data['foto'] = $path;
+
+                \Illuminate\Support\Facades\Log::info('Photo saved', ['path' => $path]);
+            }
+
+            $user->update($data);
+
+            // Update session with all user data
+            session()->put('user', [
+                'id'     => $user->id,
+                'name'   => $user->name,
+                'email'  => $user->email,
+                'role'   => $user->role,
+                'nis'    => $user->nis,
+                'nip'    => $user->nip,
+                'foto'   => $user->foto,
+                'no_hp'  => $user->no_hp,
+                'alamat' => $user->alamat,
+            ]);
+
+            // Redirect based on role
+            $role = strtoupper($user->role);
+            $redirectUrl = match($role) {
+                'ADMIN' => '/admin/settings',
+                'USTADZ' => '/ustadz/settings',
+                default => '/profile',
+            };
+
+            return redirect($redirectUrl)->with('success', 'Profil berhasil diperbarui!');
+
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Profile update failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return back()->withErrors(['error' => 'Gagal menyimpan: ' . $e->getMessage()]);
         }
-
-        $user->update($data);
-
-        // Update session with all user data
-        session()->put('user', [
-            'id'     => $user->id,
-            'name'   => $user->name,
-            'email'  => $user->email,
-            'role'   => $user->role,
-            'nis'    => $user->nis,
-            'nip'    => $user->nip,
-            'foto'   => $user->foto,
-            'no_hp'  => $user->no_hp,
-            'alamat' => $user->alamat,
-        ]);
-
-        // Redirect based on role
-        $role = strtoupper($user->role);
-        $redirectUrl = match($role) {
-            'ADMIN' => '/admin/settings',
-            'USTADZ' => '/ustadz/settings',
-            default => '/profile',
-        };
-
-        return redirect($redirectUrl)->with('success', 'Profil berhasil diperbarui!');
     }
 
     public function changePassword(Request $request)

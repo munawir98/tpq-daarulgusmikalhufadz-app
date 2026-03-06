@@ -81,39 +81,40 @@
             </div>
             @endif
 
-            <!-- Photo Section -->
-            <div class="flex flex-col items-center">
-                <div class="relative group cursor-pointer" onclick="document.getElementById('photoInput').click()">
-                    <div
-                        class="size-28 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-xl">
-                        @if(session('user.foto'))
-                        <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover"
-                            src="{{ url('/user-photo/' . session('user.id')) }}" />
-                        @else
-                        <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover hidden" src="" />
-                        <div id="photoPlaceholder"
-                            class="w-full h-full flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-4xl font-bold">
-                            {{ substr(session('user.name', 'A'), 0, 1) }}</div>
-                        @endif
-                        <div
-                            class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
-                            <span class="material-symbols-outlined text-white">camera_alt</span>
-                        </div>
-                    </div>
-                    <button type="button"
-                        class="absolute bottom-1 right-1 p-1 rounded-full bg-primary text-[#102216] border-4 border-white dark:border-background-dark shadow-lg hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
-                    </button>
-                </div>
-                <p class="mt-3 text-sm font-medium text-gray-400 dark:text-gray-500">Ketuk untuk ubah foto</p>
-                <input type="file" id="photoInput" form="profileForm" name="foto" accept="image/*" capture="environment"
-                    class="hidden" onchange="previewPhoto(this)" />
-            </div>
-
-            <!-- Form -->
+            <!-- Form wraps everything: photo + fields + submit -->
             <form id="profileForm" action="/ustadz/settings/profile/update" method="POST" enctype="multipart/form-data"
-                class="flex flex-col gap-5 mt-2">
+                class="flex flex-col gap-5">
                 @csrf
+
+                <!-- Photo Section -->
+                <div class="flex flex-col items-center">
+                    <div class="relative group cursor-pointer" onclick="document.getElementById('photoInput').click()">
+                        <div
+                            class="size-28 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-xl">
+                            @if(session('user.foto'))
+                            <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover"
+                                src="{{ url('/user-photo/' . session('user.id')) }}" />
+                            @else
+                            <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover hidden"
+                                src="" />
+                            <div id="photoPlaceholder"
+                                class="w-full h-full flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-4xl font-bold">
+                                {{ substr(session('user.name', 'A'), 0, 1) }}</div>
+                            @endif
+                            <div
+                                class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
+                                <span class="material-symbols-outlined text-white">camera_alt</span>
+                            </div>
+                        </div>
+                        <button type="button"
+                            class="absolute bottom-1 right-1 p-1 rounded-full bg-primary text-[#102216] border-4 border-white dark:border-background-dark shadow-lg hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                        </button>
+                    </div>
+                    <p class="mt-3 text-sm font-medium text-gray-400 dark:text-gray-500">Ketuk untuk ubah foto</p>
+                    <input type="file" id="photoInput" name="foto" accept="image/*" class="hidden"
+                        onchange="previewPhoto(this)" />
+                </div>
 
                 <!-- Nama Lengkap -->
                 <div class="flex flex-col gap-2">
@@ -168,18 +169,17 @@
                     </div>
                 </div>
 
+                <!-- Save Button (inside form) -->
+                <div class="pb-8">
+                    <button type="submit"
+                        class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-[#102216] font-bold text-base shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+                        Simpan Perubahan
+                    </button>
+                </div>
+
             </form>
         </main>
-
-        <!-- Save Button -->
-        <div
-            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto px-5 pt-4 pb-8 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-20 border-t border-gray-100 dark:border-gray-800/50">
-            <button type="submit" onclick="document.getElementById('profileForm').submit()"
-                class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-[#102216] font-bold text-base shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
-                <span class="material-symbols-outlined" style="font-size: 20px;">check</span>
-                Simpan Perubahan
-            </button>
-        </div>
     </div>
 
     <script>
