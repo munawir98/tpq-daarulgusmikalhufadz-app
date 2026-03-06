@@ -83,6 +83,10 @@
                             <span class="material-symbols-outlined text-white">camera_alt</span>
                         </div>
                     </div>
+                    <button type="button"
+                        class="absolute bottom-1 right-1 p-1.5 rounded-full bg-primary text-[#102216] border-2 border-white dark:border-background-dark shadow hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">edit</span>
+                    </button>
                 </div>
                 <p class="mt-3 text-sm font-medium text-gray-400 dark:text-gray-500">Ketuk untuk ubah foto</p>
                 <!-- Hidden file input -->
