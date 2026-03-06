@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
+        rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -23,9 +25,10 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#13ec5b",
-                        "background-light": "#f6f8f6",
-                        "background-dark": "#102216",
+                        "primary": "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
                     },
                     fontFamily: {
                         "display": ["Manrope", "sans-serif"]
@@ -178,30 +181,7 @@
         </main>
 
         <!-- Bottom Navigation -->
-        <nav
-            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pb-safe z-50">
-            <div class="flex justify-around items-center h-16 pb-2">
-                <a href="/ustadz/dashboard"
-                    class="flex flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                    <span class="material-symbols-outlined text-[26px]">home</span>
-                    <span class="text-[10px] font-medium">Beranda</span>
-                </a>
-                <a href="/ustadz/kelas"
-                    class="flex flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                    <span class="material-symbols-outlined text-[26px]">school</span>
-                    <span class="text-[10px] font-medium">Kelas</span>
-                </a>
-                <a href="/chat"
-                    class="flex flex-col items-center justify-center gap-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                    <span class="material-symbols-outlined text-[26px]">chat_bubble</span>
-                    <span class="text-[10px] font-medium">Pesan</span>
-                </a>
-                <a href="/ustadz/settings" class="flex flex-col items-center justify-center gap-1 text-primary">
-                    <span class="material-symbols-outlined filled text-[26px]">settings</span>
-                    <span class="text-[10px] font-bold">Pengaturan</span>
-                </a>
-            </div>
-        </nav>
+        @include('layouts.partials.bottom-nav', ['position' => 'fixed'])
     </div>
 
     <script>
