@@ -179,8 +179,7 @@
                         onclick="event.stopPropagation(); window.location.href='{{ route('ustadz.santri.show', $item->id) }}'">
                         @if($item->user && $item->user->foto)
                         <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border-2 border-white dark:border-slate-800"
-                            style='background-image: url("{{ Str::startsWith($item->user->foto, ' data:') ? $item->
-                            user->foto : asset('storage/' . $item->user->foto) }}");'></div>
+                            style='background-image: url("{{ Str::startsWith($item->user->foto, 'data:') ? $item->user->foto : asset('storage/' . $item->user->foto) }}");'></div>
                         @else
                         <div class="bg-center bg-no-repeat bg-cover rounded-full h-10 w-10 border-2 border-white dark:border-slate-800"
                             style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($item->nama ?? $item->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35&rounded=true");'>

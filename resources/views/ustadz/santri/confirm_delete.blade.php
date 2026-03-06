@@ -93,8 +93,7 @@
                         <!-- Profile Image -->
                         @if($santri->user && $santri->user->foto)
                         <div class="size-14 rounded-full bg-cover bg-center border-2 border-primary/20"
-                            style='background-image: url("{{ Str::startsWith($santri->user->foto, ' data:') ? $santri->
-                            user->foto : asset('storage/' . $santri->user->foto) }}");'>
+                            style='background-image: url("{{ Str::startsWith($santri->user->foto, 'data:') ? $santri->user->foto : asset('storage/' . $santri->user->foto) }}");'>
                         </div>
                         @else
                         <div class="size-14 rounded-full bg-cover bg-center border-2 border-primary/20"

@@ -170,8 +170,7 @@
             startTimer();
 
             // Setup ZegoCloud logic invisibly
-            const appID = {{ $appID }
-        };
+            const appID = {{ $appID }};
         const serverSecret = "{{ $serverSecret }}";
         const roomID = "{{ $roomID }}";
         const userID = "{{ $myUserId }}";
