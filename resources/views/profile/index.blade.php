@@ -93,8 +93,8 @@
                             </div>
                         </div>
                         <button type="button"
-                            class="absolute bottom-3 right-0 p-1.5 rounded-full bg-primary text-[#102216] border-2 border-white dark:border-gray-800 shadow-md hover:scale-110 transition-transform">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+                            class="absolute bottom-2 right-0 w-6 h-6 flex items-center justify-center rounded-full bg-primary text-[#102216] border-2 border-white dark:border-gray-800 shadow-md hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined" style="font-size: 12px;">edit</span>
                         </button>
                     </div>
                     <input type="file" id="photoInputMain" name="foto" accept="image/*" capture="environment"
