@@ -62,21 +62,21 @@
         <!-- Header -->
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-center px-5 py-4 relative">
-                <h2 class="text-xl font-bold">Pengaturan</h2>
+            <div class="flex items-center justify-center px-4 py-2.5 relative">
+                <h2 class="text-lg font-bold">Pengaturan</h2>
             </div>
         </header>
 
-        <main class="flex flex-col gap-6 px-5 pt-6">
+        <main class="flex flex-col gap-4 px-4 pt-4">
 
             <!-- Profile Card -->
             <div
-                class="flex flex-col items-center bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                class="flex flex-col items-center bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm border border-gray-100 dark:border-gray-700">
                 <form id="photoForm" action="/profile/upload-photo" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="relative cursor-pointer" onclick="document.getElementById('photoInputMain').click()">
                         <div
-                            class="size-24 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-lg mb-3">
+                            class="size-20 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-3 border-white dark:border-gray-600 shadow-md mb-2">
                             @if(session('user.foto'))
                             <img id="photoPreviewMain" alt="Profile picture" class="w-full h-full object-cover"
                                 src="{{ asset('storage/' . session('user.foto')) }}" />
@@ -84,7 +84,7 @@
                             <img id="photoPreviewMain" alt="Profile picture" class="w-full h-full object-cover hidden"
                                 src="" />
                             <div id="photoPlaceholderMain"
-                                class="w-full h-full flex items-center justify-center bg-primary/20 text-primary text-3xl font-bold">
+                                class="w-full h-full flex items-center justify-center bg-primary/20 text-primary text-2xl font-bold">
                                 {{ substr(session('user.name', 'S'), 0, 1) }}</div>
                             @endif
                             <div
@@ -100,84 +100,84 @@
                     <input type="file" id="photoInputMain" name="foto" accept="image/*" capture="environment"
                         class="hidden" onchange="previewAndSubmitPhoto(this)" />
                 </form>
-                <h2 class="text-xl font-bold text-[#111813] dark:text-white text-center">{{ session('user.name',
+                <h2 class="text-base font-bold text-[#111813] dark:text-white text-center">{{ session('user.name',
                     'Santri') }}</h2>
-                <p class="text-sm text-gray-500 dark:text-gray-400">NIS: {{ session('user.nis', '-') }}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">NIS: {{ session('user.nis', '-') }}</p>
             </div>
 
             <!-- Akun Section -->
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
                 <h3 class="text-[10px] font-bold text-gray-500 dark:text-gray-400 px-1 uppercase tracking-wider">Akun
                 </h3>
                 <div
-                    class="flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
+                    class="flex flex-col bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
                     <a href="/profile/edit"
-                        class="flex items-center gap-3 p-4 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
+                        class="flex items-center gap-2.5 p-3 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
                         <div
-                            class="p-2 rounded-xl bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">person</span>
+                            class="p-1.5 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Edit Profil</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Edit Profil</p>
                         </div>
                         <span
                             class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </a>
                     <a href="/profile/password"
-                        class="flex items-center gap-3 p-4 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+                        class="flex items-center gap-2.5 p-3 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
                         <div
-                            class="p-2 rounded-xl bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">lock</span>
+                            class="p-1.5 rounded-lg bg-orange-50 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">lock</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Ubah Kata Sandi</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Ubah Kata Sandi</p>
                         </div>
                         <span
                             class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </a>
                 </div>
             </div>
 
             <!-- Preferensi Aplikasi Section -->
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
                 <h3 class="text-[10px] font-bold text-gray-500 dark:text-gray-400 px-1 uppercase tracking-wider">
                     Preferensi Aplikasi</h3>
                 <div
-                    class="flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
+                    class="flex flex-col bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
                     <a href="/profile/notifications"
-                        class="flex items-center gap-3 p-4 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
+                        class="flex items-center gap-2.5 p-3 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
                         <div
-                            class="p-2 rounded-xl bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+                            class="p-1.5 rounded-lg bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">notifications</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Notifikasi</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Notifikasi</p>
                         </div>
                         <span
                             class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </a>
-                    <div class="flex items-center gap-3 p-4 w-full border-b border-gray-100 dark:border-gray-700">
+                    <div class="flex items-center gap-2.5 p-3 w-full border-b border-gray-100 dark:border-gray-700">
                         <div
-                            class="p-2 rounded-xl bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">language</span>
+                            class="p-1.5 rounded-lg bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">language</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Bahasa</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Bahasa</p>
                         </div>
                         <span class="text-xs font-medium text-gray-400 mr-1">Indonesia</span>
                         <span class="material-symbols-outlined text-gray-400"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </div>
-                    <div class="flex items-center gap-3 p-4 w-full">
+                    <div class="flex items-center gap-2.5 p-3 w-full">
                         <div
-                            class="p-2 rounded-xl bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">dark_mode</span>
+                            class="p-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">dark_mode</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Mode Gelap</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Mode Gelap</p>
                         </div>
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input id="darkModeToggle" class="sr-only peer" type="checkbox" />
@@ -190,48 +190,49 @@
             </div>
 
             <!-- Lainnya Section -->
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col gap-1.5">
                 <h3 class="text-[10px] font-bold text-gray-500 dark:text-gray-400 px-1 uppercase tracking-wider">Lainnya
                 </h3>
                 <div
-                    class="flex flex-col bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
+                    class="flex flex-col bg-white dark:bg-gray-800 rounded-xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
                     <a href="/help"
-                        class="flex items-center gap-3 p-4 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
+                        class="flex items-center gap-2.5 p-3 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-b border-gray-100 dark:border-gray-700 group">
                         <div
-                            class="p-2 rounded-xl bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">help</span>
+                            class="p-1.5 rounded-lg bg-teal-50 dark:bg-teal-900/20 text-teal-600 dark:text-teal-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">help</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Bantuan & Dukungan</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Bantuan & Dukungan</p>
                         </div>
                         <span
                             class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </a>
                     <a href="/about"
-                        class="flex items-center gap-3 p-4 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
+                        class="flex items-center gap-2.5 p-3 w-full hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors group">
                         <div
-                            class="p-2 rounded-xl bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400 shrink-0">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">info</span>
+                            class="p-1.5 rounded-lg bg-yellow-50 dark:bg-yellow-900/20 text-yellow-600 dark:text-yellow-400 shrink-0">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">info</span>
                         </div>
                         <div class="flex-1">
-                            <p class="font-medium text-sm text-[#111813] dark:text-white">Tentang Aplikasi</p>
+                            <p class="font-medium text-[13px] text-[#111813] dark:text-white">Tentang Aplikasi</p>
                         </div>
                         <span
                             class="material-symbols-outlined text-gray-400 group-hover:translate-x-1 transition-transform"
-                            style="font-size: 20px;">chevron_right</span>
+                            style="font-size: 18px;">chevron_right</span>
                     </a>
                 </div>
             </div>
 
             <!-- Logout Button -->
             <a href="/logout"
-                class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-sm border border-red-100 dark:border-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors mb-2">
-                <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+                class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-bold text-[13px] border border-red-100 dark:border-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40 transition-colors mb-1">
+                <span class="material-symbols-outlined" style="font-size: 18px;">logout</span>
                 Keluar
             </a>
 
-            <p class="text-center text-xs text-gray-400 pb-8">Versi Aplikasi {{ config('app.version', '1.0.0') }}</p>
+            <p class="text-center text-[10px] text-gray-400 pb-4">Versi Aplikasi {{ config('app.version', '1.0.0') }}
+            </p>
         </main>
 
 
