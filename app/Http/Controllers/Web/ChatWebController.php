@@ -172,6 +172,7 @@ class ChatWebController extends Controller
                 'id' => $otherUser->id,
                 'name' => $otherUser->name,
                 'foto' => $otherUser->foto,
+                'no_hp' => $otherUser->no_hp,
             ],
             'messages' => $messages,
             'isGroup' => false,

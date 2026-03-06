@@ -194,6 +194,7 @@ class AuthWebController extends Controller
                 'role'  => $user->role,
                 'nis'   => $user->nis,
                 'nip'   => $user->nip,
+                'foto'  => $user->foto,
             ]);
             session()->save();
 

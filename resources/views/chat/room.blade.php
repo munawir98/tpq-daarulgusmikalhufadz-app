@@ -91,6 +91,9 @@
                     class="size-10 rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden shrink-0">
                     @if($isGroup)
                     <span class="material-symbols-outlined">group</span>
+                    @elseif($recipient->foto ?? null)
+                    <img alt="{{ $recipient->name }}" class="w-full h-full object-cover"
+                        src="{{ asset('storage/' . $recipient->foto) }}" />
                     @else
                     {{ substr($recipient->name, 0, 1) }}
                     @endif
