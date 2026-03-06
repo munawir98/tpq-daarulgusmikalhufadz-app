@@ -51,7 +51,7 @@
 <body
     class="bg-white dark:bg-background-dark font-display text-[#111813] dark:text-white transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
         <!-- Header -->
         <header
@@ -180,8 +180,7 @@
 
         </main>
 
-        <!-- Bottom Navigation -->
-        @include('layouts.partials.bottom-nav', ['position' => 'fixed'])
+
     </div>
 
     <script>
