@@ -71,7 +71,7 @@
                         class="size-24 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-lg mb-3">
                         @if(session('user.foto'))
                         <img alt="Profile picture" class="w-full h-full object-cover"
-                            src="{{ asset('storage/' . session('user.foto')) }}" />
+                            src="{{ url('/user-photo/' . session('user.id')) }}" />
                         @else
                         <div
                             class="w-full h-full flex items-center justify-center bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-3xl font-bold">

@@ -88,7 +88,7 @@
                         class="size-28 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-xl">
                         @if(session('user.foto'))
                         <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover"
-                            src="{{ asset('storage/' . session('user.foto')) }}" />
+                            src="{{ url('/user-photo/' . session('user.id')) }}" />
                         @else
                         <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover hidden" src="" />
                         <div id="photoPlaceholder"

@@ -503,6 +503,21 @@ Route::middleware('web.auth')->group(function () {
     Route::match(['get', 'post'], '/logout', [AuthWebController::class, 'logout'])
         ->name('logout');
 
+    // Serve user profile photos directly from storage (works without symlink)
+    Route::get('/user-photo/{id}', function ($id) {
+        $user = \App\Models\User::find($id);
+        if (!$user || !$user->foto) {
+            abort(404);
+        }
+        $disk = \Illuminate\Support\Facades\Storage::disk('public');
+        if (!$disk->exists($user->foto)) {
+            abort(404);
+        }
+        $file = $disk->get($user->foto);
+        $mime = $disk->mimeType($user->foto);
+        return response($file, 200)->header('Content-Type', $mime)->header('Cache-Control', 'public, max-age=86400');
+    })->name('user.photo');
+
     /**
      * AUTO DASHBOARD (REDIRECT SESUAI ROLE)
      */
