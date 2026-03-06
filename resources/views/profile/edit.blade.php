@@ -57,38 +57,39 @@
         <!-- Header -->
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-center px-5 py-4 relative">
-                <h2 class="text-xl font-bold">Edit Profil</h2>
+            <div class="flex items-center justify-center px-4 py-3 relative">
+                <h2 class="text-lg font-bold">Edit Profil</h2>
             </div>
         </header>
 
-        <main class="flex flex-col gap-6 px-5 pt-6 flex-1 pb-32">
+        <main class="flex flex-col gap-5 px-4 pt-5 flex-1 pb-24">
 
             <!-- Photo Section -->
             <div class="flex flex-col items-center">
                 <div class="relative group cursor-pointer" onclick="document.getElementById('photoInput').click()">
                     <div
-                        class="size-28 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-4 border-white dark:border-gray-600 shadow-xl">
+                        class="size-24 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-[3px] border-white dark:border-gray-600 shadow-lg">
                         @if(session('user.foto'))
                         <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover"
                             src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}" />
                         @else
                         <img id="photoPreview" alt="Profile picture" class="w-full h-full object-cover hidden" src="" />
                         <div id="photoPlaceholder"
-                            class="w-full h-full flex items-center justify-center bg-primary/20 text-primary text-4xl font-bold">
+                            class="w-full h-full flex items-center justify-center bg-primary/20 text-primary text-3xl font-bold">
                             {{ substr(session('user.name', 'S'), 0, 1) }}</div>
                         @endif
                         <div
                             class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full">
-                            <span class="material-symbols-outlined text-white">camera_alt</span>
+                            <span class="material-symbols-outlined text-white"
+                                style="font-size: 20px;">camera_alt</span>
                         </div>
                     </div>
                     <button type="button"
-                        class="absolute bottom-1 right-1 p-1.5 rounded-full bg-primary text-[#102216] border-2 border-white dark:border-background-dark shadow hover:scale-105 transition-transform">
-                        <span class="material-symbols-outlined" style="font-size: 14px;">edit</span>
+                        class="absolute bottom-0 right-0 p-1 rounded-full bg-primary text-[#102216] border-2 border-white dark:border-background-dark shadow hover:scale-105 transition-transform">
+                        <span class="material-symbols-outlined" style="font-size: 12px;">edit</span>
                     </button>
                 </div>
-                <p class="mt-3 text-sm font-medium text-gray-400 dark:text-gray-500">Ketuk untuk ubah foto</p>
+                <p class="mt-2 text-xs font-medium text-gray-400 dark:text-gray-500">Ketuk untuk ubah foto</p>
                 <!-- Hidden file input -->
                 <input type="file" id="photoInput" form="profileForm" name="foto" accept="image/*" capture="environment"
                     class="hidden" onchange="previewPhoto(this)" />
@@ -96,50 +97,51 @@
 
             <!-- Form -->
             <form id="profileForm" action="/profile/update" method="POST" enctype="multipart/form-data"
-                class="flex flex-col gap-5 mt-2">
+                class="flex flex-col gap-4 mt-1">
                 @csrf
 
                 <!-- Nama Lengkap -->
-                <div class="flex flex-col gap-2">
-                    <label class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nama
+                <div class="flex flex-col gap-1.5">
+                    <label
+                        class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nama
                         Lengkap</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                            style="font-size: 20px;">person</span>
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                            style="font-size: 18px;">person</span>
                         <input name="name"
-                            class="w-full rounded-2xl border border-gray-200 bg-white py-3.5 pl-11 pr-4 text-sm font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Masukkan nama lengkap" type="text" value="{{ session('user.name', '') }}" />
                     </div>
                 </div>
 
                 <!-- Tingkatan -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <label
-                        class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Tingkatan</label>
+                        class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Tingkatan</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                            style="font-size: 20px;">school</span>
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                            style="font-size: 18px;">school</span>
                         <select name="tingkatan"
-                            class="w-full appearance-none rounded-2xl border border-gray-200 bg-white py-3.5 pl-11 pr-10 text-sm font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
+                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
                             <option value="">Pilih Tingkatan</option>
                             <option value="ULA">ULA</option>
                             <option value="WUSTHA">WUSTHA</option>
                         </select>
                         <span
-                            class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                            style="font-size: 24px;">arrow_drop_down</span>
+                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                            style="font-size: 20px;">arrow_drop_down</span>
                     </div>
                 </div>
 
                 <!-- Halaqoh -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <label
-                        class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Halaqoh</label>
+                        class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Halaqoh</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                            style="font-size: 20px;">groups</span>
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                            style="font-size: 18px;">groups</span>
                         <select name="halaqoh"
-                            class="w-full appearance-none rounded-2xl border border-gray-200 bg-white py-3.5 pl-11 pr-10 text-sm font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
+                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
                             <option value="">Pilih Halaqoh</option>
                             <option value="A">Halaqoh A</option>
                             <option value="B">Halaqoh B</option>
@@ -153,34 +155,34 @@
                             <option value="J">Halaqoh J</option>
                         </select>
                         <span
-                            class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
-                            style="font-size: 24px;">arrow_drop_down</span>
+                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+                            style="font-size: 20px;">arrow_drop_down</span>
                     </div>
                 </div>
 
                 <!-- Email -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <label
-                        class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Email</label>
+                        class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Email</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                            style="font-size: 20px;">mail</span>
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                            style="font-size: 18px;">mail</span>
                         <input name="email"
-                            class="w-full rounded-2xl border border-gray-200 bg-white py-3.5 pl-11 pr-4 text-sm font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Masukkan alamat email" type="email" value="{{ session('user.email', '') }}" />
                     </div>
                 </div>
 
                 <!-- Nomor WhatsApp -->
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <label
-                        class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nomor
+                        class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nomor
                         WhatsApp</label>
                     <div class="relative">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-                            style="font-size: 20px;">call</span>
+                        <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
+                            style="font-size: 18px;">call</span>
                         <input name="no_hp"
-                            class="w-full rounded-2xl border border-gray-200 bg-white py-3.5 pl-11 pr-4 text-sm font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Contoh: 0812..." type="tel" value="" />
                     </div>
                 </div>
@@ -190,10 +192,10 @@
 
         <!-- Save Button -->
         <div
-            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto px-5 pt-4 pb-8 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-20 border-t border-gray-100 dark:border-gray-800/50">
+            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto px-4 pt-3 pb-6 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-20 border-t border-gray-100 dark:border-gray-800/50">
             <button type="submit" onclick="document.querySelector('form').submit()"
-                class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-[#102216] font-bold text-base shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
-                <span class="material-symbols-outlined" style="font-size: 20px;">check</span>
+                class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-primary text-[#102216] font-bold text-sm shadow-md shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                <span class="material-symbols-outlined" style="font-size: 18px;">check</span>
                 Simpan Perubahan
             </button>
         </div>
