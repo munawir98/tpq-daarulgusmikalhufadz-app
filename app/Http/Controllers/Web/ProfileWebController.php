@@ -166,7 +166,6 @@ class ProfileWebController extends Controller
         $role = strtoupper($user->role);
         $redirectUrl = match($role) {
             'ADMIN' => '/admin/settings',
-            'USTADZ' => '/ustadz/settings',
             default => '/profile',
         };
 
