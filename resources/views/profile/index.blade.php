@@ -67,7 +67,7 @@
             </div>
         </header>
 
-        <main class="flex flex-col gap-4 px-4 pt-4">
+        <main class="flex flex-col gap-4 px-4 pt-2.5">
 
             <!-- Profile Card -->
             <div
