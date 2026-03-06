@@ -63,13 +63,15 @@ class AuthWebController extends Controller
         // Simpan session
         session()->put('api_token', $token);
         session()->put('user', [
-            'id'    => $user->id,
-            'name'  => $user->name,
-            'email' => $user->email,
-            'role'  => $user->role,
-            'nis'   => $user->nis,
-            'nip'   => $user->nip,
-            'foto'  => $user->foto,
+            'id'     => $user->id,
+            'name'   => $user->name,
+            'email'  => $user->email,
+            'role'   => $user->role,
+            'nis'    => $user->nis,
+            'nip'    => $user->nip,
+            'foto'   => $user->foto,
+            'no_hp'  => $user->no_hp,
+            'alamat' => $user->alamat,
         ]);
         session()->save();
 
@@ -188,13 +190,15 @@ class AuthWebController extends Controller
             // Simpan session
             session()->put('api_token', $token);
             session()->put('user', [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'role'  => $user->role,
-                'nis'   => $user->nis,
-                'nip'   => $user->nip,
-                'foto'  => $user->foto,
+                'id'     => $user->id,
+                'name'   => $user->name,
+                'email'  => $user->email,
+                'role'   => $user->role,
+                'nis'    => $user->nis,
+                'nip'    => $user->nip,
+                'foto'   => $user->foto,
+                'no_hp'  => $user->no_hp,
+                'alamat' => $user->alamat,
             ]);
             session()->save();
 

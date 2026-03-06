@@ -86,6 +86,7 @@ class ProfileWebController extends Controller
             'email'  => $user->email,
             'role'   => $user->role,
             'nis'    => $user->nis,
+            'nip'    => $user->nip,
             'foto'   => $user->foto,
             'no_hp'  => $user->no_hp,
             'alamat' => $user->alamat,
