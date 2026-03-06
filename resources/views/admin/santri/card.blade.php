@@ -48,7 +48,8 @@
                     <div
                         class="w-full h-full bg-gray-100 rounded-full flex items-center justify-center overflow-hidden border-2 border-green-500">
                         @if($santri->foto)
-                        <img src="{{ asset('storage/'.$santri->foto) }}" class="w-full h-full object-cover">
+                        <img src="{{ Str::startsWith($santri->foto, 'data:') ? $santri->foto : asset('storage/'.$santri->foto) }}"
+                            class="w-full h-full object-cover">
                         @else
                         <span class="text-3xl">👤</span>
                         @endif

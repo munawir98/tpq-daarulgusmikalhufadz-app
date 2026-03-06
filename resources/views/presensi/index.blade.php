@@ -270,7 +270,7 @@
                     @if($s['foto'])
                     <img alt="{{ $s['nama'] }}"
                         class="w-16 h-16 rounded-full border-[3px] border-danger p-0.5 object-cover bg-white"
-                        src="{{ asset('storage/' . $s['foto']) }}" />
+                        src="{{ Str::startsWith($s['foto'], 'data:') ? $s['foto'] : asset('storage/' . $s['foto']) }}" />
                     @else
                     <div
                         class="w-16 h-16 rounded-full border-[3px] border-danger p-0.5 bg-gray-100 flex items-center justify-center">
@@ -303,7 +303,7 @@
                 class="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between hover:shadow-md transition-shadow">
                 <div class="flex items-center gap-3">
                     @if($santri['foto'])
-                    <img src="{{ asset('storage/' . $santri['foto']) }}"
+                    <img src="{{ Str::startsWith($santri['foto'], 'data:') ? $santri['foto'] : asset('storage/' . $santri['foto']) }}"
                         class="w-11 h-11 rounded-full object-cover border border-gray-200" />
                     @else
                     @php

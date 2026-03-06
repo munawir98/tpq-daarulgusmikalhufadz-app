@@ -16,7 +16,8 @@
                 <div
                     class="w-full h-full rounded-full overflow-hidden bg-white/10 flex items-center justify-center border-2 border-white/50">
                     @if($santri->user && $santri->user->foto)
-                    <img src="{{ asset('storage/' . $santri->user->foto) }}" class="w-full h-full object-cover">
+                    <img src="{{ Str::startsWith($santri->user->foto, 'data:') ? $santri->user->foto : asset('storage/' . $santri->user->foto) }}"
+                        class="w-full h-full object-cover">
                     @else
                     <span class="material-symbols-rounded text-3xl text-white/80">person</span>
                     @endif

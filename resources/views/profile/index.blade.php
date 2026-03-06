@@ -79,7 +79,7 @@
                             class="size-20 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border-3 border-white dark:border-gray-600 shadow-md mb-2">
                             @if(session('user.foto'))
                             <img id="photoPreviewMain" alt="Profile picture" class="w-full h-full object-cover"
-                                src="{{ asset('storage/' . session('user.foto')) }}" />
+                                src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}" />
                             @else
                             <img id="photoPreviewMain" alt="Profile picture" class="w-full h-full object-cover hidden"
                                 src="" />

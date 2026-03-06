@@ -128,7 +128,7 @@
                     <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-teal-50 dark:border-slate-700">
                         @if($santri->foto)
                         <img alt="Santri" class="w-full h-full object-cover"
-                            src="{{ asset('storage/' . $santri->foto) }}" />
+                            src="{{ Str::startsWith($santri->foto, 'data:') ? $santri->foto : asset('storage/' . $santri->foto) }}" />
                         @else
                         <img alt="Santri" class="w-full h-full object-cover"
                             src="https://ui-avatars.com/api/?name={{ urlencode($santri->nama ?? $santri->name) }}&background=0d9488&color=fff" />

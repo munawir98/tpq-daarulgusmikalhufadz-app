@@ -42,7 +42,7 @@
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-background-dark/80 backdrop-blur-3xl z-10"></div>
             <div class="h-full w-full bg-cover bg-center"
-                style="background-image: url('{{ $user->foto ? asset('storage/' . $user->foto) : 'https://lh3.googleusercontent.com/aida-public/AB6AXuAnBMnLTcY0iewSFjF0CZFjlKC4WP74ICMT-0oPzlVf2FJArsYqLdylJYoa9eOBNevhNESZABOZp6-_Gvionu8RoTYfS0WlvMN9GAJLU90237oVQ95u5dtD8YCVWS_tuOLBISTijHnvrDz6_mMNgCAC-7cO5jDl9fnuJzGnQHtPbia92uMoUPXOJexUskdVCVMyi1xSrgNDqWpkCa7w8SinXiKywrkzwCDHnVRtSFjkP9ZP4znPg5WFG1QuuLPkj32jA3mEn-E_g1qX' }}');">
+                style="background-image: url('{{ $user->foto ? (Str::startsWith($user->foto, 'data:') ? $user->foto : asset('storage/' . $user->foto)) : 'https://lh3.googleusercontent.com/aida-public/AB6AXuAnBMnLTcY0iewSFjF0CZFjlKC4WP74ICMT-0oPzlVf2FJArsYqLdylJYoa9eOBNevhNESZABOZp6-_Gvionu8RoTYfS0WlvMN9GAJLU90237oVQ95u5dtD8YCVWS_tuOLBISTijHnvrDz6_mMNgCAC-7cO5jDl9fnuJzGnQHtPbia92uMoUPXOJexUskdVCVMyi1xSrgNDqWpkCa7w8SinXiKywrkzwCDHnVRtSFjkP9ZP4znPg5WFG1QuuLPkj32jA3mEn-E_g1qX' }}');">
             </div>
         </div>
 
@@ -81,7 +81,7 @@
                     class="relative size-48 rounded-full border-4 border-primary/30 p-1 bg-background-dark overflow-hidden flex items-center justify-center shadow-lg shadow-primary/20">
                     @if($user->foto)
                     <img alt="{{ $user->name }}" class="h-full w-full object-cover rounded-full"
-                        src="{{ asset('storage/' . $user->foto) }}" />
+                        src="{{ Str::startsWith($user->foto, 'data:') ? $user->foto : asset('storage/' . $user->foto) }}" />
                     @else
                     <span class="text-6xl font-bold text-white tracking-widest">{{ mb_strtoupper(mb_substr($user->name
                         ?? 'U', 0, 1)) }}</span>

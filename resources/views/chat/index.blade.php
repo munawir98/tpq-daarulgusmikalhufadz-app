@@ -76,7 +76,7 @@
                     <span class="material-symbols-outlined text-yellow-700 text-[18px]">group</span>
                     @elseif($recipient && ($recipient->foto ?? null))
                     <img alt="{{ $chatName }}" class="w-full h-full object-cover"
-                        src="{{ asset('storage/' . $recipient->foto) }}" />
+                        src="{{ Str::startsWith($recipient->foto, 'data:') ? $recipient->foto : asset('storage/' . $recipient->foto) }}" />
                     @else
                     <span class="material-symbols-outlined text-[24px] {{ $avatarColor['text'] }}">person</span>
                     @endif

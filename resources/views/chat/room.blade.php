@@ -93,7 +93,7 @@
                     <span class="material-symbols-outlined">group</span>
                     @elseif($recipient->foto ?? null)
                     <img alt="{{ $recipient->name }}" class="w-full h-full object-cover"
-                        src="{{ asset('storage/' . $recipient->foto) }}" />
+                        src="{{ Str::startsWith($recipient->foto, 'data:') ? $recipient->foto : asset('storage/' . $recipient->foto) }}" />
                     @else
                     {{ substr($recipient->name, 0, 1) }}
                     @endif

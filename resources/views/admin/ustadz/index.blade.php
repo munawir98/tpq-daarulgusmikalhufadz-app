@@ -48,7 +48,8 @@
             {{-- Avatar --}}
             <div class="shrink-0 size-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                 @if($ustadz['foto'] ?? false)
-                <img src="{{ asset('storage/' . $ustadz['foto']) }}" class="w-full h-full object-cover rounded-full" />
+                <img src="{{ Str::startsWith($ustadz['foto'], 'data:') ? $ustadz['foto'] : asset('storage/' . $ustadz['foto']) }}"
+                    class="w-full h-full object-cover rounded-full" />
                 @else
                 <span class="text-lg font-bold text-blue-500">{{ substr($ustadz['name'], 0, 1) }}</span>
                 @endif

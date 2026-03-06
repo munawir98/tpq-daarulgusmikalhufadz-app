@@ -366,7 +366,7 @@
                             @if(session('user.foto'))
                             <img alt="Profile"
                                 class="w-14 h-14 rounded-full border-2 border-white shadow-lg object-cover"
-                                src="{{ asset('storage/' . session('user.foto')) }}" />
+                                src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}" />
                             @else
                             <div
                                 class="w-14 h-14 rounded-full border-2 border-white shadow-lg bg-white/20 flex items-center justify-center text-white text-xl font-bold">

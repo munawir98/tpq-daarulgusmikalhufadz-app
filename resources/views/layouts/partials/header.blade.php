@@ -26,7 +26,7 @@
                 class="size-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden border border-gray-100 dark:border-gray-600 flex items-center justify-center">
                 @if(session('user.foto'))
                 <img alt="Profile" class="w-full h-full object-cover"
-                    src="{{ asset('storage/' . session('user.foto')) }}" />
+                    src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}" />
                 @else
                 <span class="text-lg font-bold text-gray-500">{{ substr(session('user.name', 'U'), 0, 1) }}</span>
                 @endif

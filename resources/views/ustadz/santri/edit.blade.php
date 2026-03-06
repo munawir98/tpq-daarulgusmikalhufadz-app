@@ -91,7 +91,7 @@
                             class="size-20 rounded-full border-4 border-white dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-800">
                             @if($santri->user && $santri->user->foto)
                             <img alt="Foto Santri" class="w-full h-full object-cover" id="preview-foto"
-                                src="{{ asset('storage/' . $santri->user->foto) }}" />
+                                src="{{ Str::startsWith($santri->user->foto, 'data:') ? $santri->user->foto : asset('storage/' . $santri->user->foto) }}" />
                             @else
                             <div class="w-full h-full bg-center bg-no-repeat bg-cover" id="placeholder-foto"
                                 style='background-image: url("https://ui-avatars.com/api/?name={{ urlencode($santri->nama ?? $santri->nama_lengkap) }}&background=random&color=fff&bold=true&font-size=0.35&rounded=false");'>

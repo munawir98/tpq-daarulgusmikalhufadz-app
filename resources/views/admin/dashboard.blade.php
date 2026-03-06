@@ -83,8 +83,8 @@
                     <button
                         class="w-10 h-10 rounded-full ring-2 ring-gray-100 dark:ring-gray-700 overflow-hidden bg-gray-200">
                         @if(session('user.foto'))
-                        <img src="{{ asset('storage/' . session('user.foto')) }}" class="w-full h-full object-cover"
-                            alt="Profile">
+                        <img src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}"
+                            class="w-full h-full object-cover" alt="Profile">
                         @else
                         <div
                             class="w-full h-full flex items-center justify-center bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-sm font-bold">

@@ -108,7 +108,8 @@
             data-name="{{ strtolower($name) }}" data-role="{{ strtolower($role) }}">
             <div class="relative">
                 @if($foto)
-                <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover" src="{{ asset('storage/' . $foto) }}"
+                <img alt="{{ $name }}" class="h-10 w-10 rounded-full object-cover"
+                    src="{{ Str::startsWith($foto, 'data:') ? $foto : asset('storage/' . $foto) }}"
                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                 <div class="h-10 w-10 rounded-full flex items-center justify-center {{ $avatarColor['bg'] }}"
                     style="display:none;">
