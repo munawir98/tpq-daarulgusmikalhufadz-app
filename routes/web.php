@@ -744,9 +744,41 @@ Route::middleware(['web.auth', 'role.web:USTADZ'])
         });
 
         // Settings
-        Route::get('/settings', fn () => view('ustadz.settings.index'))->name('settings');
+        Route::get('/settings', function () {
+            $user = \App\Models\User::find(session('user.id'));
+            if ($user) {
+                session()->put('user', [
+                    'id'     => $user->id,
+                    'name'   => $user->name,
+                    'email'  => $user->email,
+                    'role'   => $user->role,
+                    'nis'    => $user->nis,
+                    'nip'    => $user->nip,
+                    'foto'   => $user->foto,
+                    'no_hp'  => $user->no_hp,
+                    'alamat' => $user->alamat,
+                ]);
+            }
+            return view('ustadz.settings.index');
+        })->name('settings');
         Route::prefix('settings')->name('settings.')->group(function () {
-            Route::get('/profile', fn () => view('ustadz.settings.profile'))->name('profile');
+            Route::get('/profile', function () {
+                $user = \App\Models\User::find(session('user.id'));
+                if ($user) {
+                    session()->put('user', [
+                        'id'     => $user->id,
+                        'name'   => $user->name,
+                        'email'  => $user->email,
+                        'role'   => $user->role,
+                        'nis'    => $user->nis,
+                        'nip'    => $user->nip,
+                        'foto'   => $user->foto,
+                        'no_hp'  => $user->no_hp,
+                        'alamat' => $user->alamat,
+                    ]);
+                }
+                return view('ustadz.settings.profile');
+            })->name('profile');
             Route::post('/profile/update', [ProfileWebController::class, 'update'])->name('profile.update');
             Route::post('/profile/upload-photo', [ProfileWebController::class, 'uploadPhoto'])->name('profile.photo');
             Route::get('/password', fn () => view('ustadz.settings.password'))->name('password');
