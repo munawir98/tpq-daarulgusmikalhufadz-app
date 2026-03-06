@@ -66,30 +66,49 @@ class ProfileWebController extends Controller
                 'alamat' => $request->alamat,
             ];
 
-            // Handle photo upload
+            // Handle photo upload - store as base64 in database
             if ($request->hasFile('foto')) {
+                $file = $request->file('foto');
                 \Illuminate\Support\Facades\Log::info('Photo upload detected', [
                     'user_id' => $userId,
-                    'file_name' => $request->file('foto')->getClientOriginalName(),
-                    'file_size' => $request->file('foto')->getSize(),
+                    'file_name' => $file->getClientOriginalName(),
+                    'file_size' => $file->getSize(),
                 ]);
 
-                // Delete old photo if exists
-                if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
-                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
+                // Read file and convert to base64 data URI
+                $imageData = file_get_contents($file->getRealPath());
+                $mime = $file->getMimeType();
+
+                // Resize image to save database space (max 300x300)
+                if (function_exists('imagecreatefromstring')) {
+                    $img = imagecreatefromstring($imageData);
+                    if ($img) {
+                        $width = imagesx($img);
+                        $height = imagesy($img);
+                        $maxSize = 300;
+
+                        if ($width > $maxSize || $height > $maxSize) {
+                            $ratio = min($maxSize / $width, $maxSize / $height);
+                            $newWidth = (int)($width * $ratio);
+                            $newHeight = (int)($height * $ratio);
+                            $resized = imagecreatetruecolor($newWidth, $newHeight);
+                            imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                            ob_start();
+                            imagejpeg($resized, null, 80);
+                            $imageData = ob_get_clean();
+                            $mime = 'image/jpeg';
+
+                            imagedestroy($resized);
+                        }
+                        imagedestroy($img);
+                    }
                 }
 
-                // Ensure directory exists
-                $disk = \Illuminate\Support\Facades\Storage::disk('public');
-                if (!$disk->exists('profile-photos')) {
-                    $disk->makeDirectory('profile-photos');
-                }
+                $base64 = 'data:' . $mime . ';base64,' . base64_encode($imageData);
+                $data['foto'] = $base64;
 
-                // Store new photo
-                $path = $request->file('foto')->store('profile-photos', 'public');
-                $data['foto'] = $path;
-
-                \Illuminate\Support\Facades\Log::info('Photo saved', ['path' => $path]);
+                \Illuminate\Support\Facades\Log::info('Photo saved as base64', ['size' => strlen($base64)]);
             }
 
             $user->update($data);

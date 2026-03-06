@@ -503,12 +503,26 @@ Route::middleware('web.auth')->group(function () {
     Route::match(['get', 'post'], '/logout', [AuthWebController::class, 'logout'])
         ->name('logout');
 
-    // Serve user profile photos directly from storage (works without symlink)
+    // Serve user profile photos directly from database (base64) or storage
     Route::get('/user-photo/{id}', function ($id) {
         $user = \App\Models\User::find($id);
         if (!$user || !$user->foto) {
             abort(404);
         }
+
+        // Check if foto is base64 data URI
+        if (str_starts_with($user->foto, 'data:')) {
+            // Parse data URI: data:image/jpeg;base64,/9j/4AAQ...
+            $parts = explode(',', $user->foto, 2);
+            $meta = $parts[0]; // data:image/jpeg;base64
+            $data = base64_decode($parts[1] ?? '');
+            $mime = str_replace(['data:', ';base64'], '', $meta);
+            return response($data, 200)
+                ->header('Content-Type', $mime)
+                ->header('Cache-Control', 'public, max-age=86400');
+        }
+
+        // Legacy: serve from filesystem
         $disk = \Illuminate\Support\Facades\Storage::disk('public');
         if (!$disk->exists($user->foto)) {
             abort(404);
