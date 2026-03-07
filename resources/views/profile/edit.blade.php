@@ -62,7 +62,7 @@
             </div>
         </header>
 
-        <main class="flex flex-col gap-5 px-4 pt-5 flex-1 pb-24">
+        <main class="flex flex-col gap-4 px-4 pt-4 flex-1 pb-24">
 
             <!-- Photo Section -->
             <div class="flex flex-col items-center">
@@ -97,11 +97,11 @@
 
             <!-- Form -->
             <form id="profileForm" action="/profile/update" method="POST" enctype="multipart/form-data"
-                class="flex flex-col gap-4 mt-1">
+                class="flex flex-col gap-3">
                 @csrf
 
                 <!-- Nama Lengkap -->
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1">
                     <label
                         class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nama
                         Lengkap</label>
@@ -109,20 +109,20 @@
                         <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                             style="font-size: 18px;">person</span>
                         <input name="name"
-                            class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Masukkan nama lengkap" type="text" value="{{ session('user.name', '') }}" />
                     </div>
                 </div>
 
                 <!-- Tingkatan -->
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1">
                     <label
                         class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Tingkatan</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                             style="font-size: 18px;">school</span>
                         <select name="tingkatan"
-                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
+                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3.5 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
                             <option value="">Pilih Tingkatan</option>
                             <option value="ULA">ULA</option>
                             <option value="WUSTHA">WUSTHA</option>
@@ -134,14 +134,14 @@
                 </div>
 
                 <!-- Halaqoh -->
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1">
                     <label
                         class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Halaqoh</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                             style="font-size: 18px;">groups</span>
                         <select name="halaqoh"
-                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
+                            class="w-full appearance-none rounded-xl border border-gray-200 bg-white py-3.5 pl-10 pr-8 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white shadow-sm">
                             <option value="">Pilih Halaqoh</option>
                             <option value="A">Halaqoh A</option>
                             <option value="B">Halaqoh B</option>
@@ -161,20 +161,20 @@
                 </div>
 
                 <!-- Email -->
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1">
                     <label
                         class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Email</label>
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                             style="font-size: 18px;">mail</span>
                         <input name="email"
-                            class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Masukkan alamat email" type="email" value="{{ session('user.email', '') }}" />
                     </div>
                 </div>
 
                 <!-- Nomor WhatsApp -->
-                <div class="flex flex-col gap-1.5">
+                <div class="flex flex-col gap-1">
                     <label
                         class="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider ml-1">Nomor
                         WhatsApp</label>
@@ -182,7 +182,7 @@
                         <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"
                             style="font-size: 18px;">call</span>
                         <input name="no_hp"
-                            class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
+                            class="w-full rounded-xl border border-gray-200 bg-white py-3.5 pl-10 pr-3 text-xs font-medium text-gray-900 focus:border-primary focus:ring-primary dark:border-gray-700 dark:bg-gray-800 dark:text-white placeholder-gray-400 shadow-sm"
                             placeholder="Contoh: 0812..." type="tel" value="" />
                     </div>
                 </div>
