@@ -3,23 +3,27 @@
 @section('title', 'Pesan')
 
 @section('header')
-<header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
-    {{-- Decorative blobs --}}
-    <div class="absolute top-[-40px] right-[-40px] w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-[-20px] left-[-20px] w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
-
-    <div class="relative z-10">
-        <div class="flex items-center justify-center mb-2.5 relative">
-            <h1 class="text-base font-bold text-white">Pesan</h1>
+<header class="bg-[#008069] dark:bg-[#1f2c34] px-4 pt-4 pb-3 shadow-sm z-50 relative">
+    <div class="flex items-center justify-between mb-3 text-white">
+        <h1 class="text-[20px] font-semibold">Pesan</h1>
+        <div class="flex items-center gap-5">
+            <button class="flex items-center justify-center"><span
+                    class="material-symbols-outlined text-[22px]">camera_alt</span></button>
+            <button onclick="document.getElementById('searchContainer').classList.toggle('hidden')"
+                class="flex items-center justify-center">
+                <span class="material-symbols-outlined text-[24px]">search</span>
+            </button>
+            <button class="flex items-center justify-center"><span
+                    class="material-symbols-outlined text-[24px]">more_vert</span></button>
         </div>
-        <div class="relative w-full mt-1.5 px-2">
-            <div class="absolute inset-y-0 left-2 flex items-center pl-3 pointer-events-none text-white/70">
-                <span class="material-symbols-outlined text-[18px]">search</span>
-            </div>
-            <input id="searchInput" onkeyup="filterChats()"
-                class="block w-full pl-9 pr-3 py-2 bg-white/15 backdrop-blur-sm border-none rounded-xl text-white placeholder-white/60 focus:ring-2 focus:ring-white/30 text-[13px] font-medium"
-                placeholder="Cari Ustadz atau Santri..." type="text" />
+    </div>
+    <div id="searchContainer" class="hidden relative w-full mb-1 transition-all">
+        <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+            <span class="material-symbols-outlined text-gray-500 text-[18px]">search</span>
         </div>
+        <input id="searchInput" onkeyup="filterChats()"
+            class="block w-full pl-10 pr-3 py-2 bg-white dark:bg-[#2a3942] rounded-full text-gray-800 dark:text-gray-200 focus:outline-none text-[15px]"
+            placeholder="Cari..." type="text" />
     </div>
 </header>
 @endsection
@@ -28,10 +32,10 @@
 
 
 
-{{-- Chat List wrapper without background --}}
-<div class="relative -mx-5 -mt-2">
+{{-- Chat List wrapper --}}
+<div class="relative bg-white dark:bg-[#111b21] h-screen">
 
-    <div id="chatList" class="flex flex-col gap-0 pb-24 relative z-10">
+    <div id="chatList" class="flex flex-col gap-0 pb-36 relative z-10">
         @forelse($conversations as $chat)
         @php
         $chatObj = is_array($chat) ? (object) $chat : $chat;
@@ -64,81 +68,78 @@
         'javascript:void(0)');
         $onClick = $hasPhone ? '' : 'onclick="alert(\'Tidak bisa terhubung\')"';
         @endphp
-        <a href="{{ $chatUrl }}" {!! $onClick !!}
-            class="chat-item px-4 py-3 flex items-center gap-3.5 relative transition-all duration-200 active:scale-[0.98] hover:bg-gray-50 dark:hover:bg-gray-800/50 border-b border-gray-100 dark:border-gray-800 last:border-0 {{ !$hasPhone ? 'opacity-70 cursor-not-allowed' : '' }}"
-            data-name="{{ strtolower($chatName) }}">
+        <div class="chat-item-wrapper" data-name="{{ strtolower($chatName) }}">
+            <a href="{{ $chatUrl }}" {!! $onClick !!}
+                class="px-4 py-2.5 flex items-center gap-3.5 bg-white hover:bg-gray-50 dark:bg-[#111b21] dark:hover:bg-[#202c33] transition-colors {{ !$hasPhone ? 'opacity-70 cursor-not-allowed' : '' }}">
 
-            {{-- Avatar --}}
-            <div class="relative shrink-0">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden
-                {{ $isGroup ? 'bg-gradient-to-br from-yellow-200 to-yellow-300' : $avatarColor['bg'] }}">
-                    @if($isGroup)
-                    <span class="material-symbols-outlined text-yellow-700 text-[18px]">group</span>
-                    @elseif($recipient && ($recipient->foto ?? null))
-                    <img alt="{{ $chatName }}" class="w-full h-full object-cover"
-                        src="{{ Str::startsWith($recipient->foto, 'data:') ? $recipient->foto : asset('storage/' . $recipient->foto) }}" />
-                    @else
-                    <span class="material-symbols-outlined text-[24px] {{ $avatarColor['text'] }}">person</span>
-                    @endif
-                </div>
-                @if(!$isGroup && ($recipient->is_online ?? false))
-                <div
-                    class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-[1.5px] border-white dark:border-gray-800 rounded-full">
-                </div>
-                @endif
-            </div>
-
-            {{-- Content --}}
-            <div class="flex-1 min-w-0">
-                <div class="flex justify-between items-baseline gap-2">
-                    <h3
-                        class="truncate text-[13px] {{ $hasUnread ? 'font-bold text-gray-900 dark:text-white' : 'font-semibold text-gray-700 dark:text-gray-200' }}">
-                        {{ $chatName }}
-                    </h3>
-                    <span
-                        class="text-[10px] shrink-0 {{ $hasUnread ? 'text-blue-600 font-semibold' : 'text-gray-400' }}">
-                        @if($chatObj->last_message_at ?? null)
-                        @php
-                        $lastAt = $chatObj->last_message_at;
-                        if (is_string($lastAt)) {
-                        $lastAt = \Carbon\Carbon::parse($lastAt);
-                        }
-                        @endphp
-                        {{ $lastAt->diffForHumans(short: true) }}
+                {{-- Avatar --}}
+                <div class="relative shrink-0">
+                    <div class="w-[46px] h-[46px] rounded-full flex items-center justify-center overflow-hidden
+                    {{ $isGroup ? 'bg-gray-200 dark:bg-[#667781]' : $avatarColor['bg'] }}">
+                        @if($isGroup)
+                        <span class="material-symbols-outlined text-white text-[28px]"
+                            style="font-variation-settings: 'FILL' 1;">groups</span>
+                        @elseif($recipient && ($recipient->foto ?? null))
+                        <img alt="{{ $chatName }}" class="w-full h-full object-cover"
+                            src="{{ Str::startsWith($recipient->foto, 'data:') ? $recipient->foto : asset('storage/' . $recipient->foto) }}" />
+                        @else
+                        <span class="material-symbols-outlined text-[30px] {{ $avatarColor['text'] }}">person</span>
                         @endif
-                    </span>
-                </div>
-                <div class="flex justify-between items-center gap-2 mt-0.5">
-                    <p
-                        class="text-[11px] truncate {{ $hasUnread ? 'font-semibold text-gray-700 dark:text-gray-200' : 'text-gray-500 dark:text-gray-400' }}">
-                        {{ $lastMessage }}
-                    </p>
-                    @if($hasUnread)
-                    <div
-                        class="shrink-0 min-w-[16px] h-4 px-1 bg-blue-600 text-white text-[9px] font-bold rounded-full flex items-center justify-center shadow-sm">
-                        {{ $unreadCount > 99 ? '99+' : $unreadCount }}
                     </div>
-                    @endif
                 </div>
-            </div>
-        </a>
+
+                {{-- Content --}}
+                <div
+                    class="flex-1 min-w-0 flex flex-col justify-center border-b border-gray-200 dark:border-[#202c33] pb-2.5 pt-1.5 h-full">
+                    <div class="flex justify-between items-baseline mb-0.5">
+                        <h3
+                            class="truncate text-[16px] {{ $hasUnread ? 'font-semibold text-gray-900 dark:text-[#e9edef]' : 'font-medium text-gray-900 dark:text-[#e9edef]' }}">
+                            {{ $chatName }}
+                        </h3>
+                        <span
+                            class="text-[12px] shrink-0 {{ $hasUnread ? 'text-[#25D366] font-medium' : 'text-gray-500 dark:text-[#8696a0]' }}">
+                            @if($chatObj->last_message_at ?? null)
+                            @php
+                            $lastAt = $chatObj->last_message_at;
+                            if (is_string($lastAt)) {
+                            $lastAt = \Carbon\Carbon::parse($lastAt);
+                            }
+                            @endphp
+                            {{ $lastAt->isToday() ? $lastAt->format('H:i') : $lastAt->format('d/m/y') }}
+                            @endif
+                        </span>
+                    </div>
+                    <div class="flex justify-between items-center gap-2">
+                        <div class="flex items-center gap-1 min-w-0">
+                            @if(isset($chatObj->last_message_sender_id) && $chatObj->last_message_sender_id ===
+                            auth()->id())
+                            <span class="material-symbols-outlined text-[16px] text-[#53bdeb]">done_all</span>
+                            @endif
+                            <p
+                                class="text-[14px] truncate {{ $hasUnread ? 'text-gray-700 dark:text-[#d1d7db]' : 'text-gray-500 dark:text-[#8696a0]' }}">
+                                {{ $lastMessage }}
+                            </p>
+                        </div>
+                        @if($hasUnread)
+                        <div
+                            class="shrink-0 min-w-[20px] h-5 px-1.5 bg-[#25D366] text-[#111b21] text-[11px] font-bold rounded-full flex items-center justify-center">
+                            {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </a>
+        </div>
         @empty
         {{-- Empty State --}}
-        <div class="flex flex-col items-center justify-center py-14 text-center">
-            <div
-                class="size-16 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-full flex items-center justify-center mb-4 shadow-inner">
-                <span class="material-symbols-outlined text-gray-400 dark:text-gray-500"
-                    style="font-size: 32px;">chat_bubble_outline</span>
+        <div class="flex flex-col items-center justify-center py-20 text-center">
+            <div class="size-20 bg-gray-100 dark:bg-[#202c33] rounded-full flex items-center justify-center mb-5">
+                <span class="material-symbols-outlined text-[#008069] dark:text-[#00a884]"
+                    style="font-size: 40px;">chat</span>
             </div>
-            <h3 class="text-sm font-bold text-gray-800 dark:text-white mb-1">Belum Ada Percakapan</h3>
-            <p class="text-xs text-gray-500 dark:text-gray-400 max-w-[200px] leading-relaxed">Mulai chat baru dengan
-                ustadz,
-                santri, atau wali santri</p>
-            <a href="{{ route('chat.new') }}"
-                class="mt-4 px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs shadow-lg hover:shadow-xl transition-all active:scale-95 flex items-center gap-1.5">
-                <span class="material-symbols-outlined text-lg">add</span>
-                Mulai Chat Baru
-            </a>
+            <h3 class="text-[17px] font-medium text-gray-800 dark:text-[#e9edef] mb-2">Pesan Anda</h3>
+            <p class="text-[14px] text-gray-500 dark:text-[#8696a0] max-w-[250px] leading-relaxed">Mulai obrolan pribadi
+                atau grup dengan ustadz dan santri</p>
         </div>
         @endforelse
     </div>
@@ -147,8 +148,8 @@
 {{-- FAB --}}
 @if(count($conversations) > 0)
 <a href="{{ route('chat.new') }}"
-    class="fixed bottom-24 right-6 size-11 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-blue-600/30 hover:shadow-xl hover:bg-blue-700 transition-all active:scale-95 z-40">
-    <span class="material-symbols-outlined text-xl">chat_add_on</span>
+    class="fixed bottom-24 right-5 size-14 bg-[#00a884] text-white rounded-[16px] flex items-center justify-center shadow-lg transition-transform active:scale-95 z-40">
+    <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">chat</span>
 </a>
 @endif
 
@@ -193,11 +194,11 @@
 <script>
     function filterChats() {
         const query = document.getElementById('searchInput').value.toLowerCase();
-        const items = document.querySelectorAll('.chat-item');
+        const items = document.querySelectorAll('.chat-item-wrapper');
 
         items.forEach(item => {
             const name = item.getAttribute('data-name') || '';
-            item.style.display = name.includes(query) ? 'flex' : 'none';
+            item.style.display = name.includes(query) ? 'block' : 'none';
         });
     }
 </script>

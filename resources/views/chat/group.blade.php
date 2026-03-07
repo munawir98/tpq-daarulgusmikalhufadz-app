@@ -81,14 +81,15 @@
 
         {{-- Header --}}
         <header
-            class="shrink-0 sticky top-0 z-20 bg-[#005c4b] dark:bg-[#202c33] px-2 py-3 flex items-center gap-2 shadow-md">
+            class="shrink-0 sticky top-0 z-20 bg-[#008069] dark:bg-[#1f2c34] px-1 py-1.5 flex items-center gap-1 shadow-sm">
             <a href="{{ route('chat.index') }}"
-                class="text-white dark:text-[#aebac1] p-1 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition flex items-center justify-center shrink-0">
+                class="text-white dark:text-[#e9edef] p-2 rounded-full hover:bg-white/10 dark:hover:bg-white/5 transition flex items-center justify-center shrink-0">
                 <span class="material-symbols-outlined text-[24px]">arrow_back</span>
             </a>
-            <div class="flex items-center flex-1 gap-3 cursor-pointer overflow-hidden">
+            <div
+                class="flex items-center flex-1 gap-2 cursor-pointer overflow-hidden py-1 px-1 rounded-xl hover:bg-white/5 transition">
                 <div
-                    class="size-10 rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden shrink-0">
+                    class="size-[38px] rounded-full bg-white/20 dark:bg-gray-700 flex items-center justify-center text-white dark:text-gray-300 font-bold text-lg overflow-hidden shrink-0">
                     <span class="material-symbols-outlined">group</span>
                 </div>
                 <div class="flex flex-col flex-1 overflow-hidden">
@@ -124,13 +125,13 @@
             @if($message->sender_id == auth()->id())
             {{-- Sent Message --}}
             <div class="flex justify-end relative {{ $showTail ? 'mt-2' : '' }}">
-                <div class="max-w-[85%] bg-[#005c4b] dark:bg-[#005c4b] text-white dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
+                <div class="max-w-[85%] bg-[#dcf8c6] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words
                     {{ $showTail ? 'rounded-tr-none' : '' }}">
 
                     @if($showTail)
                     {{-- Tail SVGs --}}
                     <svg viewBox="0 0 8 13" width="8" height="13"
-                        class="absolute top-0 -right-[7px] text-[#005c4b] dark:text-[#005c4b] fill-current">
+                        class="absolute top-0 -right-[7px] text-[#dcf8c6] dark:text-[#005c4b] fill-current">
                         <path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z">
                         </path>
                         <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z">
@@ -162,10 +163,10 @@
                     </div>
 
                     <div class="absolute bottom-1 right-2 flex items-center gap-1">
-                        <span class="text-[11px] text-white/70 dark:text-[#8696a0] leading-none">{{
+                        <span class="text-[11px] text-[#667781] dark:text-[#8696a0] leading-none">{{
                             $message->created_at->format('H:i') }}</span>
                         <span
-                            class="material-symbols-outlined text-[14px] leading-none {{ $message->is_read ? 'text-[#53bdeb]' : 'text-white/70' }}">{{
+                            class="material-symbols-outlined text-[14px] leading-none {{ $message->is_read ? 'text-[#53bdeb]' : 'text-[#667781] dark:text-[#8696a0]' }}">{{
                             $message->is_read ? 'done_all' : 'done' }}</span>
                     </div>
                 </div>
@@ -383,14 +384,14 @@
                 wrapper.className = "flex justify-end relative mt-2";
 
                 const bubble = document.createElement("div");
-                bubble.className = "max-w-[85%] bg-[#005c4b] dark:bg-[#005c4b] text-white dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words rounded-tr-none";
+                bubble.className = "max-w-[85%] bg-[#dcf8c6] dark:bg-[#005c4b] text-[#111b21] dark:text-[#e9edef] rounded-lg px-2 pt-2 pb-1 shadow-sm relative text-[14.2px] break-words rounded-tr-none";
 
                 // Tail
                 const tailSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
                 tailSvg.setAttribute("viewBox", "0 0 8 13");
                 tailSvg.setAttribute("width", "8");
                 tailSvg.setAttribute("height", "13");
-                tailSvg.setAttribute("class", "absolute top-0 -right-[7px] text-[#005c4b] dark:text-[#005c4b] fill-current");
+                tailSvg.setAttribute("class", "absolute top-0 -right-[7px] text-[#dcf8c6] dark:text-[#005c4b] fill-current");
                 tailSvg.innerHTML = `<path opacity=".13" fill="#0000000" d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>
                     <path opacity=".08" fill="#0000000" d="M1.533 2.118L8 11.118V0H0c.843 0 1.258.468 1.533 2.118z"></path>
                     <path d="M1.533 3.118L8 12.118V1H0c.843 0 1.258.468 1.533 2.118z"></path>`;
@@ -437,12 +438,12 @@
                 meta.className = "absolute bottom-1 right-2 flex items-center gap-1";
 
                 const time = document.createElement("span");
-                time.className = "text-[11px] text-white/70 dark:text-[#8696a0] leading-none";
+                time.className = "text-[11px] text-[#667781] dark:text-[#8696a0] leading-none";
                 const d = new Date();
                 time.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
 
                 const icon = document.createElement("span");
-                icon.className = "material-symbols-outlined text-[14px] leading-none text-white/70";
+                icon.className = "material-symbols-outlined text-[14px] leading-none text-[#667781] dark:text-[#8696a0]";
                 icon.textContent = "done";
 
                 meta.appendChild(time);

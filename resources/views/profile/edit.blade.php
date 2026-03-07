@@ -85,7 +85,7 @@
                         </div>
                     </div>
                     <button type="button"
-                        class="absolute bottom-0 right-0 p-1 rounded-full bg-primary text-[#102216] border-2 border-white dark:border-background-dark shadow hover:scale-105 transition-transform">
+                        class="absolute bottom-0 right-0 w-6 h-6 flex items-center justify-center rounded-full bg-primary text-[#102216] border-2 border-white dark:border-background-dark shadow hover:scale-105 transition-transform">
                         <span class="material-symbols-outlined" style="font-size: 12px;">edit</span>
                     </button>
                 </div>
