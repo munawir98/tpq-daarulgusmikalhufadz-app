@@ -191,9 +191,10 @@
         </main>
 
         <!-- Save Button -->
-        <div class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-primary z-20">
+        <div
+            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto px-4 pt-3 pb-6 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md z-20 border-t border-gray-100 dark:border-gray-800/50">
             <button type="submit" onclick="document.querySelector('form').submit()"
-                class="w-full flex items-center justify-center gap-2 py-4 bg-primary text-[#102216] font-bold text-sm shadow-md transition-all duration-200 hover:bg-primary/90">
+                class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-primary text-[#102216] font-bold text-sm shadow-md shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
                 <span class="material-symbols-outlined" style="font-size: 18px;">check</span>
                 Simpan Perubahan
             </button>
