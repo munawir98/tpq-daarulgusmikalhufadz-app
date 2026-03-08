@@ -26,11 +26,11 @@ $rightItems = match($role) {
 ],
 'USTADZ' => [
 ['route' => 'ustadz.hafalan.index', 'icon' => 'history_edu', 'label' => 'Riwayat'],
-['route' => 'profile.index', 'icon' => 'person', 'label' => 'Akun'],
+['route' => 'profile.index', 'icon' => 'settings', 'label' => 'Setting'],
 ],
 default => [
 ['route' => 'santri.hafalan.index', 'icon' => 'history_edu', 'label' => 'Riwayat'],
-['route' => 'profile.index', 'icon' => 'person', 'label' => 'Profil'],
+['route' => 'profile.index', 'icon' => 'settings', 'label' => 'Setting'],
 ],
 };
 
