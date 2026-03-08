@@ -49,7 +49,7 @@ $positionClass = $position === 'absolute' ? 'absolute bottom-0' : 'fixed bottom-
 <nav class="{{ $positionClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative bg-white dark:bg-gray-900 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1.5 pb-0.5 px-2">
+        class="relative bg-white dark:bg-gray-900 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1.5 pb-1.5 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)

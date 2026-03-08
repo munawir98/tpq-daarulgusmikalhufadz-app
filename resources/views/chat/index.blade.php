@@ -6,7 +6,7 @@
 @section('no-gap', true)
 
 @section('header')
-<header class="bg-blue-600 dark:bg-[#1f2c34] px-4 pt-4 pb-3 shadow-sm z-50 relative">
+<header class="bg-blue-600 dark:bg-[#1f2c34] px-4 pt-4 pb-4 shadow-sm z-50 relative">
     <div class="flex items-center justify-between mb-3 text-white">
         <h1 class="text-[20px] font-semibold">Pesan</h1>
         <div class="flex items-center gap-5">
@@ -160,7 +160,7 @@ transition-transform active:scale-95 z-40">
 @section('bottom-nav')
 <nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-50">
     <div
-        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-1.5 pb-2 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-1.5 pb-1.5 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
         <div class="flex justify-around items-center">
             {{-- Chat (Active) --}}
             <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-blue-600 transition-all"

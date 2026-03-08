@@ -113,7 +113,7 @@
 @section('bottom-nav')
 <nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-50">
     <div
-        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-1.5 pb-2 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-1.5 pb-1.5 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
         <div class="flex justify-around items-center">
             {{-- Chat --}}
             <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
