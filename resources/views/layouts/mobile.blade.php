@@ -84,7 +84,7 @@
 
         {{-- Main Content --}}
         <main
-            class="flex flex-col @hasSection('no-gap') gap-0 @else gap-6 @endif @hasSection('no-px') px-0 @else px-5 @endif pt-4 pb-6">
+            class="flex flex-col @hasSection('no-gap') gap-0 @else gap-6 @endif @hasSection('no-px') px-0 @else px-5 @endif @hasSection('no-pt') pt-0 @else pt-4 @endif pb-6">
             @yield('content')
         </main>
 

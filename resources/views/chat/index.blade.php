@@ -4,6 +4,7 @@
 
 @section('no-px', true)
 @section('no-gap', true)
+@section('no-pt', true)
 
 @section('header')
 <header class="bg-blue-600 dark:bg-[#1f2c34] px-4 pt-4 pb-4 shadow-sm z-50 relative">
