@@ -97,7 +97,7 @@
                     class="flex-1 min-w-0 flex flex-col justify-center border-b border-gray-200 dark:border-[#202c33] pb-2.5 pt-1.5 h-full">
                     <div class="flex justify-between items-baseline mb-0.5">
                         <h3
-                            class="truncate text-[16px] {{ $hasUnread ? 'font-semibold text-gray-900 dark:text-[#e9edef]' : 'font-medium text-gray-900 dark:text-[#e9edef]' }}">
+                            class="truncate text-[16px] {{ $hasUnread ? 'font-bold text-gray-900 dark:text-[#e9edef]' : 'font-semibold text-gray-900 dark:text-[#e9edef]' }}">
                             {{ $chatName }}
                         </h3>
                         <span
@@ -120,7 +120,7 @@
                             <span class="material-symbols-outlined text-[16px] text-[#53bdeb]">done_all</span>
                             @endif
                             <p
-                                class="text-[14px] truncate {{ $hasUnread ? 'text-gray-700 dark:text-[#d1d7db]' : 'text-gray-500 dark:text-[#8696a0]' }}">
+                                class="text-[13px] truncate {{ $hasUnread ? 'text-gray-700 dark:text-[#d1d7db]' : 'text-gray-500 dark:text-[#8696a0]' }}">
                                 {{ $lastMessage }}
                             </p>
                         </div>
