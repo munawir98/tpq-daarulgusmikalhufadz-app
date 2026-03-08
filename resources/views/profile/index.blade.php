@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>My Setting - TPQ Digital</title>
+    <title>Pengaturan - TPQ Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
@@ -63,7 +63,7 @@
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
             <div class="flex items-center justify-center px-4 py-2.5 relative">
-                <h2 class="text-lg font-bold">My Setting</h2>
+                <h2 class="text-lg font-bold">Pengaturan</h2>
             </div>
         </header>
 
