@@ -2,6 +2,9 @@
 
 @section('title', 'Pesan')
 
+@section('no-px', true)
+@section('no-gap', true)
+
 @section('header')
 <header class="bg-[#008069] dark:bg-[#1f2c34] px-4 pt-4 pb-3 shadow-sm z-50 relative">
     <div class="flex items-center justify-between mb-3 text-white">

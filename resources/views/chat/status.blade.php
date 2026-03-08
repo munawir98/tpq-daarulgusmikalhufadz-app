@@ -2,6 +2,9 @@
 
 @section('title', 'Status')
 
+@section('no-px', true)
+@section('no-gap', true)
+
 @section('header')
 <header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
     {{-- Decorative blobs --}}
@@ -47,8 +50,7 @@
             onclick="document.getElementById('textStatusModal').classList.remove('hidden')">
             <div class="relative">
                 <div class="h-[42px] w-[42px] rounded-full bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                    data-alt="User profile picture for status update" style="background-image: url('{{ auth()->user()?->foto ? (Str::startsWith(auth()->user()->foto, 'data:') ? auth()->user()->foto : asset('storage/' . auth()->user()->foto)) :
-                    asset(" assets/images/default-avatar.png") }}')">
+                    style="background-image: url('{{ auth()->user()?->foto ? (Str::startsWith(auth()->user()->foto, 'data:') ? auth()->user()->foto : asset('storage/' . auth()->user()->foto)) : asset('assets/images/default-avatar.png') }}')">
                 </div>
                 <div
                     class="absolute bottom-0 right-[-2px] bg-blue-600 border-[1.5px] border-white dark:border-gray-800 rounded-full h-[18px] w-[18px] flex items-center justify-center text-white">
@@ -78,8 +80,7 @@
                 <div
                     class="{{ $update->statuses->count() > 1 ? 'status-ring' : 'status-ring-single' }} rounded-full p-[1.5px] shrink-0">
                     <div class="h-[38px] w-[38px] rounded-full border-2 border-white dark:border-gray-900 bg-slate-200 dark:bg-slate-700 bg-cover bg-center shrink-0"
-                        style="background-image: url('{{ $update->user?->foto ? (Str::startsWith($update->user->foto, 'data:') ? $update->user->foto : asset('storage/' . $update->user->foto))
-                        : asset(" assets/images/default-avatar.png") }}')">
+                        style="background-image: url('{{ $update->user?->foto ? (Str::startsWith($update->user->foto, 'data:') ? $update->user->foto : asset('storage/' . $update->user->foto)) : asset('assets/images/default-avatar.png') }}')">
                     </div>
                 </div>
                 <div class="flex flex-col flex-1 min-w-0">

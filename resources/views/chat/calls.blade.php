@@ -2,6 +2,9 @@
 
 @section('title', 'Panggilan')
 
+@section('no-px', true)
+@section('no-gap', true)
+
 @section('header')
 <header class="bg-blue-600 px-4 pt-4 pb-4 shadow-lg relative overflow-hidden">
     {{-- Decorative blobs --}}

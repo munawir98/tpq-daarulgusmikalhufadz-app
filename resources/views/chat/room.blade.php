@@ -75,7 +75,7 @@
 <body class="bg-gray-100 dark:bg-black font-display text-[#111b21] dark:text-[#e9edef] overflow-hidden">
 
     <div id="appContainer"
-        class="flex flex-col fixed inset-0 mx-auto w-full max-w-md bg-[#efeae2] dark:bg-[#0b141a] shadow-xl overflow-hidden">
+        class="flex flex-col fixed inset-0 mx-auto w-full max-w-md md:max-w-2xl bg-[#efeae2] dark:bg-[#0b141a] shadow-xl overflow-hidden">
         {{-- Chat Background overlay for pattern --}}
         <div class="absolute inset-0 chat-bg opacity-40 dark:opacity-5 pointer-events-none z-0"></div>
 
