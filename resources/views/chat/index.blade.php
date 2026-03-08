@@ -159,34 +159,34 @@ transition-transform active:scale-95 z-40">
 
 @section('bottom-nav')
 <nav class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto z-50">
-    <div
-        class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-3 pb-3 rounded-t-2xl shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
-        <div class="flex justify-around items-center">
-            {{-- Chat (Active) --}}
-            <a class="flex flex-col items-center gap-1 py-1 px-3 text-blue-600 transition-all"
-                href="{{ route('chat.index') }}">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
-                <span class="text-[10px] font-bold">Chat</span>
-            </a>
-            {{-- Status --}}
-            <a class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
-                href="{{ route('chat.status') }}">
-                <span class="material-symbols-outlined">track_changes</span>
-                <span class="text-[10px] font-medium">Status</span>
-            </a>
-            {{-- Komunitas --}}
-            <a class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
-                href="{{ route('chat.group') }}">
-                <span class="material-symbols-outlined">groups</span>
-                <span class="text-[10px] font-medium">Grup</span>
-            </a>
-            {{-- Panggilan --}}
-            <a class="flex flex-col items-center gap-1 py-1 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
-                href="{{ route('chat.calls') }}">
-                <span class="material-symbols-outlined">call</span>
-                <span class="text-[10px] font-medium">Panggilan</span>
-            </a>
-        </div>
+    class="bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 px-6 pt-1.5 pb-2 rounded-t-2xl
+    shadow-[0_-8px_30px_rgba(0,0,0,0.08)]">
+    <div class="flex justify-around items-center">
+        {{-- Chat (Active) --}}
+        <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-blue-600 transition-all"
+            href="{{ route('chat.index') }}">
+            <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">chat</span>
+            <span class="text-[9px] font-bold">Chat</span>
+        </a>
+        {{-- Status --}}
+        <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
+            href="{{ route('chat.status') }}">
+            <span class="material-symbols-outlined text-[22px]">track_changes</span>
+            <span class="text-[9px] font-medium">Status</span>
+        </a>
+        {{-- Komunitas --}}
+        <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
+            href="{{ route('chat.group') }}">
+            <span class="material-symbols-outlined text-[22px]">groups</span>
+            <span class="text-[9px] font-medium">Grup</span>
+        </a>
+        {{-- Panggilan --}}
+        <a class="flex flex-col items-center gap-0.5 py-0.5 px-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-all"
+            href="{{ route('chat.calls') }}">
+            <span class="material-symbols-outlined text-[22px]">call</span>
+            <span class="text-[9px] font-medium">Panggilan</span>
+        </a>
+    </div>
 
     </div>
 </nav>

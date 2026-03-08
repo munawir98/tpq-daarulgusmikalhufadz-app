@@ -49,7 +49,7 @@ $positionClass = $position === 'absolute' ? 'absolute bottom-0' : 'fixed bottom-
 <nav class="{{ $positionClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative bg-white dark:bg-gray-900 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-2 pb-0.5 px-2">
+        class="relative bg-white dark:bg-gray-900 rounded-t-[28px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1.5 pb-0.5 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
@@ -57,9 +57,9 @@ $positionClass = $position === 'absolute' ? 'absolute bottom-0' : 'fixed bottom-
             $isActive = str_starts_with($currentRoute, explode('.', $item['route'])[0] ?? '');
             @endphp
             <a href="{{ route($item['route']) }}"
-                class="flex flex-col items-center gap-0.5 py-1 px-3 {{ $isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }} transition-all active:scale-95">
-                <span class="material-symbols-rounded text-2xl">{{ $item['icon'] }}</span>
-                <span class="text-[9px] font-semibold">{{ $item['label'] }}</span>
+                class="flex flex-col items-center gap-0.5 py-0.5 px-3 {{ $isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }} transition-all active:scale-95">
+                <span class="material-symbols-rounded text-[22px]">{{ $item['icon'] }}</span>
+                <span class="text-[8.5px] font-semibold">{{ $item['label'] }}</span>
             </a>
             @endforeach
 
