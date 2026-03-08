@@ -6,7 +6,7 @@
 @section('no-gap', true)
 
 @section('header')
-<header class="bg-[#008069] dark:bg-[#1f2c34] px-4 pt-4 pb-3 shadow-sm z-50 relative">
+<header class="bg-blue-600 dark:bg-[#1f2c34] px-4 pt-4 pb-3 shadow-sm z-50 relative">
     <div class="flex items-center justify-between mb-3 text-white">
         <h1 class="text-[20px] font-semibold">Pesan</h1>
         <div class="flex items-center gap-5">
@@ -100,7 +100,7 @@
                             {{ $chatName }}
                         </h3>
                         <span
-                            class="text-[12px] shrink-0 {{ $hasUnread ? 'text-[#25D366] font-medium' : 'text-gray-500 dark:text-[#8696a0]' }}">
+                            class="text-[12px] shrink-0 {{ $hasUnread ? 'text-blue-500 font-medium' : 'text-gray-500 dark:text-[#8696a0]' }}">
                             @if($chatObj->last_message_at ?? null)
                             @php
                             $lastAt = $chatObj->last_message_at;
@@ -125,7 +125,7 @@
                         </div>
                         @if($hasUnread)
                         <div
-                            class="shrink-0 min-w-[20px] h-5 px-1.5 bg-[#25D366] text-[#111b21] text-[11px] font-bold rounded-full flex items-center justify-center">
+                            class="shrink-0 min-w-[20px] h-5 px-1.5 bg-blue-500 text-white text-[11px] font-bold rounded-full flex items-center justify-center">
                             {{ $unreadCount > 99 ? '99+' : $unreadCount }}
                         </div>
                         @endif
@@ -137,7 +137,7 @@
         {{-- Empty State --}}
         <div class="flex flex-col items-center justify-center py-20 text-center">
             <div class="size-20 bg-gray-100 dark:bg-[#202c33] rounded-full flex items-center justify-center mb-5">
-                <span class="material-symbols-outlined text-[#008069] dark:text-[#00a884]"
+                <span class="material-symbols-outlined text-blue-600 dark:text-blue-400"
                     style="font-size: 40px;">chat</span>
             </div>
             <h3 class="text-[17px] font-medium text-gray-800 dark:text-[#e9edef] mb-2">Pesan Anda</h3>
@@ -148,10 +148,9 @@
     </div>
 </div>
 
-{{-- FAB --}}
 @if(count($conversations) > 0)
-<a href="{{ route('chat.new') }}"
-    class="fixed bottom-24 right-5 size-14 bg-[#00a884] text-white rounded-[16px] flex items-center justify-center shadow-lg transition-transform active:scale-95 z-40">
+<a href="{{ route('chat.new') }}" class="fixed bottom-24 right-5 size-14 bg-blue-600 text-white rounded-[16px] flex items-center justify-center shadow-lg
+transition-transform active:scale-95 z-40">
     <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">chat</span>
 </a>
 @endif
