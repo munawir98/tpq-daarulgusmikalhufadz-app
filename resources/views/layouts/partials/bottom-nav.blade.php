@@ -56,7 +56,7 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
 <nav class="{{ $navClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative bg-white dark:bg-gray-900 {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1 pb-1 px-2">
+        class="relative bg-white dark:bg-gray-900 {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-3 pb-3 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
