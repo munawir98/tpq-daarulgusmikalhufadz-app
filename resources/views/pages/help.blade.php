@@ -25,14 +25,14 @@
 </div>
 
 {{-- FAQ Categories --}}
-<div class="flex flex-wrap gap-2">
-    <button class="px-3 py-1.5 rounded-full bg-primary text-[#102216] text-[11px] font-semibold">Semua</button>
+<div class="grid grid-cols-4 gap-2">
+    <button class="w-full py-1.5 rounded-xl bg-primary text-[#102216] text-[11px] font-semibold whitespace-nowrap">Semua</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Presensi</button>
+        class="w-full py-1.5 rounded-xl bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700 whitespace-nowrap">Presensi</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Hafalan</button>
+        class="w-full py-1.5 rounded-xl bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700 whitespace-nowrap">Hafalan</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Akun</button>
+        class="w-full py-1.5 rounded-xl bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700 whitespace-nowrap">Akun</button>
 </div>
 
 {{-- FAQ List --}}
