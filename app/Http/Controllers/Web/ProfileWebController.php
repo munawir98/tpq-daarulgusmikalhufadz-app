@@ -193,26 +193,52 @@ class ProfileWebController extends Controller
             return redirect('/login');
         }
 
-        // Delete old photo if exists
-        if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
+        try {
+            $file = $request->file('foto');
+            $imageData = file_get_contents($file->getRealPath());
+            $mime = $file->getMimeType();
+
+            if (function_exists('imagecreatefromstring')) {
+                $img = @imagecreatefromstring($imageData);
+                if ($img) {
+                    $width = imagesx($img);
+                    $height = imagesy($img);
+                    $maxSize = 300;
+
+                    if ($width > $maxSize || $height > $maxSize) {
+                        $ratio = min($maxSize / $width, $maxSize / $height);
+                        $newWidth = (int)($width * $ratio);
+                        $newHeight = (int)($height * $ratio);
+                        $resized = imagecreatetruecolor($newWidth, $newHeight);
+                        imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                        ob_start();
+                        imagejpeg($resized, null, 80);
+                        $imageData = ob_get_clean();
+                        $mime = 'image/jpeg';
+
+                        imagedestroy($resized);
+                    }
+                    imagedestroy($img);
+                }
+            }
+
+            $base64 = 'data:' . $mime . ';base64,' . base64_encode($imageData);
+
+            $user->update(['foto' => $base64]);
+            session()->put('user.foto', $base64);
+
+            $role = strtoupper($user->role);
+            $redirectUrl = match($role) {
+                'ADMIN' => '/admin/settings',
+                'USTADZ' => '/ustadz/settings',
+                default => '/profile',
+            };
+
+            return redirect($redirectUrl)->with('success', 'Foto profil berhasil diperbarui!');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => 'Gagal mengunggah foto: ' . $e->getMessage()]);
         }
-
-        // Store new photo
-        $path = $request->file('foto')->store('profile-photos', 'public');
-        $user->update(['foto' => $path]);
-
-        // Update session
-        session()->put('user.foto', $path);
-
-        // Redirect based on role
-        $role = strtoupper($user->role);
-        $redirectUrl = match($role) {
-            'ADMIN' => '/admin/settings',
-            default => '/profile',
-        };
-
-        return redirect($redirectUrl)->with('success', 'Foto profil berhasil diperbarui!');
     }
 
     // Alias for changePassword (used by admin route)
