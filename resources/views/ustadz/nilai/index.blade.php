@@ -16,47 +16,94 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#197fe6",
-                        "background-light": "#f6f7f8",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
                         "background-dark": "#111921",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
                     },
                     fontFamily: {
-                        "display": ["Poppins", "sans-serif"]
+                        display: ["Poppins", "sans-serif"],
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -10px 40px rgba(0,0,0,0.05)',
+                    }
                 },
             },
-        }
+        };
     </script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
+            overscroll-behavior-y: none;
         }
 
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes moveTexture {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -40px 0;
+            }
+        }
+
+        .highlight-overlay {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.02) 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.08) 100%);
+        }
+
+        .islamic-pattern {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%,
+                    transparent);
+            background-size: 40px 40px;
+            animation: moveTexture 3s linear infinite;
         }
     </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark text-[#0e141b] dark:text-slate-200 min-h-screen">
     <div
-        class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-white dark:bg-background-dark shadow-xl">
-        <!-- TopAppBar -->
-        <!-- Gradient Header -->
-        <header
-            class="flex items-center justify-center bg-gradient-to-r from-[#1A2980] to-[#26D0CE] h-16 px-4 shadow-lg shadow-blue-900/20 mx-6 rounded-2xl mt-6 mb-4 relative z-20">
-            <div class="flex items-center gap-2">
-                <h1 class="text-white text-base font-bold leading-tight tracking-wide">Laporan Nilai</h1>
-            </div>
-        </header>
+        class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark shadow-xl pb-24 rounded-none sm:rounded-2xl">
+        
+        <!-- Premium Header Background -->
+        <div class="absolute top-0 left-0 w-full h-[180px] bg-blue-800 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
+        </div>
 
-        <div class="p-4 space-y-4">
+        <!-- Top Header -->
+        <div class="relative z-10 px-6 pt-8 pb-4 flex items-center justify-between text-white">
+            <a href="{{ route('ustadz.dashboard') }}" class="flex items-center gap-2 active:opacity-60 transition-opacity">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <h1 class="text-lg font-bold tracking-tight">Laporan Nilai</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Scrollable Content in White Container -->
+        <div id="whiteContainer" class="relative z-20 w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-6 flex-grow min-h-0 transition-all duration-300">
+            <div class="p-4 space-y-5">
             <!-- TextField Filters -->
             <form method="GET" action="{{ route('ustadz.nilai.index') }}" class="flex flex-wrap items-end gap-3">
                 <label class="flex flex-col min-w-[140px] flex-1">
@@ -241,9 +288,11 @@
             </div>
         </div>
 
+        </div> <!-- End White Container -->
+
         <!-- Floating Action Area (Bottom Navigation) -->
         <div
-            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white dark:bg-background-dark border-t border-slate-100 dark:border-slate-800 p-4 pb-8 flex items-center gap-3 z-20">
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white/90 dark:bg-surface-dark/90 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 p-4 pb-8 flex items-center gap-3 z-30">
             <a href="{{ route('ustadz.nilai.input') }}"
                 class="flex-1 bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary/25">
                 <span class="material-symbols-outlined">add_circle</span>

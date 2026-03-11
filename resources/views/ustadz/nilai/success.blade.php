@@ -16,35 +16,76 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#197fe6",
-                        "background-light": "#f6f7f8",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
                         "background-dark": "#111921",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
                     },
                     fontFamily: {
-                        "display": ["Poppins", "sans-serif"]
+                        display: ["Poppins", "sans-serif"],
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -10px 40px rgba(0,0,0,0.05)',
+                    }
                 },
             },
-        }
+        };
     </script>
     <style type="text/tailwindcss">
         :root {
-            --primary-color: #197fe6;
+            --primary-color: #4A90B8;
         }
         body {
             font-family: 'Poppins', sans-serif;
+            overscroll-behavior-y: none;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
         }
+
+        @keyframes moveTexture {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -40px 0;
+            }
+        }
+
+        .highlight-overlay {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.02) 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.08) 100%);
+        }
+
+        .islamic-pattern {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%,
+                    transparent);
+            background-size: 40px 40px;
+            animation: moveTexture 3s linear infinite;
+        }
+        
         .celebration-bg {
-            background-image: radial-gradient(circle at 2px 2px, rgba(25, 127, 230, 0.05) 1px, transparent 0);
+            background-image: radial-gradient(circle at 2px 2px, rgba(74, 144, 184, 0.05) 1px, transparent 0);
             background-size: 24px 24px;
         }
     </style>
@@ -52,17 +93,24 @@
 
 <body class="bg-white dark:bg-background-dark text-[#0e141b] dark:text-slate-200 min-h-screen">
     <div
-        class="relative flex h-screen w-full flex-col group/design-root overflow-hidden max-w-[480px] mx-auto celebration-bg">
+        class="relative flex h-screen w-full flex-col group/design-root overflow-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark shadow-xl sm:rounded-2xl">
+        
+        <!-- Premium Header Background -->
+        <div class="absolute top-0 left-0 w-full h-[180px] bg-blue-800 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
+        </div>
+
         <!-- Close Button -->
-        <div class="p-4 flex justify-end">
+        <div class="relative z-20 p-4 flex justify-end">
             <a href="{{ route('ustadz.nilai.index') }}"
-                class="text-slate-400 dark:text-slate-500 active:opacity-60 transition-opacity">
+                class="text-white/80 active:opacity-60 transition-opacity">
                 <span class="material-symbols-outlined">close</span>
             </a>
         </div>
 
-        <!-- Main Content -->
-        <div class="flex-1 flex flex-col items-center justify-center px-8 pb-12">
+        <!-- Scrollable Content in White Container -->
+        <div id="whiteContainer" class="relative z-10 flex-1 flex flex-col items-center justify-center px-8 pb-12 bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft mt-12 transition-all duration-300">
+            <div class="celebration-bg absolute inset-0 rounded-t-[30px] pointer-events-none opacity-40"></div>
+            
             <!-- Success Icon -->
             <div class="relative mb-8">
                 <div

@@ -177,8 +177,8 @@
         }
 
         .flower-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%239ca3af' stroke-opacity='0.25' fill='none' stroke-width='1.5'%3E%3Cpath d='M0 100 Q 25 75 50 100 T 100 100 M 0 0 Q 25 25 50 0 T 100 0'/%3E%3Cpath d='M0 50 Q 25 25 50 50 T 100 50'/%3E%3Cg fill='%239ca3af' fill-opacity='0.2' stroke='none'%3E%3Ccircle cx='50' cy='50' r='4'/%3E%3Ccircle cx='43' cy='43' r='3'/%3E%3Ccircle cx='57' cy='43' r='3'/%3E%3Ccircle cx='43' cy='57' r='3'/%3E%3Ccircle cx='57' cy='57' r='3'/%3E%3Ccircle cx='50' cy='40' r='3'/%3E%3Ccircle cx='50' cy='60' r='3'/%3E%3Ccircle cx='40' cy='50' r='3'/%3E%3Ccircle cx='60' cy='50' r='3'/%3E%3C/g%3E%3Cpath d='M 25 25 Q 35 15 45 25 Q 35 35 25 25 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 75 75 Q 85 65 95 75 Q 85 85 75 75 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 25 75 Q 15 65 5 75 Q 15 85 25 75 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 75 25 Q 65 15 55 25 Q 65 35 75 25 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
-            background-size: 80px 80px;
+            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='15' cy='10' r='3.5'/%3E%3Ccircle cx='20' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='20' r='3.5'/%3E%3Ccircle cx='10' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23ffffff' fill-opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 24px 24px;
         }
 
         /* Marquee Animation */
@@ -478,7 +478,7 @@
 
                 <!-- Main Attendance Card (Expandable) -->
                 <div id="mainCard"
-                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 flower-pattern rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
+                    class="mx-4 bg-blue-600 dark:bg-blue-900 flower-pattern text-white rounded-[24px] p-5 relative z-20 mb-6 shadow-md shadow-blue-500/20 transition-all duration-300 overflow-hidden">
 
 
                     <!-- Swipe Indicator -->
@@ -494,21 +494,21 @@
                         <div class="flex justify-between items-center mb-5 mt-2">
                             <div>
                                 <h2
-                                    class="text-sm font-bold text-text-main-light dark:text-white flex items-center gap-2">
+                                    class="text-sm font-bold text-white flex items-center gap-2">
                                     Presensi Selfie
-                                    <span class="material-symbols-rounded text-primary text-[18px]">camera_front</span>
+                                    <span class="material-symbols-rounded text-blue-200 text-[18px]">camera_front</span>
                                 </h2>
-                                <p class="text-[8px] font-medium text-text-sub-light mt-0.5">Silahkan ambil foto
+                                <p class="text-[8px] font-medium text-blue-100 mt-0.5">Silahkan ambil foto
                                     kehadiran
                                 </p>
                             </div>
                             <div id="radiusBadge"
-                                class="px-2.5 py-1.5 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center gap-1.5 border border-gray-300 dark:border-gray-700 shadow-sm">
+                                class="px-2.5 py-1.5 bg-blue-700/50 dark:bg-blue-800/50 rounded-lg flex items-center gap-1.5 border border-blue-400/30 dark:border-blue-700/50 shadow-sm backdrop-blur-sm">
                                 <span id="radiusDot" class="relative flex h-2 w-2">
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-400"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-300"></span>
                                 </span>
                                 <span id="radiusText"
-                                    class="text-[9px] font-bold text-gray-500 dark:text-gray-400">Mendeteksi...</span>
+                                    class="text-[9px] font-bold text-blue-100">Mendeteksi...</span>
 
                             </div>
                         </div>
@@ -519,12 +519,12 @@
 
                         <div class="flex gap-4 mb-3">
                             <div id="ambilFotoBtn" onclick="ambilFoto()"
-                                class="w-24 h-24 shrink-0 bg-blue-50 dark:bg-gray-800 rounded-2xl border-2 border-dashed border-blue-200 dark:border-gray-700 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-100 dark:hover:bg-gray-700 transition-colors pulse-btn overflow-hidden relative">
+                                class="w-24 h-24 shrink-0 bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-2xl border-2 border-dashed border-blue-300/50 dark:border-blue-600/50 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-700/60 dark:hover:bg-blue-800/60 transition-colors pulse-btn overflow-hidden relative">
                                 <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
                                     <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-3xl">add_a_photo</span>
+                                        class="material-symbols-rounded text-blue-200 group-hover:text-white transition-colors text-3xl">add_a_photo</span>
                                     <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-400 dark:text-gray-500 group-hover:text-primary transition-colors text-center leading-tight">Ambil<br />Foto</span>
+                                        class="text-[8px] font-bold text-blue-200 group-hover:text-white transition-colors text-center leading-tight">Ambil<br />Foto</span>
                                 </div>
                                 <img id="fotoPreview" src="" alt="Foto Presensi"
                                     class="w-full h-full object-cover absolute inset-0 hidden" />
@@ -542,24 +542,24 @@
                             </div>
                             <div class="flex-1 flex flex-col justify-center gap-1.5">
                                 <div
-                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[10px] text-gray-500 font-medium">Jam Masuk</span>
+                                    class="bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-xl p-2 flex justify-between items-center border border-blue-400/30 dark:border-blue-700/50 shadow-sm">
+                                    <span class="text-[10px] text-blue-100 font-medium">Jam Masuk</span>
                                     <span id="jamMasuk"
-                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        class="text-[10px] font-bold text-white">-- :
                                         --</span>
                                 </div>
                                 <div
-                                    class="bg-white dark:bg-gray-800 rounded-xl p-2 flex justify-between items-center border border-gray-100 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[10px] text-gray-500 font-medium">Jam Keluar</span>
+                                    class="bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-xl p-2 flex justify-between items-center border border-blue-400/30 dark:border-blue-700/50 shadow-sm">
+                                    <span class="text-[10px] text-blue-100 font-medium">Jam Keluar</span>
                                     <span id="jamKeluar"
-                                        class="text-[10px] font-bold text-gray-400 dark:text-gray-500">-- :
+                                        class="text-[10px] font-bold text-white">-- :
                                         --</span>
                                 </div>
                                 <div id="presensiStatus"
-                                    class="bg-gray-50 dark:bg-gray-800 rounded-lg px-2 py-1 flex justify-between items-center border border-gray-200 dark:border-gray-700 shadow-sm">
-                                    <span class="text-[9px] text-gray-500 font-medium">Status</span>
+                                    class="bg-blue-800/50 dark:bg-blue-900/50 backdrop-blur-sm rounded-lg px-2 py-1 flex justify-between items-center border border-blue-500/30 dark:border-blue-600/50 shadow-sm">
+                                    <span class="text-[9px] text-blue-200 font-medium">Status</span>
                                     <span id="presensiText"
-                                        class="text-[9px] font-bold text-gray-400 dark:text-gray-500">-------</span>
+                                        class="text-[9px] font-bold text-white">-------</span>
                                 </div>
                             </div>
                         </div>

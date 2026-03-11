@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Input Nilai Baru</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
@@ -16,30 +16,70 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#197fe6",
-                        "background-light": "#f6f7f8",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
                         "background-dark": "#111921",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
                     },
                     fontFamily: {
-                        "display": ["Lexend", "sans-serif"]
+                        display: ["Poppins", "sans-serif"],
                     },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
+                    boxShadow: {
+                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
+                        'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -10px 40px rgba(0,0,0,0.05)',
+                    }
                 },
             },
-        }
+        };
     </script>
     <style>
         body {
-            font-family: 'Lexend', sans-serif;
+            font-family: 'Poppins', sans-serif;
+            overscroll-behavior-y: none;
         }
 
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        @keyframes moveTexture {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -40px 0;
+            }
+        }
+
+        .highlight-overlay {
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0.1) 0%,
+                    rgba(255, 255, 255, 0.02) 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.08) 100%);
+        }
+
+        .islamic-pattern {
+            background-image:
+                linear-gradient(45deg,
+                    rgba(255, 255, 255, 0.05) 25%,
+                    transparent 25%,
+                    transparent 50%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
+                    transparent 75%,
+                    transparent);
+            background-size: 40px 40px;
+            animation: moveTexture 3s linear infinite;
         }
 
         input[type=range] {
@@ -60,7 +100,7 @@
             height: 24px;
             width: 24px;
             border-radius: 50%;
-            background: #197fe6;
+            background: #4A90B8;
             cursor: pointer;
             -webkit-appearance: none;
             margin-top: -9px;
@@ -87,21 +127,26 @@
 
 <body class="bg-background-light dark:bg-background-dark text-[#0e141b] dark:text-slate-200 min-h-screen">
     <div
-        class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-white dark:bg-background-dark shadow-xl">
-        <div
-            class="sticky top-0 z-20 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md p-4 pb-2 justify-between border-b border-slate-100 dark:border-slate-800">
-            <a href="{{ route('ustadz.nilai.index') }}"
-                class="text-primary flex size-12 shrink-0 items-center justify-start cursor-pointer active:opacity-60 transition-opacity">
-                <span class="material-symbols-outlined">arrow_back_ios</span>
-            </a>
-            <h2
-                class="text-[#0e141b] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-12">
-                Input Nilai Baru</h2>
+        class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden max-w-[480px] mx-auto bg-background-light dark:bg-background-dark shadow-xl pb-24 rounded-none sm:rounded-2xl">
+        
+        <!-- Premium Header Background -->
+        <div class="absolute top-0 left-0 w-full h-[180px] bg-blue-800 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
         </div>
 
-        <form action="{{ route('ustadz.nilai.store') }}" method="POST" id="nilaiForm">
-            @csrf
-            <div class="flex-1 overflow-y-auto p-4 space-y-6 pb-32">
+        <!-- Top Header -->
+        <div class="relative z-10 px-6 pt-8 pb-4 flex items-center justify-between text-white">
+            <a href="{{ route('ustadz.nilai.index') }}" class="flex items-center gap-2 active:opacity-60 transition-opacity">
+                <span class="material-symbols-outlined">arrow_back_ios</span>
+            </a>
+            <h1 class="text-lg font-bold tracking-tight">Input Nilai Baru</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Scrollable Content in White Container -->
+        <div id="whiteContainer" class="relative z-20 w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-6 flex-grow min-h-0 transition-all duration-300">
+            <form action="{{ route('ustadz.nilai.store') }}" method="POST" id="nilaiForm">
+                @csrf
+                <div class="flex-1 overflow-y-auto p-4 space-y-6 pb-24">
                 <section class="space-y-3">
                     <label class="flex flex-col gap-2">
                         <p class="text-[#0e141b] dark:text-slate-200 text-sm font-semibold">Pilih Santri</p>
@@ -224,8 +269,12 @@
                     </div>
                 </section>
             </div>
+            </div>
+            
+            </div> <!-- End White Container -->
+
             <div
-                class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white/90 dark:bg-background-dark/90 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 p-4 pb-8 z-30">
+                class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] bg-white/90 dark:bg-surface-dark/90 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 p-4 pb-8 z-30">
                 <button
                     class="w-full bg-primary text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 active:scale-[0.98] transition-all shadow-lg shadow-primary/25">
                     <span class="material-symbols-outlined">save</span>
