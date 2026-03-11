@@ -82,8 +82,8 @@
                     @csrf
 
                     <!-- Current Password -->
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1" for="current_password">
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="current_password">
                             Kata Sandi Saat Ini
                         </label>
                         <div class="relative group">
@@ -108,8 +108,8 @@
                     <!-- New Passwords -->
                     <div class="flex flex-col gap-3">
                         <!-- New Password -->
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1" for="password">
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="password">
                                 Kata Sandi Baru
                             </label>
                             <div class="relative group">
@@ -187,8 +187,8 @@
                         </div>
 
                         <!-- Confirm Password -->
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-bold text-gray-700 dark:text-gray-300 ml-1"
+                        <div class="flex flex-col gap-1">
+                            <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1"
                                 for="password_confirmation">
                                 Konfirmasi Kata Sandi Baru
                             </label>
