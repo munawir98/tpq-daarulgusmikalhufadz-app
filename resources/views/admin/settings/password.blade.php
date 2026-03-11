@@ -80,7 +80,7 @@
             </div>
             @endif
 
-            <form action="/admin/settings/password" method="POST" class="flex flex-col h-full gap-6">
+            <form action="/admin/settings/password" method="POST" class="flex flex-col h-full gap-4">
                 @csrf
 
                 <!-- Current Password -->
@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                <hr class="border-gray-200 dark:border-gray-800 my-2" />
+                <hr class="border-gray-200 dark:border-gray-800 my-0 border-dashed" />
 
                 <!-- New Passwords -->
                 <div class="flex flex-col gap-5">
