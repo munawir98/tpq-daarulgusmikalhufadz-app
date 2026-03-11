@@ -19,9 +19,9 @@
 
 {{-- Search --}}
 <div class="relative">
-    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
+    <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
     <input type="text" placeholder="Cari pertanyaan..."
-        class="w-full pl-9 pr-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-xs focus:ring-2 focus:ring-primary/50" />
+        class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-[13px] focus:ring-2 focus:ring-primary/50" />
 </div>
 
 {{-- FAQ Categories --}}
