@@ -9,7 +9,7 @@
 @section('header')
 <header
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-    <div class="flex items-center justify-center gap-3 px-5 py-3">
+    <div class="flex items-center justify-center gap-2 px-4 py-2.5">
         <h2 class="text-lg font-bold">Bantuan</h2>
     </div>
 </header>
@@ -19,30 +19,30 @@
 
 {{-- Search --}}
 <div class="relative">
-    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-[20px]">search</span>
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-[18px]">search</span>
     <input type="text" placeholder="Cari pertanyaan..."
-        class="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-xs focus:ring-2 focus:ring-primary/50" />
+        class="w-full pl-9 pr-3 py-2 rounded-xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 text-xs focus:ring-2 focus:ring-primary/50" />
 </div>
 
 {{-- FAQ Categories --}}
-<div class="flex flex-wrap gap-2">
-    <button class="px-3 py-1.5 rounded-full bg-primary text-[#102216] text-xs font-semibold">Semua</button>
+<div class="flex flex-wrap gap-1.5">
+    <button class="px-2.5 py-1 rounded-full bg-primary text-[#102216] text-[10px] font-semibold">Semua</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium border border-gray-200 dark:border-gray-700">Presensi</button>
+        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Presensi</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium border border-gray-200 dark:border-gray-700">Hafalan</button>
+        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Hafalan</button>
     <button
-        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium border border-gray-200 dark:border-gray-700">Akun</button>
+        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Akun</button>
 </div>
 
 {{-- FAQ List --}}
-<div class="flex flex-col gap-3">
+<div class="flex flex-col gap-2">
     {{-- FAQ Item 1 --}}
     <details
         class="group bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
-        <summary class="flex items-center justify-between p-3 cursor-pointer">
-            <div class="flex items-center gap-3">
-                <div class="shrink-0 size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+        <summary class="flex items-center justify-between p-2.5 cursor-pointer">
+            <div class="flex items-center gap-2.5">
+                <div class="shrink-0 size-7 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
                     <span class="material-symbols-outlined">location_on</span>
                 </div>
                 <span class="font-semibold text-sm text-[#111813] dark:text-white">Bagaimana cara presensi?</span>
@@ -50,7 +50,7 @@
             <span
                 class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
         </summary>
-        <div class="px-3 pb-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+        <div class="px-2.5 pb-2.5 text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">
             <ol class="list-decimal list-inside space-y-2 mt-2">
                 <li>Pastikan GPS aktif di perangkat Anda</li>
                 <li>Buka menu Presensi dari dashboard</li>
@@ -75,7 +75,7 @@
             <span
                 class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
         </summary>
-        <div class="px-3 pb-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+        <div class="px-2.5 pb-2.5 text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">
             Buka menu "Riwayat" di bottom navigation. Di sana Anda bisa melihat semua setoran hafalan beserta nilai dan
             catatan dari ustadz.
         </div>
@@ -95,7 +95,7 @@
             <span
                 class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
         </summary>
-        <div class="px-3 pb-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+        <div class="px-2.5 pb-2.5 text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">
             Hubungi Admin TPQ untuk reset password Anda. Siapkan NIS/Email yang terdaftar sebagai verifikasi.
         </div>
     </details>
@@ -114,7 +114,7 @@
             <span
                 class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
         </summary>
-        <div class="px-3 pb-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+        <div class="px-2.5 pb-2.5 text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed">
             Pastikan notifikasi diaktifkan di Profil > Notifikasi. Juga cek pengaturan notifikasi di browser/perangkat
             Anda.
         </div>
@@ -133,7 +133,7 @@
             <span
                 class="material-symbols-outlined text-gray-400 group-open:rotate-180 transition-transform">expand_more</span>
         </summary>
-        <div class="px-3 pb-3 text-xs text-gray-600 dark:text-gray-400 leading-relaxed space-y-3">
+        <div class="px-2.5 pb-2.5 text-[11px] text-gray-600 dark:text-gray-400 leading-relaxed space-y-2">
             <p>Jika muncul pilihan sandi/sidik jari lama yang sudah tidak terpakai, Anda bisa menghapusnya dari
                 pengaturan HP:</p>
 
@@ -176,17 +176,17 @@
 </div>
 
 {{-- Contact Support --}}
-<div class="bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl p-4 border border-primary/20">
-    <div class="flex items-start gap-3">
-        <div class="shrink-0 size-10 rounded-xl bg-primary flex items-center justify-center text-[#102216]">
-            <span class="material-symbols-outlined text-[20px]">support_agent</span>
+<div class="bg-gradient-to-br from-primary/20 to-primary/5 rounded-xl p-3 border border-primary/20">
+    <div class="flex items-start gap-2.5">
+        <div class="shrink-0 size-8 rounded-lg bg-primary flex items-center justify-center text-[#102216]">
+            <span class="material-symbols-outlined text-[18px]">support_agent</span>
         </div>
         <div>
-            <h4 class="font-bold text-sm text-[#111813] dark:text-white">Butuh Bantuan Lain?</h4>
-            <p class="text-xs text-gray-600 dark:text-gray-400 mt-0.5 mb-2">Tim kami siap membantu Anda</p>
+            <h4 class="font-bold text-xs text-[#111813] dark:text-white">Butuh Bantuan Lain?</h4>
+            <p class="text-[10px] text-gray-600 dark:text-gray-400 mt-0.5 mb-1.5">Tim kami siap membantu Anda</p>
             <a href="https://wa.me/6281234567890" target="_blank"
-                class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary text-[#102216] text-xs font-bold rounded-xl hover:shadow-lg hover:shadow-primary/25 transition">
-                <span class="material-symbols-outlined text-[16px]">chat</span>
+                class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-primary text-[#102216] text-[10px] font-bold rounded-lg hover:shadow-lg hover:shadow-primary/25 transition">
+                <span class="material-symbols-outlined text-[14px]">chat</span>
                 Hubungi via WhatsApp
             </a>
         </div>
