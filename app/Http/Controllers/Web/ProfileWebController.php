@@ -198,32 +198,62 @@ class ProfileWebController extends Controller
             $imageData = file_get_contents($file->getRealPath());
             $mime = $file->getMimeType();
 
-            if (function_exists('imagecreatefromstring')) {
-                $img = @imagecreatefromstring($imageData);
-                if ($img) {
-                    $width = imagesx($img);
-                    $height = imagesy($img);
-                    $maxSize = 300;
+            // Store original data in case resize fails
+            $processedData = $imageData;
+            $processedMime = $mime;
 
-                    if ($width > $maxSize || $height > $maxSize) {
-                        $ratio = min($maxSize / $width, $maxSize / $height);
-                        $newWidth = (int)($width * $ratio);
-                        $newHeight = (int)($height * $ratio);
-                        $resized = imagecreatetruecolor($newWidth, $newHeight);
-                        imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+            try {
+                if (function_exists('imagecreatefromstring')) {
+                    $img = @imagecreatefromstring($imageData);
+                    if ($img !== false) {
+                        $width = imagesx($img);
+                        $height = imagesy($img);
+                        $maxSize = 300;
 
-                        ob_start();
-                        imagejpeg($resized, null, 80);
-                        $imageData = ob_get_clean();
-                        $mime = 'image/jpeg';
+                        if ($width > $maxSize || $height > $maxSize) {
+                            $ratio = min($maxSize / $width, $maxSize / $height);
+                            $newWidth = (int)($width * $ratio);
+                            $newHeight = (int)($height * $ratio);
 
-                        imagedestroy($resized);
+                            $resized = @imagecreatetruecolor($newWidth, $newHeight);
+                            if ($resized !== false) {
+                                // Handle transparency for PNGs
+                                if ($mime == 'image/png') {
+                                    imagealphablending($resized, false);
+                                    imagesavealpha($resized, true);
+                                    $transparent = imagecolorallocatealpha($resized, 255, 255, 255, 127);
+                                    imagefilledrectangle($resized, 0, 0, $newWidth, $newHeight, $transparent);
+                                }
+
+                                @imagecopyresampled($resized, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+                                ob_start();
+                                if ($mime == 'image/png') {
+                                    imagepng($resized, null, 8);
+                                } else {
+                                    imagejpeg($resized, null, 80);
+                                    $processedMime = 'image/jpeg';
+                                }
+
+                                $output = ob_get_clean();
+                                if ($output !== false && !empty($output)) {
+                                    $processedData = $output;
+                                }
+
+                                imagedestroy($resized);
+                            }
+                        }
+                        imagedestroy($img);
                     }
-                    imagedestroy($img);
                 }
+            } catch (\Exception $imageEx) {
+                // If image processing fails, gracefully fallback to original data
+                \Illuminate\Support\Facades\Log::warning('Image resize failed, falling back to original: ' . $imageEx->getMessage());
+                $processedData = $imageData;
+                $processedMime = $mime;
             }
 
-            $base64 = 'data:' . $mime . ';base64,' . base64_encode($imageData);
+            $base64 = 'data:' . $processedMime . ';base64,' . base64_encode($processedData);
 
             $user->update(['foto' => $base64]);
             session()->put('user.foto', $base64);
