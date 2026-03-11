@@ -2409,7 +2409,11 @@
         </div> <!-- End ScrollableContent -->
 
         <!-- Bottom Navigation (Fixed for view) -->
-        @include('layouts.partials.bottom-nav', ['position' => 'fixed'])
+        @include('layouts.partials.bottom-nav', [
+            'position' => 'fixed',
+            'customClass' => 'sm:bottom-4 pointer-events-none',
+            'containerClass' => 'rounded-t-[24px] sm:rounded-b-2xl pointer-events-auto'
+        ])
 
     </div> <!-- End MainWrapper -->
 </body>

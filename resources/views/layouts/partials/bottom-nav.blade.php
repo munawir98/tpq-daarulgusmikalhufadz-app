@@ -43,13 +43,20 @@ default => ['route' => 'santri.presensi.index', 'icon' => 'qr_code_scanner', 'la
 
 @php
 $position = $position ?? 'fixed';
-$positionClass = $position === 'absolute' ? 'absolute bottom-0' : 'fixed bottom-0';
+$customClass = $customClass ?? '';
+if ($position === 'absolute') {
+    $positionClass = 'absolute bottom-0';
+} else {
+    $positionClass = 'fixed bottom-0';
+}
+$navClass = trim($positionClass . ' ' . $customClass);
+$containerClass = $containerClass ?? 'rounded-t-[24px]';
 @endphp
 
-<nav class="{{ $positionClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
+<nav class="{{ $navClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative bg-white dark:bg-gray-900 rounded-t-[24px] shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1 pb-1 px-2">
+        class="relative bg-white dark:bg-gray-900 {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-1 pb-1 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
