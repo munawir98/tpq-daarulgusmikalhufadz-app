@@ -177,8 +177,8 @@
         }
 
         .flower-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2394a3b8' fill-opacity='0.15' d='M20 20c0-5 5-10 10-10 5 0 10 5 10 10s-5 10-10 10-10-5-10-10zm0 0c0-5-5-10-10-10-5 0-10 5-10 10s5 10 10 10 10-5 10-10zm0 0c-5 0-10-5-10-10 0-5 5-10 10-10 5 0 10 5 10 10s-5 10-10 10zm0 0c-5 0-10 5-10 10 0 5 5 10 10 10 5 0 10-5 10-10s-5-10-10-10z'/%3E%3C/svg%3E");
-            background-size: 40px 40px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg stroke='%239ca3af' stroke-opacity='0.25' fill='none' stroke-width='1.5'%3E%3Cpath d='M0 100 Q 25 75 50 100 T 100 100 M 0 0 Q 25 25 50 0 T 100 0'/%3E%3Cpath d='M0 50 Q 25 25 50 50 T 100 50'/%3E%3Cg fill='%239ca3af' fill-opacity='0.2' stroke='none'%3E%3Ccircle cx='50' cy='50' r='4'/%3E%3Ccircle cx='43' cy='43' r='3'/%3E%3Ccircle cx='57' cy='43' r='3'/%3E%3Ccircle cx='43' cy='57' r='3'/%3E%3Ccircle cx='57' cy='57' r='3'/%3E%3Ccircle cx='50' cy='40' r='3'/%3E%3Ccircle cx='50' cy='60' r='3'/%3E%3Ccircle cx='40' cy='50' r='3'/%3E%3Ccircle cx='60' cy='50' r='3'/%3E%3C/g%3E%3Cpath d='M 25 25 Q 35 15 45 25 Q 35 35 25 25 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 75 75 Q 85 65 95 75 Q 85 85 75 75 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 25 75 Q 15 65 5 75 Q 15 85 25 75 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3Cpath d='M 75 25 Q 65 15 55 25 Q 65 35 75 25 Z' fill='%239ca3af' fill-opacity='0.15' stroke='none'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: 80px 80px;
         }
 
         /* Marquee Animation */
