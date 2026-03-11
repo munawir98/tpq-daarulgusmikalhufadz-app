@@ -2,8 +2,11 @@
 
 @section('title', 'Tentang Aplikasi')
 
-@section('no-pb', '')
-@section('bottom-nav', '')
+@section('no-pb')
+@endsection
+
+@section('bottom-nav')
+@endsection
 
 @section('header')
 <header
