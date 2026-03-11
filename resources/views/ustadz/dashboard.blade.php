@@ -473,7 +473,7 @@
 
                 <!-- Main Attendance Card (Expandable) -->
                 <div id="mainCard"
-                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
+                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 islamic-pattern pattern-dark rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
 
 
                     <!-- Swipe Indicator -->
