@@ -2,11 +2,9 @@
 
 @section('title', 'Bantuan')
 
-@section('no-pb')
-@endsection
-
-@section('bottom-nav')
-@endsection
+@php
+    $hideBottomNav = true;
+@endphp
 
 @section('header')
 <header

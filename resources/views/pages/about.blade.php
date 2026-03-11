@@ -2,11 +2,9 @@
 
 @section('title', 'Tentang Aplikasi')
 
-@section('no-pb')
-@endsection
-
-@section('bottom-nav')
-@endsection
+@php
+    $hideBottomNav = true;
+@endphp
 
 @section('header')
 <header

@@ -73,7 +73,7 @@
 
     <!-- Mobile Wrapper -->
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl md:text-lg @hasSection('no-pb') pb-0 @else pb-24 @endif">
+        class="relative flex h-full min-h-screen w-full max-w-md md:max-w-2xl mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl md:text-lg @hasSection('no-pb') pb-0 @elseif(isset($hideBottomNav) && $hideBottomNav) pb-0 @else pb-24 @endif">
 
         {{-- Header --}}
         @hasSection('header')
@@ -89,11 +89,13 @@
         </main>
 
         {{-- Bottom Navigation --}}
-        @hasSection('bottom-nav')
-        @yield('bottom-nav')
-        @else
-        @include('layouts.partials.bottom-nav')
-        @endif
+        @unless(isset($hideBottomNav) && $hideBottomNav)
+            @hasSection('bottom-nav')
+            @yield('bottom-nav')
+            @else
+            @include('layouts.partials.bottom-nav')
+            @endif
+        @endunless
 
     </div>
 
