@@ -176,6 +176,11 @@
                     transparent);
         }
 
+        .flower-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%2394a3b8' fill-opacity='0.15' d='M20 20c0-5 5-10 10-10 5 0 10 5 10 10s-5 10-10 10-10-5-10-10zm0 0c0-5-5-10-10-10-5 0-10 5-10 10s5 10 10 10 10-5 10-10zm0 0c-5 0-10-5-10-10 0-5 5-10 10-10 5 0 10 5 10 10s-5 10-10 10zm0 0c-5 0-10 5-10 10 0 5 5 10 10 10 5 0 10-5 10-10s-5-10-10-10z'/%3E%3C/svg%3E");
+            background-size: 40px 40px;
+        }
+
         /* Marquee Animation */
         @keyframes marquee {
             0% {
@@ -473,7 +478,7 @@
 
                 <!-- Main Attendance Card (Expandable) -->
                 <div id="mainCard"
-                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 islamic-pattern pattern-dark rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
+                    class="mx-4 bg-gray-50 dark:bg-gray-800/50 flower-pattern rounded-[24px] p-5 relative z-20 mb-6 shadow-sm transition-all duration-300 overflow-hidden">
 
 
                     <!-- Swipe Indicator -->
