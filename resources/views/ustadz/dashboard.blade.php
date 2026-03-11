@@ -351,7 +351,7 @@
         class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl">
 
         <!-- Header Background - Dark Blue with Texture -->
-        <div class="absolute top-0 left-0 w-full h-[260px] bg-slate-900 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-[260px] bg-blue-800 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
         </div>
 
         <!-- Scrollable Content -->
