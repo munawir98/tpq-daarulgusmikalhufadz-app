@@ -58,7 +58,7 @@
 <body
     class="bg-background-light dark:bg-background-dark font-display text-[#111813] dark:text-white transition-colors duration-200 min-h-screen">
     <div
-        class="relative flex min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl pb-24">
+        class="relative flex min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark overflow-x-hidden shadow-2xl">
 
         <!-- Header -->
         <header
@@ -340,34 +340,7 @@
             </div>
             @endif
 
-            <div class="h-8"></div>
         </main>
-
-        <!-- Bottom Navigation -->
-        <nav
-            class="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 pb-5 pt-3 px-6 z-50">
-            <div class="flex justify-between items-center">
-                <a class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                    href="{{ $dashboardUrl }}">
-                    <span class="material-symbols-outlined">home</span>
-                    <span class="text-[10px] font-medium">Beranda</span>
-                </a>
-                <a class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                    href="/notifications">
-                    <span class="material-symbols-outlined">notifications</span>
-                    <span class="text-[10px] font-medium">Notifikasi</span>
-                </a>
-                <a class="flex flex-col items-center gap-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                    href="/chat">
-                    <span class="material-symbols-outlined">chat</span>
-                    <span class="text-[10px] font-medium">Chat</span>
-                </a>
-                <a class="flex flex-col items-center gap-1 text-primary" href="/profile">
-                    <span class="material-symbols-outlined filled">settings</span>
-                    <span class="text-[10px] font-medium">Pengaturan</span>
-                </a>
-            </div>
-        </nav>
     </div>
 
     <script>

@@ -2,6 +2,9 @@
 
 @section('title', 'Tentang Aplikasi')
 
+@section('no-pb', '')
+@section('bottom-nav', '')
+
 @section('header')
 <header
     class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
