@@ -187,6 +187,8 @@
                         </div>
                     </div>
 
+                    <hr class="border-gray-200 dark:border-gray-800 my-0 border-dashed" />
+
                     <!-- Confirm Password -->
                     <div class="flex flex-col gap-1">
                         <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1"
