@@ -25,14 +25,14 @@
 </div>
 
 {{-- FAQ Categories --}}
-<div class="flex flex-wrap gap-1.5">
-    <button class="px-2.5 py-1 rounded-full bg-primary text-[#102216] text-[10px] font-semibold">Semua</button>
+<div class="flex flex-wrap gap-2">
+    <button class="px-3 py-1.5 rounded-full bg-primary text-[#102216] text-[11px] font-semibold">Semua</button>
     <button
-        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Presensi</button>
+        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Presensi</button>
     <button
-        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Hafalan</button>
+        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Hafalan</button>
     <button
-        class="px-2.5 py-1 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[10px] font-medium border border-gray-200 dark:border-gray-700">Akun</button>
+        class="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-[11px] font-medium border border-gray-200 dark:border-gray-700">Akun</button>
 </div>
 
 {{-- FAQ List --}}
