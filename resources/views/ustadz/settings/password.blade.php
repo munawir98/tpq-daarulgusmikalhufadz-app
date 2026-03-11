@@ -57,170 +57,170 @@
         <!-- Header -->
         <header
             class="sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
-            <div class="flex items-center justify-center px-5 py-4 relative">
-                <h2 class="text-xl font-bold">Ubah Kata Sandi</h2>
+            <div class="flex items-center justify-center px-4 py-3 relative">
+                <h2 class="text-lg font-bold">Ubah Kata Sandi</h2>
             </div>
-            <main class="flex flex-col flex-1 px-5 pt-6 pb-20 overflow-y-auto">
+        </header>
 
-                @if(session('success'))
-                <div
-                    class="mb-4 p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 text-sm font-medium">
-                    {{ session('success') }}
+        <main class="flex flex-col flex-1 px-5 pt-4 pb-20 overflow-y-auto">
+
+            @if(session('success'))
+            <div
+                class="mb-4 p-4 rounded-2xl bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-600 dark:text-green-400 text-sm font-medium">
+                {{ session('success') }}
+            </div>
+            @endif
+
+            @if($errors->any())
+            <div
+                class="mb-4 p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
+                @foreach($errors->all() as $error)
+                <p>{{ $error }}</p>
+                @endforeach
+            </div>
+            @endif
+
+            <form action="/ustadz/settings/password" method="POST" class="flex flex-col h-full gap-3">
+                @csrf
+
+                <!-- Current Password -->
+                <div class="flex flex-col gap-1">
+                    <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="current_password">
+                        Kata Sandi Saat Ini
+                    </label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                            <span
+                                class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors"
+                                style="font-size: 20px;">lock</span>
+                        </div>
+                        <input
+                            class="block w-full pl-11 pr-12 py-3.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all dark:text-white"
+                            id="current_password" name="current_password" placeholder="Masukkan kata sandi lama"
+                            type="password" required />
+                        <button type="button" onclick="togglePassword('current_password', this)"
+                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">visibility_off</span>
+                        </button>
+                    </div>
                 </div>
-                @endif
 
-                @if($errors->any())
-                <div
-                    class="mb-4 p-4 rounded-2xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 text-sm">
-                    @foreach($errors->all() as $error)
-                    <p>{{ $error }}</p>
-                    @endforeach
-                </div>
-                @endif
+                <hr class="border-gray-200 dark:border-gray-800 my-0 border-dashed" />
 
-                <form action="/ustadz/settings/password" method="POST" class="flex flex-col h-full gap-3">
-                    @csrf
-
-                    <!-- Current Password -->
+                <!-- New Passwords -->
+                <div class="flex flex-col gap-3">
+                    <!-- New Password -->
                     <div class="flex flex-col gap-1">
-                        <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="current_password">
-                            Kata Sandi Saat Ini
+                        <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="password">
+                            Kata Sandi Baru
                         </label>
                         <div class="relative group">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                                 <span
                                     class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors"
-                                    style="font-size: 20px;">lock</span>
+                                    style="font-size: 20px;">key</span>
                             </div>
                             <input
                                 class="block w-full pl-11 pr-12 py-3.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all dark:text-white"
-                                id="current_password" name="current_password" placeholder="Masukkan kata sandi lama"
-                                type="password" required />
-                            <button type="button" onclick="togglePassword('current_password', this)"
+                                id="password" name="password" placeholder="Masukkan kata sandi baru" type="password"
+                                required oninput="checkPasswordStrength(this.value)" />
+                            <button type="button" onclick="togglePassword('password', this)"
                                 class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
                                 <span class="material-symbols-outlined" style="font-size: 20px;">visibility_off</span>
                             </button>
                         </div>
                     </div>
 
-                    <hr class="border-gray-200 dark:border-gray-800 my-0 border-dashed" />
-
-                    <!-- New Passwords -->
-                    <div class="flex flex-col gap-3">
-                        <!-- New Password -->
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1" for="password">
-                                Kata Sandi Baru
-                            </label>
-                            <div class="relative group">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                    <span
-                                        class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors"
-                                        style="font-size: 20px;">key</span>
-                                </div>
-                                <input
-                                    class="block w-full pl-11 pr-12 py-3.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all dark:text-white"
-                                    id="password" name="password" placeholder="Masukkan kata sandi baru" type="password"
-                                    required oninput="checkPasswordStrength(this.value)" />
-                                <button type="button" onclick="togglePassword('password', this)"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
-                                    <span class="material-symbols-outlined"
-                                        style="font-size: 20px;">visibility_off</span>
-                                </button>
+                    <!-- Password Strength -->
+                    <div
+                        class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span
+                                class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Kekuatan
+                                Kata Sandi</span>
+                            <span id="strengthLabel" class="text-xs font-bold text-gray-400">Belum ada</span>
+                        </div>
+                        <div class="flex gap-1.5 h-1.5 w-full mb-4">
+                            <div id="bar1"
+                                class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
+                            </div>
+                            <div id="bar2"
+                                class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
+                            </div>
+                            <div id="bar3"
+                                class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
+                            </div>
+                            <div id="bar4"
+                                class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
                             </div>
                         </div>
+                        <ul id="requirementsList" class="space-y-2">
+                            <li id="check1" class="flex items-center gap-2.5 transition-all duration-300">
+                                <div
+                                    class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
+                                    <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
+                                </div>
+                                <span class="text-xs text-gray-600 dark:text-gray-300">Minimal 8 karakter</span>
+                            </li>
+                            <li id="check2" class="flex items-center gap-2.5 transition-all duration-300">
+                                <div
+                                    class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
+                                    <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
+                                </div>
+                                <span class="text-xs text-gray-600 dark:text-gray-300">Mengandung huruf besar &
+                                    kecil</span>
+                            </li>
+                            <li id="check3" class="flex items-center gap-2.5 transition-all duration-300">
+                                <div
+                                    class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
+                                    <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
+                                </div>
+                                <span class="text-xs text-gray-600 dark:text-gray-300">Mengandung angka atau
+                                    simbol</span>
+                            </li>
+                        </ul>
+                        <!-- Success message when all requirements met -->
+                        <div id="allPassedMessage"
+                            class="hidden flex items-center gap-2 text-green-600 dark:text-green-400">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">verified</span>
+                            <span class="text-sm font-medium">Semua syarat terpenuhi!</span>
+                        </div>
+                    </div>
 
-                        <!-- Password Strength -->
-                        <div
-                            class="bg-white dark:bg-gray-800 rounded-2xl p-4 border border-gray-100 dark:border-gray-700 shadow-sm">
-                            <div class="flex justify-between items-center mb-3">
+                    <!-- Confirm Password -->
+                    <div class="flex flex-col gap-1">
+                        <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1"
+                            for="password_confirmation">
+                            Konfirmasi Kata Sandi Baru
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                                 <span
-                                    class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Kekuatan
-                                    Kata Sandi</span>
-                                <span id="strengthLabel" class="text-xs font-bold text-gray-400">Belum ada</span>
+                                    class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors"
+                                    style="font-size: 20px;">lock_reset</span>
                             </div>
-                            <div class="flex gap-1.5 h-1.5 w-full mb-4">
-                                <div id="bar1"
-                                    class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
-                                </div>
-                                <div id="bar2"
-                                    class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
-                                </div>
-                                <div id="bar3"
-                                    class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
-                                </div>
-                                <div id="bar4"
-                                    class="h-full flex-1 rounded-full bg-gray-200 dark:bg-gray-700 transition-all duration-300">
-                                </div>
-                            </div>
-                            <ul id="requirementsList" class="space-y-2">
-                                <li id="check1" class="flex items-center gap-2.5 transition-all duration-300">
-                                    <div
-                                        class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
-                                        <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
-                                    </div>
-                                    <span class="text-xs text-gray-600 dark:text-gray-300">Minimal 8 karakter</span>
-                                </li>
-                                <li id="check2" class="flex items-center gap-2.5 transition-all duration-300">
-                                    <div
-                                        class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
-                                        <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
-                                    </div>
-                                    <span class="text-xs text-gray-600 dark:text-gray-300">Mengandung huruf besar &
-                                        kecil</span>
-                                </li>
-                                <li id="check3" class="flex items-center gap-2.5 transition-all duration-300">
-                                    <div
-                                        class="p-0.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-500 dark:text-red-400">
-                                        <span class="material-symbols-outlined" style="font-size: 14px;">close</span>
-                                    </div>
-                                    <span class="text-xs text-gray-600 dark:text-gray-300">Mengandung angka atau
-                                        simbol</span>
-                                </li>
-                            </ul>
-                            <!-- Success message when all requirements met -->
-                            <div id="allPassedMessage"
-                                class="hidden flex items-center gap-2 text-green-600 dark:text-green-400">
-                                <span class="material-symbols-outlined" style="font-size: 20px;">verified</span>
-                                <span class="text-sm font-medium">Semua syarat terpenuhi!</span>
-                            </div>
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="flex flex-col gap-1">
-                            <label class="text-xs font-bold text-gray-700 dark:text-gray-300 ml-1"
-                                for="password_confirmation">
-                                Konfirmasi Kata Sandi Baru
-                            </label>
-                            <div class="relative group">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                    <span
-                                        class="material-symbols-outlined text-gray-400 group-focus-within:text-primary transition-colors"
-                                        style="font-size: 20px;">lock_reset</span>
-                                </div>
-                                <input
-                                    class="block w-full pl-11 pr-12 py-3.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all dark:text-white"
-                                    id="password_confirmation" name="password_confirmation"
-                                    placeholder="Ulangi kata sandi baru" type="password" required />
-                                <button type="button" onclick="togglePassword('password_confirmation', this)"
-                                    class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
-                                    <span class="material-symbols-outlined"
-                                        style="font-size: 20px;">visibility_off</span>
-                                </button>
-                            </div>
+                            <input
+                                class="block w-full pl-11 pr-12 py-3.5 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-2xl text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all dark:text-white"
+                                id="password_confirmation" name="password_confirmation"
+                                placeholder="Ulangi kata sandi baru" type="password" required />
+                            <button type="button" onclick="togglePassword('password_confirmation', this)"
+                                class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">visibility_off</span>
+                            </button>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Submit Button -->
-                    <div class="mt-auto pt-6">
-                        <button type="submit"
-                            class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-[#102216] font-bold text-sm shadow-lg shadow-green-500/20 hover:shadow-green-500/30 hover:scale-[1.02] transition-all">
-                            <span class="material-symbols-outlined" style="font-size: 20px;">save</span>
-                            Simpan Perubahan
-                        </button>
-                    </div>
-                </form>
-            </main>
+                <!-- Submit Button -->
+                <div class="mt-auto pt-6">
+                    <button type="submit"
+                        class="w-full flex items-center justify-center gap-2 p-4 rounded-2xl bg-primary text-[#102216] font-bold text-sm shadow-lg shadow-green-500/20 hover:shadow-green-500/30 hover:scale-[1.02] transition-all">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">save</span>
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </main>
     </div>
 
     <script>
