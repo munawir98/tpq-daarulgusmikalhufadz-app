@@ -153,11 +153,11 @@
         .islamic-pattern {
             background-image:
                 linear-gradient(45deg,
-                    rgba(255, 255, 255, 0.05) 25%,
+                    rgba(255, 255, 255, 0.02) 25%,
                     transparent 25%,
                     transparent 50%,
-                    rgba(255, 255, 255, 0.05) 50%,
-                    rgba(255, 255, 255, 0.05) 75%,
+                    rgba(255, 255, 255, 0.02) 50%,
+                    rgba(255, 255, 255, 0.02) 75%,
                     transparent 75%,
                     transparent);
             background-size: 40px 40px;
@@ -167,17 +167,17 @@
         .islamic-pattern.pattern-dark {
             background-image:
                 linear-gradient(45deg,
-                    rgba(30, 64, 175, 0.08) 25%,
+                    rgba(30, 64, 175, 0.04) 25%,
                     transparent 25%,
                     transparent 50%,
-                    rgba(30, 64, 175, 0.08) 50%,
-                    rgba(30, 64, 175, 0.08) 75%,
+                    rgba(30, 64, 175, 0.04) 50%,
+                    rgba(30, 64, 175, 0.04) 75%,
                     transparent 75%,
                     transparent);
         }
 
         .flower-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='15' cy='10' r='3.5'/%3E%3Ccircle cx='20' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='20' r='3.5'/%3E%3Ccircle cx='10' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23ffffff' fill-opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='15' cy='10' r='3.5'/%3E%3Ccircle cx='20' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='20' r='3.5'/%3E%3Ccircle cx='10' cy='15' r='3.5'/%3E%3Ccircle cx='15' cy='15' r='2' fill='%23ffffff' fill-opacity='0.08'/%3E%3C/g%3E%3C/svg%3E");
             background-size: 24px 24px;
         }
 
