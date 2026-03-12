@@ -503,13 +503,12 @@
                                 </p>
                             </div>
                             <div id="radiusBadge"
-                                class="px-2.5 py-1.5 bg-blue-700/50 dark:bg-blue-800/50 rounded-lg flex items-center gap-1.5 border border-blue-400/30 dark:border-blue-700/50 shadow-sm backdrop-blur-sm">
+                                class="px-2.5 py-1.5 bg-white/90 dark:bg-white rounded-lg flex items-center gap-1.5 border border-white/20 shadow-sm backdrop-blur-sm">
                                 <span id="radiusDot" class="relative flex h-2 w-2">
-                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-300"></span>
+                                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
                                 </span>
                                 <span id="radiusText"
-                                    class="text-[9px] font-bold text-blue-100">Mendeteksi...</span>
-
+                                    class="text-[9px] font-bold text-blue-600">Mendeteksi...</span>
                             </div>
                         </div>
 
@@ -519,12 +518,12 @@
 
                         <div class="flex gap-4 mb-3">
                             <div id="ambilFotoBtn" onclick="ambilFoto()"
-                                class="w-24 h-24 shrink-0 bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-2xl border-2 border-dashed border-blue-300/50 dark:border-blue-600/50 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-blue-700/60 dark:hover:bg-blue-800/60 transition-colors pulse-btn overflow-hidden relative">
+                                class="w-24 h-24 shrink-0 bg-white/95 dark:bg-white rounded-2xl border-2 border-dashed border-white/30 flex flex-col items-center justify-center gap-1 cursor-pointer group hover:bg-white transition-colors pulse-btn overflow-hidden relative">
                                 <div id="fotoIconContainer" class="flex flex-col items-center justify-center gap-1">
                                     <span id="fotoIcon"
-                                        class="material-symbols-rounded text-blue-200 group-hover:text-white transition-colors text-3xl">add_a_photo</span>
+                                        class="material-symbols-rounded text-blue-600 group-hover:text-blue-700 transition-colors text-3xl">add_a_photo</span>
                                     <span id="fotoBtnText"
-                                        class="text-[8px] font-bold text-blue-200 group-hover:text-white transition-colors text-center leading-tight">Ambil<br />Foto</span>
+                                        class="text-[8px] font-bold text-blue-600 group-hover:text-blue-700 transition-colors text-center leading-tight">Ambil<br />Foto</span>
                                 </div>
                                 <img id="fotoPreview" src="" alt="Foto Presensi"
                                     class="w-full h-full object-cover absolute inset-0 hidden" />
@@ -542,24 +541,24 @@
                             </div>
                             <div class="flex-1 flex flex-col justify-center gap-1.5">
                                 <div
-                                    class="bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-xl p-2 flex justify-between items-center border border-blue-400/30 dark:border-blue-700/50 shadow-sm">
-                                    <span class="text-[10px] text-blue-100 font-medium">Jam Masuk</span>
+                                    class="bg-white/95 dark:bg-white rounded-xl p-2 flex justify-between items-center border border-white/20 shadow-sm">
+                                    <span class="text-[10px] text-blue-600 font-bold">Jam Masuk</span>
                                     <span id="jamMasuk"
-                                        class="text-[10px] font-bold text-white">-- :
+                                        class="text-[10px] font-black text-blue-800">-- :
                                         --</span>
                                 </div>
                                 <div
-                                    class="bg-blue-700/40 dark:bg-blue-800/40 backdrop-blur-sm rounded-xl p-2 flex justify-between items-center border border-blue-400/30 dark:border-blue-700/50 shadow-sm">
-                                    <span class="text-[10px] text-blue-100 font-medium">Jam Keluar</span>
+                                    class="bg-white/95 dark:bg-white rounded-xl p-2 flex justify-between items-center border border-white/20 shadow-sm">
+                                    <span class="text-[10px] text-blue-600 font-bold">Jam Keluar</span>
                                     <span id="jamKeluar"
-                                        class="text-[10px] font-bold text-white">-- :
+                                        class="text-[10px] font-black text-blue-800">-- :
                                         --</span>
                                 </div>
                                 <div id="presensiStatus"
-                                    class="bg-blue-800/50 dark:bg-blue-900/50 backdrop-blur-sm rounded-lg px-2 py-1 flex justify-between items-center border border-blue-500/30 dark:border-blue-600/50 shadow-sm">
-                                    <span class="text-[9px] text-blue-200 font-medium">Status</span>
+                                    class="bg-white/95 dark:bg-white rounded-lg px-2 py-1 flex justify-between items-center border border-white/20 shadow-sm">
+                                    <span class="text-[9px] text-blue-600 font-bold">Status</span>
                                     <span id="presensiText"
-                                        class="text-[9px] font-bold text-white">-------</span>
+                                        class="text-[9px] font-black text-blue-800 uppercase tracking-tighter">-------</span>
                                 </div>
                             </div>
                         </div>
