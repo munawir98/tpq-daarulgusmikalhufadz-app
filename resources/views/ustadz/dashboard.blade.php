@@ -746,7 +746,7 @@
 
                         <!-- Swipe Up Hint -->
                         <div id="swipeUpHint"
-                            class="flex justify-center items-center gap-1 mt-2 opacity-50 transition-opacity duration-300">
+                            class="flex justify-center items-center gap-1 mt-0.5 opacity-50 transition-opacity duration-300">
                             <span
                                 class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_less</span>
                             <span class="text-[7px] text-gray-400 font-medium">Swipe ke atas untuk menu</span>
