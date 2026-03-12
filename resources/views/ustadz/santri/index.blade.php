@@ -17,10 +17,10 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#2563eb", // SOLID BLUE (Blue 600)
-                        "primary-dark": "#1d4ed8", // Blue 700
-                        "background-light": "#f6f8f8",
-                        "background-dark": "#0f172a", // Slate 900
+                        primary: "#00A8C5",
+                        "primary-dark": "#007E95",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
                     },
                     fontFamily: {
                         "display": ["Poppins"]
@@ -77,7 +77,10 @@
 <body
     class="bg-background-light dark:bg-background-dark flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 overflow-hidden rounded-none sm:rounded-2xl">
+
+        <!-- Background Gradient Decor -->
+        <div class="absolute top-0 left-0 w-full h-48 bg-gradient-to-br from-primary to-primary-dark z-0"></div>
 
 
 

@@ -18,12 +18,19 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#4A90B8", "primary-dark": "#2E6B8A", "header-blue": "#3D7A9E", "header-dark": "#2A5A78",
-                        "background-light": "#F2F4F8", "background-dark": "#121212", "surface-light": "#FFFFFF", "surface-dark": "#1E1E1E",
-                        "text-main-light": "#2D3748", "text-sub-light": "#A0AEC0",
+                        primary: "#00A8C5",
+                        "primary-dark": "#007E95",
+                        "header-blue": "#00BDDE",
+                        "header-dark": "#008FAC",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E293B",
+                        "text-main-light": "#1E293B",
+                        "text-sub-light": "#64748B",
                     },
                     fontFamily: { display: ["Poppins", "sans-serif"] },
-                    boxShadow: { 'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)', 'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)' }
+                    boxShadow: { 'soft': '0 20px 40px -10px rgba(0, 168, 197, 0.15)', 'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)' }
                 },
             },
         };

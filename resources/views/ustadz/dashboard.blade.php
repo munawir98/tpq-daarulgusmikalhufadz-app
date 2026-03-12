@@ -64,22 +64,22 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#4A90B8",
-                        "primary-dark": "#2E6B8A",
-                        "header-blue": "#3D7A9E",
-                        "header-dark": "#2A5A78",
-                        "background-light": "#F2F4F8",
-                        "background-dark": "#121212",
+                        primary: "#00A8C5",
+                        "primary-dark": "#007E95",
+                        "header-blue": "#00BDDE",
+                        "header-dark": "#008FAC",
+                        "background-light": "#F8FAFC",
+                        "background-dark": "#0F172A",
                         "surface-light": "#FFFFFF",
-                        "surface-dark": "#1E1E1E",
-                        "text-main-light": "#2D3748",
-                        "text-sub-light": "#A0AEC0",
+                        "surface-dark": "#1E293B",
+                        "text-main-light": "#1E293B",
+                        "text-sub-light": "#64748B",
                     },
                     fontFamily: {
                         display: ["Poppins", "sans-serif"],
                     },
                     boxShadow: {
-                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
+                        'soft': '0 20px 40px -10px rgba(0, 168, 197, 0.15)',
                         'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
                         'nav': '0 -10px 40px rgba(0,0,0,0.05)',
                     }
@@ -242,7 +242,7 @@
             position: absolute;
             inset: -3px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #4A90B8, #6BB8DE, #2E6B8A, #4A90B8);
+            background: linear-gradient(45deg, #00A8C5, #00BDDE, #007E95, #00A8C5);
             background-size: 400% 400%;
             animation: rotate-gradient 3s linear infinite;
             z-index: -1;
@@ -355,130 +355,91 @@
     <div
         class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl">
 
-        <!-- Header Background - Dark Blue with Texture -->
-        <div class="absolute top-0 left-0 w-full h-[260px] bg-blue-800 islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
+        <!-- Header Background - Premium Cyan with Texture -->
+        <div class="absolute top-0 left-0 w-full h-[320px] bg-gradient-to-br from-header-blue to-primary islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
         </div>
 
         <!-- Scrollable Content -->
         <div class="relative z-10 flex-1 flex flex-col">
 
             <!-- Top Header -->
-            <div
-                class="px-6 pt-8 pb-2 text-white flex flex-col gap-2 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0">
-                <div class="flex justify-between items-start">
-                    <div class="flex items-center gap-4">
+            <div class="px-6 pt-10 pb-6 text-white flex flex-col gap-4 pt-[calc(2rem+env(safe-area-inset-top))] shrink-0 relative z-10">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
                         <div class="relative avatar-ring">
                             @if(session('user.foto'))
                             <img alt="Profile"
-                                class="w-14 h-14 rounded-full border-2 border-white shadow-lg object-cover"
+                                class="w-12 h-12 rounded-full border-2 border-white/50 shadow-lg object-cover"
                                 src="{{ Str::startsWith(session('user.foto'), 'data:') ? session('user.foto') : asset('storage/' . session('user.foto')) }}" />
                             @else
                             <div
-                                class="w-14 h-14 rounded-full border-2 border-white shadow-lg bg-white/20 flex items-center justify-center text-white text-xl font-bold">
+                                class="w-12 h-12 rounded-full border-2 border-white/50 shadow-lg bg-white/20 flex items-center justify-center text-white text-lg font-bold">
                                 {{ substr(session('user.name', 'U'), 0, 1) }}
                             </div>
                             @endif
-                            <div
-                                class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-400 border-2 border-white rounded-full animate-pulse">
-                            </div>
                         </div>
-                        <div>
-                            <p id="greetingText" class="text-xs font-medium text-white/80 leading-none">
-                                Assalamu'alaikum,</p>
-                            <h1 class="text-xl font-bold tracking-tight -mt-1">
+                        <div class="flex flex-col">
+                            <p id="greetingText" class="text-[10px] font-medium text-white/70 tracking-wide uppercase">
+                                Welcome Back,</p>
+                            <h1 class="text-lg font-bold tracking-tight -mt-0.5">
                                 @if(session('user.jenis_kelamin') == 'P')
                                 Ustadzah {{ session('user.name', '') }}
                                 @else
                                 Ustadz {{ session('user.name', '') }}
                                 @endif
                             </h1>
-                            <p id="liveDate" class="text-[10px] text-white/70 mt-0.5">{{ now()->translatedFormat('l, d F
-                                Y') }}</p>
                         </div>
                     </div>
                     <a href="{{ route('notifications.index') }}"
-                        class="relative flex items-center justify-center transition-all hover:opacity-80">
-                        <span class="material-symbols-rounded text-white text-[24px]">notifications</span>
+                        class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center transition-all hover:bg-white/20 border border-white/10">
+                        <span class="material-symbols-rounded text-white text-[22px]">notifications</span>
                         @php
                         $unreadCount = \App\Models\User::find(session('user.id'))->unreadNotifications()->count();
                         @endphp
                         @if($unreadCount > 0)
                         <span
-                            class="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-red-500 rounded-full flex items-center justify-center text-[9px] font-bold text-white px-1">
-                            {{ $unreadCount > 99 ? '99+' : $unreadCount }}
+                            class="absolute top-0 right-0 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center text-[8px] font-bold text-white border-2 border-primary">
+                            {{ $unreadCount > 9 ? '9+' : $unreadCount }}
                         </span>
                         @endif
                     </a>
                 </div>
 
-                <!-- Status Cards with Marquee -->
-                <div class="marquee-container mt-4">
-                    <div class="marquee-content flex items-center" style="gap: 0;">
-                        <!-- Set 1 -->
-                        <div
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span class="material-symbols-rounded text-white text-[14px]">schedule</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Waktu</p>
-                                <p class="text-[8px] font-bold text-white leading-tight tracking-wide" id="liveClock">
-                                    00:00:00</p>
-                            </div>
-                        </div>
-                        <div
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span id="weatherIcon1"
-                                class="material-symbols-rounded text-yellow-300 text-[14px]">partly_cloudy_day</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Cuaca</p>
-                                <p id="weatherText1" class="text-[8px] font-bold text-white leading-tight">Memuat...</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('chat.index') }}"
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span class="material-symbols-rounded text-blue-300 text-[14px]">mark_chat_unread</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Pesan</p>
-                                <p class="text-[8px] font-bold text-white leading-tight">12 Baru</p>
-                            </div>
-                        </a>
-                        <!-- Set 2 (duplicate for seamless loop) -->
-                        <div
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span class="material-symbols-rounded text-white text-[14px]">schedule</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Waktu</p>
-                                <p class="text-[8px] font-bold text-white leading-tight tracking-wide" id="liveClock2">
-                                    00:00:00</p>
-                            </div>
-                        </div>
-                        <div
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span id="weatherIcon2"
-                                class="material-symbols-rounded text-yellow-300 text-[14px]">partly_cloudy_day</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Cuaca</p>
-                                <p id="weatherText2" class="text-[8px] font-bold text-white leading-tight">Memuat...</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('chat.index') }}"
-                            class="shrink-0 flex items-center gap-1 px-1.5 py-0.5 bg-white/10 backdrop-blur-md rounded-md border border-white/10 mr-2">
-                            <span class="material-symbols-rounded text-blue-300 text-[14px]">mark_chat_unread</span>
-                            <div>
-                                <p class="text-[7px] text-white/70 leading-tight mb-0.5 font-medium">Pesan</p>
-                                <p class="text-[8px] font-bold text-white leading-tight">12 Baru</p>
-                            </div>
-                        </a>
+                <!-- Integrated Search Bar -->
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <span class="material-symbols-rounded text-white/60 text-[20px] group-focus-within:text-white transition-colors">search</span>
                     </div>
+                    <input type="text" 
+                        placeholder="Cari santri atau laporan..." 
+                        class="w-full bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl py-3 pl-11 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20 transition-all shadow-lg"
+                    >
+                </div>
+
+                <!-- Live Info Pills (Replacing Marquee for premium feel) -->
+                <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
+                    <div class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/10">
+                        <span class="material-symbols-rounded text-white text-[16px] animate-pulse">schedule</span>
+                        <span class="text-[10px] font-bold text-white tracking-wide" id="liveClock">00:00:00</span>
+                    </div>
+                    <div class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/10">
+                        <span id="weatherIcon1" class="material-symbols-rounded text-yellow-300 text-[16px]">partly_cloudy_day</span>
+                        <span id="weatherText1" class="text-[10px] font-bold text-white">Memuat...</span>
+                    </div>
+                    <a href="{{ route('chat.index') }}" class="shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/10 backdrop-blur-md rounded-full border border-white/10">
+                        <span class="material-symbols-rounded text-blue-300 text-[16px]">chat</span>
+                        <span class="text-[10px] font-bold text-white">12 Pesan</span>
+                    </a>
                 </div>
             </div>
 
             <!-- White Container Wrapper -->
             <div id="whiteContainer"
-                class="w-full bg-white dark:bg-surface-dark rounded-t-[30px] shadow-soft pt-5 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
+                class="w-full bg-slate-50 dark:bg-slate-900 rounded-t-[40px] shadow-2xl pt-8 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
 
-                <!-- Main Attendance Card (Expandable) -->
+                <!-- Main Attendance Card - Refined Premium -->
                 <div id="mainCard"
-                    class="mx-4 bg-blue-600 dark:bg-blue-900 flower-pattern text-white rounded-[24px] p-5 relative z-20 mb-6 shadow-md shadow-blue-500/20 transition-all duration-300 overflow-hidden">
+                    class="mx-5 bg-gradient-to-br from-primary to-primary-dark flower-pattern text-white rounded-[32px] p-6 relative z-20 mb-8 shadow-xl shadow-primary/20 transition-all duration-300 overflow-hidden border border-white/10">
 
 
                     <!-- Swipe Indicator -->
@@ -894,12 +855,81 @@
 
                         <!-- Swipe Down Hint -->
                         <div class="flex justify-center items-center gap-1 mt-4 opacity-50 pb-4">
-                            <span
-                                class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_more</span>
+                            <span class="material-symbols-rounded text-gray-400 text-sm animate-bounce">expand_more</span>
                             <span class="text-[7px] text-gray-400 font-medium">Swipe ke bawah untuk kembali</span>
                         </div>
-
                     </div><!-- End Main Card -->
+
+                <!-- Ringkasan Aktivitas Section (New) -->
+                <div class="px-5 mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-sm font-bold text-slate-800 dark:text-white">Statistk & Aktivitas</h2>
+                        <a href="{{ route('ustadz.laporan.index') }}" class="text-[10px] font-bold text-primary hover:underline">Lihat Semua</a>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Stats Card 1: Hafalan -->
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-[28px] shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col gap-3">
+                            <div class="flex justify-between items-start">
+                                <div class="w-10 h-10 rounded-2xl bg-cyan-50 dark:bg-cyan-900/30 flex items-center justify-center text-cyan-600">
+                                    <span class="material-symbols-rounded">menu_book</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Hafalan</span>
+                                    <span class="text-xs font-black text-slate-800 dark:text-white">85%</span>
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                <div class="text-[10px] font-bold text-slate-600 dark:text-gray-400">Target Tercapai</div>
+                                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full mt-1 overflow-hidden">
+                                    <div class="h-full bg-cyan-500 rounded-full" style="width: 85%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats Card 2: Kehadiran -->
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-[28px] shadow-sm border border-slate-100 dark:border-slate-700 flex flex-col gap-3">
+                            <div class="flex justify-between items-start">
+                                <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600">
+                                    <span class="material-symbols-rounded">how_to_reg</span>
+                                </div>
+                                <div class="flex flex-col items-end">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Santri</span>
+                                    <span class="text-xs font-black text-slate-800 dark:text-white">92%</span>
+                                </div>
+                            </div>
+                            <div class="mt-1">
+                                <div class="text-[10px] font-bold text-slate-600 dark:text-gray-400">Kehadiran Hari Ini</div>
+                                <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full mt-1 overflow-hidden">
+                                    <div class="h-full bg-indigo-500 rounded-full" style="width: 92%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Schedule (New) -->
+                <div class="px-5 mb-12">
+                    <h2 class="text-sm font-bold text-slate-800 dark:text-white mb-4">Agenda Mendatang</h2>
+                    <div class="bg-white dark:bg-slate-800 rounded-[32px] p-5 shadow-sm border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-2xl bg-primary/10 flex flex-col items-center justify-center text-primary shrink-0">
+                                <span class="text-[10px] font-black leading-none Uppercase">MAR</span>
+                                <span class="text-lg font-black mt-0.5">14</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xs font-bold text-slate-700 dark:text-white">Evaluasi Hafalan Bulanan</h3>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <span class="material-symbols-rounded text-slate-400 text-[14px]">schedule</span>
+                                    <span class="text-[10px] font-medium text-slate-400">08:00 - 10:00 WIB</span>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-700 flex items-center justify-center text-slate-400">
+                                <span class="material-symbols-rounded text-lg">chevron_right</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
                 <!-- Bottom Navigation -->
