@@ -2415,6 +2415,7 @@
         <!-- Bottom Navigation (Fixed for view) -->
         @include('layouts.partials.bottom-nav', [
             'position' => 'fixed',
+            'theme' => 'blue',
             'customClass' => 'sm:bottom-4 pointer-events-none',
             'containerClass' => 'rounded-t-[24px] sm:rounded-b-2xl pointer-events-auto'
         ])

@@ -44,6 +44,9 @@ default => ['route' => 'santri.presensi.index', 'icon' => 'qr_code_scanner', 'la
 @php
 $position = $position ?? 'fixed';
 $customClass = $customClass ?? '';
+$theme = $theme ?? 'white';
+$isBlue = $theme === 'blue';
+
 if ($position === 'absolute') {
     $positionClass = 'absolute bottom-0';
 } else {
@@ -51,12 +54,34 @@ if ($position === 'absolute') {
 }
 $navClass = trim($positionClass . ' ' . $customClass);
 $containerClass = $containerClass ?? 'rounded-t-[24px]';
+
+$bgClass = $isBlue ? 'bg-blue-800 islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
+$itemIsActive = $isBlue ? 'text-white' : 'text-primary';
+$itemIsInactive = $isBlue ? 'text-blue-200/70' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
+$ringClass = $isBlue ? 'ring-blue-800' : 'ring-white dark:ring-gray-900';
 @endphp
+
+@if($isBlue)
+<style>
+    @keyframes moveTexture {
+        from { background-position: 0 0; }
+        to { background-position: -40px 0; }
+    }
+    .islamic-pattern {
+        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.02) 75%, transparent 75%, transparent);
+        background-size: 40px 40px;
+        animation: moveTexture 3s linear infinite;
+    }
+    .highlight-overlay {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 25%, transparent 50%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.08) 100%);
+    }
+</style>
+@endif
 
 <nav class="{{ $navClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative bg-white dark:bg-gray-900 {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-5 pb-5 px-2">
+        class="relative {{ $bgClass }} {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-5 pb-5 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
@@ -64,7 +89,7 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
             $isActive = str_starts_with($currentRoute, explode('.', $item['route'])[0] ?? '');
             @endphp
             <a href="{{ route($item['route']) }}"
-                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }} transition-all active:scale-95">
+                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
                 <span class="material-symbols-rounded text-[20px]">{{ $item['icon'] }}</span>
                 <span class="text-[8px] font-semibold">{{ $item['label'] }}</span>
             </a>
@@ -73,7 +98,7 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
             <!-- Center Button (Floating) -->
             <div class="flex flex-col items-center justify-center -mt-3.5">
                 <a href="{{ route($centerButton['route']) }}"
-                    class="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary to-primary-dark flex items-center justify-center shadow-[0_6px_20px_rgba(74,144,184,0.4)] ring-[2px] ring-white dark:ring-gray-900 transform hover:scale-110 active:scale-95 transition-all duration-200">
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary to-primary-dark flex items-center justify-center shadow-[0_6px_20px_rgba(74,144,184,0.4)] ring-[2px] {{ $ringClass }} transform hover:scale-110 active:scale-95 transition-all duration-200">
                     <span class="material-symbols-rounded text-white text-xl">{{ $centerButton['icon'] }}</span>
                 </a>
             </div>
@@ -84,7 +109,7 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
             $isActive = str_starts_with($currentRoute, explode('.', $item['route'])[0] ?? '');
             @endphp
             <a href="{{ route($item['route']) }}"
-                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? 'text-primary' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300' }} transition-all active:scale-95">
+                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
                 <span class="material-symbols-rounded text-[20px]">{{ $item['icon'] }}</span>
                 <span class="text-[8px] font-semibold">{{ $item['label'] }}</span>
             </a>
