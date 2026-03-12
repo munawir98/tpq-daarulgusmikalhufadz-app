@@ -57,7 +57,7 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
 
 $bgClass = $isBlue ? 'bg-blue-800 islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
 $itemIsActive = $isBlue ? 'text-white' : 'text-primary';
-$itemIsInactive = $isBlue ? 'text-blue-200/70' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
+$itemIsInactive = $isBlue ? 'text-white/60' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
 $ringClass = $isBlue ? 'ring-blue-800' : 'ring-white dark:ring-gray-900';
 @endphp
 
