@@ -57,8 +57,8 @@ $containerClass = $containerClass ?? 'rounded-t-[24px]';
 
 $bgClass = $isBlue ? 'bg-gradient-to-br from-header-blue to-primary islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
 $itemIsActive = $isBlue ? 'text-white' : 'text-primary';
-$itemIsInactive = $isBlue ? 'text-white/80' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
-$ringClass = $isBlue ? 'ring-[#00BDDE]' : 'ring-white dark:ring-gray-900';
+$itemIsInactive = $isBlue ? 'text-white/60' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
+$ringClass = $isBlue ? 'ring-cyan-600' : 'ring-white dark:ring-gray-900';
 @endphp
 
 @if($isBlue)
@@ -81,7 +81,7 @@ $ringClass = $isBlue ? 'ring-[#00BDDE]' : 'ring-white dark:ring-gray-900';
 <nav class="{{ $navClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative {{ $bgClass }} {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,16px))] px-2 transition-all duration-300">
+        class="relative {{ $bgClass }} {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-5 pb-5 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
@@ -89,16 +89,17 @@ $ringClass = $isBlue ? 'ring-[#00BDDE]' : 'ring-white dark:ring-gray-900';
             $isActive = str_starts_with($currentRoute, explode('.', $item['route'])[0] ?? '');
             @endphp
             <a href="{{ route($item['route']) }}"
-                class="flex flex-col items-center gap-1 py-1 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
-                <span class="material-symbols-rounded text-[24px] transition-transform {{ $isActive ? 'scale-110 drop-shadow-md' : '' }}">{{ $item['icon'] }}</span>
-                <span class="text-[10px] font-bold tracking-tight">{{ $item['label'] }}</span>
+                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
+                <span class="material-symbols-rounded text-[20px]">{{ $item['icon'] }}</span>
+                <span class="text-[8px] font-semibold">{{ $item['label'] }}</span>
             </a>
             @endforeach
 
-            <div class="flex flex-col items-center justify-center -mt-6">
+            <!-- Center Button (Floating) -->
+            <div class="flex flex-col items-center justify-center -mt-3.5">
                 <a href="{{ route($centerButton['route']) }}"
-                    class="w-12 h-12 rounded-full bg-gradient-to-br from-primary via-primary to-primary-dark flex items-center justify-center shadow-[0_8px_25px_rgba(0,168,197,0.4)] ring-[3px] {{ $ringClass }} transform hover:scale-110 active:scale-95 transition-all duration-301">
-                    <span class="material-symbols-rounded text-white text-2xl font-bold">{{ $centerButton['icon'] }}</span>
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary to-primary-dark flex items-center justify-center shadow-[0_6px_20px_rgba(74,144,184,0.4)] ring-[2px] {{ $ringClass }} transform hover:scale-110 active:scale-95 transition-all duration-200">
+                    <span class="material-symbols-rounded text-white text-xl">{{ $centerButton['icon'] }}</span>
                 </a>
             </div>
 
@@ -108,9 +109,9 @@ $ringClass = $isBlue ? 'ring-[#00BDDE]' : 'ring-white dark:ring-gray-900';
             $isActive = str_starts_with($currentRoute, explode('.', $item['route'])[0] ?? '');
             @endphp
             <a href="{{ route($item['route']) }}"
-                class="flex flex-col items-center gap-1 py-1 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
-                <span class="material-symbols-rounded text-[24px] transition-transform {{ $isActive ? 'scale-110 drop-shadow-md' : '' }}">{{ $item['icon'] }}</span>
-                <span class="text-[10px] font-bold tracking-tight">{{ $item['label'] }}</span>
+                class="flex flex-col items-center gap-0.5 py-0 px-3 {{ $isActive ? $itemIsActive : $itemIsInactive }} transition-all active:scale-95">
+                <span class="material-symbols-rounded text-[20px]">{{ $item['icon'] }}</span>
+                <span class="text-[8px] font-semibold">{{ $item['label'] }}</span>
             </a>
             @endforeach
         </div>
