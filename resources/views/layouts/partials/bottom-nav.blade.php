@@ -44,7 +44,7 @@ default => ['route' => 'santri.presensi.index', 'icon' => 'qr_code_scanner', 'la
 @php
 $position = $position ?? 'fixed';
 $customClass = $customClass ?? '';
-$theme = $theme ?? 'white';
+$theme = $theme ?? 'blue';
 $isBlue = $theme === 'blue';
 
 if ($position === 'absolute') {
@@ -55,10 +55,10 @@ if ($position === 'absolute') {
 $navClass = trim($positionClass . ' ' . $customClass);
 $containerClass = $containerClass ?? 'rounded-t-[24px]';
 
-$bgClass = $isBlue ? 'bg-cyan-600 islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
+$bgClass = $isBlue ? 'bg-gradient-to-br from-header-blue to-primary islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
 $itemIsActive = $isBlue ? 'text-white' : 'text-primary';
 $itemIsInactive = $isBlue ? 'text-white/60' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
-$ringClass = $isBlue ? 'ring-cyan-600' : 'ring-white dark:ring-gray-900';
+$ringClass = $isBlue ? 'ring-[#00BDDE]' : 'ring-white dark:ring-gray-900';
 @endphp
 
 @if($isBlue)
