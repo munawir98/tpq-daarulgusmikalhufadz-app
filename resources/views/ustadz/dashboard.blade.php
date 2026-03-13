@@ -405,16 +405,7 @@
                     </a>
                 </div>
 
-                <!-- Integrated Search Bar -->
-                <div class="relative group">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span class="material-symbols-rounded text-white/60 text-[20px] group-focus-within:text-white transition-colors">search</span>
-                    </div>
-                    <input type="text" 
-                        placeholder="Cari santri atau laporan..." 
-                        class="w-full bg-white/15 backdrop-blur-xl border border-white/20 rounded-2xl py-3 pl-11 pr-4 text-sm text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:bg-white/20 transition-all shadow-lg"
-                    >
-                </div>
+
 
                 <!-- Live Info Pills (Replacing Marquee for premium feel) -->
                 <div class="flex gap-2 overflow-x-auto no-scrollbar py-1">
