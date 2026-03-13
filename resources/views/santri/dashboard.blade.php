@@ -18,10 +18,10 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#10B981",
-                        "primary-dark": "#047857",
-                        "background-light": "#F3F4F6",
-                        "background-dark": "#111827",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
                     },
                     fontFamily: {
                         display: ["Poppins", "sans-serif"],

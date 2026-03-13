@@ -21,7 +21,7 @@
                         "header-blue": "#3D7A9E",
                         "header-dark": "#2A5A78",
                         "background-light": "#F2F4F8",
-                        "background-dark": "#111921",
+                        "background-dark": "#121212",
                         "surface-light": "#FFFFFF",
                         "surface-dark": "#1E1E1E",
                         "text-main-light": "#2D3748",

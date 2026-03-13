@@ -22,12 +22,12 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#00A8C5",
-                        "primary-dark": "#007E95",
-                        "header-blue": "#00BDDE",
-                        "header-dark": "#008FAC",
-                        "background-light": "#F8FAFC",
-                        "background-dark": "#0F172A",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
                     },
                     fontFamily: {
                         display: ["Poppins", "sans-serif"]

@@ -64,22 +64,22 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#00A8C5",
-                        "primary-dark": "#007E95",
-                        "header-blue": "#00BDDE",
-                        "header-dark": "#008FAC",
-                        "background-light": "#F8FAFC",
-                        "background-dark": "#0F172A",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
                         "surface-light": "#FFFFFF",
-                        "surface-dark": "#1E293B",
-                        "text-main-light": "#1E293B",
-                        "text-sub-light": "#64748B",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
                     },
                     fontFamily: {
                         display: ["Poppins", "sans-serif"],
                     },
                     boxShadow: {
-                        'soft': '0 20px 40px -10px rgba(0, 168, 197, 0.15)',
+                        'soft': '0 20px 40px -10px rgba(74, 144, 184, 0.15)',
                         'card': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
                         'nav': '0 -10px 40px rgba(0,0,0,0.05)',
                     }
@@ -153,11 +153,11 @@
         .islamic-pattern {
             background-image:
                 linear-gradient(45deg,
-                    rgba(255, 255, 255, 0.02) 25%,
+                    rgba(255, 255, 255, 0.05) 25%,
                     transparent 25%,
                     transparent 50%,
-                    rgba(255, 255, 255, 0.02) 50%,
-                    rgba(255, 255, 255, 0.02) 75%,
+                    rgba(255, 255, 255, 0.05) 50%,
+                    rgba(255, 255, 255, 0.05) 75%,
                     transparent 75%,
                     transparent);
             background-size: 40px 40px;
@@ -430,7 +430,7 @@
 
                 <!-- Main Attendance Card - Refined Premium -->
                 <div id="mainCard"
-                    class="mx-5 bg-gradient-to-br from-primary to-primary-dark flower-pattern text-white rounded-[32px] p-6 relative z-20 mb-8 shadow-xl shadow-primary/20 transition-all duration-300 overflow-hidden border border-white/10">
+                    class="mx-5 bg-white dark:bg-slate-800 rounded-[32px] p-6 relative z-20 mb-8 shadow-xl shadow-primary/10 transition-all duration-300 overflow-hidden border border-gray-100 dark:border-slate-700">
 
 
                     <!-- Swipe Indicator -->
@@ -446,11 +446,11 @@
                         <div class="flex justify-between items-center mb-5 mt-2">
                             <div>
                                 <h2
-                                    class="text-sm font-bold text-white flex items-center gap-2">
+                                    class="text-sm font-bold text-blue-600 dark:text-white flex items-center gap-2">
                                     Presensi Selfie
-                                    <span class="material-symbols-rounded text-blue-200 text-[18px]">camera_front</span>
+                                    <span class="material-symbols-rounded text-blue-400 text-[18px]">camera_front</span>
                                 </h2>
-                                <p class="text-[8px] font-medium text-blue-100 mt-0.5">Silahkan ambil foto
+                                <p class="text-[8px] font-medium text-blue-400 mt-0.5">Silahkan ambil foto
                                     kehadiran
                                 </p>
                             </div>

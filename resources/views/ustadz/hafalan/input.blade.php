@@ -22,11 +22,16 @@
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#13ec5b",
-                        "background-light": "#f6f8f6",
-                        "background-dark": "#102216",
-                        "surface-light": "#ffffff",
-                        "surface-dark": "#1c2e22",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "text-main-light": "#2D3748",
+                        "text-sub-light": "#A0AEC0",
                     },
                     fontFamily: {
                         "display": ["Manrope", "sans-serif"]

@@ -7,7 +7,7 @@
 @section('no-pt', true)
 
 @section('header')
-<header class="bg-blue-600 dark:bg-[#1f2c34] px-4 pt-4 pb-4 shadow-sm z-50 relative">
+<header class="bg-header-blue dark:bg-[#1f2c34] px-4 pt-4 pb-4 shadow-sm z-50 relative">
     <div class="flex items-center justify-between mb-3 text-white">
         <h1 class="text-[20px] font-semibold">Pesan</h1>
         <div class="flex items-center gap-5">
@@ -150,7 +150,7 @@
 </div>
 
 @if(count($conversations) > 0)
-<a href="{{ route('chat.new') }}" class="fixed bottom-24 right-5 size-14 bg-blue-600 text-white rounded-[16px] flex items-center justify-center shadow-lg
+<a href="{{ route('chat.new') }}" class="fixed bottom-24 right-5 size-14 bg-primary text-white rounded-[16px] flex items-center justify-center shadow-lg
 transition-transform active:scale-95 z-40">
     <span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 1;">chat</span>
 </a>

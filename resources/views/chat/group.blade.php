@@ -24,9 +24,12 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#13ec5b",
-                        "background-light": "#f6f8f6",
-                        "background-dark": "#102216",
+                        primary: "#4A90B8",
+                        "primary-dark": "#2E6B8A",
+                        "header-blue": "#3D7A9E",
+                        "header-dark": "#2A5A78",
+                        "background-light": "#F2F4F8",
+                        "background-dark": "#121212",
                     },
                     fontFamily: {
                         display: ["Manrope", "sans-serif"]
