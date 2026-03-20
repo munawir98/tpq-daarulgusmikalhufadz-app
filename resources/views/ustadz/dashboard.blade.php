@@ -353,7 +353,7 @@
 <body
     class="bg-primary dark:bg-primary-dark font-display flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-gradient-to-br from-header-blue to-primary dark:from-header-dark dark:to-primary-dark islamic-pattern highlight-overlay shadow-2xl pb-24 rounded-none sm:rounded-2xl overflow-hidden">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-gradient-to-br from-header-blue to-primary dark:from-header-dark dark:to-primary-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl overflow-hidden">
 
         <div class="relative z-10 flex-1 flex flex-col">
 
