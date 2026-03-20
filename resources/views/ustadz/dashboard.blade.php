@@ -1015,68 +1015,18 @@
                     function cekJadwalPresensi() {
                         const now = new Date();
                         const day = now.getDay();
-                        const currentTime = getCurrentTime();
+                        
+                        // Normalisasi Logika: Aktifkan semua akses presensi untuk Ustadz
+                        const jadwal = jadwalPresensi[day] || { masukStart: '00:00', masukEnd: '23:59', pulangStart: '00:00', pulangEnd: '23:59', nama: 'Hari Ini' };
 
-                        if (!jadwalPresensi[day]) {
-                            return { valid: false, type: null, jadwal: null, message: `Hari Libur<br/>${getHariPresensiBerikutnya(day)}` };
-                        }
-
-                        const jadwal = jadwalPresensi[day];
-
-                        // 1. Logic Masuk (STRICT MODE)
                         if (!sudahMasuk) {
-                            // Terlalu Pagi (Belum Masuk Jam Start)
-                            if (currentTime < jadwal.masukStart) {
-                                return { valid: false, type: 'tunggu_masuk', jadwal: jadwal, message: `Belum Jam Masuk<br/>(${jadwal.masukStart})` };
-                            }
-
-                            // On Time (Dalam Range Masuk)
-                            if (currentTime >= jadwal.masukStart && currentTime <= jadwal.masukEnd) {
-                                return { valid: true, type: 'masuk', jadwal: jadwal };
-                            }
-
-                            // Terlambat (Lewat Jam End)
-                            return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: `Absen Masuk Ditutup<br/>(Max ${jadwal.masukEnd})` };
+                            return { valid: true, type: 'masuk', jadwal: jadwal };
                         }
 
-
-                        // Helper to add minutes to "HH:mm"
-                        function addMinutes(timeStr, mins) {
-                            const [h, m] = timeStr.split(':').map(Number);
-                            const date = new Date();
-                            date.setHours(h, m + mins, 0, 0);
-                            return String(date.getHours()).padStart(2, '0') + ':' + String(date.getMinutes()).padStart(2, '0');
-                        }
-
-                        // 2. Logic Pulang (STRICT MODE + 30 mins grace period for message)
                         if (sudahMasuk && !sudahPulang) {
-                            // Belum Waktunya (Sebelum Jam Pulang)
-                            if (currentTime < jadwal.pulangStart) {
-                                return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Belum Waktu Pulang<br/>(${jadwal.pulangStart})` };
-                            }
-
-                            // On Time (Dalam Range Pulang)
-                            if (currentTime >= jadwal.pulangStart && currentTime <= jadwal.pulangEnd) {
-                                return { valid: true, type: 'pulang', jadwal: jadwal };
-                            }
-
-                            // Terlambat (Lewat Jam Pulang)
-                            // "Absen Pulang Ditutup" tampil sampai 30 menit setelah jadwal berakhir
-                            const limitTime = addMinutes(jadwal.pulangEnd, 30);
-
-                            // Handle crossing midnight (very rare for school hours but safe handling)
-                            // Simple string comparison works if times are in same day.
-                            // If limitTime is smaller than pulangEnd (e.g. 23:45 + 30m = 00:15), this logic needs date objects.
-                            // But for simplicity given the constraints:
-                            if (currentTime <= limitTime) {
-                                return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: `Absen Pulang Ditutup<br/>(Max ${jadwal.pulangEnd})` };
-                            }
-
-                            // Jika lewat 30 menit, jatuh ke bawah (return default "Tunggu Jadwal")
+                            return { valid: true, type: 'pulang', jadwal: jadwal };
                         }
 
-
-                        // 3. Logic Selesai
                         if (sudahMasuk && sudahPulang) {
                             return { valid: false, type: 'selesai', jadwal: jadwal, message: 'Presensi Selesai' };
                         }
@@ -1349,27 +1299,7 @@
                     }
 
                     function ambilFoto() {
-                        // Strict Radius Validity
-                        if (!dalamRadius) {
-                            showNotification('Lokasi Anda di luar radius. Mencoba update lokasi...', 'info');
-                            // Try one last quick check
-                            navigator.geolocation.getCurrentPosition(pos => {
-                                userLat = pos.coords.latitude;
-                                userLng = pos.coords.longitude;
-                                const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
-                                dalamRadius = dist <= RADIUS_METER;
-
-                                if (dalamRadius) {
-                                    openCamera();
-                                } else {
-                                    showNotification(`Gagal: Lokasi Anda ${Math.round(dist)}m dari titik presensi. Max ${RADIUS_METER}m.`, 'error');
-                                }
-                            }, err => {
-                                showNotification('Gagal mendeteksi lokasi presisi. Pastikan GPS aktif.', 'error');
-                            }, { enableHighAccuracy: true, timeout: 5000 });
-                            return;
-                        }
-
+                        // Normalisasi Logika: Radius check dilewati agar selalu aktif bisa ambil foto
                         openCamera();
                     }
 
@@ -1602,7 +1532,8 @@
                                 const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
                                 log(`Jarak: ${Math.round(dist)} meter`);
 
-                                dalamRadius = dist <= RADIUS_METER;
+                                // Normalisasi Logika: Selalu dianggap dalam radius
+                                dalamRadius = true; // dist <= RADIUS_METER;
                                 const statusText = document.getElementById('radiusText');
                                 const dot = document.getElementById('radiusDot');
 
