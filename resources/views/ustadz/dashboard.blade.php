@@ -421,7 +421,7 @@
 
             <!-- White Container Wrapper -->
             <div id="whiteContainer"
-                class="w-full bg-transparent pt-8 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
+                class="w-full bg-transparent pt-1 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
 
                 <!-- Main Attendance Card - Refined Premium -->
                 <div id="mainCard"
