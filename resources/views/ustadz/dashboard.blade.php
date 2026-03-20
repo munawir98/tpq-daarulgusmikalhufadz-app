@@ -351,15 +351,10 @@
 </head>
 
 <body
-    class="bg-gray-100 dark:bg-gray-900 font-display flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
+    class="bg-primary dark:bg-primary-dark font-display flex justify-center items-start min-h-screen p-0 sm:py-4 transition-colors duration-200">
     <div
-        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-background-light dark:bg-background-dark shadow-2xl pb-24 rounded-none sm:rounded-2xl">
+        class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col bg-gradient-to-br from-header-blue to-primary dark:from-header-dark dark:to-primary-dark islamic-pattern highlight-overlay shadow-2xl pb-24 rounded-none sm:rounded-2xl overflow-hidden">
 
-        <!-- Header Background - Premium Cyan with Texture -->
-        <div class="absolute top-0 left-0 w-full h-[320px] bg-gradient-to-br from-header-blue to-primary islamic-pattern highlight-overlay z-0 rounded-b-[40px] overflow-hidden">
-        </div>
-
-        <!-- Scrollable Content -->
         <div class="relative z-10 flex-1 flex flex-col">
 
             <!-- Top Header -->
@@ -426,7 +421,7 @@
 
             <!-- White Container Wrapper -->
             <div id="whiteContainer"
-                class="w-full bg-slate-50 dark:bg-slate-900 rounded-t-[40px] shadow-2xl pt-8 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
+                class="w-full bg-transparent pt-8 relative z-20 flex-grow min-h-0 pb-24 transition-all duration-300">
 
                 <!-- Main Attendance Card - Refined Premium -->
                 <div id="mainCard"
