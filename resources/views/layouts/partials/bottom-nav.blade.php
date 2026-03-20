@@ -55,33 +55,19 @@ if ($position === 'absolute') {
 $navClass = trim($positionClass . ' ' . $customClass);
 $containerClass = $containerClass ?? 'rounded-t-[24px]';
 
-$bgClass = $isBlue ? 'bg-gradient-to-br from-header-blue to-primary islamic-pattern highlight-overlay' : 'bg-white dark:bg-gray-900';
+$bgClass = $isBlue ? 'bg-transparent' : 'bg-white dark:bg-gray-900';
 $itemIsActive = $isBlue ? 'text-white' : 'text-primary';
 $itemIsInactive = $isBlue ? 'text-white/80' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300';
 $ringClass = $isBlue ? 'ring-header-blue' : 'ring-white dark:ring-gray-900';
+$shadowClass = $isBlue ? '' : 'shadow-[0_-8px_30px_rgba(0,0,0,0.12)]';
 @endphp
 
-@if($isBlue)
-<style>
-    @keyframes moveTexture {
-        from { background-position: 0 0; }
-        to { background-position: -40px 0; }
-    }
-    .islamic-pattern {
-        background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.02) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.02) 75%, transparent 75%, transparent);
-        background-size: 40px 40px;
-        animation: moveTexture 3s linear infinite;
-    }
-    .highlight-overlay {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 25%, transparent 50%, rgba(255, 255, 255, 0.02) 75%, rgba(255, 255, 255, 0.08) 100%);
-    }
-</style>
-@endif
+
 
 <nav class="{{ $navClass }} left-0 right-0 w-full max-w-md mx-auto z-50">
     <!-- Nav Background with cutout effect -->
     <div
-        class="relative {{ $bgClass }} {{ $containerClass }} shadow-[0_-8px_30px_rgba(0,0,0,0.12)] pt-5 pb-5 px-2">
+        class="relative {{ $bgClass }} {{ $containerClass }} {{ $shadowClass }} pt-5 pb-5 px-2">
         <div class="flex justify-around items-end">
             <!-- Left Items -->
             @foreach($leftItems as $item)
