@@ -1578,7 +1578,9 @@
 
                                 // Auto center map ONCE for user location regardless of radius status
                                 if (!window.hasCentered && window.dashboardMap) {
-                                    window.dashboardMap.setView([userLat, userLng], 18);
+                                    window.dashboardMap.invalidateSize();
+                                    window.dashboardMap.setView([userLat, userLng], 16);
+                                    setTimeout(() => window.dashboardMap.invalidateSize(), 200);
                                     window.hasCentered = true;
                                 }
 
