@@ -1563,12 +1563,6 @@
                                     }
                                     if (dot) dot.innerHTML = '<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>';
                                     if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#22c55e', fillColor: '#22c55e' });
-
-                                    // Auto center map ONCE if inside radius
-                                    if (!window.hasCentered && window.dashboardMap) {
-                                        window.dashboardMap.setView([userLat, userLng], 18);
-                                        window.hasCentered = true;
-                                    }
                                 } else {
                                     if (statusText) {
                                         // Show distance AND accuracy warning if needed
@@ -1580,6 +1574,12 @@
                                     }
                                     if (dot) dot.innerHTML = '<span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>';
                                     if (window.radiusCircle) window.radiusCircle.setStyle({ color: '#ef4444', fillColor: '#ef4444' });
+                                }
+
+                                // Auto center map ONCE for user location regardless of radius status
+                                if (!window.hasCentered && window.dashboardMap) {
+                                    window.dashboardMap.setView([userLat, userLng], 18);
+                                    window.hasCentered = true;
                                 }
 
                                 // Update Coordinates Text
