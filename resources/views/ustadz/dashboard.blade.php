@@ -1435,10 +1435,13 @@
                                 log("Timeout: Lokasi terlalu lama (15s).", true);
                                 const statusText = document.getElementById('radiusText');
                                 if (statusText) {
-                                    statusText.textContent = "Sinyal GPS Lemah";
+                                    statusText.textContent = "Sinyal GPS Lambat / Ditolak";
                                     statusText.className = 'text-[9px] font-bold text-orange-500';
                                 }
-                                showNotification('GPS lambat. Pastikan lokasi aktif dan di luar ruangan apabila titik biru belum presisi.');
+                                const userLocEl = document.getElementById('userLocation');
+                                if (userLocEl) userLocEl.textContent = 'Gagal / Menunggu Izin';
+                                
+                                showNotification('GPS lambat/ditolak. Pastikan izinkan lokasi di browser & ada sinyal.');
                             }, 15000);
 
                             // FAST TTFF Strategy: Get low accuracy FAST first
@@ -1597,7 +1600,11 @@
                             maxZoom: 19 // Ensure map doesn't zoom past valid OSM tiles
                         }).setView([TPQ_LAT, TPQ_LNG], 17);
 
-                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
+                        // Gunakan Google Maps Tile Layer agar lebih cepat & anti-blokir internet lokal
+                        L.tileLayer('https://mt1.google.com/vt/lyrs=r&x={x}&y={y}&z={z}', {
+                            maxZoom: 20,
+                            attribution: '© Google'
+                        }).addTo(map);
 
                         // Gunakan default icon Leaflet (karena raw.githubusercontent kadang keblokir provider internet)
                         var defaultIcon = L.icon({
@@ -1795,7 +1802,14 @@
                         const lon = 106.816635;
 
                         try {
-                            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+                            const controller = new AbortController();
+                            const timeoutId = setTimeout(() => controller.abort(), 3000); // 3s Timeout
+
+                            const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`, {
+                                signal: controller.signal
+                            });
+                            clearTimeout(timeoutId);
+                            
                             const data = await response.json();
 
                             if (data.current_weather) {
@@ -1880,14 +1894,16 @@
 
 
                     document.addEventListener('DOMContentLoaded', () => {
+                        // KITA PISAHKAN AGAR SATU ERROR TIDAK MERUSAK YANG LAIN
+                        try { initClock(); } catch(e) { console.error('Error clock:', e); }
+                        try { initWeather(); } catch(e) { console.error('Error weather:', e); }
+                        try { initMap(); } catch(e) { console.error('Error map:', e); }
+                        try { initUIState(); } catch(e) { console.error('Error UI:', e); }
+                        try { updateButtonDisplay(); } catch(e) { console.error('Error Btn:', e); }
+                        try { initCarousel(); } catch(e) { console.error('Error Carousel:', e); }
+                        try { initMarquees(); } catch(e) { console.error('Error Marquee:', e); }
+
                         try {
-                            initMap();
-                            initUIState();
-                            updateButtonDisplay();
-                            initCarousel();
-                            initMarquees();
-                            initClock(); // NEW
-                            initWeather(); // NEW
                             setInterval(updateButtonDisplay, 30000); // 30s
 
                             // Camera Input Handler for Native Camera
