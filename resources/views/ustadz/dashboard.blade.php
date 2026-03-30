@@ -1438,80 +1438,67 @@
                         startGeolocation();
 
                         function startGeolocation() {
+                            if (window.watchId) {
+                                navigator.geolocation.clearWatch(window.watchId);
+                            }
+
                             // Explicit Timeout for UI feedback
                             const locationTimeout = setTimeout(() => {
                                 log("Timeout: Lokasi terlalu lama (15s).", true);
                                 const statusText = document.getElementById('radiusText');
                                 if (statusText) {
-                                    statusText.textContent = "GPS Timeout";
+                                    statusText.textContent = "Sinyal GPS Lemah";
                                     statusText.className = 'text-[9px] font-bold text-orange-500';
                                 }
-                                showNotification('GPS lambat. Pastikan lokasi aktif dan di luar ruangan.');
-
-                                // Fallback: Try low accuracy GPS
-                                log("Mencoba GPS akurasi rendah...");
-                                tryLowAccuracyGPS();
+                                showNotification('GPS lambat. Pastikan lokasi aktif dan di luar ruangan apabila titik biru belum presisi.');
                             }, 15000);
 
-                            if (window.watchId) {
-                                navigator.geolocation.clearWatch(window.watchId);
-                            }
+                            // FAST TTFF Strategy: Get low accuracy FAST first
+                            navigator.geolocation.getCurrentPosition(
+                                pos => {
+                                    log("Memperoleh titik awal (Cepat)...");
+                                    processPosition(pos);
+                                },
+                                err => {
+                                    log(`Titik awal gagal: ${err.message}`);
+                                    // Ignore error, wait for high accuracy watch below
+                                },
+                                { enableHighAccuracy: false, timeout: 5000, maximumAge: 60000 }
+                            );
 
-                            // First try: High accuracy GPS
-                            window.watchId = navigator.geolocation.watchPosition(handleGPSSuccess, handleGPSError, {
-                                enableHighAccuracy: true,
-                                timeout: 20000,
-                                maximumAge: 30000
-                            });
+                            // THEN: Watch with High Accuracy
+                            window.watchId = navigator.geolocation.watchPosition(
+                                pos => {
+                                    clearTimeout(locationTimeout);
+                                    processPosition(pos);
+                                },
+                                err => {
+                                    clearTimeout(locationTimeout);
+                                    console.error('GPS High Accuracy Error:', err);
+                                    log(`GPS Error: ${err.code} - ${err.message}`, true);
 
-                            function handleGPSSuccess(pos) {
-                                clearTimeout(locationTimeout);
-                                processPosition(pos);
-                            }
-
-                            function handleGPSError(err) {
-                                clearTimeout(locationTimeout);
-                                console.error('GPS High Accuracy Error:', err);
-                                log(`GPS High Error: ${err.code} - ${err.message}`, true);
-
-                                // Try low accuracy as fallback
-                                tryLowAccuracyGPS();
-                            }
-
-                            function tryLowAccuracyGPS() {
-                                navigator.geolocation.getCurrentPosition(
-                                    pos => {
-                                        log("GPS Low Accuracy berhasil!");
-                                        processPosition(pos);
-                                    },
-                                    err => {
-                                        log(`GPS Low Error: ${err.code} - ${err.message}`, true);
-                                        const statusText = document.getElementById('radiusText');
-
-                                        let msg = 'Gagal mendapatkan lokasi.';
-                                        if (err.code === 1) {
-                                            msg = 'Izin GPS Ditolak';
-                                            if (statusText) {
-                                                statusText.textContent = "GPS Diblokir";
-                                                statusText.className = 'text-[9px] font-bold text-red-500';
-                                            }
-                                        } else if (err.code === 2) {
-                                            msg = 'Signal GPS tidak tersedia';
-                                            if (statusText) {
-                                                statusText.textContent = "No Signal";
-                                                statusText.className = 'text-[9px] font-bold text-red-500';
-                                            }
-                                        } else {
-                                            if (statusText) {
-                                                statusText.textContent = "GPS Error";
-                                                statusText.className = 'text-[9px] font-bold text-red-500';
-                                            }
+                                    const statusText = document.getElementById('radiusText');
+                                    let msg = 'Gagal mendapatkan lokasi.';
+                                    if (err.code === 1) {
+                                        msg = 'Izin GPS Ditolak';
+                                        if (statusText) {
+                                            statusText.textContent = "GPS Diblokir";
+                                            statusText.className = 'text-[9px] font-bold text-red-500';
                                         }
-                                        showNotification(msg, 'error');
-                                    },
-                                    { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
-                                );
-                            }
+                                    } else {
+                                        if (statusText) {
+                                            statusText.textContent = "GPS Error/Timeout";
+                                            statusText.className = 'text-[9px] font-bold text-red-500';
+                                        }
+                                    }
+                                    showNotification(msg, 'error');
+                                },
+                                {
+                                    enableHighAccuracy: true,
+                                    timeout: 20000,
+                                    maximumAge: 5000
+                                }
+                            );
 
                             function processPosition(pos) {
                                 clearTimeout(locationTimeout);
