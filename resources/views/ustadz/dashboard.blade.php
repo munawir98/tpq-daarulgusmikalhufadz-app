@@ -1303,10 +1303,11 @@
                     }
 
                     function ambilFoto() {
-                        if (!dalamRadius) {
-                            showNotification('Anda berada di luar jangkauan radar (' + RADIUS_METER + 'm). Mendekatlah ke TPQ.', 'warning');
-                            return;
-                        }
+                        // Normalisasi Logika: Bebaskan radius untuk demo
+                        // if (!dalamRadius) {
+                        //     showNotification('Anda berada di luar jangkauan radar (' + RADIUS_METER + 'm). Mendekatlah ke TPQ.', 'warning');
+                        //     return;
+                        // }
                         openCamera();
                     }
 
