@@ -1023,23 +1023,11 @@
                         }
 
                         if (!sudahMasuk) {
-                            if (timeNow >= jadwal.masukStart && timeNow <= jadwal.masukEnd) {
-                                return { valid: true, type: 'masuk', jadwal: jadwal };
-                            } else if (timeNow < jadwal.masukStart) {
-                                return { valid: false, type: 'tunggu_masuk', jadwal: jadwal, message: `Absen Masuk:<br/>${jadwal.masukStart} - ${jadwal.masukEnd}` };
-                            } else {
-                                return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: 'Masuk Ditutup' };
-                            }
+                            return { valid: true, type: 'masuk', jadwal: jadwal }; // DEMO: Bypass Time
                         }
 
                         if (sudahMasuk && !sudahPulang) {
-                            if (timeNow >= jadwal.pulangStart && timeNow <= jadwal.pulangEnd) {
-                                return { valid: true, type: 'pulang', jadwal: jadwal };
-                            } else if (timeNow < jadwal.pulangStart) {
-                                return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Absen Pulang:<br/>${jadwal.pulangStart} - ${jadwal.pulangEnd}` };
-                            } else {
-                                return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: 'Pulang Ditutup' };
-                            }
+                            return { valid: true, type: 'pulang', jadwal: jadwal }; // DEMO: Bypass Time
                         }
 
                         if (sudahMasuk && sudahPulang) {
@@ -1537,8 +1525,9 @@
                                 const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
                                 log(`Jarak: ${Math.round(dist)} meter`);
 
-                                // Validasi Radius Sebenarnya
-                                dalamRadius = dist <= RADIUS_METER;
+                                // Normalisasi Logika: Selalu hijau / dalam radius untuk testing jarak jauh
+                                // dalamRadius = dist <= RADIUS_METER;
+                                dalamRadius = true;
                                 const statusText = document.getElementById('radiusText');
                                 const dot = document.getElementById('radiusDot');
 
