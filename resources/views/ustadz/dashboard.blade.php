@@ -1617,8 +1617,9 @@
                             zoomControl: false,
                             attributionControl: false,
                             zoomAnimation: true,
-                            markerZoomAnimation: true
-                        }).setView([TPQ_LAT, TPQ_LNG], 15);
+                            markerZoomAnimation: true,
+                            maxZoom: 19 // Ensure map doesn't zoom past valid OSM tiles
+                        }).setView([TPQ_LAT, TPQ_LNG], 17);
 
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
@@ -1641,12 +1642,11 @@
 
                         // CRITICAL: Fix for Map not showing in slider/tabs
                         function fixMapLayout() {
-                            if (window.dashboardMap) {
+                            if (window.dashboardMap && !window.hasCentered) {
                                 window.dashboardMap.invalidateSize();
-                                // Only fit bounds if we haven't centered on user yet
-                                if (window.radiusCircle && !window.hasCentered) {
-                                    window.dashboardMap.fitBounds(window.radiusCircle.getBounds(), { padding: [20, 20], animate: false });
-                                }
+                                window.dashboardMap.setView([TPQ_LAT, TPQ_LNG], 17);
+                            } else if (window.dashboardMap && window.hasCentered) {
+                                window.dashboardMap.invalidateSize();
                             }
                         }
 
