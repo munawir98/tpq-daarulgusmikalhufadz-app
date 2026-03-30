@@ -1570,34 +1570,37 @@
                         } // end startGeolocation
                     } // end updateLocation
 
-                    // Map
+                    // Fitur Peta Super Resilient (Anti Abu-Abu)
                     function initMap() {
                         if (typeof L === 'undefined') {
-                            console.error('Leaflet not loaded');
+                            console.error('Leaflet gagal dimuat dari server');
                             return;
                         }
 
                         const mapContainer = document.getElementById('map');
                         if (!mapContainer) return;
 
-                        // Ensure container layout is forced before Leaflet init
+                        // Paksakan dimensi kontainer secara paksa
                         mapContainer.style.display = 'block';
                         mapContainer.style.height = '150px';
                         mapContainer.style.width = '100%';
 
-                        // Initialize Map if not already initialized
                         if (window.dashboardMap) {
-                            window.dashboardMap.remove(); // Reset if exists
+                            window.dashboardMap.remove();
                             window.dashboardMap = null;
                         }
 
-                        // Initialize Map with default center first
+                        // Buang ID bawaan browser cache
+                        if (mapContainer._leaflet_id) {
+                            mapContainer._leaflet_id = null;
+                        }
+
+                        // Initialize Map
                         const map = L.map('map', {
                             zoomControl: false,
                             attributionControl: false,
-                            zoomAnimation: true,
-                            markerZoomAnimation: true,
-                            maxZoom: 19 // Ensure map doesn't zoom past valid OSM tiles
+                            zoomAnimation: false, // Menghindari bug animasi slider
+                            fadeAnimation: true
                         }).setView([TPQ_LAT, TPQ_LNG], 17);
 
                         // Gunakan Google Maps Tile Layer agar lebih cepat & anti-blokir internet lokal
@@ -1623,12 +1626,6 @@
 
                         window.dashboardMap = map;
 
-                        // CRITICAL: Fix for Map not showing in slider/tabs
-                        function fixMapLayout() {
-                            if (window.dashboardMap) {
-                                window.dashboardMap.invalidateSize();
-                                if (!window.hasCentered) {
-                                    window.dashboardMap.setView([TPQ_LAT, TPQ_LNG], 17, {animate: false});
                                 }
                             }
                         }
