@@ -1015,16 +1015,31 @@
                     function cekJadwalPresensi() {
                         const now = new Date();
                         const day = now.getDay();
+                        const timeNow = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
                         
-                        // Normalisasi Logika: Aktifkan semua akses presensi untuk Ustadz
-                        const jadwal = jadwalPresensi[day] || { masukStart: '00:00', masukEnd: '23:59', pulangStart: '00:00', pulangEnd: '23:59', nama: 'Hari Ini' };
+                        const jadwal = jadwalPresensi[day];
+                        if (!jadwal) {
+                            return { valid: false, type: null, jadwal: null, message: `Tidak Ada Jadwal` };
+                        }
 
                         if (!sudahMasuk) {
-                            return { valid: true, type: 'masuk', jadwal: jadwal };
+                            if (timeNow >= jadwal.masukStart && timeNow <= jadwal.masukEnd) {
+                                return { valid: true, type: 'masuk', jadwal: jadwal };
+                            } else if (timeNow < jadwal.masukStart) {
+                                return { valid: false, type: 'tunggu_masuk', jadwal: jadwal, message: `Absen Masuk:<br/>${jadwal.masukStart} - ${jadwal.masukEnd}` };
+                            } else {
+                                return { valid: false, type: 'terlambat_masuk', jadwal: jadwal, message: 'Masuk Ditutup' };
+                            }
                         }
 
                         if (sudahMasuk && !sudahPulang) {
-                            return { valid: true, type: 'pulang', jadwal: jadwal };
+                            if (timeNow >= jadwal.pulangStart && timeNow <= jadwal.pulangEnd) {
+                                return { valid: true, type: 'pulang', jadwal: jadwal };
+                            } else if (timeNow < jadwal.pulangStart) {
+                                return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Absen Pulang:<br/>${jadwal.pulangStart} - ${jadwal.pulangEnd}` };
+                            } else {
+                                return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: 'Pulang Ditutup' };
+                            }
                         }
 
                         if (sudahMasuk && sudahPulang) {
@@ -1299,7 +1314,10 @@
                     }
 
                     function ambilFoto() {
-                        // Normalisasi Logika: Radius check dilewati agar selalu aktif bisa ambil foto
+                        if (!dalamRadius) {
+                            showNotification('Anda berada di luar jangkauan radar (' + RADIUS_METER + 'm). Mendekatlah ke TPQ.', 'warning');
+                            return;
+                        }
                         openCamera();
                     }
 
@@ -1532,8 +1550,8 @@
                                 const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
                                 log(`Jarak: ${Math.round(dist)} meter`);
 
-                                // Normalisasi Logika: Selalu dianggap dalam radius
-                                dalamRadius = true; // dist <= RADIUS_METER;
+                                // Validasi Radius Sebenarnya
+                                dalamRadius = dist <= RADIUS_METER;
                                 const statusText = document.getElementById('radiusText');
                                 const dot = document.getElementById('radiusDot');
 
