@@ -31,9 +31,9 @@
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0"
         rel="stylesheet" />
-    <!-- Leaflet.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- Leaflet.js CSS & JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -519,12 +519,12 @@
                                 <!-- Slide 1: Map -->
                                 <div class="snap-center snap-always shrink-0 w-full" style="min-width: 100%;">
                                     <div id="mapWrapper"
-                                        class="relative w-full h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm transition-shadow duration-300">
+                                        class="relative w-full h-[150px] min-h-[150px] rounded-2xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm transition-shadow duration-300">
                                         <!-- Swipe Handle Overlay (for touch events) -->
                                         <div id="swipeOverlay" class="absolute inset-0 z-[500] pointer-events-none">
                                         </div>
                                         <!-- Leaflet Map Container -->
-                                        <div id="map" class="w-full h-full z-0 bg-gray-200 dark:bg-gray-700"></div>
+                                        <div id="map" class="w-full h-full bg-gray-200 dark:bg-gray-700 relative" style="height: 150px; width: 100%;"></div>
 
                                         <!-- Map Controls (Center Right) -->
                                         <div
@@ -1577,10 +1577,10 @@
                         const mapContainer = document.getElementById('map');
                         if (!mapContainer) return;
 
-                        // Ensure container has dimension
-                        if (mapContainer.clientHeight === 0) {
-                            mapContainer.style.height = '150px'; // Force height if 0
-                        }
+                        // Ensure container layout is forced before Leaflet init
+                        mapContainer.style.display = 'block';
+                        mapContainer.style.height = '150px';
+                        mapContainer.style.width = '100%';
 
                         // Initialize Map if not already initialized
                         if (window.dashboardMap) {
@@ -1599,17 +1599,17 @@
 
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
-                        // RED Icon for TPQ (Target)
-                        var smallIcon = L.icon({
-                            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                            iconSize: [25 * 0.7, 41 * 0.7],
-                            iconAnchor: [12 * 0.7, 41 * 0.7],
-                            popupAnchor: [1, -34 * 0.7],
-                            shadowSize: [41 * 0.7, 41 * 0.7]
+                        // Gunakan default icon Leaflet (karena raw.githubusercontent kadang keblokir provider internet)
+                        var defaultIcon = L.icon({
+                            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+                            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            popupAnchor: [1, -34],
+                            shadowSize: [41, 41]
                         });
 
-                        L.marker([TPQ_LAT, TPQ_LNG], { icon: smallIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
+                        L.marker([TPQ_LAT, TPQ_LNG], { icon: defaultIcon }).addTo(map).bindPopup('<b>Lokasi TPQ</b><br>Absen di sini');
 
                         // DRAW RADIUS IMMEDIATELY
                         window.radiusCircle = L.circle([TPQ_LAT, TPQ_LNG], { color: '#ef4444', fillColor: '#ef4444', fillOpacity: 0.2, radius: RADIUS_METER }).addTo(map);
@@ -1618,11 +1618,11 @@
 
                         // CRITICAL: Fix for Map not showing in slider/tabs
                         function fixMapLayout() {
-                            if (window.dashboardMap && !window.hasCentered) {
+                            if (window.dashboardMap) {
                                 window.dashboardMap.invalidateSize();
-                                window.dashboardMap.setView([TPQ_LAT, TPQ_LNG], 17);
-                            } else if (window.dashboardMap && window.hasCentered) {
-                                window.dashboardMap.invalidateSize();
+                                if (!window.hasCentered) {
+                                    window.dashboardMap.setView([TPQ_LAT, TPQ_LNG], 17, {animate: false});
+                                }
                             }
                         }
 
@@ -1632,16 +1632,20 @@
                         setTimeout(fixMapLayout, 1000);
                         setTimeout(fixMapLayout, 2000);
 
+                        // Force a generic window resize trigger just in case Leaflet is waiting for it
+                        setTimeout(() => window.dispatchEvent(new Event('resize')), 600);
+
                         // Also hook into slider scroll to refresh map when it comes into view
                         const slider = document.getElementById('slideContainer');
                         if (slider) {
                             slider.addEventListener('scroll', () => {
                                 clearTimeout(window.mapScrollTimeout);
                                 window.mapScrollTimeout = setTimeout(() => {
+                                    // Map is on slide index 0
                                     if (slider.scrollLeft < 50) {
                                         fixMapLayout();
                                     }
-                                }, 150);
+                                }, 100);
                             }, { passive: true });
                         }
 
