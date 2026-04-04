@@ -1022,14 +1022,35 @@
                             return { valid: false, type: null, jadwal: null, message: `Tidak Ada Jadwal` };
                         }
 
+                        // === VALIDASI MASUK ===
                         if (!sudahMasuk) {
-                            return { valid: true, type: 'masuk', jadwal: jadwal }; // DEMO: Bypass Time
+                            // Belum waktunya masuk
+                            if (timeNow < jadwal.masukStart) {
+                                return { valid: false, type: 'tunggu_masuk', jadwal: jadwal, message: `Tunggu Jam Masuk<br/>${jadwal.masukStart}` };
+                            }
+                            // Dalam waktu masuk
+                            if (timeNow >= jadwal.masukStart && timeNow <= jadwal.masukEnd) {
+                                return { valid: true, type: 'masuk', jadwal: jadwal };
+                            }
+                            // Lewat waktu masuk
+                            return { valid: false, type: 'terlambat', jadwal: jadwal, message: `Waktu Masuk Habis<br/>Batas: ${jadwal.masukEnd}` };
                         }
 
+                        // === VALIDASI PULANG ===
                         if (sudahMasuk && !sudahPulang) {
-                            return { valid: true, type: 'pulang', jadwal: jadwal }; // DEMO: Bypass Time
+                            // Belum waktunya pulang
+                            if (timeNow < jadwal.pulangStart) {
+                                return { valid: false, type: 'tunggu_pulang', jadwal: jadwal, message: `Tunggu Jam Pulang<br/>${jadwal.pulangStart}` };
+                            }
+                            // Dalam waktu pulang
+                            if (timeNow >= jadwal.pulangStart && timeNow <= jadwal.pulangEnd) {
+                                return { valid: true, type: 'pulang', jadwal: jadwal };
+                            }
+                            // Lewat waktu pulang
+                            return { valid: false, type: 'terlambat_pulang', jadwal: jadwal, message: `Waktu Pulang Habis<br/>Batas: ${jadwal.pulangEnd}` };
                         }
 
+                        // === SELESAI ===
                         if (sudahMasuk && sudahPulang) {
                             return { valid: false, type: 'selesai', jadwal: jadwal, message: 'Presensi Selesai' };
                         }
@@ -1528,9 +1549,8 @@
                                 const dist = hitungJarak(userLat, userLng, TPQ_LAT, TPQ_LNG);
                                 log(`Jarak: ${Math.round(dist)} meter`);
 
-                                // Normalisasi Logika: Selalu hijau / dalam radius untuk testing jarak jauh
-                                // dalamRadius = dist <= RADIUS_METER;
-                                dalamRadius = true;
+                                // Validasi radius aktif
+                                dalamRadius = dist <= RADIUS_METER;
                                 const statusText = document.getElementById('radiusText');
                                 const dot = document.getElementById('radiusDot');
 
