@@ -1626,29 +1626,19 @@
 
                         window.dashboardMap = map;
 
-                                }
-                            }
-                        }
+                        // Force invalidateSize multiple times to ensure tiles render
+                        map.invalidateSize();
+                        setTimeout(() => { map.invalidateSize(); }, 100);
+                        setTimeout(() => { map.invalidateSize(); }, 300);
+                        setTimeout(() => { map.invalidateSize(); }, 500);
+                        setTimeout(() => { map.invalidateSize(); }, 1000);
 
-                        // Aggressive Layout Fixes
-                        setTimeout(fixMapLayout, 100);
-                        setTimeout(fixMapLayout, 500);
-                        setTimeout(fixMapLayout, 1000);
-                        setTimeout(fixMapLayout, 2000);
-
-                        // Force a generic window resize trigger just in case Leaflet is waiting for it
-                        setTimeout(() => window.dispatchEvent(new Event('resize')), 600);
-
-                        // Also hook into slider scroll to refresh map when it comes into view
-                        const slider = document.getElementById('slideContainer');
-                        if (slider) {
-                            slider.addEventListener('scroll', () => {
-                                clearTimeout(window.mapScrollTimeout);
-                                window.mapScrollTimeout = setTimeout(() => {
-                                    // Map is on slide index 0
-                                    if (slider.scrollLeft < 50) {
-                                        fixMapLayout();
-                                    }
+                        // Also invalidate when the slide container scrolls to map
+                        const slideContainer = document.getElementById('slideContainer');
+                        if (slideContainer) {
+                            slideContainer.addEventListener('scroll', () => {
+                                setTimeout(() => {
+                                    if (window.dashboardMap) window.dashboardMap.invalidateSize();
                                 }, 100);
                             }, { passive: true });
                         }
@@ -1656,6 +1646,7 @@
                         // Re-center logic specific
                         setTimeout(() => {
                             if (map && !window.hasCentered) {
+                                map.invalidateSize();
                                 map.flyTo([TPQ_LAT, TPQ_LNG], 17, { animate: true, duration: 1.5 });
                             }
                         }, 2500);

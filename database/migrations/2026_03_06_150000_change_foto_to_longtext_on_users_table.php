@@ -8,15 +8,23 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->longText('foto')->nullable()->change();
-        });
+        try {
+            Schema::table('users', function (Blueprint $table) {
+                $table->longText('foto')->nullable()->change();
+            });
+        } catch (\Exception $e) {
+            // Ignore for SQLite
+        }
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('foto')->nullable()->change();
-        });
+        try {
+            Schema::table('users', function (Blueprint $table) {
+                $table->string('foto')->nullable()->change();
+            });
+        } catch (\Exception $e) {
+            // Ignore for SQLite
+        }
     }
 };

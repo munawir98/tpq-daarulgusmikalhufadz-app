@@ -13,8 +13,17 @@ return new class extends Migration
             $table->string('group_id')->nullable()->after('id');
         });
 
-        // Make receiver_id nullable using raw SQL (no doctrine/dbal needed)
-        DB::statement('ALTER TABLE chats MODIFY receiver_id BIGINT UNSIGNED NULL');
+        // Safe DB independent way to make column nullable
+        try {
+            Schema::table('chats', function (Blueprint $table) {
+                $table->unsignedBigInteger('receiver_id')->nullable()->change();
+            });
+        } catch (\Exception $e) {
+            // Fallback for MySQL if doctrine/dbal is missing
+            if (DB::getDriverName() !== 'sqlite') {
+                DB::statement('ALTER TABLE chats MODIFY receiver_id BIGINT UNSIGNED NULL');
+            }
+        }
     }
 
     public function down(): void
@@ -23,6 +32,14 @@ return new class extends Migration
             $table->dropColumn('group_id');
         });
 
-        DB::statement('ALTER TABLE chats MODIFY receiver_id BIGINT UNSIGNED NOT NULL');
+        try {
+            Schema::table('chats', function (Blueprint $table) {
+                $table->unsignedBigInteger('receiver_id')->nullable(false)->change();
+            });
+        } catch (\Exception $e) {
+            if (DB::getDriverName() !== 'sqlite') {
+                DB::statement('ALTER TABLE chats MODIFY receiver_id BIGINT UNSIGNED NOT NULL');
+            }
+        }
     }
 };
